@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "",
-    "prepare-deployment": "npm run build && zip -r build.zip build/"
+    "prepare-deployment": "npm run build && zip -r build.zip .next/"
   },
   "dependencies": {
     "@types/node": "20.1.4",
