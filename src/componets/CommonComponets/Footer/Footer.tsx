@@ -20,7 +20,6 @@ const Footer = () => {
                 <TextField
                   id="outlined-basic"
                   label="Email"
-                  // variant="outlined"
                   className="emailButton paddingTop"
                   variant="filled"
                 />
