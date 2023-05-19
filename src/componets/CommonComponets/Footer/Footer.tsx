@@ -89,7 +89,7 @@ const Footer = () => {
             </div>
           </div>
           <hr className="horizontalStyling" />
-          <div className="footerLastDiv">
+          <div className="footerLastDiv paddingTop">
             <div className="footerLastRowStyle">
               <div className="titleStyle">PORTAL</div>
               <div>

@@ -1,18 +1,17 @@
 .footerMainDiv {
   background: #263c6f;
-  height: 599px;
+  min-height: 599px;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .footerSecondDiv {
-  height: 599px;
+  min-height: 599px;
   width: 95%;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  /* padding-top: 25px; */
 }
 .paddingTop {
   margin-top: 10px;
@@ -42,7 +41,7 @@
 .emailButton {
   border: 1px solid #0aac85;
   border-radius: 4px;
-  width: 343px;
+  width:90%;
   height: 56px;
   background-color: #263c6f;
   color: #ffffff;
@@ -83,6 +82,7 @@
 .footerLastDiv {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 .footerLastRowStyle {
   height: 174px;
@@ -115,4 +115,25 @@
 }
 .unlockFeatureMainDiv{
     width: 52%;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 925px){
+  .footerLogoStyle {
+    display: none;
+  }
+  .vertigalLineMainDiv{
+    display: none;
+  }
+  .flexDiv {
+    display: flex;
+    flex-direction: column;
+  }
+  .stayInTheKnowMainDiv{
+    width: 100%;
+  }
+  .unlockFeatureMainDiv{
+    width: 100%;
+    margin-top: 20px;
+}
 }
