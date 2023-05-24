@@ -1,4 +1,4 @@
-import { AuthenticatedNavbar } from "@/componets/CommonComponets";
+import { AuthenticatedNavbar } from "@/components/CommonComponents";
 export default function HomePAge() {
   return (
     <AuthenticatedNavbar selected_id="spacs">

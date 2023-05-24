@@ -1,4 +1,4 @@
-import { AuthenticatedNavbar } from "@/componets/CommonComponets";
+import { AuthenticatedNavbar } from "@/components/CommonComponents";
 export default function IposPage() {
   return (
     <AuthenticatedNavbar selected_id="mergers">
