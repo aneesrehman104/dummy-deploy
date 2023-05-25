@@ -18,6 +18,7 @@ const Footer = () => {
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: "16px",
+    marginTop:'10px',
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
         border: "none",

@@ -5,7 +5,51 @@ import { TextField, InputAdornment } from "@mui/material";
 import searchIcon from "../../../../public/searchIcon.svg";
 import Image from "next/image";
 import { styled } from "@mui/material/styles";
+import { borderBottom } from "@mui/system";
 const DynamicChart = dynamic(() => import("./IOPSChart"), { ssr: false });
+
+const dataSet = [
+  {
+    name: "Data",
+    value: "March 13, 1986",
+  },
+  {
+    name: "Proceeds",
+    value: "XXX",
+  },
+  {
+    name: "Previous FY Revenue ",
+    value: "$100M",
+  },
+  {
+    name: "Type",
+    value: "XXX",
+  },
+  {
+    name: "Underwriters",
+    value: "SoftBank",
+  },
+  {
+    name: "S-1 Prospectus",
+    value: "Icon",
+  },
+  {
+    name: "Return",
+    value: "327,401",
+  },
+  {
+    name: "Shared Offers",
+    value: "XXX",
+  },
+  {
+    name: "Annualised Return",
+    value: "XX% YTD",
+  },
+  {
+    name: "CEO",
+    value: "Bill Gates",
+  },
+];
 
 const CssTextField = styled(TextField)({
   width: "390px",
@@ -20,6 +64,7 @@ const CssTextField = styled(TextField)({
 });
 function IOPS() {
   const [isBrowser, setIsBrowser] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(1);
 
   useEffect(() => {
     setIsBrowser(true);
@@ -97,7 +142,57 @@ function IOPS() {
               <div className={styles.titlebottom}>COMPARISON</div>
             </div>
           </div>
-      
+          <div className={styles.tableContainer}>
+            <h3 className={styles.tableTitle}>Large Table Title</h3>
+            <div className={styles.tableContainerInner}>
+              <div
+                style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}
+              >
+                <div
+                  onClick={() => setSelectedTab(0)}
+                  className={`${styles.headerCell} ${
+                    selectedTab === 0 && styles.selectedHeader
+                  }`}
+                >
+                  Profile
+                </div>
+                <div
+                  onClick={() => setSelectedTab(1)}
+                  className={`${styles.headerCell} ${
+                    selectedTab === 1 && styles.selectedHeader
+                  }`}
+                >
+                  IPOs
+                </div>
+                <div
+                  onClick={() => setSelectedTab(2)}
+                  className={`${styles.headerCell} ${
+                    selectedTab === 2 && styles.selectedHeader
+                  }`}
+                >
+                  Merger History
+                </div>
+              </div>
+              <div
+                style={{
+                  marginTop: 30,
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: 20,
+                  flexWrap: "wrap",
+                }}
+              >
+                {dataSet.map((data) => (
+                  <div
+                    className={styles.cell}
+                  >
+                    <span>{data.name}</span>
+                    <span>{data.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
