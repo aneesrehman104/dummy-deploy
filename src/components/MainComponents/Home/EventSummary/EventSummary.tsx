@@ -1,7 +1,10 @@
 import React from "react";
 import styles from "./event-summary.module.css";
-import Highcharts from "highcharts/highstock";
-import HighchartsReact from "highcharts-react-official";
+import dynamic from "next/dynamic";
+const DynamicChart = dynamic(() => import("./EventsChart"), {
+  ssr: false,
+  loading: () => <p>Loading...</p>,
+});
 
 function EventSummary() {
   const options = {
@@ -37,8 +40,8 @@ function EventSummary() {
     yAxis: {
       opposite: true,
       title: {
-        text: null // or text: ''
-      }
+        text: null, // or text: ''
+      },
     },
 
     credits: {
@@ -78,7 +81,7 @@ function EventSummary() {
       </div>
       <div className={styles.chartcontainer}>
         <div style={{ width: "100%" }}>
-          <HighchartsReact highcharts={Highcharts} options={options} />
+          <DynamicChart options={options} />
         </div>
         <div className={styles.frameParent}>
           <div className={styles.frameGroup}>

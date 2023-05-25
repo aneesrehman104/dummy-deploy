@@ -6,11 +6,10 @@ type Props = {
   options: object | any
 }
 
-function IOPSChart({options}: Props) {
+function EventCharts({options}: Props) {
   return (
-    <HighchartsReact highcharts={Highcharts} constructorType={'stockChart'} options={options.chartOptions} />
-    
+    <HighchartsReact highcharts={Highcharts} options={options} />    
   );
 }
 
-export default IOPSChart;
+export default EventCharts;

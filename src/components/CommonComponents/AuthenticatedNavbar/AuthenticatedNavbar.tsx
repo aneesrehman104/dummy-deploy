@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import footerLogo from "../../../../public/footerLogo.svg";
 import currntTabIcon from "../../../../public/currntTabIcon.svg";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import Footer from "../Footer";
 import Image from "next/image";
 import {
@@ -11,18 +11,17 @@ import {
   CssBaseline,
   Toolbar,
   List,
-  Typography,
   Divider,
   ListItem,
   ListItemButton,
-  ListItemIcon,
-  ListItemText,
   IconButton,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import "./AuthenticatedNavbar.css";
+import dynamic from "next/dynamic";
+
+const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 const drawerWidth = 240;
 const sidebarItem = [
@@ -58,7 +57,7 @@ export default function AuthenticatedNavbar(props: Props) {
   const router = useRouter();
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down(750));
-  const [isSidebarOpen, setIsSidebarOpen] = useState(!isMediumScreen);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -118,8 +117,8 @@ export default function AuthenticatedNavbar(props: Props) {
           <Box sx={{ overflow: "auto" }}>
             <List>
               {sidebarItem.map((item, index) => (
-                <>
-                  <ListItem key={item.id}>
+                <Fragment key={item.id}>
+                  <ListItem>
                     <ListItemButton onClick={() => router.push(item.pathname)}>
                       <div
                         className={
@@ -143,7 +142,7 @@ export default function AuthenticatedNavbar(props: Props) {
                     </ListItemButton>
                   </ListItem>
                   <Divider />
-                </>
+                </Fragment>
               ))}
             </List>
           </Box>
@@ -165,8 +164,8 @@ export default function AuthenticatedNavbar(props: Props) {
           <Box sx={{ overflow: "auto" }}>
             <List>
               {sidebarItem.map((item, index) => (
-                <>
-                  <ListItem key={item.id}>
+                <Fragment key={item.id}>
+                  <ListItem>
                     <ListItemButton onClick={() => router.push(item.pathname)}>
                       <div
                         className={
@@ -190,7 +189,7 @@ export default function AuthenticatedNavbar(props: Props) {
                     </ListItemButton>
                   </ListItem>
                   <Divider />
-                </>
+                </Fragment>
               ))}
             </List>
           </Box>
