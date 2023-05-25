@@ -21,9 +21,10 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@lib/*":["./src/lib/*"],
       "@components/*":["./src/components/*"],
-      "@CommonComponents/*":["./src/components/CommonComponents/*"],
-      "@MainComponents/*":["./src/components/MainComponents/*"]
+      "@CommonComponents/*":["./src/lib/components/CommonComponents/*"],
+      "@MainComponents/*":["./src/lib/components/MainComponents/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
