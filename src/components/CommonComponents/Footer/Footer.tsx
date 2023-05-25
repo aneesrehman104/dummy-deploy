@@ -5,7 +5,25 @@ import footerLogo from "../../../../public/footerLogo.svg";
 import lightVector from "../../../../public/lightVector.svg";
 import CommonfiButton from "../CommonfiButton";
 import Image from "next/image";
+import { styled } from "@mui/material/styles";
+
 const Footer = () => {
+  const CssTextField = styled(TextField)({
+    width: "100%",
+    height: "56px",
+    color: "#ffffff", // or "white"
+    border: "1px solid #0aac85",
+    borderRadius: "4px",
+    fontFamily: "Barlow",
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: "16px",
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        border: "none",
+      },
+    },
+  });
   return (
     <>
       <div className="footerMainDiv">
@@ -17,12 +35,7 @@ const Footer = () => {
                 Get free weekly updates
               </div>
               <div>
-                <TextField
-                  id="outlined-basic"
-                  label="Email"
-                  className="emailButton paddingTop"
-                  variant="filled"
-                />
+                <CssTextField placeholder="Email" hiddenLabel />
               </div>
               <div
                 style={{

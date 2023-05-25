@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import footerLogo from "../../../../public/footerLogo.svg";
 import currntTabIcon from "../../../../public/currntTabIcon.svg";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/navigation';
 import Footer from "../Footer";
 import Image from "next/image";
 import {
