@@ -1,11 +1,7 @@
 import styles from "./iops.module.css";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import TextField  from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import searchIcon from "../../../../../public/searchIcon.svg";
-import Image from "next/image";
-import { styled } from "@mui/material/styles";
+
 const DynamicChart = dynamic(() => import("./IOPSChart"), {
   ssr: false,
   loading: () => <p>Loading...</p>,
@@ -54,17 +50,7 @@ const dataSet = [
   },
 ];
 
-const CssTextField = styled(TextField)({
-  width: "390px",
-  height: "40px",
-  border: "1px solid #dddee0",
-  borderRadius: "8px",
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "none",
-    },
-  },
-});
+
 function IOPS() {
   const [selectedTab, setSelectedTab] = useState(1);
   const options = {
@@ -456,24 +442,7 @@ function IOPS() {
         </div>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>microsoft [msft]</div>
-          <CssTextField
-            placeholder="Search ticker or company"
-            className=""
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Image
-                    src={searchIcon}
-                    alt="searchIcon"
-                    width={18}
-                    height={18}
-                  />
-                </InputAdornment>
-              ),
-            }}
-            size="small"
-            hiddenLabel
-          />
+         
         </div>
       </div>
       <div className={styles.sectionsummarycontainer}>
@@ -565,7 +534,7 @@ function IOPS() {
                 }}
               >
                 {dataSet.map((data) => (
-                  <div className={styles.cell} key={data.data}>
+                  <div className={styles.cell} key={data.name}>
                     <span>{data.name}</span>
                     <span>{data.value}</span>
                   </div>

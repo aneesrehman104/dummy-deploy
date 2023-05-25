@@ -18,9 +18,13 @@ import {
   IconButton,
   useMediaQuery,
   useTheme,
+  TextField,
+  InputAdornment
 } from "@mui/material";
 import "./AuthenticatedNavbar.css";
 import dynamic from "next/dynamic";
+import searchIcon from "../../../../../public/searchIcon.svg";
+import { styled } from "@mui/material/styles";
 
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
@@ -53,7 +57,19 @@ interface Props {
   children?: any;
   window?: () => Window;
 }
-
+const CssTextField = styled(TextField)({
+  width: "390px",
+  height: "40px",
+  marginLeft:'30px',
+  border: "1px solid #dddee0",
+  background:"#dddee0",
+  borderRadius: "8px",
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      border: "none",
+    },
+  },
+});
 export default function AuthenticatedNavbar(props: Props) {
   const router = useRouter();
   const theme = useTheme();
@@ -92,6 +108,24 @@ export default function AuthenticatedNavbar(props: Props) {
                 alt="footerImage"
                 width={148}
                 height={21}
+              />
+                      <CssTextField
+                placeholder="Search ticker or company"
+                className=""
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Image
+                        src={searchIcon}
+                        alt="searchIcon"
+                        width={18}
+                        height={18}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
+                size="small"
+                hiddenLabel
               />
             </div>
             <div className="textStyle cursorPointer">
