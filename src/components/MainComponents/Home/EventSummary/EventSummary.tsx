@@ -1,114 +1,69 @@
 import React from "react";
 import styles from "./event-summary.module.css";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import Highcharts from "highcharts/highstock";
+import HighchartsReact from "highcharts-react-official";
 
 function EventSummary() {
   const options = {
-    responsive: true,
-    elements: {
-      point: {
-        radius: 0,
-      },
+    chart: {
+      type: "line",
+      height: null,
+      width: null,
+      marginTop: 50,
+      marginBottom: 90,
+      plotBackgroundColor: null,
+      renderTo: "container",
+      animation: false,
     },
-    layout: {
-      padding: {
-        left: 30,
-        right: 30,
-        top: 20,
-        bottom: 20,
-      },
+    title: {
+      text: "2022 YTD Event Summary",
     },
-    plugins: {
+    xAxis: {
+      categories: [
+        "JAN",
+        "FEB",
+        "MAR",
+        "APR",
+        "MAY",
+        "JUN",
+        "JUL",
+        "AUG",
+        "SEP",
+        "OCT",
+        "NOV",
+        "DEC",
+      ],
+    },
+    yAxis: {
+      opposite: true,
       title: {
-        display: false,
-      },
-      legend: {
-        position: "bottom" as "bottom",
-        align: "start" as "start",
-        labels: {
-          boxWidth: 12,
-          boxHeight: 2,
-        },
-      },
+        text: null // or text: ''
+      }
     },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          padding: 10, 
-        },
-      },
-      y: {
-        position: "right" as "right",
-        ticks: {
-          padding: 15,
-        },
-      },
-    },
-  };
-  const labels = [
-    "JAN",
-    "FEB",
-    "MAR",
-    "APR",
-    "MAY",
-    "JUN",
-    "JUL",
-    "AUG",
-    "SEP",
-    "OCT",
-    "NOV",
-    "DEC",
-  ];
 
-  const data = {
-    labels,
-    datasets: [
+    credits: {
+      enabled: false,
+    },
+    legend: {
+      align: "start",
+      verticalAlign: "bottom",
+      layout: "horizontal",
+    },
+    series: [
       {
-        label: "IOPS",
-        type: "line" as const,
-        data: [10, 150, 20, 10, 133, 188, 500, 10, 150, 20, 10, 133, 188],
-        borderColor: "#F19529",
-        backgroundColor: "#F19529",
-        borderWidth: 2,
+        name: "IOPS",
+        data: [10, 150, 20, 10, 133, 188, 500, 10, 150, 20, 10, 188],
+        color: "#F19529",
       },
       {
-        label: "SPACS",
-        type: "line" as const,
-        data: [1, 50, 200, 150, 33, 88, 300, 1, 50, 200, 150, 33, 300],
-        borderColor: "#7F98F3",
-        backgroundColor: "#7F98F3",
-        borderWidth: 2,
+        name: "SPACS",
+        data: [1, 50, 200, 150, 33, 88, 300, 1, 50, 200, 150, 300],
+        color: "#7F98F3",
       },
       {
-        type: "line" as const,
-        label: "MERGERS",
-        borderColor: "#9747FF",
-        backgroundColor: "#9747FF",
-        borderWidth: 2,
-        fill: false,
+        name: "MERGERS",
         data: [1, 550, 100, 130, 33, 88, 600, 1, 50, 200, 150, 88],
+        color: "#9747FF",
       },
     ],
   };
@@ -122,7 +77,9 @@ function EventSummary() {
         </div>
       </div>
       <div className={styles.chartcontainer}>
-        <Line data={data} options={options} />
+        <div style={{ width: "100%" }}>
+          <HighchartsReact highcharts={Highcharts} options={options} />
+        </div>
         <div className={styles.frameParent}>
           <div className={styles.frameGroup}>
             <div className={styles.parent}>
