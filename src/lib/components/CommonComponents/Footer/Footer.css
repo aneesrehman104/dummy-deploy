@@ -1,0 +1,140 @@
+.footerMainDiv {
+  background: #263c6f;
+  min-height: 599px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.footerSecondDiv {
+  min-height: 599px;
+  width: 95%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.paddingTop {
+  margin-top: 10px;
+}
+.titleStyle {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #d2ecf9;
+}
+.textStyle {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 135%;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+
+.emailButton {
+  border: 1px solid #0aac85;
+  border-radius: 4px;
+  width:90%;
+  height: 56px;
+  background-color: #263c6f;
+  color: #ffffff;
+  font-family: "Barlow";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 135%;
+
+  letter-spacing: 0.01em;
+}
+.checkBoxStyle {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  line-height: 127%;
+}
+.horizontalStyling {
+  border: 1px solid #20608b;
+  width: 100%;
+}
+.buttonStyle {
+  background: #0aac85;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14),
+    0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  height: 48px;
+  min-width: 131px;
+  max-width: 200px;
+}
+.hrStyling {
+  border: 1px solid #20608b;
+}
+
+.footerLastDiv {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.footerLastRowStyle {
+  height: 174px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footerConnetWithUs {
+  padding-top: 15px;
+}
+.footerLogoStyle {
+  height: 174px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: end;
+}
+.flexDiv {
+  display: flex;
+}
+.stayInTheKnowMainDiv {
+  width: 35%;
+}
+.vertigalLineMainDiv {
+  width: 13%;
+  display: flex;
+  justify-content: center;
+  height: 255;
+}
+.unlockFeatureMainDiv{
+    width: 52%;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 925px){
+  .footerLogoStyle {
+    display: none;
+  }
+  .vertigalLineMainDiv{
+    display: none;
+  }
+  .flexDiv {
+    display: flex;
+    flex-direction: column;
+  }
+  .stayInTheKnowMainDiv{
+    width: 100%;
+    margin-top: 20px;
+  }
+  .unlockFeatureMainDiv{
+    width: 100%;
+    margin-top: 20px;
+}
+}

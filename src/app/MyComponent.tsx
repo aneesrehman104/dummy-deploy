@@ -1,5 +1,4 @@
 
-//create MyComponent.js in components folder that passes the MyComponent test
 import React from 'react'
 
 const MyComponent = () => {
