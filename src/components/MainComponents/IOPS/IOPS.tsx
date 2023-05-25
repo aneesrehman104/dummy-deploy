@@ -2,7 +2,7 @@ import styles from "./iops.module.css";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { TextField, InputAdornment } from "@mui/material";
-import searchIcon from "../../../asserts/images/searchIcon.svg";
+import searchIcon from "../../../../public/searchIcon.svg";
 import Image from "next/image";
 import { styled } from "@mui/material/styles";
 const DynamicChart = dynamic(() => import("./IOPSChart"), { ssr: false });

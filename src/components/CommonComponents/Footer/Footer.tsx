@@ -1,8 +1,8 @@
 import React from "react";
 import "./Footer.css";
 import { TextField, Checkbox, Button, Link } from "@mui/material";
-import footerLogo from "../../../asserts/images/footerLogo.svg";
-import lightVector from "../../../asserts/images/lightVector.svg";
+import footerLogo from "../../../../public/footerLogo.svg";
+import lightVector from "../../../../public/lightVector.svg";
 import CommonfiButton from "../CommonfiButton";
 import Image from "next/image";
 const Footer = () => {
