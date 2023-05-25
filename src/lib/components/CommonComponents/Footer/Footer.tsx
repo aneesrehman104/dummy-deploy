@@ -1,8 +1,8 @@
 import React from "react";
 import "./Footer.css";
 import { TextField, Checkbox, Button, Link } from "@mui/material";
-import footerLogo from "../../../../public/footerLogo.svg";
-import lightVector from "../../../../public/lightVector.svg";
+import footerLogo from "../../../../../public/footerLogo.svg";
+import lightVector from "../../../../../public/lightVector.svg";
 import CommonfiButton from "../CommonfiButton";
 import Image from "next/image";
 import { styled } from "@mui/material/styles";

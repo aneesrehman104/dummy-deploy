@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import TextField  from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import searchIcon from "../../../../public/searchIcon.svg";
+import searchIcon from "../../../../../public/searchIcon.svg";
 import Image from "next/image";
 import { styled } from "@mui/material/styles";
 const DynamicChart = dynamic(() => import("./IOPSChart"), {

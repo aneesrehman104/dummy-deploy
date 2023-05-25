@@ -1,7 +1,7 @@
 import styles from "./dashboard-header.module.css";
 import React from "react";
 import { TextField, InputAdornment } from "@mui/material";
-import searchIcon from "../../../../public/searchIcon.svg";
+import searchIcon from "../../../../../public/searchIcon.svg";
 import Image from "next/image";
 import { createTheme } from "@mui/material/styles";
 import EventSummary from "./EventSummary/EventSummary";
