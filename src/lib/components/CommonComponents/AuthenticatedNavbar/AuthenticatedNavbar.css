@@ -37,3 +37,21 @@
   text-transform: uppercase;
   color: #20608b;
 }
+.dashboardheader {
+  height: 20px;
+  flex-direction: column;
+  padding: 0 40px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  font-size: 11px;
+  color: #434343;
+  font-family: Barlow;
+}
+
+.link {
+  position: relative;
+  letter-spacing: 0.01em;
+  line-height: 127%;
+}

@@ -437,9 +437,6 @@ function IOPS() {
   return (
     <>
       <div className={styles.dashboardheader}>
-        <div className={styles.breadcrumb}>
-          <div className={styles.link}>IOPs</div>
-        </div>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>microsoft [msft]</div>
          
