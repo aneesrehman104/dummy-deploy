@@ -228,16 +228,18 @@ export default function AuthenticatedNavbar(props: Props) {
       }
       return false;
     });
-
+  
     if (foundItem) {
       toggleItem(foundItem.id);
       if (foundItem?.pathname === pathname) {
         setCurrentBreadcrumb(foundItem.breadcrumb);
       } else {
-        const currentPath = foundItem?.items.filter(
+        const currentPath = foundItem.items?.filter(
           (item) => item.pathname === pathname
         );
-        setCurrentBreadcrumb(currentPath[0].breadcrumb);
+        if (currentPath && currentPath.length > 0) {
+          setCurrentBreadcrumb(currentPath[0].breadcrumb);
+        }
       }
     }
   }, [pathname]);
