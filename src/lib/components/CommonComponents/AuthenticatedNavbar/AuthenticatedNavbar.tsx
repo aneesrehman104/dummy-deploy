@@ -31,46 +31,46 @@ const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 const drawerWidth = 240;
 const sidebarItem = [
   {
-    name: "Homes",
+    name: "Home",
     pathname: "/home",
     id: "home",
-    breadcrumb: "Homes",
+    breadcrumb: "Home",
   },
   {
     name: "IPOs",
     pathname: "/ipos",
     id: "ipos",
-    breadcrumb: "Homes > IPOs",
+    breadcrumb: "Home > IPOs",
     items: [
       {
         name: "HUB",
-        pathname: "/ipos-hub",
-        id: "ipos-hub",
-        breadcrumb: "Homes > IPOs > HUB",
+        pathname: "/ipos/hub",
+        id: "ipos/hub",
+        breadcrumb: "Home > IPOs > HUB",
       },
       {
         name: "STATS",
-        pathname: "/ipos-stats",
-        id: "ipos-stats",
-        breadcrumb: "Homes > IPOs > STATS",
+        pathname: "/ipos/stats",
+        id: "ipos/stats",
+        breadcrumb: "Home > IPOs > STATS",
       },
       {
         name: "PIPELINE",
-        pathname: "/ipos-pipeline",
-        id: "ipos-pipeline",
-        breadcrumb: "Homes > IPOs > PIPELINE",
+        pathname: "/ipos/pipeline",
+        id: "ipos/pipeline",
+        breadcrumb: "Home > IPOs > PIPELINE",
       },
       {
         name: "NEWS",
-        pathname: "/ipos-news",
-        id: "ipos-news",
-        breadcrumb: "Homes > IPOs > NEWS",
+        pathname: "/ipos/news",
+        id: "ipos/news",
+        breadcrumb: "Home > IPOs > NEWS",
       },
       {
         name: "SCREENERS",
-        pathname: "/ipos-screeners",
-        id: "ipos-screeners",
-        breadcrumb: "Homes > IPOs > SCREENERS",
+        pathname: "/ipos/screeners",
+        id: "ipos/screeners",
+        breadcrumb: "Home > IPOs > SCREENERS",
       },
     ],
   },
@@ -78,31 +78,37 @@ const sidebarItem = [
     name: "SPACs",
     pathname: "/spacs",
     id: "spacs",
+    breadcrumb: "Home > SPACs",
     items: [
       {
         name: "HUB",
-        pathname: "/spacs-hub",
-        id: "spacs-hub",
+        pathname: "/spacs/hub",
+        id: "spacs/hub",
+        breadcrumb: "Home > SPACs > HUB",
       },
       {
         name: "STATS",
-        pathname: "/spacs-stats",
-        id: "spacs-stats",
+        pathname: "/spacs/stats",
+        id: "spacs/stats",
+        breadcrumb: "Home > SPACs > STATS",
       },
       {
         name: "PIPELINE",
-        pathname: "/spacs-pipeline",
-        id: "spacs-pipeline",
+        pathname: "/spacs/pipeline",
+        id: "spacs/pipeline",
+        breadcrumb: "Home > SPACs > PIPELINE",
       },
       {
         name: "NEWS",
-        pathname: "/spacs-news",
-        id: "spacs-news",
+        pathname: "/spacs/news",
+        id: "spacs/news",
+        breadcrumb: "Home > SPACs > NEWS",
       },
       {
         name: "SCREENERS",
-        pathname: "/screeners",
-        id: "screeners",
+        pathname: "/spacs/screeners",
+        id: "spacs/screeners",
+        breadcrumb: "Home > SPACs > SCREENERS",
       },
     ],
   },
@@ -110,31 +116,38 @@ const sidebarItem = [
     name: "MERGERS",
     pathname: "/mergers",
     id: "mergers",
+    breadcrumb: "Home > MERGERS",
+
     items: [
       {
         name: "HUB",
-        pathname: "/mergers-hub",
-        id: "mergers-hub",
+        pathname: "/mergers/hub",
+        id: "mergers/hub",
+        breadcrumb: "Home > MERGERS > HUB",
       },
       {
         name: "STATS",
-        pathname: "/mergers-stats",
-        id: "mergers-stats",
+        pathname: "/mergers/stats",
+        id: "mergers/stats",
+        breadcrumb: "Home > MERGERS > STATS",
       },
       {
         name: "PIPELINE",
-        pathname: "/mergers-pipeline",
-        id: "mergers-pipeline",
+        pathname: "/mergers/pipeline",
+        id: "mergers/pipeline",
+        breadcrumb: "Home > MERGERS > PIPELINE",
       },
       {
         name: "NEWS",
-        pathname: "/mergers-news",
-        id: "mergers-news",
+        pathname: "/mergers/news",
+        id: "mergers/news",
+        breadcrumb: "Home > MERGERS > NEWS",
       },
       {
         name: "SCREENERS",
-        pathname: "/mergers-screeners",
-        id: "mergers-screeners",
+        pathname: "/mergers/screeners",
+        id: "mergers/screeners",
+        breadcrumb: "Home > MERGERS > SCREENERS",
       },
     ],
   },
@@ -177,35 +190,56 @@ export default function AuthenticatedNavbar(props: Props) {
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down(750));
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("Homes");
+  const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("Home");
   const [isOpen, setIsOpen] = useState<SidebarState>({});
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-
   const toggleItem = (itemId: string) => {
     setIsOpen((prevState) => {
       const newState: SidebarState = { ...prevState };
       const hasSubItems = sidebarItem.some(
         (item) => item.id === itemId && item.items
       );
+
       if (hasSubItems) {
         newState[itemId] = !prevState[itemId];
       } else {
+        // Close all items except the current item when navigating to a leaf item
         Object.keys(prevState).forEach((key) => {
           newState[key] = key === itemId ? !prevState[key] : false;
         });
       }
+
       return newState;
     });
   };
+
   useEffect(() => {
-    const currentPath = sidebarItem.filter(
-      (item) => item.pathname === pathname
-    );
-    console.log("=============router", router, pathname, currentPath);
-    toggleItem(currentPath[0].id);
-    setCurrentBreadcrumb(currentPath[0].breadcrumb);
+    const foundItem = sidebarItem.find((item) => {
+      if (item.pathname === pathname) {
+        return true;
+      }
+      if (
+        item.items &&
+        item.items.some((subItem) => subItem.pathname === pathname)
+      ) {
+        return true;
+      }
+      return false;
+    });
+
+    if (foundItem) {
+      toggleItem(foundItem.id);
+      if (foundItem?.pathname === pathname) {
+        setCurrentBreadcrumb(foundItem.breadcrumb);
+      } else {
+        const currentPath = foundItem?.items.filter(
+          (item) => item.pathname === pathname
+        );
+        setCurrentBreadcrumb(currentPath[0].breadcrumb);
+      }
+    }
   }, [pathname]);
   return (
     <Box sx={{ display: "flex" }}>
@@ -236,24 +270,26 @@ export default function AuthenticatedNavbar(props: Props) {
                 width={148}
                 height={21}
               />
-              <CssTextField
-                placeholder="Search ticker or company"
-                className=""
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Image
-                        src={searchIcon}
-                        alt="searchIcon"
-                        width={18}
-                        height={18}
-                      />
-                    </InputAdornment>
-                  ),
-                }}
-                size="small"
-                hiddenLabel
-              />
+              {!isMediumScreen ? (
+                <CssTextField
+                  placeholder="Search ticker or company"
+                  className=""
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Image
+                          src={searchIcon}
+                          alt="searchIcon"
+                          width={18}
+                          height={18}
+                        />
+                      </InputAdornment>
+                    ),
+                  }}
+                  size="small"
+                  hiddenLabel
+                />
+              ) : null}
             </div>
             <div className="textStyle cursorPointer">
               <span>Sign up</span> / <span>Sign In</span>
@@ -281,67 +317,6 @@ export default function AuthenticatedNavbar(props: Props) {
               {sidebarItem.map((item, index) => (
                 <Fragment key={item.id}>
                   <ListItem>
-                    <ListItemButton onClick={() => router.push(item.pathname)}>
-                      <div
-                        className={
-                          item.id === props.selected_id
-                            ? "currentTabStyle"
-                            : "tabStyle"
-                        }
-                      >
-                        {item.id === props.selected_id ? (
-                          <Image
-                            src={currntTabIcon}
-                            alt="footerImage"
-                            width={8}
-                            height={12}
-                          />
-                        ) : (
-                          " "
-                        )}
-                        &nbsp; &nbsp;{item.name}
-                      </div>
-                    </ListItemButton>
-                  </ListItem>
-                  {item.items && item.id === props.selected_id ? (
-                    <List>
-                      {item.items.map((subItem) => (
-                        <ListItem key={subItem.id}>
-                          <ListItemButton
-                            onClick={() => router.push(subItem.pathname)}
-                          >
-                            <div className="tabStyle">{subItem.name}</div>
-                          </ListItemButton>
-                        </ListItem>
-                      ))}
-                    </List>
-                  ) : null}
-                  <Divider />
-                </Fragment>
-              ))}
-            </List>
-          </Box>
-        </Drawer>
-      ) : (
-        <Drawer
-          variant="permanent"
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
-              width: drawerWidth,
-              boxSizing: "border-box",
-              background: "#D2ECF9",
-            },
-          }}
-        >
-          <Toolbar />
-          <Box sx={{ overflow: "auto" }}>
-            <List>
-              {sidebarItem.map((item, index) => (
-                <Fragment key={item.id}>
-                  <ListItem>
-                    {/* <ListItemButton onClick={() => router.push(item.pathname)}> */}
                     <ListItemButton
                       onClick={() => {
                         if (item.items) {
@@ -393,7 +368,105 @@ export default function AuthenticatedNavbar(props: Props) {
                               router.push(subItem.pathname);
                             }}
                           >
-                            <div className="tabStyle">{subItem.name}</div>
+                            <div
+                              className={
+                                subItem.pathname === pathname
+                                  ? "currentTabStyle"
+                                  : "tabStyle"
+                              }
+                            >
+                              {subItem.name}
+                            </div>
+                          </ListItemButton>
+                        </ListItem>
+                      ))}
+                    </List>
+                  ) : null}
+                  <Divider />
+                </Fragment>
+              ))}
+            </List>
+          </Box>
+        </Drawer>
+      ) : (
+        <Drawer
+          variant="permanent"
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            [`& .MuiDrawer-paper`]: {
+              width: drawerWidth,
+              boxSizing: "border-box",
+              background: "#D2ECF9",
+            },
+          }}
+        >
+          <Toolbar />
+          <Box sx={{ overflow: "auto" }}>
+            <List>
+              {sidebarItem.map((item, index) => (
+                <Fragment key={item.id}>
+                  <ListItem>
+                    <ListItemButton
+                      onClick={() => {
+                        if (item.items) {
+                          if (pathname === item.pathname) {
+                            toggleItem(item.id);
+                          } else {
+                            router.push(item.pathname);
+                          }
+                        } else {
+                          setCurrentBreadcrumb(item.breadcrumb);
+                          router.push(item.pathname);
+                        }
+                      }}
+                    >
+                      <div
+                        className={
+                          isOpen[item.id] || item.id === props.selected_id
+                            ? "currentTabStyle"
+                            : "tabStyle"
+                        }
+                      >
+                        {isOpen[item.id] ? (
+                          <Image
+                            src={currntTabIcon}
+                            alt="footerImage"
+                            style={{ transform: "rotate(90deg)" }}
+                            width={8}
+                            height={12}
+                          />
+                        ) : (
+                          <Image
+                            src={currntTabIcon}
+                            alt="footerImage"
+                            width={8}
+                            height={12}
+                          />
+                        )}
+                        &nbsp; &nbsp;{item.name}
+                      </div>
+                    </ListItemButton>
+                  </ListItem>
+                  {item.items && isOpen[item.id] ? (
+                    <List>
+                      {item.items.map((subItem) => (
+                        <ListItem key={subItem.id}>
+                          <ListItemButton
+                            onClick={() => {
+                              setCurrentBreadcrumb(subItem.breadcrumb);
+                              router.push(subItem.pathname);
+                            }}
+                          >
+                            <div
+                              className={
+                                subItem.pathname === pathname
+                                  ? "currentTabStyle"
+                                  : "tabStyle"
+                              }
+                            >
+                              {subItem.name}
+                            </div>
                           </ListItemButton>
                         </ListItem>
                       ))}

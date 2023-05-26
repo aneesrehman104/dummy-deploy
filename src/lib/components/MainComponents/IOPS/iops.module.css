@@ -290,3 +290,28 @@
   font-size: 14px;
   line-height: 135%;
 }
+
+
+
+@media screen and (max-width: 1200px) {
+  .sectionsummarycontainer {
+    padding: 0 10px;
+  }
+  .frameParent {
+    flex-direction: column;
+    border-top: 1px solid #dfd4d4;
+    border-bottom: 1px solid #dfd4d4;
+    padding: 10px 26px;
+    gap: 0;
+    align-items: center;
+    height: 249px;
+    font-size: 20px;
+  }
+  .indicator{
+    display: none;
+  }
+  .eventsummaryinfo {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
