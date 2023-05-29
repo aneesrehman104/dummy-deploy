@@ -548,7 +548,6 @@
   .sectionlistnewscontainer {
     flex: 1;
   }
-  .headlineslistcontainer,
   .sectionlistnewscontainerParent,
   .table {
     align-self: stretch;
@@ -560,15 +559,11 @@
     flex-direction: row;
     gap: 16px;
   }
-  .headlineslistcontainer,
   .table {
     flex-direction: column;
   }
   .table {
     gap: 16px;
-  }
-  .headlineslistcontainer {
-    padding: 32px 40px 57px;
   }
   .getFreeWeekly,
   .stayInThe {

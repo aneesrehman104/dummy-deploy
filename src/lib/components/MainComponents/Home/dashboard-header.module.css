@@ -1005,4 +1005,7 @@
   .paper2 {
     width:100%;
   }
+  .headlineslistcontainer {
+    padding: 10px 10px 10px;
+  }
 }

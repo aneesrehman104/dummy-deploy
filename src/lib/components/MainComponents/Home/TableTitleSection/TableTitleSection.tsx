@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-
+import { TABLETITLESECTION } from "@/lib/ts/constants";
 function TableTitleSection() {
   const data = [
     {
@@ -46,18 +46,22 @@ function TableTitleSection() {
       proceedsRange: "$150M - $175M",
     },
   ];
-  const MyTable = ({ data }) => {
+  const MyTable = ({ data }: any) => {
     const [sortColumn, setSortColumn] = useState("");
     const [sortDirection, setSortDirection] = useState("asc");
 
-    const handleSort = (column) => {
+    const handleSort = (column: string) => {
       setSortColumn(column);
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      setSortDirection(
+        sortDirection === TABLETITLESECTION.asc
+          ? TABLETITLESECTION.desc
+          : TABLETITLESECTION.asc
+      );
     };
 
     const sortedData = [...data].sort((a, b) => {
       if (sortColumn) {
-        if (sortDirection === "asc") {
+        if (sortDirection === TABLETITLESECTION.asc) {
           return a[sortColumn].localeCompare(b[sortColumn]);
         } else {
           return b[sortColumn].localeCompare(a[sortColumn]);
@@ -66,17 +70,14 @@ function TableTitleSection() {
         return 0;
       }
     });
-
-    useEffect(() => {
-      console.log("==============", sortDirection, sortColumn);
-    }, [sortDirection, sortColumn]);
     return (
       <Table>
         <TableHead>
           <TableRow>
             <TableCell onClick={() => handleSort("company")}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                {sortDirection === "desc" && sortColumn === "company" ? (
+                {sortDirection === TABLETITLESECTION.desc &&
+                sortColumn === TABLETITLESECTION.company ? (
                   <ArrowUpwardIcon fontSize="inherit" />
                 ) : (
                   <ArrowDownwardIcon fontSize="inherit" />
@@ -86,7 +87,8 @@ function TableTitleSection() {
             </TableCell>
             <TableCell onClick={() => handleSort("event")}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                {sortDirection === "desc" && sortColumn === "event" ? (
+                {sortDirection === TABLETITLESECTION.desc &&
+                sortColumn === TABLETITLESECTION.event ? (
                   <ArrowUpwardIcon fontSize="inherit" />
                 ) : (
                   <ArrowDownwardIcon fontSize="inherit" />
@@ -96,7 +98,8 @@ function TableTitleSection() {
             </TableCell>
             <TableCell onClick={() => handleSort("status")}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                {sortDirection === "desc" && sortColumn === "status" ? (
+                {sortDirection === TABLETITLESECTION.desc &&
+                sortColumn === TABLETITLESECTION.status ? (
                   <ArrowUpwardIcon fontSize="inherit" />
                 ) : (
                   <ArrowDownwardIcon fontSize="inherit" />
@@ -106,7 +109,8 @@ function TableTitleSection() {
             </TableCell>
             <TableCell onClick={() => handleSort("pricingDate")}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                {sortDirection === "desc" && sortColumn === "pricingDate" ? (
+                {sortDirection === TABLETITLESECTION.desc &&
+                sortColumn === TABLETITLESECTION.pricingDate ? (
                   <ArrowUpwardIcon fontSize="inherit" />
                 ) : (
                   <ArrowDownwardIcon fontSize="inherit" />
@@ -116,7 +120,8 @@ function TableTitleSection() {
             </TableCell>
             <TableCell onClick={() => handleSort("priceRange")}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                {sortDirection === "desc" && sortColumn === "priceRange" ? (
+                {sortDirection === TABLETITLESECTION.desc &&
+                sortColumn === TABLETITLESECTION.priceRange ? (
                   <ArrowUpwardIcon fontSize="inherit" />
                 ) : (
                   <ArrowDownwardIcon fontSize="inherit" />
@@ -126,7 +131,8 @@ function TableTitleSection() {
             </TableCell>
             <TableCell onClick={() => handleSort("proceedsRange")}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                {sortDirection === "desc" && sortColumn === "proceedsRange" ? (
+                {sortDirection === TABLETITLESECTION.desc &&
+                sortColumn === TABLETITLESECTION.proceedsRange ? (
                   <ArrowUpwardIcon fontSize="inherit" />
                 ) : (
                   <ArrowDownwardIcon fontSize="inherit" />
@@ -140,16 +146,12 @@ function TableTitleSection() {
           {sortedData.map((item, index) => (
             <TableRow key={index}>
               <TableCell>
-                  <div className={styles.customTableCustomCell}>
-                    <div className={styles.imageWrapper}>
-                      <img
-                        className={styles.imageIcon}
-                        alt=""
-                        src="/image.svg"
-                      />
-                    </div>
-                    <div className={styles.activision}>{item.company}</div>
+                <div className={styles.customTableCustomCell}>
+                  <div className={styles.imageWrapper}>
+                    <img className={styles.imageIcon} alt="" src="/image.svg" />
                   </div>
+                  <div className={styles.activision}>{item.company}</div>
+                </div>
               </TableCell>
               <TableCell>{item.event}</TableCell>
               <TableCell>{item.status}</TableCell>

@@ -9,9 +9,6 @@ const Home = () => {
   return (
     <>
       <div className={styles.dashboardheader}>
-        <div className={styles.breadcrumb}>
-          <div className={styles.link}>Home</div>
-        </div>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>Dashboard</div>
         </div>
