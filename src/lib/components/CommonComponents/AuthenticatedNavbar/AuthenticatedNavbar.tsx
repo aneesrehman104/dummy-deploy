@@ -170,28 +170,30 @@ interface SidebarItem {
 interface SidebarState {
   [key: string]: boolean;
 }
-const CssTextField = styled(TextField)({
-  width: "390px",
-  height: "40px",
-  marginLeft: "30px",
-  border: "1px solid #dddee0",
-  background: "#dddee0",
-  borderRadius: "8px",
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "none",
-    },
-  },
-});
+
 export default function AuthenticatedNavbar(props: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const theme = useTheme();
-  const isMediumScreen = useMediaQuery(theme.breakpoints.down(750));
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down(900));
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("Home");
   const [isOpen, setIsOpen] = useState<SidebarState>({});
+
+  const CssTextField = styled(TextField)({
+    width: isMediumScreen ? "100%" : "390px",
+    height: "40px",
+    border: "1px solid #dddee0",
+    background: "#dddee0",
+    borderRadius: "8px",
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        border: "none",
+      },
+    },
+  });
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -228,7 +230,7 @@ export default function AuthenticatedNavbar(props: Props) {
       }
       return false;
     });
-  
+
     if (foundItem) {
       toggleItem(foundItem.id);
       if (foundItem?.pathname === pathname) {
@@ -266,32 +268,33 @@ export default function AuthenticatedNavbar(props: Props) {
                   </IconButton>
                 </Toolbar>
               ) : null}
-              <Image
-                src={footerLogo}
-                alt="footerImage"
-                width={148}
-                height={21}
-              />
               {!isMediumScreen ? (
-                <CssTextField
-                  placeholder="Search ticker or company"
-                  className=""
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Image
-                          src={searchIcon}
-                          alt="searchIcon"
-                          width={18}
-                          height={18}
-                        />
-                      </InputAdornment>
-                    ),
-                  }}
-                  size="small"
-                  hiddenLabel
+                <Image
+                  src={footerLogo}
+                  alt="footerImage"
+                  width={148}
+                  height={21}
+                  style={{marginRight:20}}
                 />
               ) : null}
+              <CssTextField
+                placeholder="Search ticker or company"
+                className=""
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Image
+                        src={searchIcon}
+                        alt="searchIcon"
+                        width={18}
+                        height={18}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
+                size="small"
+                hiddenLabel
+              />
             </div>
             <div className="textStyle cursorPointer">
               <span>Sign up</span> / <span>Sign In</span>
@@ -404,7 +407,7 @@ export default function AuthenticatedNavbar(props: Props) {
           }}
         >
           <Toolbar />
-          <Box sx={{ overflow: "auto" }}>
+          <Box>
             <List>
               {sidebarItem.map((item, index) => (
                 <Fragment key={item.id}>
@@ -481,7 +484,7 @@ export default function AuthenticatedNavbar(props: Props) {
           </Box>
         </Drawer>
       )}
-      <Box component="main" sx={{ flexGrow: 1 }}>
+      <Box component="main" sx={{ flexGrow: 1, width: "100%" }}>
         <Toolbar />
         <div className={"dashboardheader"}>
           <div className={"link"}>{currentBreadcrumb}</div>
