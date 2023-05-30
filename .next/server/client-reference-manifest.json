@@ -758,6 +758,32 @@
         "async": false
       }
     },
+    "(app-client)/./node_modules/next/dist/client/link.js": {
+      "*": {
+        "id": "(sc_client)/./node_modules/next/dist/client/link.js",
+        "name": "*",
+        "chunks": [
+          "app/data-ingestion/layout:static/chunks/app/data-ingestion/layout.js"
+        ],
+        "async": false
+      },
+      "": {
+        "id": "(sc_client)/./node_modules/next/dist/client/link.js",
+        "name": "",
+        "chunks": [
+          "app/data-ingestion/layout:static/chunks/app/data-ingestion/layout.js"
+        ],
+        "async": false
+      },
+      "default": {
+        "id": "(sc_client)/./node_modules/next/dist/client/link.js",
+        "name": "default",
+        "chunks": [
+          "app/data-ingestion/layout:static/chunks/app/data-ingestion/layout.js"
+        ],
+        "async": false
+      }
+    },
     "(app-client)/./src/app/data-ingestion/layout.tsx": {
       "*": {
         "id": "(sc_client)/./src/app/data-ingestion/layout.tsx",
@@ -787,6 +813,9 @@
   },
   "edgeSSRModuleMapping": {},
   "cssFiles": {
+    "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/src/app/page": [
+      "static/css/app/page.css"
+    ],
     "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/src/app/layout": [
       "static/css/app/layout.css"
     ]
@@ -2520,6 +2549,13 @@
       ],
       "async": false
     },
+    "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/src/app/page.module.css#": {
+      "id": "null",
+      "name": "default",
+      "chunks": [
+        "static/css/app/page.css"
+      ]
+    },
     "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/src/app/globals.css#": {
       "id": "null",
       "name": "default",
@@ -2533,6 +2569,54 @@
       "chunks": [
         "static/css/app/layout.css"
       ]
+    },
+    "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/node_modules/next/dist/client/link.js": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
+      "name": "*",
+      "chunks": [
+        "app/data-ingestion/layout:static/chunks/app/data-ingestion/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/node_modules/next/dist/esm/client/link.js": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
+      "name": "*",
+      "chunks": [
+        "app/data-ingestion/layout:static/chunks/app/data-ingestion/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/node_modules/next/dist/client/link.js#": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
+      "name": "",
+      "chunks": [
+        "app/data-ingestion/layout:static/chunks/app/data-ingestion/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/node_modules/next/dist/esm/client/link.js#": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
+      "name": "",
+      "chunks": [
+        "app/data-ingestion/layout:static/chunks/app/data-ingestion/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/node_modules/next/dist/client/link.js#default": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
+      "name": "default",
+      "chunks": [
+        "app/data-ingestion/layout:static/chunks/app/data-ingestion/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/node_modules/next/dist/esm/client/link.js#default": {
+      "id": "(app-client)/./node_modules/next/dist/client/link.js",
+      "name": "default",
+      "chunks": [
+        "app/data-ingestion/layout:static/chunks/app/data-ingestion/layout.js"
+      ],
+      "async": false
     },
     "/Users/abhinavbhattarai/Desktop/commonFI/listingtrack-ui/src/app/data-ingestion/layout.tsx": {
       "id": "(app-client)/./src/app/data-ingestion/layout.tsx",
