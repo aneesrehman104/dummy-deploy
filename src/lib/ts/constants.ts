@@ -7,4 +7,9 @@ export const TABLETITLESECTION = {
   pricingDate: "pricingDate",
   priceRange: "priceRange",
   proceedsRange: "proceedsRange",
+  symbol:'symbol',
+  last30D:'last30D',
+  price:'price',
+  daily:'daily',
+  vol:'vol'
 };

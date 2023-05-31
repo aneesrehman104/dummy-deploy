@@ -293,7 +293,7 @@
 
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 900px) {
   .sectionsummarycontainer {
     padding: 0 10px;
   }
@@ -313,5 +313,14 @@
   .eventsummaryinfo {
     flex-direction: column;
     justify-content: center;
+  }
+  .cell {
+    /* border: 2px solid purple; */
+    border-bottom: 1.5px solid #d2ecf9;
+    padding: 10px 0px;
+    width: 40%;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 135%;
   }
 }

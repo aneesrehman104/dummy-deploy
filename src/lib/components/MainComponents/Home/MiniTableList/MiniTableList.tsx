@@ -31,7 +31,7 @@ function MiniTableList() {
           <div className={styles.sectionlistnewscontainer}>
             {renderArray.map((item, index) => {
               return (
-                <div className={styles.paper2}>
+                <div className={styles.paper2} key={index}>
                   <div className={styles.tablerow}>
                     <div className={styles.frameWrapper}>
                       <div className={styles.customTableCustomCell4}>

@@ -6,9 +6,9 @@ type Props = {
   background?: string;
   color?: string;
   disabled?: boolean;
-  size?: string;
+  size?: "small" | "medium" | "large";
   startIcon?: any;
-  variant?: string;
+  variant?: "text" | "outlined" | "contained";
   border?: string;
   width?: string;
   borderRadius?: string;
