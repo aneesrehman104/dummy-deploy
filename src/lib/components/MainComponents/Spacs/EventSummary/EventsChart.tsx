@@ -1,12 +1,9 @@
 import React from "react";
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
+import { EventChartSpacs } from "@/lib/ts/interface";
 
-type Props = {
-  options: object | any
-}
-
-function EventCharts({options}: Props) {
+function EventCharts({options}: EventChartSpacs) {
   return (
     <HighchartsReact highcharts={Highcharts} options={options} />    
   );

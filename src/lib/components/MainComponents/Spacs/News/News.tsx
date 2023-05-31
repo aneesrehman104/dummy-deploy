@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./news.module.css";
-
+import Image from "next/image";
 function News() {
   return (
     <div className={styles.headlineslistcontainer}>
@@ -13,10 +13,11 @@ function News() {
               <div className={styles.frameWrapper}>
                 <div className={styles.customTableCustomCell4}>
                   <div className={styles.vectorWrapper}>
-                    <img
-                      className={styles.vectorIcon}
-                      alt=""
+                    <Image
                       src="/vector3.svg"
+                      alt="vector3"
+                      width={18}
+                      height={18}
                     />
                   </div>
                   <div className={styles.frameWrapper}>
@@ -28,7 +29,12 @@ function News() {
                 </div>
               </div>
               <div className={styles.chevronRight}>
-                <img className={styles.vectorIcon1} alt="" src="/vector4.svg" />
+                 <Image
+                      src="/vector4.svg"
+                      alt="vector4"
+                      width={6}
+                      height={11}
+                    />
               </div>
             </div>
           </div>
@@ -37,10 +43,11 @@ function News() {
               <div className={styles.frameWrapper}>
                 <div className={styles.customTableCustomCell4}>
                   <div className={styles.vectorWrapper}>
-                    <img
-                      className={styles.vectorIcon}
-                      alt=""
+                    <Image
                       src="/vector3.svg"
+                      alt="vector3"
+                      width={18}
+                      height={18}
                     />
                   </div>
                   <div className={styles.frameWrapper}>
@@ -52,7 +59,12 @@ function News() {
                 </div>
               </div>
               <div className={styles.chevronRight}>
-                <img className={styles.vectorIcon1} alt="" src="/vector4.svg" />
+                 <Image
+                      src="/vector4.svg"
+                      alt="vector4"
+                      width={6}
+                      height={11}
+                    />
               </div>
             </div>
           </div>
@@ -65,10 +77,11 @@ function News() {
               <div className={styles.frameWrapper}>
                 <div className={styles.customTableCustomCell4}>
                   <div className={styles.vectorWrapper}>
-                    <img
-                      className={styles.vectorIcon}
-                      alt=""
+                    <Image
                       src="/vector3.svg"
+                      alt="vector3"
+                      width={18}
+                      height={18}
                     />
                   </div>
                   <div className={styles.frameWrapper}>
@@ -80,7 +93,12 @@ function News() {
                 </div>
               </div>
               <div className={styles.chevronRight}>
-                <img className={styles.vectorIcon1} alt="" src="/vector4.svg" />
+                 <Image
+                      src="/vector4.svg"
+                      alt="vector4"
+                      width={6}
+                      height={11}
+                    />
               </div>
             </div>
           </div>
@@ -89,10 +107,11 @@ function News() {
               <div className={styles.frameWrapper}>
                 <div className={styles.customTableCustomCell4}>
                   <div className={styles.vectorWrapper}>
-                    <img
-                      className={styles.vectorIcon}
-                      alt=""
+                    <Image
                       src="/vector3.svg"
+                      alt="vector3"
+                      width={18}
+                      height={18}
                     />
                   </div>
                   <div className={styles.frameWrapper}>
@@ -104,7 +123,12 @@ function News() {
                 </div>
               </div>
               <div className={styles.chevronRight}>
-                <img className={styles.vectorIcon1} alt="" src="/vector4.svg" />
+                 <Image
+                      src="/vector4.svg"
+                      alt="vector4"
+                      width={6}
+                      height={11}
+                    />
               </div>
             </div>
           </div>

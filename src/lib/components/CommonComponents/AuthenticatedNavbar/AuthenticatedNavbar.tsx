@@ -25,7 +25,7 @@ import "./AuthenticatedNavbar.css";
 import dynamic from "next/dynamic";
 import searchIcon from "../../../../../public/searchIcon.svg";
 import { styled } from "@mui/material/styles";
-
+import { Props, SidebarState } from "@/lib/ts/interface";
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 const drawerWidth = 240;
@@ -153,24 +153,6 @@ const sidebarItem = [
   },
 ];
 
-interface Props {
-  selected_id?: string;
-  children?: any;
-  window?: () => Window;
-}
-
-interface SidebarItem {
-  name: string;
-  pathname: string;
-  id: string;
-  breadcrumb: string;
-  items?: SidebarItem[];
-}
-
-interface SidebarState {
-  [key: string]: boolean;
-}
-
 export default function AuthenticatedNavbar(props: Props) {
   const router = useRouter();
   const pathname = usePathname();
@@ -274,7 +256,7 @@ export default function AuthenticatedNavbar(props: Props) {
                   alt="footerImage"
                   width={148}
                   height={21}
-                  style={{marginRight:20}}
+                  style={{ marginRight: 20 }}
                 />
               ) : null}
               <CssTextField

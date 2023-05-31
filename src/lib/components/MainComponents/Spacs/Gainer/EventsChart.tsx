@@ -1,12 +1,8 @@
 import React from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
-
-type Props = {
-  data: any;
-};
-
-function EventCharts({ data }: Props) {
+import { EvenetChart } from "@/lib/ts/interface";
+function EventCharts({ data }: EvenetChart) {
   const options = {
     chart: {
       type: "line",
