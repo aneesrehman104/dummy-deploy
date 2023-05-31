@@ -1,7 +1,8 @@
-import styles from "./dashboard-header.module.css";
+import styles from "./spacs.module.css";
 import React from "react";
 import EventSummary from "./EventSummary/EventSummary";
 import Gainer from "./Gainer/Gainer";
+import Losers from "./Losers/Losers";
 
 const Spacs = () => {
   return (
@@ -13,6 +14,7 @@ const Spacs = () => {
       </div>
       <EventSummary />
       <Gainer />
+      <Losers />
     </>
   );
 };

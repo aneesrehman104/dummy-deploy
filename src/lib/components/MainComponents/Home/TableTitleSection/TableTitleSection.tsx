@@ -11,6 +11,8 @@ import {
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
+import Image from "next/image";
+
 function TableTitleSection() {
   const data = [
     {
@@ -148,7 +150,12 @@ function TableTitleSection() {
               <TableCell>
                 <div className={styles.customTableCustomCell}>
                   <div className={styles.imageWrapper}>
-                    <img className={styles.imageIcon} alt="" src="/image.svg" />
+                    <Image
+                      src="/image.svg"
+                      alt="image"
+                      width={24}
+                      height={24}
+                    />
                   </div>
                   <div className={styles.activision}>{item.company}</div>
                 </div>

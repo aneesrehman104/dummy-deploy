@@ -1,12 +1,14 @@
 import React from "react";
-import styles from "./gainer.module.css";
+import styles from "./losers.module.css";
 import { useState } from "react";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableBody from "@mui/material/TableBody";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import TablePagination from "@mui/material/TablePagination";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TablePagination,
+} from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
@@ -15,7 +17,7 @@ const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
   loading: () => <p>Loading...</p>,
 });
-function Gainer() {
+function Losers() {
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState("");
@@ -30,7 +32,7 @@ function Gainer() {
         133, 188, 500, 10, 150, 20, 10, 188,
       ],
       price: "$10.50",
-      daily: "+2.14%",
+      daily: "-2.14%",
       vol: "910.0",
     },
     {
@@ -41,7 +43,7 @@ function Gainer() {
         10, 133, 188, 500, 10, 150, 20, 10,
       ],
       price: "Jun 2 ‘22",
-      daily: "+1.66%",
+      daily: "-1.66%",
       vol: "1.1k",
     },
     {
@@ -52,8 +54,8 @@ function Gainer() {
         133, 188, 500, 10, 150, 20, 10, 188,
       ],
       price: "May 2 ‘22",
-      daily: "+3.66%",
-      vol: "$150M - $175M",
+      daily: "-3.66%",
+      vol: "1.1k",
     },
     {
       company: "Fair Foods",
@@ -63,8 +65,8 @@ function Gainer() {
         10, 133, 188, 500, 10, 150, 20, 10,
       ],
       price: "Sept 2 ‘22",
-      daily: "+2.26%",
-      vol: "$150M - $175M",
+      daily: "-2.26%",
+      vol: "1.1k",
     },
   ];
 
@@ -181,7 +183,7 @@ function Gainer() {
                 <DynamicChart data={item.last30D} />
               </TableCell>
               <TableCell>{item.price}</TableCell>
-              <TableCell style={{color:'#0AAC1A'}}>{item.daily}</TableCell>
+              <TableCell style={{color:'#E33126'}}>{item.daily}</TableCell>
               <TableCell>{item.vol}</TableCell>
             </TableRow>
           ))}
@@ -203,7 +205,7 @@ function Gainer() {
   };
   return (
     <div className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>Gainer</div>
+      <div className={styles.tableTitle}>Losers</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
           <div
@@ -239,4 +241,4 @@ function Gainer() {
   );
 }
 
-export default Gainer;
+export default Losers;

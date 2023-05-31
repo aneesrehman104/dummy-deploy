@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
+import Image from "next/image";
+
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
   loading: () => <p>Loading...</p>,
@@ -76,7 +78,12 @@ function EventSummary() {
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
           <div className={styles.ytdEventSummary}>2022 YTD Event Summary</div>
-          <img className={styles.vectorIcon} alt="" src="/vector2.svg" />
+          <Image
+            src="/vector2.svg"
+            alt="/vector2"
+            width={12}
+            height={12}
+          />
         </div>
       </div>
       <div className={styles.chartcontainer}>
