@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./table-title.module.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Table,
   TableHead,
@@ -12,8 +12,6 @@ import {
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
-import Highcharts from "highcharts/highstock";
-import HighchartsReact from "highcharts-react-official";
 import dynamic from "next/dynamic";
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
