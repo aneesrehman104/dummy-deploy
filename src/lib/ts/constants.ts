@@ -11,5 +11,7 @@ export const TABLETITLESECTION = {
   last30D:'last30D',
   price:'price',
   daily:'daily',
-  vol:'vol'
+  vol:'vol',
+  today:'today',
+  marketCap:'marketCap'
 };

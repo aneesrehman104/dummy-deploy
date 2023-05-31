@@ -3,7 +3,7 @@ import React from "react";
 import EventSummary from "./EventSummary/EventSummary";
 import Gainer from "./Gainer/Gainer";
 import Losers from "./Losers/Losers";
-
+import Screeners from "./Screeners/Screeners";
 const Spacs = () => {
   return (
     <>
@@ -15,6 +15,7 @@ const Spacs = () => {
       <EventSummary />
       <Gainer />
       <Losers />
+      <Screeners />
     </>
   );
 };

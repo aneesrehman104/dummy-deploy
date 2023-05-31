@@ -107,7 +107,13 @@ function Losers() {
         <TableHead>
           <TableRow>
             <TableCell onClick={() => handleSort("company")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
                 sortColumn === TABLETITLESECTION.company ? (
                   <ArrowUpwardIcon fontSize="inherit" />
@@ -118,7 +124,13 @@ function Losers() {
               </div>
             </TableCell>
             <TableCell onClick={() => handleSort("symbol")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
                 sortColumn === TABLETITLESECTION.symbol ? (
                   <ArrowUpwardIcon fontSize="inherit" />
@@ -129,7 +141,13 @@ function Losers() {
               </div>
             </TableCell>
             <TableCell onClick={() => handleSort("last30D")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
                 sortColumn === TABLETITLESECTION.last30D ? (
                   <ArrowUpwardIcon fontSize="inherit" />
@@ -140,7 +158,13 @@ function Losers() {
               </div>
             </TableCell>
             <TableCell onClick={() => handleSort("price")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
                 sortColumn === TABLETITLESECTION.price ? (
                   <ArrowUpwardIcon fontSize="inherit" />
@@ -151,7 +175,13 @@ function Losers() {
               </div>
             </TableCell>
             <TableCell onClick={() => handleSort("daily")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
                 sortColumn === TABLETITLESECTION.daily ? (
                   <ArrowUpwardIcon fontSize="inherit" />
@@ -162,7 +192,13 @@ function Losers() {
               </div>
             </TableCell>
             <TableCell onClick={() => handleSort("vol")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
                 sortColumn === TABLETITLESECTION.vol ? (
                   <ArrowUpwardIcon fontSize="inherit" />
@@ -183,7 +219,7 @@ function Losers() {
                 <DynamicChart data={item.last30D} />
               </TableCell>
               <TableCell>{item.price}</TableCell>
-              <TableCell style={{color:'#E33126'}}>{item.daily}</TableCell>
+              <TableCell style={{ color: "#E33126" }}>{item.daily}</TableCell>
               <TableCell>{item.vol}</TableCell>
             </TableRow>
           ))}
