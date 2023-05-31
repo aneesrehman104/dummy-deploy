@@ -5,7 +5,7 @@ import Spacs from "@/lib/components/MainComponents/Spacs";
 export default function HomePAge() {
   return (
     <RootLayout>
-      <AuthenticatedNavbar selected_id="spacs">
+      <AuthenticatedNavbar selected_id="spacs/hub">
         <Spacs />
       </AuthenticatedNavbar>
     </RootLayout>

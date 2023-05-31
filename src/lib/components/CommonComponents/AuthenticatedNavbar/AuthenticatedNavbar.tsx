@@ -76,9 +76,9 @@ const sidebarItem = [
   },
   {
     name: "SPACs",
-    pathname: "/spacs",
-    id: "spacs",
-    breadcrumb: "Home > SPACs",
+    pathname: "/spacs/hub",
+    id: "/spacs/hub",
+    breadcrumb: "Home > SPACs > HUB",
     items: [
       {
         name: "HUB",
