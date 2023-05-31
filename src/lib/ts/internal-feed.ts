@@ -1,3 +1,6 @@
+import { createTheme } from "@mui/material/styles";
+import { TableDataInterface } from "@/lib/interfaces";
+
 // mapper for the internal feed table
 // maps the internal feed table column to the internal feed table data
 export const InternalFeedTableData = {
@@ -267,3 +270,34 @@ export const InternalDataFeedColumns = [
     },
   },
 ];
+
+export const options = {
+  search: true,
+  download: true,
+  print: true,
+  viewColumns: true,
+  filter: true,
+  filterType: "dropdown",
+  responsive: "vertical",
+  tableBodyHeight: "200px",
+  tableBodyMaxHeight: "800px",
+};
+
+export const getMuiTheme = () =>
+  createTheme({
+    components: {
+      MUIDataTableBodyCell: {
+        styleOverrides: {
+          root: {
+            width: "200px",
+          },
+        },
+      },
+    },
+  });
+
+// TODO remove, this demo shouldn't need to reset the theme.
+export const defaultTheme = createTheme();
+export const title_name = "Internal Feed";
+export const initialState: Array<Array<TableDataInterface>> = [];
+export const limit: number = 10;

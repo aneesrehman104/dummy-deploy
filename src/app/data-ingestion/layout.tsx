@@ -18,156 +18,18 @@ import { TableDataInterface } from "@/lib/interfaces";
 import { AppBar, Drawer } from "@/lib/material/styled.components";
 import {
   InternalDataFeedColumns,
-  InternalFeedTableData,
+  defaultTheme,
+  getMuiTheme,
+  initialState,
+  limit,
+  title_name,
 } from "@/lib/ts/internal-feed";
 import { Switch, Checkbox, TextareaAutosize } from "@mui/material";
 import Link from "next/link";
-import { TTableColumns } from "@/lib/interfaces/data-ingestion";
-
-function GetValuePlaceholder(value: string | boolean, component_type: string) {
-  switch (component_type) {
-    case "Typography":
-      return { text_value: value as string };
-    case "Link":
-      return { text_value: value as string };
-    case "Checkbox":
-      return { checkbox_state: value as boolean };
-    case "Switch":
-      return { switch_state: value as boolean };
-    case "Autocomplete":
-      return { autocomplete_curr_state: value as string };
-    case "Badge":
-      return { text_value: value as string };
-    case "Textarea":
-      return { text_value: value as string };
-    default:
-      return { text_value: value as string };
-  }
-}
-
-function serializeData(data: Array<TableResponse>) {
-  if (data.length === 0) return data;
-  const serializedData = data.map((item) => {
-    const _elmKey = Object.keys(InternalFeedTableData).find(
-      (mapper_item) => mapper_item === item.column_name
-    );
-    if (_elmKey) {
-      const _componentType =
-        InternalFeedTableData[_elmKey as TTableColumns].component;
-      const value = GetValuePlaceholder(item.value, _componentType);
-      return { ...item, component: _componentType, ...value };
-    }
-  });
-  return serializedData;
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
-const title_name = "Internal Feed";
-const initialState: Array<Array<TableDataInterface>> = [];
-const limit: number = 10;
+import { reducer } from "@/lib/reducers/internal-feed";
+import { serializeData } from "@/lib/utils/data-ingestion";
 
 // reducer function dummy
-type ReducerAction = {
-  type: string;
-  payload: Array<object>;
-};
-
-const reducer = (
-  state: Array<TableDataInterface>,
-  action: ReducerAction
-): Array<any> => {
-  switch (action.type) {
-    case "replace":
-      return [...state].map((item) => {
-        return { ...item };
-      });
-    case "reviewed":
-      // this is checkbox component
-      return { ...action.payload };
-    case "submit_to_keyfeed":
-      // this is checkbox component
-      return { ...action.payload };
-    case "format_for_export":
-      return state;
-    case "relevant_data_suggestion":
-      // dropdown
-      return { ...action.payload };
-    case "writeup_key_events":
-      // this is a text area or an editable div
-      return { ...action.payload };
-    case "relevant_writeup":
-      // dropdown
-      return { ...action.payload };
-    case "key_event":
-      // this is an autocomplete component
-      return { ...action.payload };
-    case "data_category":
-      // this is an autocomplete component
-      return { ...action.payload };
-    case "attach_to_record":
-      // this is an autocomplete component
-      return { ...action.payload };
-    case "entry_unit":
-      // this is an autocomplete component
-      return { ...action.payload };
-    // case "our_keywords_found":
-    //   return state;
-    // case "source_material_body":
-    //   return state;
-    // case "description":
-    //   return state;
-    // case "sec_form":
-    //   return state;
-    // case "source":
-    //   return state;
-    // case "material_type":
-    //   return state;
-    // case "tickers":
-    //   return state;
-    // case "company":
-    //   return state;
-    // case "date_time_est":
-    //   return state;
-    // case "source_link":
-    //   return state;
-
-    // when ever we add a new column where we need to manage state such as Autocomplete or Switch or Checkboxes
-    // add your logic with new case: column name
-    default:
-      return state;
-  }
-};
-
-interface TableResponse {
-  column_name: string;
-  value: string;
-}
-
-const options = {
-  search: true,
-  download: true,
-  print: true,
-  viewColumns: true,
-  filter: true,
-  filterType: "dropdown",
-  responsive: "vertical",
-  tableBodyHeight: "200px",
-  tableBodyMaxHeight: "800px",
-};
-
-const getMuiTheme = () =>
-  createTheme({
-    components: {
-      MUIDataTableBodyCell: {
-        styleOverrides: {
-          root: {
-            width: "200px",
-          },
-        },
-      },
-    },
-  });
 
 export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   const [open, setOpen] = React.useState(true);
@@ -303,39 +165,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     return dataset;
   }, [dataset]);
 
-  // const data = [
-  //     ['Gabby George', 'Business Analyst', 'Minneapolis', 30, 100000],
-  //     ['Business Analyst', 'Business Consultant', 'Dallas', 55, 200000],
-  //     ['Jaden Collins', 'Attorney', 'Santa Ana', 27, 500000],
-  //     ['Franky Rees', 'Business Analyst', 'St. Petersburg', 22, 50000],
-  //     ['Aaren Rose', 'Business Consultant', 'Toledo', 28, 75000],
-  //     ['Blake Duncan', 'Business Management Analyst', 'San Diego', 65, 94000],
-  //     ['Frankie Parry', 'Agency Legal Counsel', 'Jacksonville', 71, 210000],
-  //     ['Lane Wilson', 'Commercial Specialist', 'Omaha', 19, 65000],
-  //     ['Robin Duncan', 'Business Analyst', 'Los Angeles', 20, 77000],
-  //     ['Mel Brooks', 'Business Consultant', 'Oklahoma City', 37, 135000],
-  //     ['Harper White', 'Attorney', 'Pittsburgh', 52, 420000],
-  //     ['Kris Humphrey', 'Agency Legal Counsel', 'Laredo', 30, 150000],
-  //     ['Frankie Long', 'Industrial Analyst', 'Austin', 31, 170000],
-  //     ['Brynn Robbins', 'Business Analyst', 'Norfolk', 22, 90000],
-  //     ['Justice Mann', 'Business Consultant', 'Chicago', 24, 133000],
-  //     ['Addison Navarro', 'Business Management Analyst', 'New York', 50, 295000],
-  //     ['Jesse Welch', 'Agency Legal Counsel', 'Seattle', 28, 200000],
-  //     ['Eli Mejia', 'Commercial Specialist', 'Long Beach', 65, 400000],
-  //     ['Gene Leblanc', 'Industrial Analyst', 'Hartford', 34, 110000],
-  //     ['Danny Leon', 'Computer Scientist', 'Newark', 60, 220000],
-  //     ['Lane Lee', 'Corporate Counselor', 'Cincinnati', 52, 180000],
-  //     ['Jesse Hall', 'Business Analyst', 'Baltimore', 44, 99000],
-  //     ['Danni Hudson', 'Agency Legal Counsel', 'Tampa', 37, 90000],
-  //     ['Terry Macdonald', 'Commercial Specialist', 'Miami', 39, 140000],
-  //     ['Justice Mccarthy', 'Attorney', 'Tucson', 26, 330000],
-  //     ['Silver Carey', 'Computer Scientist', 'Memphis', 47, 250000],
-  //     ['Franky Miles', 'Industrial Analyst', 'Buffalo', 49, 190000],
-  //     ['Glen Nixon', 'Corporate Counselor', 'Arlington', 44, 80000],
-  //     ['Gabby Strickland', 'Business Process Consultant', 'Scottsdale', 26, 45000],
-  //     ['Mason Ray', 'Computer Scientist', 'San Francisco', 39, 142000],
-  // ];
-  
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex", width: "100%" }}>
@@ -406,44 +235,15 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           }}
         >
           <Toolbar />
-          {/* <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "90%",
-              marginInline: "auto",
-              paddingBlock: "2rem",
-              backgroundColor: "red",
-            }}
-          > */}
           <ThemeProvider theme={getMuiTheme()}>
             <MUIDataTable
               title="Internal Feed"
-              data={[
-                [
-                  "A",
-                  "B",
-                  "C",
-                  "D",
-                  "E",
-                  "F",
-                  "G",
-                  "H",
-                  "I",
-                  "J",
-                  "K",
-                  "L",
-                  "M",
-                ],
-              ]}
-              // @ts-ignore
+              data={final_data}
               columns={InternalDataFeedColumns}
               // @ts-ignore
               options={options}
             />
           </ThemeProvider>
-          {/* </div> */}
         </Box>
       </Box>
     </ThemeProvider>
