@@ -6,14 +6,13 @@
   justify-content: flex-start;
 }
 .stockstablesection {
-  padding: 24px 40px;
+  padding: 24px 10px;
   gap: 16px;
 }
 .tableTitle {
   position: relative;
   font-weight: 600;
   display: inline-block;
-  width: 149.79px;
   font-family: "Barlow";
   font-style: normal;
   font-weight: 600;
