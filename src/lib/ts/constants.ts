@@ -128,6 +128,12 @@ export const sidebarItem = [
         id: "spacs/screeners",
         breadcrumb: "Home > SPACs > SCREENERS",
       },
+      {
+        name: "SPAC CALENDAR",
+        pathname: "/spacs/calendar",
+        id: "spacs/calendar",
+        breadcrumb: "Home > SPACs > SPAC CALENDAR",
+      },
     ],
   },
   {
@@ -194,9 +200,31 @@ export const homeConstants = {
     PriceRange: "Price/range",
     ProceedsRange: "Proceeds/range",
   },
-  MergersPipeline:{
-    title:'Merger Pipeline'
-  }
+  MergersPipeline: {
+    title: "Merger Pipeline",
+  },
+  AggrecatedMiniTable: {
+    title: "Aggregated Mini-tables",
+    ListingTrack: "ListingTrack",
+    MERGERs: "MERGERs (>$2B)",
+    Livemergers: "Live mergers",
+    withspacs: "with spacs",
+    SANSspacs: "SANS spacs",
+    completed: "completed",
+    mergers: "mergers",
+    Totalactive: "Total active",
+    Searching: "Searching",
+    Live: "Live",
+    IPOs: "IPOs",
+    IPOSWITHSPACS: "IPOS WITH SPACS",
+    MERGERSWITHSPACS: "MERGERS WITH SPACS",
+    MERGERSSANSSPACS: "MERGERS SANS SPACS",
+    IPOSSANSSPACS: "IPOS SANS SPACS",
+    YTD: "YTD",
+    AVGRETURN: "AVG. RETURN",
+    SPACs: "SPACs",
+    ShowSPACs: "Show SPACs",
+  },
 };
 
 export const weekName = [
