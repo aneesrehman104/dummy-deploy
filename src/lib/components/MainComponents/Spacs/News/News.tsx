@@ -4,133 +4,106 @@ import Image from "next/image";
 function News() {
   return (
     <div className={styles.headlineslistcontainer}>
-      <div className={styles.sectionlistnewscontainerParent}>
-        <div className={styles.sectionlistnewscontainer}>
-          <div className={styles.aggregatedMiniTables}>In the News</div>
-
-          <div className={styles.paper2}>
-            <div className={styles.tablerow}>
-              <div className={styles.frameWrapper}>
-                <div className={styles.customTableCustomCell4}>
-                  <div className={styles.vectorWrapper}>
-                    <Image
-                      src="/vector3.svg"
-                      alt="vector3"
-                      width={18}
-                      height={18}
-                    />
-                  </div>
-                  <div className={styles.frameWrapper}>
-                    <div className={styles.headlineCallOut}>
-                      Headline call out goes here, truncate at 54 charact..
-                    </div>
-                    <div className={styles.siteName}>Site name</div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.chevronRight}>
-                 <Image
-                      src="/vector4.svg"
-                      alt="vector4"
-                      width={6}
-                      height={11}
-                    />
-              </div>
+      <div className={styles.aggregatedMiniTables}>SPAC News </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          width: "100%",
+          
+        }}
+      >
+        <div className={styles.cardStyle}>
+          <div style={{ height: 180 }}>
+            <div style={{ width: "100%", height: 180, position: "relative" }}>
+              <Image
+                alt="Mountains"
+                src="/newsImage.svg"
+                layout="fill"
+                objectFit="contain"
+              />
             </div>
           </div>
-          <div className={styles.paper2}>
-            <div className={styles.tablerow}>
-              <div className={styles.frameWrapper}>
-                <div className={styles.customTableCustomCell4}>
-                  <div className={styles.vectorWrapper}>
-                    <Image
-                      src="/vector3.svg"
-                      alt="vector3"
-                      width={18}
-                      height={18}
-                    />
-                  </div>
-                  <div className={styles.frameWrapper}>
-                    <div className={styles.headlineCallOut}>
-                      Headline call out goes here, truncate at 54 charact..
-                    </div>
-                    <div className={styles.siteName}>Site name</div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.chevronRight}>
-                 <Image
-                      src="/vector4.svg"
-                      alt="vector4"
-                      width={6}
-                      height={11}
-                    />
-              </div>
+          <div
+            style={{
+              height: 200,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              paddingLeft: 15,
+              paddingRight: 15,
+            }}
+          >
+            <div className={styles.date}>John Doe • 4 Feb 2022</div>
+            <div className={styles.title}>New feature available on Devias</div>
+            <div className={styles.discreption}>
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout.
             </div>
+            <div className={styles.backgroundTitle}>Twitter</div>
+          </div>
+        </div>{" "}
+        <div className={styles.cardStyle}>
+          <div style={{ height: 180 }}>
+            <div style={{ width: "100%", height: 180, position: "relative" }}>
+              <Image
+                alt="Mountains"
+                src="/newsImage.svg"
+                layout="fill"
+                objectFit="contain"
+              />
+            </div>
+          </div>
+          <div
+            style={{
+              height: 200,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              paddingLeft: 15,
+              paddingRight: 15,
+            }}
+          >
+            <div className={styles.date}>John Doe • 4 Feb 2022</div>
+            <div className={styles.title}>New feature available on Devias</div>
+            <div className={styles.discreption}>
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout.
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout.
+            </div>
+            <div className={styles.backgroundTitle}>Bloomberg</div>
           </div>
         </div>
-        <div className={styles.sectionlistnewscontainer}>
-          <div className={styles.aggregatedMiniTables}>Upcoming Mini Table</div>
-
-          <div className={styles.paper2}>
-            <div className={styles.tablerow}>
-              <div className={styles.frameWrapper}>
-                <div className={styles.customTableCustomCell4}>
-                  <div className={styles.vectorWrapper}>
-                    <Image
-                      src="/vector3.svg"
-                      alt="vector3"
-                      width={18}
-                      height={18}
-                    />
-                  </div>
-                  <div className={styles.frameWrapper}>
-                    <div className={styles.headlineCallOut}>
-                      Headline call out goes here, truncate at 54 charact..
-                    </div>
-                    <div className={styles.siteName}>Site name</div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.chevronRight}>
-                 <Image
-                      src="/vector4.svg"
-                      alt="vector4"
-                      width={6}
-                      height={11}
-                    />
-              </div>
+        <div className={styles.cardStyle}>
+          <div style={{ height: 180 }}>
+            <div style={{ width: "100%", height: 180, position: "relative" }}>
+              <Image
+                alt="Mountains"
+                src="/newsImage.svg"
+                layout="fill"
+                objectFit="contain"
+              />
             </div>
           </div>
-          <div className={styles.paper2}>
-            <div className={styles.tablerow}>
-              <div className={styles.frameWrapper}>
-                <div className={styles.customTableCustomCell4}>
-                  <div className={styles.vectorWrapper}>
-                    <Image
-                      src="/vector3.svg"
-                      alt="vector3"
-                      width={18}
-                      height={18}
-                    />
-                  </div>
-                  <div className={styles.frameWrapper}>
-                    <div className={styles.headlineCallOut}>
-                      Headline call out goes here, truncate at 54 charact..
-                    </div>
-                    <div className={styles.siteName}>Site name</div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.chevronRight}>
-                 <Image
-                      src="/vector4.svg"
-                      alt="vector4"
-                      width={6}
-                      height={11}
-                    />
-              </div>
+          <div
+            style={{
+              height: 200,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-evenly",
+              paddingLeft: 15,
+              paddingRight: 15,
+            }}
+          >
+            <div className={styles.date}>John Doe • 4 Feb 2022</div>
+            <div className={styles.title}>New feature available on Devias</div>
+            <div className={styles.discreption}>
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout.
             </div>
+            <div className={styles.backgroundTitle}>Twitter</div>
           </div>
         </div>
       </div>
