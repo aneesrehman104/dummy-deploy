@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-
+import { homeConstants, weekName } from "@/lib/ts/constants";
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
   loading: () => <p>Loading...</p>,
@@ -24,20 +24,7 @@ function EventSummary() {
       text: "2022 YTD Event Summary",
     },
     xAxis: {
-      categories: [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC",
-      ],
+      categories: weekName,
     },
     yAxis: {
       opposite: true,
@@ -56,17 +43,17 @@ function EventSummary() {
     },
     series: [
       {
-        name: "IOPS",
+        name: homeConstants.IOPS,
         data: [10, 150, 20, 10, 133, 188, 500, 10, 150, 20, 10, 188],
         color: "#F19529",
       },
       {
-        name: "SPACS",
+        name: homeConstants.SPACS,
         data: [1, 50, 200, 150, 33, 88, 300, 1, 50, 200, 150, 300],
         color: "#7F98F3",
       },
       {
-        name: "MERGERS",
+        name: homeConstants.MERGERS,
         data: [1, 550, 100, 130, 33, 88, 600, 1, 50, 200, 150, 88],
         color: "#9747FF",
       },
@@ -77,48 +64,35 @@ function EventSummary() {
     <div className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>2022 YTD Event Summary</div>
-          <Image
-            src="/vector2.svg"
-            alt="/vector2"
-            width={12}
-            height={12}
-          />
+          <div className={styles.ytdEventSummary}>
+            {homeConstants.chartTitle}
+          </div>
+          <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
         </div>
       </div>
       <div className={styles.chartcontainer}>
         <div style={{ width: "100%" }}>
           <DynamicChart options={options} />
         </div>
-        <div className={styles.frameParent}>
-          <div className={styles.frameGroup}>
-            <div className={styles.parent}>
-              <div className={styles.div}>52</div>
-              <div className={styles.title2}>
-                <div className={styles.titleTwo}>IPOs</div>
-              </div>
+        <div className={styles.chartBottomSide}>
+          <div className={styles.chartBottomSideInnerDiv}>
+            <div className={styles.titleText}>
+              <div>52</div>
+              <div>{homeConstants.IOPS}</div>
             </div>
-            <div className={styles.group}>
-              <div className={styles.div1}>30</div>
-              <div className={styles.title21}>
-                <div className={styles.titleTwo}>spacs</div>
-              </div>
+            <div className={styles.titleText}>
+              <div>30</div>
+              <div>{homeConstants.SPACS}</div>
             </div>
-            <div className={styles.container}>
-              <div className={styles.div2}>30</div>
-              <div className={styles.title22}>
-                <div className={styles.titleTwo}>mergers</div>
-              </div>
+            <div className={styles.titleText}>
+              <div>30</div>
+              <div>{homeConstants.MERGERS}</div>
             </div>
           </div>
           <div className={styles.indicator} />
           <div className={styles.eventsummaryinfo}>
-            <div className={styles.text}>
-              Lorem ipsum dolor sit amet consectetur. Turpis pretium ut
-              elementum quisque parturie. Turpis pretium ut elementum quisque
-              parturie.
-            </div>
-            <div className={styles.titlebottom}>COMPARISON</div>
+            <div className={styles.text}>{homeConstants.details}</div>
+            <div className={styles.titlebottom}>{homeConstants.COMPARISON}</div>
           </div>
         </div>
       </div>

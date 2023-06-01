@@ -16,8 +16,8 @@ const Spacs = () => {
       <EventSummary />
       <Gainer />
       <Losers />
-      {/* <Screeners /> */}
-      {/* <News/> */}
+      <Screeners />
+      <News/>
     </>
   );
 };

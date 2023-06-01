@@ -6,7 +6,7 @@ import lightVector from "../../../../../public/lightVector.svg";
 import CommonfiButton from "../CommonfiButton";
 import Image from "next/image";
 import { styled } from "@mui/material/styles";
-
+import { FOOTER } from "@/lib/ts/constants";
 const Footer = () => {
   const CssTextField = styled(TextField)({
     width: "100%",
@@ -18,7 +18,7 @@ const Footer = () => {
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: "16px",
-    marginTop:'10px',
+    marginTop: "10px",
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
         border: "none",
@@ -31,9 +31,9 @@ const Footer = () => {
         <div className="footerSecondDiv">
           <div className="flexDiv">
             <div className="stayInTheKnowMainDiv">
-              <div className="titleStyle">Stay in the know</div>
+              <div className="titleStyle">{FOOTER.stayInTheKnow}</div>
               <div className="textStyle paddingTop">
-                Get free weekly updates
+                {FOOTER.getFreeWeeklyUpdates}
               </div>
               <div>
                 <CssTextField placeholder="Email" hiddenLabel />
@@ -47,13 +47,13 @@ const Footer = () => {
               >
                 <Checkbox style={{ color: "#0AAC85", marginLeft: -10 }} />
                 <div className="checkBoxStyle">
-                  I agere to the{" "}
+                  {FOOTER.iAgreeToThe}
                   <span>
                     <Link href="#" color={"#D2ECF9"}>
-                      Terms & Conditions
+                      {FOOTER.termAndConditions}
                     </Link>
-                  </span>{" "}
-                  of subscription
+                  </span>
+                  {FOOTER.ofSubscription}
                 </div>
               </div>
               <CommonfiButton
@@ -73,15 +73,14 @@ const Footer = () => {
                   width={9}
                   height={18}
                 />
-                &nbsp; Unlock pro features
+                &nbsp; {FOOTER.unlockPremiumFeatures}
               </div>
               <div className="textStyle paddingTop">
-                Take advantage of all the power tools we have to offer
-                including:
-                <li> Tool 1 description </li>
-                <li> Tool 2 description </li>
-                <li> Tool 3 description </li>
-                <div className="paddingTop"> Pricing starts at $X.</div>
+                {FOOTER.detailPremiumFeature}
+                <li>{FOOTER.pointOne} </li>
+                <li> {FOOTER.pointTwo} </li>
+                <li> {FOOTER.pointThree} </li>
+                <div className="paddingTop"> {FOOTER.pricing}</div>
               </div>
               <CommonfiButton
                 variant="contained"
@@ -105,62 +104,62 @@ const Footer = () => {
           <hr className="horizontalStyling" />
           <div className="footerLastDiv paddingTop">
             <div className="footerLastRowStyle">
-              <div className="titleStyle">PORTAL</div>
+              <div className="titleStyle">{FOOTER.portals}</div>
               <div>
                 <Link href="#" color={"#FFFFFF"}>
-                  ListingTrack
+                {FOOTER.listingTrack}
                 </Link>
               </div>
               <div>
                 <Link href="#" color={"#FFFFFF"}>
-                  IPOs
+                {FOOTER.IPOs}
                 </Link>
               </div>
               <div>
                 <Link href="#" color={"#FFFFFF"}>
-                  Mergers
+                {FOOTER.mergers}
                 </Link>
               </div>
               <div>
                 <Link href="#" color={"#FFFFFF"}>
-                  SPACs
+                {FOOTER.SPACs}
                 </Link>
               </div>
             </div>
             <div className="footerLastRowStyle">
-              <div className="titleStyle">Support </div>
+              <div className="titleStyle">{FOOTER.support} </div>
               <div>
                 <Link href="#" color={"#FFFFFF"}>
-                  Upgrade plan
+                {FOOTER.upgradePlan}
                 </Link>
               </div>
               <div>
                 <Link href="#" color={"#FFFFFF"}>
-                  FAQs
+                {FOOTER.FAQs}
                 </Link>
               </div>
               <div>
                 <Link href="#" color={"#FFFFFF"}>
-                  Policies
+                {FOOTER.policies}
                 </Link>
               </div>
               <div>
                 <Link href="#" color={"#FFFFFF"}>
-                  Contact us
+                {FOOTER.contactUs}
                 </Link>
               </div>
             </div>
 
             <div>
-              <div className="titleStyle">Connect with us </div>
+              <div className="titleStyle">{FOOTER.connectWithUs}</div>
               <div className="footerConnetWithUs">
                 <Link href="#" color={"#FFFFFF"}>
-                  Twitter
+                {FOOTER.twitter}
                 </Link>
               </div>
               <div className="footerConnetWithUs">
                 <Link href="#" color={"#FFFFFF"}>
-                  Common.fi
+                {FOOTER.commonFi}
                 </Link>
               </div>
             </div>
@@ -170,11 +169,11 @@ const Footer = () => {
                 <Image
                   src={footerLogo}
                   alt="footerImage"
-                  width={198}
+                  width={233}
                   height={40}
                 />
               </div>
-              <div className="textStyle">Copyright LLC line here</div>
+              <div className="textStyle">{FOOTER.copyRights}</div>
             </div>
           </div>
         </div>
