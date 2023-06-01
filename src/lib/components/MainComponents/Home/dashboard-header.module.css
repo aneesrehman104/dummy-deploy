@@ -966,7 +966,7 @@
   color: #000;
   font-family: Barlow;
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 900px) {
   .card,
   .card1 {
     flex: unset;

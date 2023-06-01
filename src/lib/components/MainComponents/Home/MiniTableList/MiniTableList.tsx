@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../dashboard-header.module.css";
+import Image from "next/image";
+
 function MiniTableList() {
   const renderArray = [
     {
@@ -31,15 +33,16 @@ function MiniTableList() {
           <div className={styles.sectionlistnewscontainer}>
             {renderArray.map((item, index) => {
               return (
-                <div className={styles.paper2}>
+                <div className={styles.paper2} key={index}>
                   <div className={styles.tablerow}>
                     <div className={styles.frameWrapper}>
                       <div className={styles.customTableCustomCell4}>
                         <div className={styles.vectorWrapper}>
-                          <img
-                            className={styles.vectorIcon}
-                            alt=""
+                          <Image
                             src="/vector3.svg"
+                            alt="/vector3"
+                            width={17}
+                            height={17}
                           />
                         </div>
                         <div className={styles.frameWrapper}>
@@ -51,10 +54,11 @@ function MiniTableList() {
                       </div>
                     </div>
                     <div className={styles.chevronRight}>
-                      <img
-                        className={styles.vectorIcon1}
-                        alt=""
+                      <Image
                         src="/vector4.svg"
+                        alt="/vector4"
+                        width={7}
+                        height={11}
                       />
                     </div>
                   </div>

@@ -1,6 +1,7 @@
 import styles from "./iops.module.css";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const DynamicChart = dynamic(() => import("./IOPSChart"), {
   ssr: false,

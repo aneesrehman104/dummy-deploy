@@ -1,28 +1,8 @@
 import { Button, CircularProgress } from "@mui/material";
 import React from "react";
+import { ButtonProps } from "@lib/ts/interface";
 
-type Props = {
-  title?: any;
-  background?: string;
-  color?: string;
-  disabled?: boolean;
-  size?: string;
-  startIcon?: any;
-  variant?: string;
-  border?: string;
-  width?: string;
-  borderRadius?: string;
-  fontSize?: string;
-  onClick?: any;
-  className?: string;
-  height?: string;
-  isLoading?: boolean;
-  type?: string;
-  href?: any;
-  sx?:any
-  disableRipple?:boolean
-};
-function CommonfiButton(props: Props) {
+function CommonfiButton(props: ButtonProps) {
   return (
     <div>
       <Button

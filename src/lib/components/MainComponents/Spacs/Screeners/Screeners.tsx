@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./table-title.module.css";
+import styles from "./screener.module.css";
 import { useState, useEffect } from "react";
 import {
   Table,
@@ -12,40 +12,30 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
 import Image from "next/image";
+import { Diversity1Outlined } from "@mui/icons-material";
 
-function TableTitleSection() {
+function Screeners() {
   const data = [
     {
       company: "Activision",
-      event: "IPO",
-      status: "Announced",
-      pricingDate: "Jan 2 ‘22",
-      priceRange: "$21/share",
-      proceedsRange: "$150M - $175M",
+      symbol: "ACTIA",
+      price: "$21",
+      today: "+5.62%",
+      marketCap: "$723.23B",
     },
     {
-      company: "BBC",
-      event: "SPAC",
-      status: "Closed",
-      pricingDate: "Jun 2 ‘22",
-      priceRange: "$34/share2",
-      proceedsRange: "$150M - $175M",
+      company: "Activision",
+      symbol: "ACTIA",
+      price: "$21",
+      today: "+5.62%",
+      marketCap: "$723.23B",
     },
     {
-      company: "CNN",
-      event: "Merger",
-      status: "Announced",
-      pricingDate: "May 2 ‘22",
-      priceRange: "$74/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "Fair Foods",
-      event: "IPO",
-      status: "Closed",
-      pricingDate: "Sept 2 ‘22",
-      priceRange: "$12/share2",
-      proceedsRange: "$150M - $175M",
+      company: "Activision3",
+      symbol: "ACTIA",
+      price: "$21",
+      today: "+5.62%",
+      marketCap: "$723.23T",
     },
   ];
   const MyTable = ({ data }: any) => {
@@ -77,7 +67,13 @@ function TableTitleSection() {
         <TableHead>
           <TableRow>
             <TableCell onClick={() => handleSort("company")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
                 sortColumn === TABLETITLESECTION.company ? (
                   <ArrowUpwardIcon fontSize="inherit" />
@@ -87,59 +83,72 @@ function TableTitleSection() {
                 Company
               </div>
             </TableCell>
-            <TableCell onClick={() => handleSort("event")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+            <TableCell onClick={() => handleSort("symbol")}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
-                sortColumn === TABLETITLESECTION.event ? (
+                sortColumn === TABLETITLESECTION.symbol ? (
                   <ArrowUpwardIcon fontSize="inherit" />
                 ) : (
                   <ArrowDownwardIcon fontSize="inherit" />
                 )}
-                Event
+                Symbol
               </div>
             </TableCell>
-            <TableCell onClick={() => handleSort("status")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+            <TableCell onClick={() => handleSort("price")}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
-                sortColumn === TABLETITLESECTION.status ? (
+                sortColumn === TABLETITLESECTION.price ? (
                   <ArrowUpwardIcon fontSize="inherit" />
                 ) : (
                   <ArrowDownwardIcon fontSize="inherit" />
                 )}
-                Status
+                Price
               </div>
             </TableCell>
-            <TableCell onClick={() => handleSort("pricingDate")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+            <TableCell onClick={() => handleSort("today")}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
-                sortColumn === TABLETITLESECTION.pricingDate ? (
+                sortColumn === TABLETITLESECTION.today ? (
                   <ArrowUpwardIcon fontSize="inherit" />
                 ) : (
                   <ArrowDownwardIcon fontSize="inherit" />
                 )}
-                Est. Pricing Date
+                Today
               </div>
             </TableCell>
-            <TableCell onClick={() => handleSort("priceRange")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
+            <TableCell onClick={() => handleSort("marketCap")}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: 700,
+                }}
+              >
                 {sortDirection === TABLETITLESECTION.desc &&
-                sortColumn === TABLETITLESECTION.priceRange ? (
+                sortColumn === TABLETITLESECTION.marketCap ? (
                   <ArrowUpwardIcon fontSize="inherit" />
                 ) : (
                   <ArrowDownwardIcon fontSize="inherit" />
                 )}
-                Price/range
-              </div>
-            </TableCell>
-            <TableCell onClick={() => handleSort("proceedsRange")}>
-              <div style={{ display: "flex", alignItems: "center" }}>
-                {sortDirection === TABLETITLESECTION.desc &&
-                sortColumn === TABLETITLESECTION.proceedsRange ? (
-                  <ArrowUpwardIcon fontSize="inherit" />
-                ) : (
-                  <ArrowDownwardIcon fontSize="inherit" />
-                )}
-                Proceeds/range
+                Market Cap
               </div>
             </TableCell>
           </TableRow>
@@ -160,11 +169,10 @@ function TableTitleSection() {
                   <div className={styles.activision}>{item.company}</div>
                 </div>
               </TableCell>
-              <TableCell>{item.event}</TableCell>
-              <TableCell>{item.status}</TableCell>
-              <TableCell>{item.pricingDate}</TableCell>
-              <TableCell>{item.priceRange}</TableCell>
-              <TableCell>{item.proceedsRange}</TableCell>
+              <TableCell>{item.symbol}</TableCell>
+              <TableCell>{item.price}</TableCell>
+              <TableCell>{item.today}</TableCell>
+              <TableCell>{item.marketCap}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -173,7 +181,27 @@ function TableTitleSection() {
   };
   return (
     <div className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>Large Table Title</div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+      >
+        <div className={styles.tableTitle}>Screeners</div>
+        {/* <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "40%",
+          }}
+        >
+          <div>FILTERS</div>
+          <div>DENSITY</div>
+          <div>GET ALERTS</div>
+          <div>EXPORT</div>
+        </div> */}
+      </div>
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
           <MyTable data={data} />
@@ -183,4 +211,4 @@ function TableTitleSection() {
   );
 }
 
-export default TableTitleSection;
+export default Screeners;

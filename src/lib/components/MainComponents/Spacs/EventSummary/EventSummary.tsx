@@ -21,7 +21,7 @@ function EventSummary() {
       animation: false,
     },
     title: {
-      text: "2022 YTD Event Summary",
+      text: "",
     },
     xAxis: {
       categories: [
@@ -77,13 +77,8 @@ function EventSummary() {
     <div className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>2022 YTD Event Summary</div>
-          <Image
-            src="/vector2.svg"
-            alt="/vector2"
-            width={12}
-            height={12}
-          />
+          <div className={styles.ytdEventSummary}>2023 SPACs Stats</div>
+          <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
         </div>
       </div>
       <div className={styles.chartcontainer}>
