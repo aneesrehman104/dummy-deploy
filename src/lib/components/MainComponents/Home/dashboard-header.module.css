@@ -1010,4 +1010,8 @@
   .headlineslistcontainer {
     padding: 10px 10px 10px;
   }
+  .minitables {
+    padding: 0 10px;
+    gap: 16px;
+  }
 }

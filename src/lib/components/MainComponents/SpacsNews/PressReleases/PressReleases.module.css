@@ -123,4 +123,7 @@
     flex: unset;
     align-self: stretch;
   }
+  .headlineslistcontainer {
+    padding: 5px 10px 57px;
+  }
 }

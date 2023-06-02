@@ -943,5 +943,9 @@
     .footerlinkscontainerParent {
       flex-direction: column;
     }
+    .stockstablesection {
+      padding: 10px 10px;
+      gap: 16px;
+    }
   }
   
