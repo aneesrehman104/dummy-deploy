@@ -11,11 +11,12 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
 import dynamic from "next/dynamic";
+import { GainerInterFace } from "@/lib/ts/interface";
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
   loading: () => <p>Loading...</p>,
 });
-function Gainer() {
+function Gainer(props: GainerInterFace) {
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState("");
@@ -239,7 +240,7 @@ function Gainer() {
   };
   return (
     <div className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>Gainer</div>
+      <div className={styles.tableTitle}>{props.title}</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
           <div

@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../dashboard-header.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { homeConstants } from "@/lib/ts/constants";
 function AggrecatedMiniTable() {
   const theme = createTheme({
     palette: {
@@ -14,15 +14,17 @@ function AggrecatedMiniTable() {
 
   return (
     <div className={styles.minitables}>
-      <div className={styles.aggregatedMiniTables}>Aggregated Mini-tables</div>
+      <div className={styles.aggregatedMiniTables}>
+        {homeConstants.AggrecatedMiniTable.title}
+      </div>
       <div className={styles.cardscontainer}>
         <div className={styles.card}>
           <div className={styles.cardheader}>
-            <div className={styles.listingtrack}>{`ListingTrack `}</div>
+            <div className={styles.listingtrack}>{homeConstants.AggrecatedMiniTable.ListingTrack}</div>
           </div>
           <div className={styles.cardrowinfo}>
             <div className={styles.cardrowheader}>
-              <div className={styles.head}>IPOs</div>
+              <div className={styles.head}>{homeConstants.AggrecatedMiniTable.IPOs}</div>
             </div>
             <div className={styles.frameParent}>
               <div className={styles.parent}>
@@ -43,7 +45,7 @@ function AggrecatedMiniTable() {
           </div>
           <div className={styles.cardrowinfo}>
             <div className={styles.cardrowheader}>
-              <div className={styles.head}>{`MERGERs (>$2B)`}</div>
+              <div className={styles.head}>{homeConstants.AggrecatedMiniTable.MERGERs}</div>
             </div>
             <div className={styles.frameParent}>
               <div className={styles.parent}>
@@ -83,7 +85,7 @@ function AggrecatedMiniTable() {
           </div>
           <div className={styles.cardrowinfo2}>
             <div className={styles.cardrowheader}>
-              <div className={styles.head8}>SPACs</div>
+              <div className={styles.head8}>{homeConstants.AggrecatedMiniTable.SPACs}</div>
             </div>
             <div className={styles.frameParent}>
               <div className={styles.parent}>
@@ -109,7 +111,7 @@ function AggrecatedMiniTable() {
             <div className={styles.cardElements}>
               <div className={styles.ipos}>{`IPOs `}</div>
               <div className={styles.showSpacsParent}>
-                <div className={styles.showSpacs}>Show SPACs</div>
+                <div className={styles.showSpacs}>{homeConstants.AggrecatedMiniTable.ShowSPACs}</div>
                 <ThemeProvider theme={theme}>
                   <Switch defaultChecked color="primary" />
                 </ThemeProvider>
@@ -117,7 +119,7 @@ function AggrecatedMiniTable() {
             </div>
             <div className={styles.cardrowinfo}>
               <div className={styles.cardrowheader}>
-                <div className={styles.head}>IPOS WITH SPACS</div>
+                <div className={styles.head}>{homeConstants.AggrecatedMiniTable.IPOSWITHSPACS}</div>
               </div>
               <div className={styles.frameParent1}>
                 <div className={styles.parent6}>
@@ -136,7 +138,7 @@ function AggrecatedMiniTable() {
             </div>
             <div className={styles.cardrowinfo}>
               <div className={styles.cardrowheader}>
-                <div className={styles.head}>IPOS SANS SPACS</div>
+                <div className={styles.head}>{homeConstants.AggrecatedMiniTable.IPOSSANSSPACS}</div>
               </div>
               <div className={styles.frameParent}>
                 <div className={styles.parent}>
@@ -160,7 +162,7 @@ function AggrecatedMiniTable() {
             <div className={styles.cardcontent}>
               <div className={styles.ipos}>{`Mergers `}</div>
               <div className={styles.showSpacsParent}>
-                <div className={styles.showSpacs}>Show SPACs</div>
+                <div className={styles.showSpacs}>{homeConstants.AggrecatedMiniTable.ShowSPACs}</div>
                 <ThemeProvider theme={theme}>
                   <Switch defaultChecked color="primary" />
                 </ThemeProvider>
@@ -168,7 +170,7 @@ function AggrecatedMiniTable() {
             </div>
             <div className={styles.cardrowinfo}>
               <div className={styles.cardrowheader}>
-                <div className={styles.head8}>MERGERS WITH SPACS</div>
+                <div className={styles.head8}>{homeConstants.AggrecatedMiniTable.MERGERSWITHSPACS}</div>
               </div>
               <div className={styles.frameParent}>
                 <div className={styles.parent}>
@@ -196,7 +198,7 @@ function AggrecatedMiniTable() {
             </div>
             <div className={styles.cardrowinfo}>
               <div className={styles.cardrowheader}>
-                <div className={styles.head8}>MERGERS SANS SPACS</div>
+                <div className={styles.head8}>{homeConstants.AggrecatedMiniTable.MERGERSSANSSPACS} </div>
               </div>
               <div className={styles.frameParent}>
                 <div className={styles.parent}>

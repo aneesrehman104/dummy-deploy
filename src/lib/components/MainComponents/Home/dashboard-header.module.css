@@ -548,6 +548,8 @@
 .headlineCallOut {
   align-self: stretch;
   line-height: 135%;
+  height: 2.7em;
+  overflow: hidden;
 }
 .siteName {
   font-size: 11px;

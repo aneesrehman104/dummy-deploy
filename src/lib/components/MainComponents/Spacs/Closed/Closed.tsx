@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./screener.module.css";
+import styles from "./Closed.module.css";
 import { useState, useEffect } from "react";
 import {
   Table,
@@ -14,7 +14,7 @@ import { TABLETITLESECTION } from "@/lib/ts/constants";
 import Image from "next/image";
 import { Diversity1Outlined } from "@mui/icons-material";
 
-function Screeners() {
+function Closed() {
   const data = [
     {
       company: "Activision",
@@ -188,19 +188,7 @@ function Screeners() {
           width: "100%",
         }}
       >
-        <div className={styles.tableTitle}>Screeners</div>
-        {/* <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "40%",
-          }}
-        >
-          <div>FILTERS</div>
-          <div>DENSITY</div>
-          <div>GET ALERTS</div>
-          <div>EXPORT</div>
-        </div> */}
+        <div className={styles.tableTitle}>Latest Closed SPAC Deals</div>
       </div>
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
@@ -211,4 +199,4 @@ function Screeners() {
   );
 }
 
-export default Screeners;
+export default Closed;

@@ -1,0 +1,38 @@
+.dashboardheader {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 22px;
+  color: #263c6f;
+}
+.dashboardheader {
+  height: 56px;
+  flex-direction: column;
+  padding: 0 40px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  font-size: 11px;
+  color: #434343;
+  font-family: Barlow;
+}
+.titleandsearchcontainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 22px;
+  color: #263c6f;
+}
+
+.dashboardtitle {
+  flex: 1;
+  position: relative;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+}

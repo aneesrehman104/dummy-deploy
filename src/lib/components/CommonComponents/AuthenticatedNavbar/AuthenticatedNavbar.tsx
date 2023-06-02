@@ -26,132 +26,11 @@ import dynamic from "next/dynamic";
 import searchIcon from "../../../../../public/searchIcon.svg";
 import { styled } from "@mui/material/styles";
 import { Props, SidebarState } from "@/lib/ts/interface";
+import { sidebarItem,navBarText } from "@/lib/ts/constants";
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 const drawerWidth = 240;
-const sidebarItem = [
-  {
-    name: "Home",
-    pathname: "/home",
-    id: "home",
-    breadcrumb: "Home",
-  },
-  {
-    name: "IPOs",
-    pathname: "/ipos",
-    id: "ipos",
-    breadcrumb: "Home > IPOs",
-    items: [
-      {
-        name: "HUB",
-        pathname: "/ipos/hub",
-        id: "ipos/hub",
-        breadcrumb: "Home > IPOs > HUB",
-      },
-      {
-        name: "STATS",
-        pathname: "/ipos/stats",
-        id: "ipos/stats",
-        breadcrumb: "Home > IPOs > STATS",
-      },
-      {
-        name: "PIPELINE",
-        pathname: "/ipos/pipeline",
-        id: "ipos/pipeline",
-        breadcrumb: "Home > IPOs > PIPELINE",
-      },
-      {
-        name: "NEWS",
-        pathname: "/ipos/news",
-        id: "ipos/news",
-        breadcrumb: "Home > IPOs > NEWS",
-      },
-      {
-        name: "SCREENERS",
-        pathname: "/ipos/screeners",
-        id: "ipos/screeners",
-        breadcrumb: "Home > IPOs > SCREENERS",
-      },
-    ],
-  },
-  {
-    name: "SPACs",
-    pathname: "/spacs/hub",
-    id: "/spacs/hub",
-    breadcrumb: "Home > SPACs > HUB",
-    items: [
-      {
-        name: "HUB",
-        pathname: "/spacs/hub",
-        id: "spacs/hub",
-        breadcrumb: "Home > SPACs > HUB",
-      },
-      {
-        name: "STATS",
-        pathname: "/spacs/stats",
-        id: "spacs/stats",
-        breadcrumb: "Home > SPACs > STATS",
-      },
-      {
-        name: "PIPELINE",
-        pathname: "/spacs/pipeline",
-        id: "spacs/pipeline",
-        breadcrumb: "Home > SPACs > PIPELINE",
-      },
-      {
-        name: "NEWS",
-        pathname: "/spacs/news",
-        id: "spacs/news",
-        breadcrumb: "Home > SPACs > NEWS",
-      },
-      {
-        name: "SCREENERS",
-        pathname: "/spacs/screeners",
-        id: "spacs/screeners",
-        breadcrumb: "Home > SPACs > SCREENERS",
-      },
-    ],
-  },
-  {
-    name: "MERGERS",
-    pathname: "/mergers",
-    id: "mergers",
-    breadcrumb: "Home > MERGERS",
 
-    items: [
-      {
-        name: "HUB",
-        pathname: "/mergers/hub",
-        id: "mergers/hub",
-        breadcrumb: "Home > MERGERS > HUB",
-      },
-      {
-        name: "STATS",
-        pathname: "/mergers/stats",
-        id: "mergers/stats",
-        breadcrumb: "Home > MERGERS > STATS",
-      },
-      {
-        name: "PIPELINE",
-        pathname: "/mergers/pipeline",
-        id: "mergers/pipeline",
-        breadcrumb: "Home > MERGERS > PIPELINE",
-      },
-      {
-        name: "NEWS",
-        pathname: "/mergers/news",
-        id: "mergers/news",
-        breadcrumb: "Home > MERGERS > NEWS",
-      },
-      {
-        name: "SCREENERS",
-        pathname: "/mergers/screeners",
-        id: "mergers/screeners",
-        breadcrumb: "Home > MERGERS > SCREENERS",
-      },
-    ],
-  },
-];
 
 export default function AuthenticatedNavbar(props: Props) {
   const router = useRouter();
@@ -279,7 +158,7 @@ export default function AuthenticatedNavbar(props: Props) {
               />
             </div>
             <div className="textStyle cursorPointer">
-              <span>Sign up</span> / <span>Sign In</span>
+              <span>{navBarText.signUp}</span> / <span>{navBarText.signIn}</span>
             </div>
           </div>
         </div>

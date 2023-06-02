@@ -5,7 +5,7 @@ import Image from "next/image";
 function MiniTableList() {
   const renderArray = [
     {
-      heading: " Headline call out goes here, truncate at 54 charact..",
+      heading: " Headline call out goes here, truncate at 54 charact..Headline call out goes here, truncate at 54 charact..Headline call out goes here, truncate at 54 charact..",
       siteName: "Site name",
     },
     {
