@@ -12,6 +12,8 @@ const SpacsStats = () => {
       </div>
       <EventSummary />
       <MarketStats/>
+      <EventSummary />
+      <MarketStats/>
     </>
   );
 };
