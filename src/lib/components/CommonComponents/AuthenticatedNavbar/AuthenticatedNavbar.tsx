@@ -26,11 +26,11 @@ import dynamic from "next/dynamic";
 import searchIcon from "../../../../../public/searchIcon.svg";
 import { styled } from "@mui/material/styles";
 import { Props, SidebarState } from "@/lib/ts/interface";
-import { sidebarItem,navBarText } from "@/lib/ts/constants";
+import { sidebarItem, navBarText } from "@/lib/ts/constants";
+import { toggleItem } from "./functions";
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 const drawerWidth = 240;
-
 
 export default function AuthenticatedNavbar(props: Props) {
   const router = useRouter();
@@ -55,29 +55,6 @@ export default function AuthenticatedNavbar(props: Props) {
     },
   });
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-  const toggleItem = (itemId: string) => {
-    setIsOpen((prevState) => {
-      const newState: SidebarState = { ...prevState };
-      const hasSubItems = sidebarItem.some(
-        (item) => item.id === itemId && item.items
-      );
-
-      if (hasSubItems) {
-        newState[itemId] = !prevState[itemId];
-      } else {
-        // Close all items except the current item when navigating to a leaf item
-        Object.keys(prevState).forEach((key) => {
-          newState[key] = key === itemId ? !prevState[key] : false;
-        });
-      }
-
-      return newState;
-    });
-  };
-
   useEffect(() => {
     const foundItem = sidebarItem.find((item) => {
       if (item.pathname === pathname) {
@@ -93,7 +70,7 @@ export default function AuthenticatedNavbar(props: Props) {
     });
 
     if (foundItem) {
-      toggleItem(foundItem.id);
+      toggleItem(foundItem.id, setIsOpen);
       if (foundItem?.pathname === pathname) {
         setCurrentBreadcrumb(foundItem.breadcrumb);
       } else {
@@ -122,7 +99,7 @@ export default function AuthenticatedNavbar(props: Props) {
                     color="inherit"
                     aria-label="open drawer"
                     edge="start"
-                    onClick={toggleSidebar}
+                    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                     sx={{ mr: 2 }}
                   >
                     <MenuIcon />
@@ -158,7 +135,8 @@ export default function AuthenticatedNavbar(props: Props) {
               />
             </div>
             <div className="textStyle cursorPointer">
-              <span>{navBarText.signUp}</span> / <span>{navBarText.signIn}</span>
+              <span>{navBarText.signUp}</span> /{" "}
+              <span>{navBarText.signIn}</span>
             </div>
           </div>
         </div>
@@ -187,7 +165,7 @@ export default function AuthenticatedNavbar(props: Props) {
                       onClick={() => {
                         if (item.items) {
                           if (pathname === item.pathname) {
-                            toggleItem(item.id);
+                            toggleItem(item.id, setIsOpen);
                           } else {
                             router.push(item.pathname);
                           }
@@ -277,7 +255,7 @@ export default function AuthenticatedNavbar(props: Props) {
                       onClick={() => {
                         if (item.items) {
                           if (pathname === item.pathname) {
-                            toggleItem(item.id);
+                            toggleItem(item.id, setIsOpen);
                           } else {
                             router.push(item.pathname);
                           }
