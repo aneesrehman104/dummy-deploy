@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./GrapevineGraveyard.module.css";
 import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -9,50 +10,46 @@ import TablePagination from "@mui/material/TablePagination";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
-import dynamic from "next/dynamic";
-const DynamicChart = dynamic(() => import("./EventsChart"), {
-  ssr: false,
-  loading: () => <p>Loading...</p>,
-});
+import Image from "next/image";
+
 const headerArray = [
   {
     name: "Company",
     key: "company",
   },
   {
-    name: "Symbol",
-    key: "symbol",
+    name: "Event",
+    key: "event",
   },
   {
-    name: "Last 30D",
-    key: "last30D",
+    name: "Status",
+    key: "status",
   },
   {
-    name: "Price",
-    key: "price",
+    name: "Est. Pricing Date",
+    key: "pricingDate",
   },
   {
-    name: "Daily",
-    key: "daily",
+    name: "Price/range",
+    key: "priceRange",
   },
   {
-    name: "Vol",
-    key: "vol",
+    name: "Proceeds/range",
+    key: "proceedsRange",
   },
 ];
-const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
+const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
   const handleSort = (column: string) => {
-    if (column !== "last30D") {
       setSortColumn(column);
       setSortDirection(
         sortDirection === TABLETITLESECTION.asc
           ? TABLETITLESECTION.desc
           : TABLETITLESECTION.asc
       );
-    }
+    
   };
 
   const sortedData = [...data].sort((a, b) => {
@@ -66,9 +63,7 @@ const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
       return 0;
     }
   });
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <Table>
       <TableHead>
@@ -83,14 +78,12 @@ const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
                     fontWeight: 600,
                   }}
                 >
-                  {item.key !== "last30D" ? (
-                    sortDirection === TABLETITLESECTION.desc &&
-                    sortColumn === item.key ? (
-                      <ArrowUpwardIcon fontSize="inherit" />
-                    ) : (
-                      <ArrowDownwardIcon fontSize="inherit" />
-                    )
-                  ) : null}
+                  {sortDirection === TABLETITLESECTION.desc &&
+                  sortColumn === item.key? (
+                    <ArrowUpwardIcon fontSize="inherit" />
+                  ) : (
+                    <ArrowDownwardIcon fontSize="inherit" />
+                  )}
                   {item.name}
                 </div>
               </TableCell>
@@ -101,29 +94,34 @@ const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
       <TableBody>
         {sortedData.map((item, index) => (
           <TableRow key={index}>
-            <TableCell>{item.company}</TableCell>
-            <TableCell>{item.symbol}</TableCell>
             <TableCell>
-              <DynamicChart data={item.last30D} />
+              <div className={styles.customTableCustomCell}>
+                <div className={styles.imageWrapper}>
+                  <Image src="/image.svg" alt="image" width={24} height={24} />
+                </div>
+                <div className={styles.activision}>{item.company}</div>
+              </div>
             </TableCell>
-            <TableCell>{item.price}</TableCell>
-            <TableCell style={{ color: "#0AAC1A" }}>{item.daily}</TableCell>
-            <TableCell>{item.vol}</TableCell>
+            <TableCell>{item.event}</TableCell>
+            <TableCell>{item.status}</TableCell>
+            <TableCell>{item.pricingDate}</TableCell>
+            <TableCell>{item.priceRange}</TableCell>
+            <TableCell>{item.proceedsRange}</TableCell>
           </TableRow>
         ))}
       </TableBody>
       <tfoot>
-        <TableRow>
-          <TablePagination
-            colSpan={6} // Number of columns in the table
-            count={sortedData.length} // Total number of items
-            rowsPerPage={itemsPerPage}
-            page={currentPage - 1} // Page number starts from 0
-            onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
-            rowsPerPageOptions={[]} // Hide rows per page options
-          />
-        </TableRow>
-      </tfoot>
+          <TableRow>
+            <TablePagination
+              colSpan={6} // Number of columns in the table
+              count={sortedData.length} // Total number of items
+              rowsPerPage={itemsPerPage}
+              page={currentPage - 1} // Page number starts from 0
+              onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
+              rowsPerPageOptions={[]} // Hide rows per page options
+            />
+          </TableRow>
+        </tfoot>
     </Table>
   );
 };
