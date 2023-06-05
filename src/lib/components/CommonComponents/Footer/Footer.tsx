@@ -25,6 +25,19 @@ const Footer = () => {
       },
     },
   });
+  const PORTALS = [
+    { name: "Listing Track" },
+    { name: "IPOs" },
+    { name: "Mergers" },
+    { name: "SPACs" },
+  ];
+
+  const SUPPORT = [
+    { name: "Upgrade plan" },
+    { name: "FAQs" },
+    { name: "Policies" },
+    { name: "Contact us" },
+  ];
   return (
     <>
       <div className="footerMainDiv">
@@ -105,62 +118,42 @@ const Footer = () => {
           <div className="footerLastDiv paddingTop">
             <div className="footerLastRowStyle">
               <div className="titleStyle">{FOOTER.portals}</div>
-              <div>
-                <Link href="#" color={"#FFFFFF"}>
-                {FOOTER.listingTrack}
-                </Link>
-              </div>
-              <div>
-                <Link href="#" color={"#FFFFFF"}>
-                {FOOTER.IPOs}
-                </Link>
-              </div>
-              <div>
-                <Link href="#" color={"#FFFFFF"}>
-                {FOOTER.mergers}
-                </Link>
-              </div>
-              <div>
-                <Link href="#" color={"#FFFFFF"}>
-                {FOOTER.SPACs}
-                </Link>
-              </div>
+              {PORTALS.map((item) => {
+                return (
+                  <div key={item.name}>
+                    <Link href="#" color={"#FFFFFF"}>
+                      {item.name}
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
             <div className="footerLastRowStyle">
               <div className="titleStyle">{FOOTER.support} </div>
-              <div>
-                <Link href="#" color={"#FFFFFF"}>
-                {FOOTER.upgradePlan}
-                </Link>
-              </div>
-              <div>
-                <Link href="#" color={"#FFFFFF"}>
-                {FOOTER.FAQs}
-                </Link>
-              </div>
-              <div>
-                <Link href="#" color={"#FFFFFF"}>
-                {FOOTER.policies}
-                </Link>
-              </div>
-              <div>
-                <Link href="#" color={"#FFFFFF"}>
-                {FOOTER.contactUs}
-                </Link>
-              </div>
+              {SUPPORT.map((item) => {
+                return (
+                  <div key={item.name}>
+                    <Link href="#" color={"#FFFFFF"}>
+                      {item.name}
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
 
-            <div>
+            <div className="paddingTop">
               <div className="titleStyle">{FOOTER.connectWithUs}</div>
-              <div className="footerConnetWithUs">
-                <Link href="#" color={"#FFFFFF"}>
-                {FOOTER.twitter}
-                </Link>
-              </div>
-              <div className="footerConnetWithUs">
-                <Link href="#" color={"#FFFFFF"}>
-                {FOOTER.commonFi}
-                </Link>
+              <div className="connectwithinline">
+                <div className="footerConnetWithUs">
+                  <Link href="#" color={"#FFFFFF"}>
+                    {FOOTER.twitter}
+                  </Link>
+                </div>
+                <div className="footerConnetWithUs">
+                  <Link href="#" color={"#FFFFFF"}>
+                    {FOOTER.commonFi}
+                  </Link>
+                </div>
               </div>
             </div>
 
