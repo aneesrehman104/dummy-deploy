@@ -81,7 +81,7 @@ export const InternalFeedTableData = {
 
   writeup_key_events: {
     name: "Writeup for Key Events / Newsletter",
-    component: "Typography",
+    component: "Textarea",
   },
 
   relevant_data_suggestion: {
@@ -279,8 +279,8 @@ export const options = {
   filter: true,
   filterType: "dropdown",
   responsive: "vertical",
-  tableBodyHeight: "200px",
-  tableBodyMaxHeight: "800px",
+  rowsPerPageOptions: [50, 100, 200],
+  rowsPerPage: 50,
 };
 
 export const getMuiTheme = () =>
@@ -289,7 +289,15 @@ export const getMuiTheme = () =>
       MUIDataTableBodyCell: {
         styleOverrides: {
           root: {
-            width: "200px",
+            width: "300px",
+          },
+        },
+      },
+
+      MuiToolbar: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "#f5f5f5",
           },
         },
       },

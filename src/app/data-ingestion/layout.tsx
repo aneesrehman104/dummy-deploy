@@ -3,7 +3,7 @@
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 import React, { useEffect, useMemo, useReducer, useState } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,7 +14,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { MainListItems } from "@user-interface/listitems";
 import MUIDataTable from "mui-datatables";
-import { TableDataInterface } from "@/lib/interfaces";
 import { AppBar, Drawer } from "@/lib/material/styled.components";
 import {
   InternalDataFeedColumns,
@@ -22,12 +21,21 @@ import {
   getMuiTheme,
   initialState,
   limit,
+  options,
   title_name,
 } from "@/lib/ts/internal-feed";
-import { Switch, Checkbox, TextareaAutosize } from "@mui/material";
+import {
+  Switch,
+  Checkbox,
+  TextareaAutosize,
+  Autocomplete,
+  TextField,
+} from "@mui/material";
 import Link from "next/link";
 import { reducer } from "@/lib/reducers/internal-feed";
 import { serializeData } from "@/lib/utils/data-ingestion";
+import { IResponseSchema } from "@/lib/ts";
+import next from "next/types";
 
 // reducer function dummy
 
@@ -45,6 +53,14 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
 
   const switchSelection = (section_name: string) => {
     setCurrentSection(section_name);
+  };
+
+  const copyToClipboard = (text: string) => {
+    console.log(text);
+    window.navigator.clipboard.writeText(text).then(() => {
+      console.log("copied to clipboard");
+      alert("copied to clipboard");
+    });
   };
 
   const changePage = (page: number) => {
@@ -80,13 +96,15 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       // we need to make a call to the backend to get the data with limit and offset
       try {
         const response = await fetch(
-          `http://localhost:3000/api/dataset?limit=${limit}&offset=${offset}`
+          // `http://localhost:3000/api/dataset?limit=${limit}&offset=${offset}`
+          "http://127.0.0.1:5500/internal-feed.json"
         );
-        const data = await response.json();
-        const serializedData = serializeData(data);
+        const data: IResponseSchema = await response.json();
+        const serializedData = serializeData(data.source.dataset);
+        console.log(serializedData, "serialized data");
         if (serializedData.length > 0) {
           // we need to change the payload later
-          dispatch({ type: "replace", payload: [] });
+          dispatch({ type: "replace", payload: serializedData });
         }
       } catch {
         console.log("error while fetching data information");
@@ -113,49 +131,105 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     // ]
     const dummy = [...dataset];
     if (dummy.length > 0) {
-      const main_data: Array<Array<string | React.ReactNode>> = [];
+      const main_data: Array<Array<React.ReactNode>> = [];
       dummy.forEach((inner_arr) => {
         const nested_arr: Array<string | React.ReactNode> = [];
-        inner_arr.forEach((item: any) => {
+        inner_arr.forEach((item: any, i: number) => {
+          console.log(inner_arr, "inner_arr");
           switch (item.component) {
             case "Typography":
-              nested_arr.push(item.text_value);
-
-            case "Switch":
-              nested_arr.push(
-                <Checkbox
-                  value={item.checkbox_state}
-                  onChange={() => handleCheckboxToggle("payload")}
-                />
-              );
+              if (item.options.length > 1) {
+                const nested_component = item.options.map((data: string) => {
+                  return (
+                    <Typography
+                      key={item.component + data + i.toString()}
+                      onClick={() => copyToClipboard(data)}
+                      sx={{
+                        cursor: "pointer",
+                        backgroundColor: "#f5f5f5",
+                        my: 0.5,
+                      }}
+                    >
+                      {data}
+                    </Typography>
+                  );
+                });
+                nested_arr.push(<div style={{ maxHeight: 100, overflowY: "scroll" }} key={item.text_value + i.toString()}>{nested_component}</div>);
+              } else {
+                nested_arr.push(
+                  <Typography
+                    key={item.text_value + i.toString()}
+                    onClick={item.column_name === "format_for_export" ? () => copyToClipboard(item.text_value) : undefined}
+                    sx={{
+                      cursor: item.column_name === "format_for_export" ? "pointer" : "default",
+                    }}
+                  >
+                    {item.text_value}
+                  </Typography>
+                );
+              }
+              break;
 
             case "Checkbox":
               nested_arr.push(
                 <Checkbox
-                  value={item.checkbox_state}
+                  key={
+                    item.checkbox_state
+                      ? "true__" + i.toString()
+                      : "false__" + i.toString()
+                  }
+                  checked={item.checkbox_state}
                   onChange={() => handleCheckboxToggle("payload")}
                 />
               );
+              break;
 
             case "Link":
               nested_arr.push(
-                <Link href={item.text_value}>{item.text_value}</Link>
+                <Link
+                  key={item.text_value + i.toString()}
+                  href={item.text_value}
+                  style={{
+                    textDecoration: "underline",
+                    color: "blue",
+                  }}
+                >
+                  {item.text_value}
+                </Link>
               );
+              break;
 
             case "Textarea":
               nested_arr.push(
                 <TextareaAutosize
-                  minRows={5}
+                  minRows={2}
                   value={item.text_value}
+                  key={item.text_value + i.toString()}
                   onChange={() => editTextArea("")}
                 ></TextareaAutosize>
               );
+              break;
 
-            case "Badge":
-              nested_arr.push("component");
+            case "Autocomplete":
+              nested_arr.push(
+                <Autocomplete
+                  disablePortal
+                  id="combo-box-demo"
+                  size="small"
+                  key={item.autocomplete_curr_state + i.toString()}
+                  value={item.autocomplete_curr_state}
+                  options={item.options ? item.options : []}
+                  sx={{ width: 250 }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              );
+              break;
+
+            default:
+              nested_arr.push(<Typography>{item.text_value}</Typography>);
+              break;
           }
         });
-
         main_data.push(nested_arr);
       });
 
