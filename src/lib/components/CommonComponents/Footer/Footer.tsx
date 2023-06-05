@@ -38,6 +38,7 @@ const Footer = () => {
     { name: "Policies" },
     { name: "Contact us" },
   ];
+  const SOCIALLINKS = [{ name: "Twitter" }, { name: "Common.fi" }];
   return (
     <>
       <div className="footerMainDiv">
@@ -141,19 +142,18 @@ const Footer = () => {
               })}
             </div>
 
-            <div className="paddingTop">
+            <div className="marginMobile">
               <div className="titleStyle">{FOOTER.connectWithUs}</div>
               <div className="connectwithinline">
-                <div className="footerConnetWithUs">
-                  <Link href="#" color={"#FFFFFF"}>
-                    {FOOTER.twitter}
-                  </Link>
-                </div>
-                <div className="footerConnetWithUs">
-                  <Link href="#" color={"#FFFFFF"}>
-                    {FOOTER.commonFi}
-                  </Link>
-                </div>
+                {SOCIALLINKS.map((item) => {
+                  return (
+                    <div key={item.name} className="footerConnetWithUs">
+                      <Link href="#" color={"#FFFFFF"}>
+                        {item.name}
+                      </Link>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
