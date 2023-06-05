@@ -3,9 +3,10 @@ import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { homeConstants, weekName } from "@/lib/ts/constants";
+import Skeleton from '@mui/material/Skeleton';
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => <Skeleton  variant="rounded"  height={200}  />,
 });
 
 function EventSummary() {

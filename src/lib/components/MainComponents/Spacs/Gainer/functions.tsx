@@ -10,10 +10,13 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
 import dynamic from "next/dynamic";
+import Skeleton from '@mui/material/Skeleton';
+
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => <Skeleton  variant="rounded"  height={200}  />,
 });
+
 const headerArray = [
   {
     name: "Company",

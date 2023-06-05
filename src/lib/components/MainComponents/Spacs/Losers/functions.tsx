@@ -12,9 +12,10 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
 import dynamic from "next/dynamic";
 import { GainerInterFace } from "@/lib/ts/interface";
+import Skeleton from '@mui/material/Skeleton';
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => <Skeleton  variant="rounded"  height={200}  />,
 });
 const headerArray = [
   {
