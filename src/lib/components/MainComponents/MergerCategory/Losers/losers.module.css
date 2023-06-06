@@ -40,3 +40,10 @@
   border-bottom: 3px solid #1991ac;
   color: #1991ac;
 }
+
+@media screen and (max-width: 900px) {
+  .stockstablesection {
+    padding: 10px 10px;
+    gap: 16px;
+  }
+}
