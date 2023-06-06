@@ -173,6 +173,12 @@ export const sidebarItem = [
         id: "mergers/screeners",
         breadcrumb: "Home > MERGERS > SCREENERS",
       },
+      {
+        name: "LIST",
+        pathname: "/mergers/list",
+        id: "mergers/list",
+        breadcrumb: "Home > MERGERS > List",
+      },
     ],
   },
 ];
