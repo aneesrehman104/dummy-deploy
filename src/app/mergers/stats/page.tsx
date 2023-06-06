@@ -1,11 +1,12 @@
 "use client";
 import RootLayout from "../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
-export default function IposPage() {
+import MergerStats from "@/lib/components/MainComponents/MergerStats";
+export default function MergerStatsPage() {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="mergers/stats">
-        <div style={{ minHeight: "10vh" }}>mergers stats</div>
+        <MergerStats />
       </AuthenticatedNavbar>
     </RootLayout>
   );
