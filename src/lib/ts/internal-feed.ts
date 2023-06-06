@@ -271,16 +271,37 @@ export const InternalDataFeedColumns = [
   },
 ];
 
+// export const options = {
+//   search: true,
+//   download: true,
+//   print: true,
+//   viewColumns: true,
+//   filter: true,
+//   filterType: "dropdown",
+//   responsive: "vertical",
+//   rowsPerPageOptions: [10, 15, 20],
+//   rowsPerPage: 10,
+// };
+
 export const options = {
-  search: true,
-  download: true,
-  print: true,
-  viewColumns: true,
   filter: true,
   filterType: "dropdown",
-  responsive: "vertical",
-  rowsPerPageOptions: [50, 100, 200],
-  rowsPerPage: 50,
+  responsive: "scroll",
+  selectableRows: "single",
+  rowsPerPageOptions: [20],
+  rowsPerPage: 20,
+  onTableChange: (action: any, dataObj: any) => {
+    let actualData = [];
+    if (dataObj.selectedRows.data.length > 0) {
+      console.log("Row Selected");
+      var selectedRowIndices = Object.keys(dataObj.selectedRows.lookup);
+      selectedRowIndices.map((value) => {
+        actualData.push(dataObj.data[value].data);
+      });
+    } else {
+      console.log("No rows selected");
+    }
+  },
 };
 
 export const getMuiTheme = () =>
@@ -303,6 +324,177 @@ export const getMuiTheme = () =>
       },
     },
   });
+
+export const DataCategoryNesting = {
+  "News & De-SPAC Updates": null,
+  NewsDeals: null,
+  Dealupdates: {
+    "Updated Deck": {
+      sentence_suggestions: [
+        "filed an updated investor presentation.",
+        "filed an investor presentation for the deal.",
+      ],
+      data_point_suggestions: [
+        "Updated Inv. Pres. Link",
+        "Updated Inv. Pres. Date",
+      ],
+    },
+    "Updated Financing": {
+      sentence_suggestion: [
+        "entered into additional PIPE subscription agreements for an aggregate of___",
+        "raise an additional $__ bringing the deal's total PIPE proceeds to ~$___.",
+      ],
+      data_point_suggestions: null,
+    },
+    "Deal Terms Ammended": {
+      sentence_suggestions: [
+        "filed an amendment to the merger agreement.",
+        "amended the merger agreement to, among other things, extend the outside date to ___.",
+      ],
+
+      data_point_suggestions: ["Outside Date"],
+    },
+  },
+  "Liquidations / Bankruptcies": {
+    "New Liquidations / Bankruptcies": {
+      sentence_suggestions: [
+        "effective ___ at a redemption price per share of appx. $10.__.",
+        "reports the redemption price per share will be appx. $__ and the last day of trading is expected to be ___.",
+      ],
+      data_point_suggestions: [
+        "Liquidation Date",
+        "Liquidation Ann. Date",
+        "Liquidation Price",
+      ],
+    },
+    "Liquidations/Bankruptcy Updates": null,
+  },
+  "Deal Closings": {
+    "Deal Closings": {
+      sentence_suggestions: [
+        "The combined company will trade as ___ starting today.",
+      ],
+      data_point_suggestions: [
+        "Closing Ann. Link",
+        "Closing Date",
+        "Ticker Change Date",
+      ],
+    },
+  },
+  "Deal Terminations": {
+    "Deal Terminations": {
+      sentence_suggestions: ["mutually agreed to terminate the merger"],
+      data_point_suggestions: [
+        "Termination Date",
+        "Termination Link",
+        "Termination Details",
+      ],
+    },
+  },
+  "News & De-SPAC updates": {
+    "News & De-SPAC updates": {
+      sentence_suggestions: ["completed a reverse stock split."],
+      data_point_suggestions: [
+        "Stock Split Adjustment",
+        "Stock Split Date",
+        "Stock Split Detail",
+      ],
+    },
+  },
+  "SPAC Extension Vote Updates": {
+    "Extension Date Postponed": {
+      sentence_suggestions: [
+        "adjourned its meeting from yesterday to today, The deadline for reversals is today prior to ___.",
+      ],
+      data_point_suggestions: [
+        "Ext. Vote Date",
+        "Ext. Vote Time",
+        "Ext. Vote Upd. Proxy",
+        "Ext. Vote Proxy",
+      ],
+    },
+    "Extension Approved": {
+      sentence_suggestions: null,
+      data_point_suggestions: [
+        "Deadline Date",
+        "Latest Red. Shares",
+        "Latest Red. Link",
+        "Pre-Close Shares Rem.",
+        "Trust Value",
+        "Ext. Details",
+      ],
+    },
+    "Extension Funded": {
+      sentence_suggestions: [
+        "intends to deposit $___ into trust to fund monthly extension to ___.",
+      ],
+      data_point_suggestions: ["Deadline Date", "Ext. Details"],
+    },
+    "Extension Canceled": {
+      sentence_suggestions: null,
+      data_point_suggestions: [
+        "Ext. Vote Date",
+        "Ext. Vote Time",
+        "Ext. Details",
+      ],
+    },
+    "Non-Redemption Agreements": {
+      sentence_suggestions: null,
+      data_point_suggestions: ["Ext. Details"],
+    },
+    "Other Extension Vote Related Update": {
+      sentence_suggestions: [
+        "clarifies it will not use trust funds for IR excise tax liabilities.",
+      ],
+      data_point_suggestions: ["Ext. Details"],
+    },
+  },
+  "Deal Plans / Rumors": {
+    "Deal Plans / Rumors": {
+      sentence_suggestions: ["entered into a non-binding LOI to merge with"],
+      data_point_suggestions: [
+        "Deal Status",
+        "Deal Active Status",
+        "Deal Rumor / In Talks Status",
+        "Deal Rumor / In Talks Date",
+        "Deal Rumor / In Talks Publication Source",
+        "Deal Rumor / In Talks  Description",
+      ],
+    },
+  },
+  "Merger Vote Updates": {
+    "Merger Approved": null,
+    "Merger Vote Set": null,
+    "SPAC Merger Redemption Results": null,
+  },
+  "New IPO Filings": {
+    "New S-1": null,
+    "New Withdrawal": null,
+  },
+  "IPO Updates": {
+    "IPO Updates": null,
+  },
+  "IPO Pricings": {
+    "IPO Pricings": null,
+  },
+  "SPAC Financials": {
+    "SPAC Financials": null,
+  },
+  "Key Filings": {
+    "Key Filings - SPAC Extensions": null,
+    "Key Filings - Merger S-4": null,
+    "Key Filings - Post-Merger S-1": null,
+  },
+  "Listing Updates": {
+    "Listing Warning: Late 10-Q": null,
+    "Listing Warning: Below Min. Market Value": null,
+    "Listing Warning: Below Min. Holders": null,
+    Delisted: {
+      sentence_suggestions: ["was delisted by Nasdaq and now is trading OTC."],
+    },
+  },
+  "All Other Updates": null,
+};
 
 // TODO remove, this demo shouldn't need to reset the theme.
 export const defaultTheme = createTheme();

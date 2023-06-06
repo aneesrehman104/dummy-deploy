@@ -3,23 +3,34 @@ import { TableDataInterface } from "../interfaces";
 type ReducerAction = {
   type: string;
   payload: Array<object>;
+  index?: number[];
+  config?: {
+    value: string;
+  };
 };
 
 export const reducer = (
-  state: Array<TableDataInterface>,
+  state: Array<Array<TableDataInterface>>,
   action: ReducerAction
 ): Array<any> => {
-  const dummy = [...state];
+  const dummy = [...state].map((row) => [...row]);
   switch (action.type) {
     case "replace":
       return action.payload;
 
-    case "reviewed":
-      return action.payload;
+    case "Reviewed":
+      if (action.index && action.index.length > 0) {
+        dummy[action.index[0]][action.index[1]].checkbox_state =
+          !dummy[action.index[0]][action.index[1]].checkbox_state;
+      }
+      return dummy;
 
     case "submit_to_keyfeed":
-      // this is checkbox component
-      return { ...action.payload };
+      if (action.index && action.index.length > 0) {
+        dummy[action.index[0]][action.index[1]].checkbox_state =
+          !dummy[action.index[0]][action.index[1]].checkbox_state;
+      }
+      return dummy;
 
     case "format_for_export":
       return state;
@@ -30,7 +41,10 @@ export const reducer = (
 
     case "writeup_key_events":
       // this is a text area or an editable div
-      return { ...action.payload };
+      if (action.config && action.index && action.index.length > 0) {
+        dummy[action.index[0]][action.index[1]].text_value = action.config.value;
+      }
+      return dummy;
 
     case "relevant_writeup":
       // dropdown

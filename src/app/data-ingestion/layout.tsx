@@ -16,12 +16,10 @@ import { MainListItems } from "@user-interface/listitems";
 import MUIDataTable from "mui-datatables";
 import { AppBar, Drawer } from "@/lib/material/styled.components";
 import {
-  InternalDataFeedColumns,
   defaultTheme,
   getMuiTheme,
   initialState,
   limit,
-  options,
   title_name,
 } from "@/lib/ts/internal-feed";
 import {
@@ -30,6 +28,12 @@ import {
   TextareaAutosize,
   Autocomplete,
   TextField,
+  Chip,
+  Select,
+  FormControl,
+  MenuItem,
+  FormHelperText,
+  CircularProgress,
 } from "@mui/material";
 import Link from "next/link";
 import { reducer } from "@/lib/reducers/internal-feed";
@@ -46,6 +50,400 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   );
   const [offset, setOffset] = useState<number>(0);
   const [dataset, dispatch] = useReducer(reducer, initialState);
+  const [isLoading, setLoading] = useState<boolean>(true);
+  const [table_columns, setTableColumns] = useState([
+    {
+      name: "Source Link",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any) => {
+          return (
+            <Link
+              href={value}
+              style={{
+                textDecoration: "underline",
+                color: "blue",
+              }}
+            >
+              {value}
+            </Link>
+          );
+        },
+      },
+    },
+
+    {
+      name: "Date and Time EST",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Company(s)",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Ticker(s)",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Type of Material (Sec, PR, News)",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Source",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Type of SEC Form",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Description",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Body of Source Material",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Our Keywords Found",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Entry Unit (Deal/Company)",
+      options: {
+        filter: true,
+        sort: false,
+        width: 400,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            size="small"
+            value={value}
+            options={[]}
+            sx={{ width: 250 }}
+            renderOption={(props, option) => {
+              return (
+                <li {...props} key={option}>
+                  {option}
+                </li>
+              );
+            }}
+            renderTags={(tagValue, getTagProps) => {
+              return tagValue.map((option, index) => (
+                <Chip {...getTagProps({ index })} key={option} label={option} />
+              ));
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        ),
+      },
+    },
+
+    {
+      name: "Attach to Record",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            size="small"
+            value={value}
+            options={[]}
+            sx={{ width: 250 }}
+            renderOption={(props, option) => {
+              return (
+                <li {...props} key={option}>
+                  {option}
+                </li>
+              );
+            }}
+            renderTags={(tagValue, getTagProps) => {
+              return tagValue.map((option, index) => (
+                <Chip {...getTagProps({ index })} key={option} label={option} />
+              ));
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        ),
+      },
+    },
+
+    {
+      name: "Data Category",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          return (
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              size="small"
+              value={value}
+              options={[]}
+              sx={{ width: 250 }}
+              onChange={(event, newValue) => {
+                updateValue(newValue);
+                addColumn(newValue);
+                // 12th index ---> Data Category
+                // 13th index ---> Sub Category
+                // 14th index ---> Sentence Suggestions
+                // 15th index ---> Data point Suggestion
+              }}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option}>
+                    {option}
+                  </li>
+                );
+              }}
+              renderTags={(tagValue, getTagProps) => {
+                return tagValue.map((option, index) => (
+                  <Chip
+                    {...getTagProps({ index })}
+                    key={option}
+                    label={option}
+                  />
+                ));
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          );
+        },
+      },
+    },
+
+    {
+      name: "Key Event(Y/N)",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Autocomplete
+            disablePortal
+            size="small"
+            value={value}
+            options={[]}
+            sx={{ width: 200 }}
+            renderOption={(props, option) => {
+              return (
+                <li {...props} key={option}>
+                  {option}
+                </li>
+              );
+            }}
+            renderTags={(tagValue, getTagProps) => {
+              return tagValue.map((option, index) => (
+                <Chip {...getTagProps({ index })} key={option} label={option} />
+              ));
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        ),
+      },
+    },
+
+    {
+      name: "Relevant Writeup Sentence Suggestions Based on Data Category",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          return (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              {value.map((item: any, i: number) => {
+                return (
+                  <Typography
+                    style={{
+                      marginTop: "2px",
+                      padding: 2,
+                      backgroundColor: "#e0e0e0",
+                    }}
+                    onClick={() => {
+                      copyToClipboard(item);
+                    }}
+                    key={item + i.toString()}
+                  >
+                    {item}
+                  </Typography>
+                );
+              })}
+            </div>
+          );
+        },
+      },
+    },
+
+    {
+      name: "Writeup for Key Events / Newsletter",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <TextareaAutosize
+            value={value}
+            onChange={(event) => updateValue(event.target.value)}
+            style={{ padding: 8, width: 300, height: 100 }}
+          />
+        ),
+      },
+    },
+
+    {
+      name: "Relevant Data Points Suggestions Based on Data Category",
+      options: {
+        filter: true,
+        sort: false,
+        width: 400,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          return (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              {value.map((item: any, i: number) => {
+                return (
+                  <Typography
+                    style={{
+                      marginTop: "2px",
+                      padding: 2,
+                      backgroundColor: "#e0e0e0",
+                    }}
+                    onClick={() => {
+                      copyToClipboard(item);
+                    }}
+                    key={item + i.toString()}
+                  >
+                    {item}
+                  </Typography>
+                );
+              })}
+            </div>
+          );
+        },
+      },
+    },
+
+    {
+      name: "Format for Export to Newsletter / Key Event",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography
+            onClick={() => copyToClipboard(tableMeta)}
+            sx={{
+              cursor: "pointer",
+            }}
+          >
+            {value}
+          </Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Submit to Key Feed and Newsletter tool",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Checkbox checked={value} onChange={() => updateValue(!value)} />
+        ),
+      },
+    },
+
+    {
+      name: "Reviewed",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Checkbox checked={value} onChange={() => updateValue(!value)} />
+        ),
+      },
+    },
+  ]);
+
+  function addColumn(column_name: string) {
+    
+  };
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -58,7 +456,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   const copyToClipboard = (text: string) => {
     console.log(text);
     window.navigator.clipboard.writeText(text).then(() => {
-      console.log("copied to clipboard");
       alert("copied to clipboard");
     });
   };
@@ -74,9 +471,24 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
 
   const handleSwitchToggle = (payload: any) => {};
 
-  const handleCheckboxToggle = (payload: any) => {};
+  const handleCheckboxToggle = (column_name: string, index: number[]) => {
+    dispatch({ type: column_name, payload: [], index });
+  };
 
-  const editTextArea = (payload: any) => {};
+  const handleDataCategoryChange = () => {};
+
+  const editTextArea = (
+    event: React.ChangeEvent<HTMLTextAreaElement>,
+    column_name: string,
+    index: number[]
+  ) => {
+    dispatch({
+      type: column_name,
+      payload: [],
+      config: { value: event.target.value },
+      index,
+    });
+  };
 
   // set the open state to false when the screen is less than 600px
   useEffect(() => {
@@ -96,12 +508,11 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       // we need to make a call to the backend to get the data with limit and offset
       try {
         const response = await fetch(
-          // `http://localhost:3000/api/dataset?limit=${limit}&offset=${offset}`
-          "http://127.0.0.1:5500/internal-feed.json"
+          `http://localhost:3000/api/dataset?limit=${limit * 3}&offset=${offset}`
+          // "http://127.0.0.1:5500/internal-feed.json"
         );
         const data: IResponseSchema = await response.json();
         const serializedData = serializeData(data.source.dataset);
-        console.log(serializedData, "serialized data");
         if (serializedData.length > 0) {
           // we need to change the payload later
           dispatch({ type: "replace", payload: serializedData });
@@ -109,6 +520,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       } catch {
         console.log("error while fetching data information");
       }
+      setLoading(false);
     };
 
     GetDataset();
@@ -129,110 +541,51 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     //   },
     //   ...
     // ]
-    const dummy = [...dataset];
+
+    console.log("dataset changed");
+    const dummy = [...dataset].map((row) =>
+      [...row].map((col) => ({ ...col }))
+    );
+    const start_time = new Date().getTime();
     if (dummy.length > 0) {
       const main_data: Array<Array<React.ReactNode>> = [];
-      dummy.forEach((inner_arr) => {
-        const nested_arr: Array<string | React.ReactNode> = [];
+      dummy.forEach((inner_arr, outer_index: number) => {
+        const nested_arr: Array<string | React.ReactNode | boolean> = [];
         inner_arr.forEach((item: any, i: number) => {
-          console.log(inner_arr, "inner_arr");
           switch (item.component) {
             case "Typography":
-              if (item.options.length > 1) {
-                const nested_component = item.options.map((data: string) => {
-                  return (
-                    <Typography
-                      key={item.component + data + i.toString()}
-                      onClick={() => copyToClipboard(data)}
-                      sx={{
-                        cursor: "pointer",
-                        backgroundColor: "#f5f5f5",
-                        my: 0.5,
-                      }}
-                    >
-                      {data}
-                    </Typography>
-                  );
-                });
-                nested_arr.push(<div style={{ maxHeight: 100, overflowY: "scroll" }} key={item.text_value + i.toString()}>{nested_component}</div>);
+              if (item.options.length >= 1) {
+                nested_arr.push(item.options);
               } else {
-                nested_arr.push(
-                  <Typography
-                    key={item.text_value + i.toString()}
-                    onClick={item.column_name === "format_for_export" ? () => copyToClipboard(item.text_value) : undefined}
-                    sx={{
-                      cursor: item.column_name === "format_for_export" ? "pointer" : "default",
-                    }}
-                  >
-                    {item.text_value}
-                  </Typography>
-                );
+                nested_arr.push(item.text_value);
               }
               break;
 
             case "Checkbox":
-              nested_arr.push(
-                <Checkbox
-                  key={
-                    item.checkbox_state
-                      ? "true__" + i.toString()
-                      : "false__" + i.toString()
-                  }
-                  checked={item.checkbox_state}
-                  onChange={() => handleCheckboxToggle("payload")}
-                />
-              );
+              nested_arr.push(item.checkbox_state);
               break;
 
             case "Link":
-              nested_arr.push(
-                <Link
-                  key={item.text_value + i.toString()}
-                  href={item.text_value}
-                  style={{
-                    textDecoration: "underline",
-                    color: "blue",
-                  }}
-                >
-                  {item.text_value}
-                </Link>
-              );
+              nested_arr.push(item.text_value);
               break;
 
             case "Textarea":
-              nested_arr.push(
-                <TextareaAutosize
-                  minRows={2}
-                  value={item.text_value}
-                  key={item.text_value + i.toString()}
-                  onChange={() => editTextArea("")}
-                ></TextareaAutosize>
-              );
+              nested_arr.push(item.text_value);
               break;
 
             case "Autocomplete":
-              nested_arr.push(
-                <Autocomplete
-                  disablePortal
-                  id="combo-box-demo"
-                  size="small"
-                  key={item.autocomplete_curr_state + i.toString()}
-                  value={item.autocomplete_curr_state}
-                  options={item.options ? item.options : []}
-                  sx={{ width: 250 }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              );
+              nested_arr.push(item.autocomplete_curr_state);
               break;
 
             default:
-              nested_arr.push(<Typography>{item.text_value}</Typography>);
+              nested_arr.push(item.text_value);
               break;
           }
         });
         main_data.push(nested_arr);
       });
-
+      const end_time = new Date().getTime();
+      console.log(end_time - start_time);
       return main_data;
     }
     // mapped response should be 2D array with components, text or numbers as wanted
@@ -311,11 +664,50 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           <Toolbar />
           <ThemeProvider theme={getMuiTheme()}>
             <MUIDataTable
-              title="Internal Feed"
+              title={
+                <Typography variant="h6">
+                  Internal Feed
+                  {isLoading && (
+                    <CircularProgress
+                      size={24}
+                      style={{ marginLeft: 15, position: "relative", top: 4 }}
+                    />
+                  )}
+                </Typography>
+              }
               data={final_data}
-              columns={InternalDataFeedColumns}
-              // @ts-ignore
-              options={options}
+              columns={table_columns}
+              options={{
+                filter: true,
+                filterType: "dropdown",
+                serverSide: true,
+                //count, // Use total number of items
+                count: -1, // Unknown number of items
+                responsive: "simple",
+                selectableRows: "single",
+                rowsPerPageOptions: [20],
+                rowsPerPage: 20,
+                onSearchChange: (searchText) => {
+                  console.log(searchText);
+                },
+                onTableChange: (action, dataObj) => {
+                  let actualData = [];
+                  if (dataObj.selectedRows.data.length > 0) {
+                    console.log("Row Selected");
+                    var selectedRowIndices = Object.keys(
+                      dataObj.selectedRows.lookup
+                    );
+                    selectedRowIndices.map((value: any) => {
+                      actualData.push(dataObj.data[value].data);
+                    });
+                  } else {
+                    console.log("No rows selected");
+                  }
+                },
+                onChangePage: (currentPage) => {
+                  console.log(currentPage);
+                },
+              }}
             />
           </ThemeProvider>
         </Box>
