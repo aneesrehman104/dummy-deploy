@@ -23,25 +23,17 @@ import {
   title_name,
 } from "@/lib/ts/internal-feed";
 import {
-  Switch,
   Checkbox,
   TextareaAutosize,
   Autocomplete,
   TextField,
   Chip,
-  Select,
-  FormControl,
-  MenuItem,
-  FormHelperText,
   CircularProgress,
 } from "@mui/material";
 import Link from "next/link";
 import { reducer } from "@/lib/reducers/internal-feed";
 import { serializeData } from "@/lib/utils/data-ingestion";
 import { IResponseSchema } from "@/lib/ts";
-import next from "next/types";
-
-// reducer function dummy
 
 export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   const [open, setOpen] = React.useState(true);
@@ -74,7 +66,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     },
 
     {
-      name: "Date and Time EST",
+      name: "Date & Time EST",
       options: {
         filter: true,
         sort: false,
@@ -107,7 +99,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     },
 
     {
-      name: "Type of Material (Sec, PR, News)",
+      name: "Material Type",
       options: {
         filter: true,
         sort: false,
@@ -129,7 +121,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     },
 
     {
-      name: "Type of SEC Form",
+      name: "SEC Form",
       options: {
         filter: true,
         sort: false,
@@ -151,7 +143,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     },
 
     {
-      name: "Body of Source Material",
+      name: "Keywords Found",
       options: {
         filter: true,
         sort: false,
@@ -162,18 +154,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     },
 
     {
-      name: "Our Keywords Found",
-      options: {
-        filter: true,
-        sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Typography>{value}</Typography>
-        ),
-      },
-    },
-
-    {
-      name: "Entry Unit (Deal/Company)",
+      name: "Entry Unit",
       options: {
         filter: true,
         sort: false,
@@ -281,7 +262,118 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     },
 
     {
-      name: "Key Event(Y/N)",
+      name: "Sentence Suggestions",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          return (
+            // <div
+            //   style={{
+            //     display: "flex",
+            //     flexDirection: "column",
+            //     justifyContent: "center",
+            //   }}
+            // >
+            //   {value.options.map((item: any, i: number) => {
+            //     return (
+            //       <Typography
+            //         style={{
+            //           marginTop: "2px",
+            //           padding: 2,
+            //           backgroundColor: "#e0e0e0",
+            //         }}
+            //         onClick={() => {
+            //           copyToClipboard(item);
+            //         }}
+            //         key={item + i.toString()}
+            //       >
+            //         {item}
+            //       </Typography>
+            //     );
+            //   })}
+            // </div>
+          <Typography>{value}</Typography>
+
+          );
+        },
+      },
+    },
+
+    {
+      name: "Write-up",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <TextareaAutosize
+            value={value}
+            onChange={(event) => updateValue(event.target.value)}
+            style={{ padding: 8, width: 300, height: 100 }}
+          />
+        ),
+      },
+    },
+
+    {
+      name: "Data Points Suggestions",
+      options: {
+        filter: true,
+        sort: false,
+        width: 400,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          return (
+            // <div
+            //   style={{
+            //     display: "flex",
+            //     flexDirection: "column",
+            //     justifyContent: "center",
+            //   }}
+            // >
+            //   {value.options.map((item: any, i: number) => {
+            //     return (
+            //       <Typography
+            //         style={{
+            //           marginTop: "2px",
+            //           padding: 2,
+            //           backgroundColor: "#e0e0e0",
+            //         }}
+            //         onClick={() => {
+            //           copyToClipboard(item);
+            //         }}
+            //         key={item + i.toString()}
+            //       >
+            //         {item}
+            //       </Typography>
+            //     );
+            //   })}
+            // </div>
+          <Typography>{value}</Typography>
+          );
+        },
+      },
+    },
+
+    {
+      name: "Newsletter Format",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography
+            onClick={() => copyToClipboard(tableMeta)}
+            sx={{
+              cursor: "pointer",
+            }}
+          >
+            {value}
+          </Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Key Event",
       options: {
         filter: true,
         sort: false,
@@ -311,115 +403,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     },
 
     {
-      name: "Relevant Writeup Sentence Suggestions Based on Data Category",
-      options: {
-        filter: true,
-        sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
-          return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
-              {value.map((item: any, i: number) => {
-                return (
-                  <Typography
-                    style={{
-                      marginTop: "2px",
-                      padding: 2,
-                      backgroundColor: "#e0e0e0",
-                    }}
-                    onClick={() => {
-                      copyToClipboard(item);
-                    }}
-                    key={item + i.toString()}
-                  >
-                    {item}
-                  </Typography>
-                );
-              })}
-            </div>
-          );
-        },
-      },
-    },
-
-    {
-      name: "Writeup for Key Events / Newsletter",
-      options: {
-        filter: true,
-        sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <TextareaAutosize
-            value={value}
-            onChange={(event) => updateValue(event.target.value)}
-            style={{ padding: 8, width: 300, height: 100 }}
-          />
-        ),
-      },
-    },
-
-    {
-      name: "Relevant Data Points Suggestions Based on Data Category",
-      options: {
-        filter: true,
-        sort: false,
-        width: 400,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
-          return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
-              {value.map((item: any, i: number) => {
-                return (
-                  <Typography
-                    style={{
-                      marginTop: "2px",
-                      padding: 2,
-                      backgroundColor: "#e0e0e0",
-                    }}
-                    onClick={() => {
-                      copyToClipboard(item);
-                    }}
-                    key={item + i.toString()}
-                  >
-                    {item}
-                  </Typography>
-                );
-              })}
-            </div>
-          );
-        },
-      },
-    },
-
-    {
-      name: "Format for Export to Newsletter / Key Event",
-      options: {
-        filter: true,
-        sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Typography
-            onClick={() => copyToClipboard(tableMeta)}
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            {value}
-          </Typography>
-        ),
-      },
-    },
-
-    {
-      name: "Submit to Key Feed and Newsletter tool",
+      name: "Submit to Key Feed",
       options: {
         filter: true,
         sort: false,
@@ -439,6 +423,83 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         ),
       },
     },
+
+    {
+      name: "Shares Redeemed",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "NAV P.S.",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Shares Before",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Percent Redeemed",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Shares Left",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Left in Trust",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
+
+    {
+      name: "Redemption Sentence",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Typography>{value}</Typography>
+        ),
+      },
+    },
   ]);
 
   function addColumn(column_name: string) {
@@ -454,7 +515,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   };
 
   const copyToClipboard = (text: string) => {
-    console.log(text);
     window.navigator.clipboard.writeText(text).then(() => {
       alert("copied to clipboard");
     });
@@ -508,10 +568,11 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       // we need to make a call to the backend to get the data with limit and offset
       try {
         const response = await fetch(
-          `http://localhost:3000/api/dataset?limit=${limit * 3}&offset=${offset}`
-          // "http://127.0.0.1:5500/internal-feed.json"
+          // `http://localhost:3000/api/dataset?limit=${limit * 3}&offset=${offset}`
+          "http://127.0.0.1:5500/internal-feed.json"
         );
         const data: IResponseSchema = await response.json();
+        console.log(data, "data");
         const serializedData = serializeData(data.source.dataset);
         if (serializedData.length > 0) {
           // we need to change the payload later
@@ -524,7 +585,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     };
 
     GetDataset();
-  }, [offset]);
+  }, []);
 
   const final_data = useMemo(() => {
     // the data schema is this
@@ -542,19 +603,19 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     //   ...
     // ]
 
-    console.log("dataset changed");
     const dummy = [...dataset].map((row) =>
       [...row].map((col) => ({ ...col }))
     );
     const start_time = new Date().getTime();
     if (dummy.length > 0) {
+      console.log(dummy, "dummy");
       const main_data: Array<Array<React.ReactNode>> = [];
       dummy.forEach((inner_arr, outer_index: number) => {
         const nested_arr: Array<string | React.ReactNode | boolean> = [];
         inner_arr.forEach((item: any, i: number) => {
           switch (item.component) {
             case "Typography":
-              if (item.options.length >= 1) {
+              if (item.options.length > 1) {
                 nested_arr.push(item.options);
               } else {
                 nested_arr.push(item.text_value);
@@ -586,6 +647,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       });
       const end_time = new Date().getTime();
       console.log(end_time - start_time);
+      console.log(main_data, "main_data")
       return main_data;
     }
     // mapped response should be 2D array with components, text or numbers as wanted
@@ -680,9 +742,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
               options={{
                 filter: true,
                 filterType: "dropdown",
-                serverSide: true,
-                //count, // Use total number of items
-                count: -1, // Unknown number of items
                 responsive: "simple",
                 selectableRows: "single",
                 rowsPerPageOptions: [20],
@@ -693,15 +752,12 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
                 onTableChange: (action, dataObj) => {
                   let actualData = [];
                   if (dataObj.selectedRows.data.length > 0) {
-                    console.log("Row Selected");
                     var selectedRowIndices = Object.keys(
                       dataObj.selectedRows.lookup
                     );
                     selectedRowIndices.map((value: any) => {
                       actualData.push(dataObj.data[value].data);
                     });
-                  } else {
-                    console.log("No rows selected");
                   }
                 },
                 onChangePage: (currentPage) => {

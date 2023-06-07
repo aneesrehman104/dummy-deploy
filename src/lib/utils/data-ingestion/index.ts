@@ -1,4 +1,4 @@
-import { InternalFeedTableData } from "@/lib/ts/internal-feed";
+import { InternalFeedTableData, sorted_data_feed_keys } from "@/lib/ts/internal-feed";
 import { TTableColumns } from "@/lib/interfaces/data-ingestion";
 import { ResponseBody } from "@/lib/ts";
 type TableResponse = {
@@ -32,13 +32,19 @@ export function GetValuePlaceholder(
 
 export function serializeData(data: Array<ResponseBody>) {
   if (data.length === 0) return data;
-  const internal_feed_key = Object.keys(InternalFeedTableData);
-
+  const internal_feed_key = sorted_data_feed_keys;
+  console.log(internal_feed_key, "internal_feed_key");
   const serializedData = data.map((item) => {
-    const column_names = Object.keys(item);
-    const column_values = Object.values(item);
+    const sorted_item = {}
+    internal_feed_key.forEach((key: string) => {
+      // @ts-ignore
+      sorted_item[key] = item[key];
+    });
+    const column_names = Object.keys(sorted_item);
+    const column_values: Array<string> = Object.values(sorted_item);
     const tableResponse: Array<TableResponse> = [];
-
+    // console.log(column_names, "column_names");
+    // console.log(column_values, "column_values");
     for (let i = 0; i < column_names.length; i++) {
       tableResponse.push({
         column_name: column_names[i],
@@ -84,6 +90,7 @@ export function serializeData(data: Array<ResponseBody>) {
           options: string[];
         }
     > = [];
+
 
     tableResponse.forEach((table_response_item, i) => {
       const _elmKey = internal_feed_key.find(

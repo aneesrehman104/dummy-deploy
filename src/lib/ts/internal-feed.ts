@@ -25,7 +25,7 @@ export const InternalFeedTableData = {
   },
 
   material_type: {
-    name: "Type of Material (Sec, PR, News)",
+    name: "Material Type",
     component: "Typography",
   },
 
@@ -35,7 +35,7 @@ export const InternalFeedTableData = {
   },
 
   sec_form: {
-    name: "Type of SEC Form",
+    name: "SEC Form",
     component: "Typography",
   },
 
@@ -44,18 +44,13 @@ export const InternalFeedTableData = {
     component: "Typography",
   },
 
-  source_material_body: {
-    name: "Body of Source Material",
-    component: "Typography",
-  },
-
   our_keywords_found: {
-    name: "Our Keywords Found",
+    name: "Keywords Found",
     component: "Typography",
   },
 
   entry_unit: {
-    name: "Entry Unit (Deal/Company)",
+    name: "Entry Unit",
     component: "Autocomplete",
   },
 
@@ -69,39 +64,76 @@ export const InternalFeedTableData = {
     component: "Autocomplete",
   },
 
-  key_event: {
-    name: "Key Event(Y/N)",
-    component: "Autocomplete",
-  },
+  // sub-category dynamically changes based on the data category
 
   relevant_writeup: {
-    name: "Relevant Writeup Sentence Suggestions Based on Data Category",
+    name: "Sentence Suggestions",
     component: "Typography",
   },
 
   writeup_key_events: {
-    name: "Writeup for Key Events / Newsletter",
+    name: "Write-up",
     component: "Textarea",
   },
 
   relevant_data_suggestion: {
-    name: "Relevant Data Points Suggestions Based on Data Category",
+    name: "Data Points Suggestions",
     component: "Typography",
   },
 
   format_for_export: {
-    name: "Format for Export to Newsletter / Key Event",
+    name: "Newsletter Format",
     component: "Typography",
   },
 
+  key_event: {
+    name: "Key Event",
+    component: "Autocomplete",
+  },
+
   submit_to_keyfeed: {
-    name: "Submit to Key Feed and Newsletter tool",
+    name: "Submit to Key Feed",
     component: "Checkbox",
   },
 
   reviewed: {
     name: "Reviewed",
     component: "Checkbox",
+  },
+
+  shares_redeemed: {
+    name: "Shares Redeemed",
+    component: "Typography",
+  },
+
+  nav_ps: {
+    name: "NAV P.S.",
+    component: "Typography",
+  },
+
+  shares_before: {
+    name: "Shares Before",
+    component: "Typography",
+  },
+
+  percent_redeemed: {
+    name: "Percent Redeemed",
+    component: "Typography",
+  },
+
+  shares_left: {
+    name: "Shares Left",
+    component: "Typography",
+  },
+
+  left_in_trust: {
+    name: "Left in Trust",
+    component: "Typography",
+  },
+
+  redemption_sentence: {
+    name: "Redemption Sentence",
+    component: "Typography",
   },
 };
 
@@ -271,6 +303,35 @@ export const InternalDataFeedColumns = [
   },
 ];
 
+
+export const sorted_data_feed_keys = [
+  "source_link",
+  "date_time_est",
+  "company",
+  "tickers",
+  "material_type",
+  "source",
+  "sec_form",
+  "description",
+  "our_keywords_found",
+  "entry_unit",
+  "attach_to_record",
+  "data_category",
+  "relevant_writeup",
+  "writeup_key_events",
+  "relevant_data_suggestion",
+  "format_for_export",
+  "key_event",
+  "submit_to_keyfeed",
+  "reviewed",
+  "shares_redeemed",
+  "nav_ps",
+  "shares_before",
+  "percent_redeemed",
+  "shares_left",
+  "left_in_trust",
+  "redemption_sentence"
+];
 // export const options = {
 //   search: true,
 //   download: true,
@@ -282,27 +343,6 @@ export const InternalDataFeedColumns = [
 //   rowsPerPageOptions: [10, 15, 20],
 //   rowsPerPage: 10,
 // };
-
-export const options = {
-  filter: true,
-  filterType: "dropdown",
-  responsive: "scroll",
-  selectableRows: "single",
-  rowsPerPageOptions: [20],
-  rowsPerPage: 20,
-  onTableChange: (action: any, dataObj: any) => {
-    let actualData = [];
-    if (dataObj.selectedRows.data.length > 0) {
-      console.log("Row Selected");
-      var selectedRowIndices = Object.keys(dataObj.selectedRows.lookup);
-      selectedRowIndices.map((value) => {
-        actualData.push(dataObj.data[value].data);
-      });
-    } else {
-      console.log("No rows selected");
-    }
-  },
-};
 
 export const getMuiTheme = () =>
   createTheme({
