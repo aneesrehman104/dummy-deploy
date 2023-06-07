@@ -12,6 +12,7 @@
 .calenderTabs {
   border-bottom: 1px solid #d2ecf9;
   display: flex;
+  width: 100%;
 }
 .tableTitle {
   position: relative;

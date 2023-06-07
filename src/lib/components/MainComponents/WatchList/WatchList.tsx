@@ -1,12 +1,12 @@
-import styles from "./MergerList.module.css";
+import styles from "./WatchList.module.css";
 import React from "react";
 import CardElements from "./CardElements/CardElements";
-const MergerList = () => {
+const WatchList = () => {
   return (
     <>
       <div className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
-          <div className={styles.dashboardtitle}>Merger List</div>
+          <div className={styles.dashboardtitle}>Watch List</div>
         </div>
       </div>
       <CardElements/>
@@ -14,4 +14,4 @@ const MergerList = () => {
   );
 };
 
-export default MergerList;
+export default WatchList;

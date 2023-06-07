@@ -1,15 +1,17 @@
 import styles from "./SpacsCalender.module.css";
 import React from "react";
-import CardElements from "./CardElements/CardElements";
+import SpacsEventCalender from "./SpacsEventCalendar/SpacsEventCalender";
+import SpacsIpoCalendar from "./SpacsIpoCalendar/SpacsIpoCalendar";
 const SpacsCalender = () => {
   return (
     <>
       <div className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
-          <div className={styles.dashboardtitle}>spac Calender</div>
+          <div className={styles.dashboardtitle}>SPAC Event Calendar</div>
         </div>
       </div>
-      <CardElements/>
+      <SpacsEventCalender/>
+      <SpacsIpoCalendar/>
     </>
   );
 };

@@ -78,42 +78,40 @@ function CardElements() {
 
   return (
     <div className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>Card Elements</div>
-      <div className={styles.tableContainerInner}>
-        <div className={styles.calenderTabs}>
-          <div
-            onClick={() => setSelectedTab(0)}
-            className={`${styles.headerCell} ${
-              selectedTab === 0 && styles.selectedHeader
-            }`}
-          >
-            All Active SPACs
-          </div>
-          <div
-            onClick={() => setSelectedTab(1)}
-            className={`${styles.headerCell} ${
-              selectedTab === 1 && styles.selectedHeader
-            }`}
-          >
-            Pre-Deal SPACs
-          </div>
-          <div
-            onClick={() => setSelectedTab(1)}
-            className={`${styles.headerCell} ${
-              selectedTab === 2 && styles.selectedHeader
-            }`}
-          >
-            Announced Deals
-          </div>
-          <div
-            onClick={() => setSelectedTab(1)}
-            className={`${styles.headerCell} ${
-              selectedTab === 3 && styles.selectedHeader
-            }`}
-          >
-            De-SPACs
-          </div>
+      <div className={styles.calenderTabs}>
+        <div
+          onClick={() => setSelectedTab(0)}
+          className={`${styles.headerCell} ${
+            selectedTab === 0 && styles.selectedHeader
+          }`}
+        >
+          IPO Watchlist
         </div>
+        <div
+          onClick={() => setSelectedTab(1)}
+          className={`${styles.headerCell} ${
+            selectedTab === 1 && styles.selectedHeader
+          }`}
+        >
+          Merger Watchlist
+        </div>
+        <div
+          onClick={() => setSelectedTab(2)}
+          className={`${styles.headerCell} ${
+            selectedTab === 2 && styles.selectedHeader
+          }`}
+        >
+          SPAC Watchlist
+        </div>
+      </div>
+      <div className={styles.tableTitle}>
+        {selectedTab == 0
+          ? "IPO Watchlist"
+          : selectedTab == 1
+          ? "Merger Watchlist"
+          : "SPAC Watchlist"}
+      </div>
+      <div className={styles.tableContainerInner}>
         <div style={{ overflow: "auto" }}>
           <MyTable
             data={data}
