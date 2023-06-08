@@ -16,6 +16,7 @@ import { MainListItems } from "@user-interface/listitems";
 import MUIDataTable from "mui-datatables";
 import { AppBar, Drawer } from "@/lib/material/styled.components";
 import {
+  DataCategoryNesting,
   defaultTheme,
   getMuiTheme,
   initialState,
@@ -162,10 +163,9 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
           <Autocomplete
             disablePortal
-            id="combo-box-demo"
             size="small"
             value={value}
-            options={[]}
+            options={["Deal", "Company"]}
             sx={{ width: 250 }}
             renderOption={(props, option) => {
               return (
@@ -178,6 +178,9 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
               return tagValue.map((option, index) => (
                 <Chip {...getTagProps({ index })} key={option} label={option} />
               ));
+            }}
+            onChange={(event: any, newValue: any) => {
+              updateValue(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
           />
@@ -228,15 +231,58 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
               id="combo-box-demo"
               size="small"
               value={value}
-              options={[]}
+              options={Object.keys(DataCategoryNesting)}
               sx={{ width: 250 }}
               onChange={(event, newValue) => {
                 updateValue(newValue);
                 addColumn(newValue);
-                // 12th index ---> Data Category
-                // 13th index ---> Sub Category
-                // 14th index ---> Sentence Suggestions
-                // 15th index ---> Data point Suggestion
+              }}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option}>
+                    {option}
+                  </li>
+                );
+              }}
+              renderTags={(tagValue, getTagProps) => {
+                return tagValue.map((option, index) => (
+                  <Chip
+                    {...getTagProps({ index })}
+                    key={option}
+                    label={option}
+                  />
+                ));
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          );
+        },
+      },
+    },
+
+    {
+      name: "Sub-Category",
+      options: {
+        filter: true,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const dataCategory = tableMeta.rowData[11];
+          if (!dataCategory) return <Typography>No options</Typography>;
+          if (Object.keys(DataCategoryNesting).includes(dataCategory) === false) return <Typography>No options</Typography>;
+          // @ts-ignore
+          if (DataCategoryNesting[dataCategory] === undefined || DataCategoryNesting[dataCategory] === null) return <Typography>No options</Typography>;
+          // @ts-ignore
+          const subCategories = Object.keys(DataCategoryNesting[dataCategory]);
+          return (
+            <Autocomplete
+              disablePortal
+              size="small"
+              value={value}
+              options={subCategories}
+              sx={{ width: 250 }}
+              onChange={(event, newValue) => {
+                updateValue(newValue);
+                addColumn(newValue);
               }}
               renderOption={(props, option) => {
                 return (
@@ -267,34 +313,46 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         filter: true,
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
-          return (
-            // <div
-            //   style={{
-            //     display: "flex",
-            //     flexDirection: "column",
-            //     justifyContent: "center",
-            //   }}
-            // >
-            //   {value.options.map((item: any, i: number) => {
-            //     return (
-            //       <Typography
-            //         style={{
-            //           marginTop: "2px",
-            //           padding: 2,
-            //           backgroundColor: "#e0e0e0",
-            //         }}
-            //         onClick={() => {
-            //           copyToClipboard(item);
-            //         }}
-            //         key={item + i.toString()}
-            //       >
-            //         {item}
-            //       </Typography>
-            //     );
-            //   })}
-            // </div>
-          <Typography>{value}</Typography>
+          const row_data = [...tableMeta.rowData];
+          const dataCategory = row_data[11];
+          if (!dataCategory) return <Typography>No options</Typography>;
+          if (Object.keys(DataCategoryNesting).includes(dataCategory) === false) return <Typography>No suggestions</Typography>;
+          // @ts-ignore
+          if (DataCategoryNesting[dataCategory] === undefined || DataCategoryNesting[dataCategory] === null) return <Typography>No =suggestions</Typography>;
+          // @ts-ignore
+          const subCategories = DataCategoryNesting[dataCategory];
+          if ((Object.keys(subCategories).includes(row_data[12]) === false) || subCategories[row_data[12]] === null) return <Typography>No suggestions</Typography>;
+          
+          const options = subCategories[row_data[12]];
+          if (options.sentence_suggestions === null) return <Typography>No suggestions</Typography>;
 
+          return (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              {options.sentence_suggestions.map((item: any, i: number) => {
+                return (
+                  <Typography
+                    style={{
+                      marginTop: "2px",
+                      padding: 2,
+                      backgroundColor: "#e0e0e0",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      copyToClipboard(item);
+                    }}
+                    key={item + i.toString()}
+                  >
+                    {item}
+                  </Typography>
+                );
+              })}
+            </div>
           );
         },
       },
@@ -322,33 +380,46 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         sort: false,
         width: 400,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const row_data = [...tableMeta.rowData];
+          const dataCategory = row_data[11];
+          if (!dataCategory) return <Typography>No options</Typography>;
+          if (Object.keys(DataCategoryNesting).includes(dataCategory) === false) return <Typography>No suggestions</Typography>;
+          // @ts-ignore
+          if (DataCategoryNesting[dataCategory] === undefined || DataCategoryNesting[dataCategory] === null) return <Typography>No =suggestions</Typography>;
+          // @ts-ignore
+          const subCategories = DataCategoryNesting[dataCategory];
+          if ((Object.keys(subCategories).includes(row_data[12]) === false) || subCategories[row_data[12]] === null) return <Typography>No suggestions</Typography>;
+          
+          const options = subCategories[row_data[12]];
+          if (options.data_point_suggestions === null) return <Typography>No suggestions</Typography>;
+
           return (
-            // <div
-            //   style={{
-            //     display: "flex",
-            //     flexDirection: "column",
-            //     justifyContent: "center",
-            //   }}
-            // >
-            //   {value.options.map((item: any, i: number) => {
-            //     return (
-            //       <Typography
-            //         style={{
-            //           marginTop: "2px",
-            //           padding: 2,
-            //           backgroundColor: "#e0e0e0",
-            //         }}
-            //         onClick={() => {
-            //           copyToClipboard(item);
-            //         }}
-            //         key={item + i.toString()}
-            //       >
-            //         {item}
-            //       </Typography>
-            //     );
-            //   })}
-            // </div>
-          <Typography>{value}</Typography>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              {options.data_point_suggestions.map((item: any, i: number) => {
+                return (
+                  <Typography
+                    style={{
+                      marginTop: "2px",
+                      padding: 2,
+                      backgroundColor: "#e0e0e0",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      copyToClipboard(item);
+                    }}
+                    key={item + i.toString()}
+                  >
+                    {item}
+                  </Typography>
+                );
+              })}
+            </div>
           );
         },
       },
@@ -359,16 +430,20 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       options: {
         filter: true,
         sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Typography
-            onClick={() => copyToClipboard(tableMeta)}
-            sx={{
-              cursor: "pointer",
-            }}
-          >
-            {value}
-          </Typography>
-        ),
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const row_data = tableMeta.rowData;
+          const sentence = `${row_data[2]} $${row_data[3]} write-up. ${row_data[0]}`;
+          return (
+            <Typography
+              onClick={() => copyToClipboard(sentence)}
+              sx={{
+                cursor: "pointer",
+              }}
+            >
+              {sentence}
+            </Typography>
+          );
+        },
       },
     },
 
@@ -382,7 +457,10 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
             disablePortal
             size="small"
             value={value}
-            options={[]}
+            options={["Yes", "No"]}
+            onChange={(_, newValue) => {
+              updateValue(newValue);
+            }}
             sx={{ width: 200 }}
             renderOption={(props, option) => {
               return (
@@ -440,9 +518,17 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       options: {
         filter: true,
         sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Typography>{value}</Typography>
-        ),
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          return (
+            <TextField
+              value={value}
+              size="small"
+              onChange={(event) => {
+                updateValue(event.target.value);
+              }}
+            />
+          );
+        },
       },
     },
 
@@ -462,9 +548,12 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       options: {
         filter: true,
         sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Typography>{value}</Typography>
-        ),
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const calculation = (
+            tableMeta.rowData[19] / tableMeta.rowData[21]
+          ).toFixed(2);
+          return <Typography>{calculation}</Typography>;
+        },
       },
     },
 
@@ -473,9 +562,12 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       options: {
         filter: true,
         sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Typography>{value}</Typography>
-        ),
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const calculation = (
+            tableMeta.rowData[21] - tableMeta.rowData[19]
+          ).toFixed(2);
+          return <Typography>{calculation}</Typography>;
+        },
       },
     },
 
@@ -484,9 +576,13 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       options: {
         filter: true,
         sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Typography>{value}</Typography>
-        ),
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const calculation = (
+            (tableMeta.rowData[21] - tableMeta.rowData[19]) *
+            tableMeta.rowData[20]
+          ).toFixed(2);
+          return <Typography>{calculation}</Typography>;
+        },
       },
     },
 
@@ -495,16 +591,26 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       options: {
         filter: true,
         sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Typography>{value}</Typography>
-        ),
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const row_data = [...tableMeta.rowData];
+          row_data[22] = (row_data[19] / row_data[21]).toFixed(2);
+          row_data[24] = ((row_data[21] - row_data[19]) * row_data[20]).toFixed(
+            2
+          );
+          const parsed_sentence = `Shareholders redeemed ${row_data[19]} shares or ${row_data[22]} of the public SPAC shares, leaving ${row_data[24]} in trust, prior to potential reversals.`;
+          return (
+            <div onClick={() => copyToClipboard(parsed_sentence)}>
+              <Typography sx={{
+                cursor: "pointer",
+              }}>{parsed_sentence}</Typography>
+            </div>
+          );
+        },
       },
     },
   ]);
 
-  function addColumn(column_name: string) {
-    
-  };
+  function addColumn(column_name: string) {}
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -574,6 +680,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         const data: IResponseSchema = await response.json();
         console.log(data, "data");
         const serializedData = serializeData(data.source.dataset);
+        console.log(serializedData, "serialized data");
         if (serializedData.length > 0) {
           // we need to change the payload later
           dispatch({ type: "replace", payload: serializedData });
@@ -647,7 +754,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       });
       const end_time = new Date().getTime();
       console.log(end_time - start_time);
-      console.log(main_data, "main_data")
+      console.log(main_data, "main_data");
       return main_data;
     }
     // mapped response should be 2D array with components, text or numbers as wanted
@@ -740,29 +847,13 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
               data={final_data}
               columns={table_columns}
               options={{
+                pagination: true,
+                tableId: "internal_feed",
                 filter: true,
+                search: true,
                 filterType: "dropdown",
-                responsive: "simple",
-                selectableRows: "single",
-                rowsPerPageOptions: [20],
-                rowsPerPage: 20,
-                onSearchChange: (searchText) => {
-                  console.log(searchText);
-                },
-                onTableChange: (action, dataObj) => {
-                  let actualData = [];
-                  if (dataObj.selectedRows.data.length > 0) {
-                    var selectedRowIndices = Object.keys(
-                      dataObj.selectedRows.lookup
-                    );
-                    selectedRowIndices.map((value: any) => {
-                      actualData.push(dataObj.data[value].data);
-                    });
-                  }
-                },
-                onChangePage: (currentPage) => {
-                  console.log(currentPage);
-                },
+                rowsPerPageOptions: [10],
+                rowsPerPage: 10,
               }}
             />
           </ThemeProvider>

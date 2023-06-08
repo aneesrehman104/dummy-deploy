@@ -64,6 +64,10 @@ export const InternalFeedTableData = {
     component: "Autocomplete",
   },
 
+  sub_category: {
+    name: "Sub Category",
+    component: "Autocomplete",
+  },
   // sub-category dynamically changes based on the data category
 
   relevant_writeup: {
@@ -317,6 +321,7 @@ export const sorted_data_feed_keys = [
   "entry_unit",
   "attach_to_record",
   "data_category",
+  "sub_category",
   "relevant_writeup",
   "writeup_key_events",
   "relevant_data_suggestion",
@@ -332,17 +337,6 @@ export const sorted_data_feed_keys = [
   "left_in_trust",
   "redemption_sentence"
 ];
-// export const options = {
-//   search: true,
-//   download: true,
-//   print: true,
-//   viewColumns: true,
-//   filter: true,
-//   filterType: "dropdown",
-//   responsive: "vertical",
-//   rowsPerPageOptions: [10, 15, 20],
-//   rowsPerPage: 10,
-// };
 
 export const getMuiTheme = () =>
   createTheme({
