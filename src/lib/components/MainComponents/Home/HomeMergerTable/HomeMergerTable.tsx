@@ -3,6 +3,14 @@ import styles from "./HomeMergerTable.module.css";
 import { useState, useEffect } from "react";
 import {  homeConstants } from "@/lib/ts/constants";
 import MyTable from "./functions";
+
+function HomeMergerTableTitle() {
+  return (
+    <div className={styles.tableTitle}>{homeConstants.MergersPipeline.title}</div>
+    );
+}
+
+
 function HomeMergerTable() {
   const data = [
     {
@@ -43,7 +51,7 @@ function HomeMergerTable() {
  
   return (
     <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>{homeConstants.MergersPipeline.title}</div>
+      <HomeMergerTableTitle/>
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
           <MyTable data={data} />

@@ -1,6 +1,10 @@
 import styles from "./WatchList.module.css";
 import React from "react";
 import CardElements from "./CardElements/CardElements";
+import Gainer from "./Gainer/Gainer";
+import Losers from "./Losers/Losers";
+import News from './News/News'
+import SpacsEventCalendar from "./SpacsEventCalendar/SpacsEventCalendar";
 const WatchList = () => {
   return (
     <>
@@ -9,7 +13,11 @@ const WatchList = () => {
           <div className={styles.dashboardtitle}>Watch List</div>
         </div>
       </div>
-      <CardElements/>
+      <CardElements />
+      <Gainer />
+      <Losers />
+      <News/>
+      <SpacsEventCalendar/>
     </>
   );
 };

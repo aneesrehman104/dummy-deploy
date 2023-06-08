@@ -1,15 +1,19 @@
-import React from "react";
-import styles from "./HomeIpoTable.module.css";
-import { useState, useEffect } from "react";
-
-import { homeConstants } from "@/lib/ts/constants";
+import React, { useState } from "react";
+import styles from "./SpacsEventCalendar.module.css";
 import MyTable from "./functions";
-function TableTitle() {
-  return (
-    <div className={styles.tableTitle}>{homeConstants.IPOPipeline.title}</div>
-  );
-}
-function HomeIpoTable() {
+import Switch from "@mui/material/Switch";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+function SpacsEventCalendar() {
+  const [selectedTab, setSelectedTab] = useState(1);
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#0aac85",
+      },
+    },
+  });
   const data = [
     {
       company: "Activision",
@@ -47,7 +51,7 @@ function HomeIpoTable() {
 
   return (
     <section className={styles.stockstablesection}>
-      <TableTitle />
+      <div className={styles.tableTitle}>SPAC Event Calendar</div>
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
           <MyTable data={data} />
@@ -57,4 +61,4 @@ function HomeIpoTable() {
   );
 }
 
-export default HomeIpoTable;
+export default SpacsEventCalendar;
