@@ -446,7 +446,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const row_data = tableMeta.rowData;
-          const sentence = `${row_data[2]} $${row_data[3]} write-up. ${row_data[0]}`;
+          const sentence = `${row_data[2]} [$${row_data[3]}] write-up. (${row_data[5]})`;
           return (
             <Typography
               onClick={() => copyToClipboard(sentence)}
@@ -522,7 +522,13 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         filter: true,
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Typography>{value}</Typography>
+          <TextField
+            value={value}
+            size="small"
+            onChange={(event) => {
+              updateValue(event.target.value);
+            }}
+          />
         ),
       },
     },
@@ -564,7 +570,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const calculation = (
-            tableMeta.rowData[19] / tableMeta.rowData[21]
+            tableMeta.rowData[20] / tableMeta.rowData[22]
           ).toFixed(2);
           return <Typography>{calculation}</Typography>;
         },
@@ -578,7 +584,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const calculation = (
-            tableMeta.rowData[21] - tableMeta.rowData[19]
+            tableMeta.rowData[22] - tableMeta.rowData[20]
           ).toFixed(2);
           return <Typography>{calculation}</Typography>;
         },
@@ -592,8 +598,8 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const calculation = (
-            (tableMeta.rowData[21] - tableMeta.rowData[19]) *
-            tableMeta.rowData[20]
+            (tableMeta.rowData[22] - tableMeta.rowData[20]) *
+            tableMeta.rowData[21]
           ).toFixed(2);
           return <Typography>{calculation}</Typography>;
         },
@@ -607,11 +613,11 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const row_data = [...tableMeta.rowData];
-          row_data[22] = (row_data[19] / row_data[21]).toFixed(2);
-          row_data[24] = ((row_data[21] - row_data[19]) * row_data[20]).toFixed(
+          row_data[23] = (row_data[19] / row_data[21]).toFixed(2);
+          row_data[25] = ((row_data[21] - row_data[19]) * row_data[20]).toFixed(
             2
           );
-          const parsed_sentence = `Shareholders redeemed ${row_data[19]} shares or ${row_data[22]} of the public SPAC shares, leaving ${row_data[24]} in trust, prior to potential reversals.`;
+          const parsed_sentence = `Shareholders redeemed ${row_data[20]} shares or ${row_data[23]}% of the public SPAC shares, leaving $${row_data[25]} in trust, prior to potential reversals.`;
           return (
             <div onClick={() => copyToClipboard(parsed_sentence)}>
               <Typography
