@@ -30,6 +30,7 @@ import {
   TextField,
   Chip,
   CircularProgress,
+  Button,
 } from "@mui/material";
 import Link from "next/link";
 import { reducer } from "@/lib/reducers/internal-feed";
@@ -44,6 +45,42 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   const [offset, setOffset] = useState<number>(0);
   const [dataset, dispatch] = useReducer(reducer, initialState);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const handleRowSubmit = async (
+    rowData: Array<string | boolean | number>,
+    rowIndex: number,
+    tableMeta: any
+  ) => {
+    try {
+      // Make the API request to submit the data
+      const response = await fetch("http://127.0.0.1:5500/internal-feed.json", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(rowData),
+      });
+
+      if (response.ok) {
+        console.log("API request successful");
+        // After the successful API request, update the dataset state to mark the row as submitted
+        const updatedDataset = [...dataset];
+        updatedDataset[rowIndex] = {
+          ...updatedDataset[rowIndex],
+          submitted: true,
+        };
+        dispatch({
+          type: "submit",
+          payload: updatedDataset,
+          index: [rowIndex, tableMeta.columnIndex],
+        });
+      } else {
+        console.log("API request failed");
+      }
+    } catch (error) {
+      console.log("API request failed with an exception:", error);
+    }
+  };
+
   const table_columns = [
     {
       name: "Source Link",
@@ -630,6 +667,32 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
             </div>
           );
         },
+      },
+    },
+
+    {
+      name: "Submit",
+      options: {
+        filter: false,
+        sort: false,
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: tableMeta.rowData[tableMeta.columnIndex - 2] || tableMeta.rowData[tableMeta.columnIndex - 1]
+                ? "primary"
+                : "grey",
+              "&:hover": {
+                backgroundColor: "darkgrey",
+              },
+            }}
+            onClick={() =>
+              handleRowSubmit(tableMeta.rowData, tableMeta.rowIndex, tableMeta)
+            }
+          >
+            Submit
+          </Button>
+        ),
       },
     },
   ];
