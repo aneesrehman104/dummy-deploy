@@ -307,7 +307,6 @@ export const InternalDataFeedColumns = [
   },
 ];
 
-
 export const sorted_data_feed_keys = [
   "source_link",
   "date_time_est",
@@ -335,7 +334,7 @@ export const sorted_data_feed_keys = [
   "percent_redeemed",
   "shares_left",
   "left_in_trust",
-  "redemption_sentence"
+  "redemption_sentence",
 ];
 
 export const getMuiTheme = () =>
@@ -353,6 +352,16 @@ export const getMuiTheme = () =>
         styleOverrides: {
           root: {
             backgroundColor: "#f5f5f5",
+          },
+        },
+      },
+
+      MuiTableCell: {
+        styleOverrides: {
+          head: {
+            backgroundColor: "#f5f5f5 !important",
+            fontWeight: "bold",
+            fontSize: "18px"
           },
         },
       },
