@@ -44,7 +44,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   const [offset, setOffset] = useState<number>(0);
   const [dataset, dispatch] = useReducer(reducer, initialState);
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [table_columns, setTableColumns] = useState([
+  const table_columns = [
     {
       name: "Source Link",
       options: {
@@ -235,7 +235,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
               sx={{ width: 250 }}
               onChange={(event, newValue) => {
                 updateValue(newValue);
-                addColumn(newValue);
               }}
               renderOption={(props, option) => {
                 return (
@@ -268,9 +267,11 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const dataCategory = tableMeta.rowData[11];
           if (!dataCategory) return <Typography>No options</Typography>;
-          if (Object.keys(DataCategoryNesting).includes(dataCategory) === false) return <Typography>No options</Typography>;
+          if (Object.keys(DataCategoryNesting).includes(dataCategory) === false)
+            return <Typography>No options</Typography>;
           // @ts-ignore
-          if (DataCategoryNesting[dataCategory] === undefined || DataCategoryNesting[dataCategory] === null) return <Typography>No options</Typography>;
+          if ( DataCategoryNesting[dataCategory] === undefined || DataCategoryNesting[dataCategory] === null )
+            return <Typography>No options</Typography>;
           // @ts-ignore
           const subCategories = Object.keys(DataCategoryNesting[dataCategory]);
           return (
@@ -282,7 +283,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
               sx={{ width: 250 }}
               onChange={(event, newValue) => {
                 updateValue(newValue);
-                addColumn(newValue);
               }}
               renderOption={(props, option) => {
                 return (
@@ -316,15 +316,22 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           const row_data = [...tableMeta.rowData];
           const dataCategory = row_data[11];
           if (!dataCategory) return <Typography>No options</Typography>;
-          if (Object.keys(DataCategoryNesting).includes(dataCategory) === false) return <Typography>No suggestions</Typography>;
+          if (Object.keys(DataCategoryNesting).includes(dataCategory) === false)
+            return <Typography>No suggestions</Typography>;
           // @ts-ignore
-          if (DataCategoryNesting[dataCategory] === undefined || DataCategoryNesting[dataCategory] === null) return <Typography>No =suggestions</Typography>;
+          if (DataCategoryNesting[dataCategory] === undefined ||DataCategoryNesting[dataCategory] === null)
+            return <Typography>No =suggestions</Typography>;
           // @ts-ignore
           const subCategories = DataCategoryNesting[dataCategory];
-          if ((Object.keys(subCategories).includes(row_data[12]) === false) || subCategories[row_data[12]] === null) return <Typography>No suggestions</Typography>;
-          
+          if (
+            Object.keys(subCategories).includes(row_data[12]) === false ||
+            subCategories[row_data[12]] === null
+          )
+            return <Typography>No suggestions</Typography>;
+
           const options = subCategories[row_data[12]];
-          if (options.sentence_suggestions === null) return <Typography>No suggestions</Typography>;
+          if (options.sentence_suggestions === null)
+            return <Typography>No suggestions</Typography>;
 
           return (
             <div
@@ -383,15 +390,22 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           const row_data = [...tableMeta.rowData];
           const dataCategory = row_data[11];
           if (!dataCategory) return <Typography>No options</Typography>;
-          if (Object.keys(DataCategoryNesting).includes(dataCategory) === false) return <Typography>No suggestions</Typography>;
+          if (Object.keys(DataCategoryNesting).includes(dataCategory) === false)
+            return <Typography>No suggestions</Typography>;
           // @ts-ignore
-          if (DataCategoryNesting[dataCategory] === undefined || DataCategoryNesting[dataCategory] === null) return <Typography>No =suggestions</Typography>;
+          if (DataCategoryNesting[dataCategory] === undefined ||DataCategoryNesting[dataCategory] === null)
+            return <Typography>No =suggestions</Typography>;
           // @ts-ignore
           const subCategories = DataCategoryNesting[dataCategory];
-          if ((Object.keys(subCategories).includes(row_data[12]) === false) || subCategories[row_data[12]] === null) return <Typography>No suggestions</Typography>;
-          
+          if (
+            Object.keys(subCategories).includes(row_data[12]) === false ||
+            subCategories[row_data[12]] === null
+          )
+            return <Typography>No suggestions</Typography>;
+
           const options = subCategories[row_data[12]];
-          if (options.data_point_suggestions === null) return <Typography>No suggestions</Typography>;
+          if (options.data_point_suggestions === null)
+            return <Typography>No suggestions</Typography>;
 
           return (
             <div
@@ -600,17 +614,19 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           const parsed_sentence = `Shareholders redeemed ${row_data[19]} shares or ${row_data[22]} of the public SPAC shares, leaving ${row_data[24]} in trust, prior to potential reversals.`;
           return (
             <div onClick={() => copyToClipboard(parsed_sentence)}>
-              <Typography sx={{
-                cursor: "pointer",
-              }}>{parsed_sentence}</Typography>
+              <Typography
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                {parsed_sentence}
+              </Typography>
             </div>
           );
         },
       },
     },
-  ]);
-
-  function addColumn(column_name: string) {}
+  ];
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -623,36 +639,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   const copyToClipboard = (text: string) => {
     window.navigator.clipboard.writeText(text).then(() => {
       alert("copied to clipboard");
-    });
-  };
-
-  const changePage = (page: number) => {
-    const standard_offset = page * limit;
-    const current_offset = offset;
-
-    if (standard_offset - current_offset >= 0) {
-      setOffset(standard_offset);
-    }
-  };
-
-  const handleSwitchToggle = (payload: any) => {};
-
-  const handleCheckboxToggle = (column_name: string, index: number[]) => {
-    dispatch({ type: column_name, payload: [], index });
-  };
-
-  const handleDataCategoryChange = () => {};
-
-  const editTextArea = (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-    column_name: string,
-    index: number[]
-  ) => {
-    dispatch({
-      type: column_name,
-      payload: [],
-      config: { value: event.target.value },
-      index,
     });
   };
 
