@@ -101,7 +101,7 @@ function Losers() {
           />
         </div>
       </div>
-    </disectionv>
+    </section>
   );
 }
 
