@@ -8,18 +8,20 @@ import MiniTableList from "./MiniTableList/MiniTableList";
 import { homeConstants } from "@/lib/ts/constants";
 const Home = () => {
   return (
-    <>
-      <div className={styles.dashboardheader}>
+    <main>
+      <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>{homeConstants.title}</div>
         </div>
-      </div>
-      <EventSummary />
-      <HomeIpoTable />
-      <HomeMergerTable />
-      <AggrecatedMiniTable />
-      <MiniTableList />
-    </>
+      </header>
+      <section>
+        <EventSummary />
+        <HomeIpoTable />
+        <HomeMergerTable />
+        <AggrecatedMiniTable />
+        <MiniTableList />
+      </section>
+    </main>
   );
 };
 

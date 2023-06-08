@@ -4,17 +4,19 @@ import EventSummary from "./EventSummary/EventSummary";
 import MarketStats from "./MarketStats/MarketStats";
 const MergerStats = () => {
   return (
-    <>
-      <div className={styles.dashboardheader}>
+    <main>
+      <divheader className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>Merger Stats</div>
         </div>
-      </div>
+      </header>
+      <section>
       <EventSummary />
       <MarketStats/>
       <EventSummary />
       <MarketStats/>
-    </>
+      </section>
+    </main>
   );
 };
 

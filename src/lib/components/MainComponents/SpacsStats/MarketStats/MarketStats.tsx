@@ -13,7 +13,7 @@ function MarketStats() {
   });
 
   return (
-    <div style={{ marginTop: 15, marginBottom: 15 }}>
+    <section style={{ marginTop: 15, marginBottom: 15 }}>
       <div className={styles.minitables}>
         <div className={styles.aggregatedMiniTables}>SPAC Market Stats</div>
         <div className={styles.cardscontainer}>
@@ -247,7 +247,7 @@ function MarketStats() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

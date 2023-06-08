@@ -48,7 +48,7 @@ function MergerCalendar() {
   ];
 
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Merger Calendar</div>
       <div style={{ display: "flex", justifyContent: "flex-end",alignItems:'center',width:'100%' }}>
         Month
@@ -62,7 +62,7 @@ function MergerCalendar() {
           <MyTable data={data} />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

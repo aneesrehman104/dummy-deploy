@@ -6,17 +6,19 @@ import TwitterFeed from "./TwitterFeed/TwitterFeed";
 import PressReleases from "./PressReleases/PressReleases";
 const SpacsNews = () => {
   return (
-    <>
-      <div className={styles.dashboardheader}>
+    <main>
+      <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>In The News</div>
         </div>
-      </div>
-      <News />
-      <CurrentUpdateFeed />
-      <TwitterFeed/>
-      <PressReleases/>
-    </>
+      </header>
+      <section>
+        <News />
+        <CurrentUpdateFeed />
+        <TwitterFeed />
+        <PressReleases />
+      </section>
+    </main>
   );
 };
 

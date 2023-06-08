@@ -47,7 +47,7 @@ function LatestClosedMergers() {
   };
 
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Latest Closed Mergers</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
@@ -85,7 +85,7 @@ function LatestClosedMergers() {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

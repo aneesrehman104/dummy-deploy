@@ -26,7 +26,7 @@ function CurrentUpdateFeed() {
     },
   ];
   return (
-    <div className={styles.headlineslistcontainer}>
+    <section className={styles.headlineslistcontainer}>
       <div className={styles.table}>
         <div className={styles.aggregatedMiniTables}>ListingTrack Curated Updates Feed</div>
         <div className={styles.sectionlistnewscontainerParent}>
@@ -68,7 +68,7 @@ function CurrentUpdateFeed() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -29,7 +29,7 @@ function Closed() {
   ];
 
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div
         style={{
           display: "flex",
@@ -44,7 +44,7 @@ function Closed() {
           <MyTable data={data} />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

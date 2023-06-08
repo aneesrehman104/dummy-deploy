@@ -9,20 +9,22 @@ import News from "./News/News";
 import MergerMarketStats from "./MergerMarketStats/MergerMarketStats";
 const MergerHub = () => {
   return (
-    <>
-      <div className={styles.dashboardheader}>
+    <main>
+      <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>Merger Hub</div>
         </div>
-      </div>
-      <EventSummary />
-      <MergerMarketStats />
-      <Announced />
-      <Closed />
-      <Gainer />
-      <Losers />
-      <News />
-    </>
+      </header>
+      <section>
+        <EventSummary />
+        <MergerMarketStats />
+        <Announced />
+        <Closed />
+        <Gainer />
+        <Losers />
+        <News />
+      </section>
+    </main>
   );
 };
 

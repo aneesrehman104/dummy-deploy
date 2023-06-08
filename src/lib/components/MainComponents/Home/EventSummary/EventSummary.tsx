@@ -62,7 +62,7 @@ function EventSummary() {
   };
 
   return (
-    <div className={styles.sectionsummarycontainer}>
+    <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
           <div className={styles.ytdEventSummary}>
@@ -97,7 +97,7 @@ function EventSummary() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

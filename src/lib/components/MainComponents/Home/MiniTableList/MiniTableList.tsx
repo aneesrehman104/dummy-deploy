@@ -26,7 +26,7 @@ function MiniTableList() {
     },
   ];
   return (
-    <div className={styles.headlineslistcontainer}>
+    <section className={styles.headlineslistcontainer}>
       <div className={styles.table}>
         <div className={styles.aggregatedMiniTables}>Mini Table List Title</div>
         <div className={styles.sectionlistnewscontainerParent}>
@@ -68,7 +68,7 @@ function MiniTableList() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

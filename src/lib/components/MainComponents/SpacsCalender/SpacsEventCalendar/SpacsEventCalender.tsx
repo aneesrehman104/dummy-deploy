@@ -50,7 +50,7 @@ function SpacsEventCalender() {
   ];
 
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>SPAC Event Calendar</div>
       <div className={styles.calenderTabs}>
         <div
@@ -97,7 +97,7 @@ function SpacsEventCalender() {
           <MyTable data={data} />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

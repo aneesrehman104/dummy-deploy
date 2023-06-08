@@ -3,7 +3,7 @@ import styles from "./news.module.css";
 import Image from "next/image";
 function News() {
   return (
-    <div className={styles.headlineslistcontainer}>
+    <section className={styles.headlineslistcontainer}>
       <div className={styles.aggregatedMiniTables}>SPAC News </div>
       <div
         style={{
@@ -107,7 +107,7 @@ function News() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

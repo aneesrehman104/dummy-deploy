@@ -40,14 +40,14 @@ function LatestAnnouncedSpacMergers() {
 
 
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Latest Announced SPAC Mergers</div>
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
           <MyTable data={data} />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

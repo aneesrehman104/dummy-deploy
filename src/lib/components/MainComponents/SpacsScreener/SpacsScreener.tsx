@@ -3,14 +3,16 @@ import React from "react";
 import CardElements from "./CardElements/CardElements";
 const SpacsScreener = () => {
   return (
-    <>
-      <div className={styles.dashboardheader}>
+    <main>
+      <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>spac screeners</div>
         </div>
-      </div>
+      </header>
+      <section>
       <CardElements/>
-    </>
+      </section>
+    </main>
   );
 };
 

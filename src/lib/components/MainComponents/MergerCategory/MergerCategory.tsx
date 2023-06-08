@@ -8,19 +8,21 @@ import Closed from "./Closed/Closed";
 import News from "./News/News";
 const MergerCategory = () => {
   return (
-    <>
-      <div className={styles.dashboardheader}>
+    <main>
+      <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>X CATEGORY MergerS</div>
         </div>
-      </div>
+      </header>
+      <section>
       <EventSummary />
       <Announced />
       <Closed />
       <Gainer />
       <Losers />
       <News />
-    </>
+      </section>
+    </main>
   );
 };
 

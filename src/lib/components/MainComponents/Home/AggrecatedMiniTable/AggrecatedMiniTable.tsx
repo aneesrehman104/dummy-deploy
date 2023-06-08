@@ -13,7 +13,7 @@ function AggrecatedMiniTable() {
   });
 
   return (
-    <div className={styles.minitables}>
+    <section className={styles.minitables}>
       <div className={styles.aggregatedMiniTables}>
         {homeConstants.AggrecatedMiniTable.title}
       </div>
@@ -227,7 +227,7 @@ function AggrecatedMiniTable() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

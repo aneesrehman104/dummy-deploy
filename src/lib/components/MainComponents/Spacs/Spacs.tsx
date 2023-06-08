@@ -7,18 +7,20 @@ import Closed from "./Closed/Closed";
 import News from "./News/News";
 const Spacs = () => {
   return (
-    <>
-      <div className={styles.dashboardheader}>
+    <main>
+      <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>SPACs</div>
         </div>
-      </div>
-      <EventSummary />
-      <Trading />
-      <Announced />
-      <Closed />
-      <News />
-    </>
+      </header>
+      <section>
+        <EventSummary />
+        <Trading />
+        <Announced />
+        <Closed />
+        <News />
+      </section>
+    </main>
   );
 };
 

@@ -77,7 +77,7 @@ function CardElements() {
   };
 
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
@@ -131,7 +131,7 @@ function CardElements() {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

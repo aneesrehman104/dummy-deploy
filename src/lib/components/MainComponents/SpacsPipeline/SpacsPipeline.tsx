@@ -5,16 +5,18 @@ import LatestClosedSpacMergers from "./LatestClosedSpacMergers/LatestClosedSpacM
 import GrapevineGraveyard from "./GrapevineGraveyard/GrapevineGraveyard";
 const SpacsPipeline = () => {
   return (
-    <>
-      <div className={styles.dashboardheader}>
+    <main>
+      <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>spac pipeline</div>
         </div>
-      </div>
-      <LatestAnnouncedSpacMergers />
-      <LatestClosedSpacMergers />
-      <GrapevineGraveyard/>
-    </>
+      </header>
+      <section>
+        <LatestAnnouncedSpacMergers />
+        <LatestClosedSpacMergers />
+        <GrapevineGraveyard />
+      </section>
+    </main>
   );
 };
 

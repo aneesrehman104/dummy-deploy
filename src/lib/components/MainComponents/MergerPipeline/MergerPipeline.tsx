@@ -6,17 +6,19 @@ import LatestClosedMergers from "./LatestClosedMergers/LatestClosedMergers";
 import MergerCalendar from "./MergerCalendar/MergerCalendar";
 const MergerPipeline = () => {
   return (
-    <>
-      <div className={styles.dashboardheader}>
+    <main>
+      <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>Merger pipeline</div>
         </div>
-      </div>
+      </header>
+      <section>
       <LatestAnnouncedMergers/>
       <LatestClosedMergers/>
       <GrapevineGraveyard/>
       <MergerCalendar/>
-    </>
+      </section>
+    </main>
   );
 };
 

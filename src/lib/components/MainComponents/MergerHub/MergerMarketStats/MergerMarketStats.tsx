@@ -13,7 +13,7 @@ function MergerMarketStats() {
   });
 
   return (
-    <div className={styles.minitables}>
+    <section className={styles.minitables}>
       <div className={styles.aggregatedMiniTables}>Merger Market Stats</div>
       <div className={styles.cardscontainer}>
         <div className={styles.card}>
@@ -245,7 +245,7 @@ function MergerMarketStats() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -41,14 +41,14 @@ function HomeIpoTable() {
   ];
 
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>{homeConstants.IPOPipeline.title}</div>
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
           <MyTable data={data} />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

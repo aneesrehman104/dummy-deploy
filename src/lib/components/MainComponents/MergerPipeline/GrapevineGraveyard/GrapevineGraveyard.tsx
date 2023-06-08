@@ -47,7 +47,7 @@ function GrapevineGraveyard() {
   };
 
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}> Merger Grapevine & Graveyard</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
@@ -85,7 +85,7 @@ function GrapevineGraveyard() {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

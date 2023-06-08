@@ -57,7 +57,7 @@ function Gainer() {
     setCurrentPage(pageNumber);
   };
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Gainers: Past Year Closed Mergers</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
@@ -95,7 +95,7 @@ function Gainer() {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -58,7 +58,7 @@ function Gainer(props: GainerInterFace) {
     setCurrentPage(pageNumber);
   };
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>{props.title}</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
@@ -96,7 +96,7 @@ function Gainer(props: GainerInterFace) {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

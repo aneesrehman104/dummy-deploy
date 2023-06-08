@@ -3,7 +3,7 @@ import styles from "./PressReleases.module.css";
 import Image from "next/image";
 function PressReleases() {
   return (
-    <div className={styles.headlineslistcontainer}>
+    <section className={styles.headlineslistcontainer}>
       <div className={styles.sectionlistnewscontainerParent}>
         <div className={styles.sectionlistnewscontainer}>
           <div className={styles.aggregatedMiniTables}>Press Releases</div>
@@ -134,7 +134,7 @@ function PressReleases() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

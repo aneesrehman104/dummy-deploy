@@ -63,7 +63,7 @@ function Losers() {
   // }, [sortColumn, sortDirection, data]);
 
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Losers: Past Year Closed Mergers</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
@@ -101,7 +101,7 @@ function Losers() {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

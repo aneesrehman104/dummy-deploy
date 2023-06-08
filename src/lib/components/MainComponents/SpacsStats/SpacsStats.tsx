@@ -4,17 +4,19 @@ import EventSummary from "./EventSummary/EventSummary";
 import MarketStats from "./MarketStats/MarketStats";
 const SpacsStats = () => {
   return (
-    <>
-      <div className={styles.dashboardheader}>
+    <main>
+      <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>Spacs Stats</div>
         </div>
-      </div>
-      <EventSummary />
-      <MarketStats/>
-      <EventSummary />
-      <MarketStats/>
-    </>
+      </header>
+      <section>
+        <EventSummary />
+        <MarketStats />
+        <EventSummary />
+        <MarketStats />
+      </section>
+    </main>
   );
 };
 
