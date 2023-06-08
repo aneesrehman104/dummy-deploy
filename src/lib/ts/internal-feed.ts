@@ -139,6 +139,11 @@ export const InternalFeedTableData = {
     name: "Redemption Sentence",
     component: "Typography",
   },
+
+  is_edited: {
+    name: "Submitted",
+    component: "Checkbox",
+  }
 };
 
 // this is the data for the table columns and filter informations
@@ -335,6 +340,7 @@ export const sorted_data_feed_keys = [
   "shares_left",
   "left_in_trust",
   "redemption_sentence",
+  "is_edited"
 ];
 
 export const getMuiTheme = () =>

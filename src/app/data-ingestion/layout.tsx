@@ -42,7 +42,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   const [current_section, setCurrentSection] = useState<string>(
     "Source Material Feed"
   );
-  const [offset, setOffset] = useState<number>(0);
   const [dataset, dispatch] = useReducer(reducer, initialState);
   const [isLoading, setLoading] = useState<boolean>(true);
   const handleRowSubmit = async (
@@ -80,6 +79,133 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       console.log("API request failed with an exception:", error);
     }
   };
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+  const switchSelection = (section_name: string) => {
+    setCurrentSection(section_name);
+  };
+
+  const copyToClipboard = (text: string) => {
+    window.navigator.clipboard.writeText(text).then(() => {
+      alert("copied to clipboard");
+    });
+  };
+
+  // set the open state to false when the screen is less than 600px
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 800) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const GetDataset = async () => {
+      // this is a dummy data for now
+      // the idea is to make this a paginated based table so that we can load the data in chunks
+      // we need to make a call to the backend to get the data with limit and offset
+      try {
+        const response = await fetch(
+          // `http://localhost:3000/api/dataset?limit=${limit * 3}&offset=${offset}`
+          "http://127.0.0.1:5500/internal-feed.json"
+        );
+        const data: IResponseSchema = await response.json();
+        const serializedData = serializeData(data.source.dataset);
+        if (serializedData.length > 0) {
+          // we need to change the payload later
+          dispatch({ type: "replace", payload: serializedData });
+        }
+      } catch {
+        console.log("error while fetching data information");
+      }
+      setLoading(false);
+    };
+
+    GetDataset();
+  }, []);
+
+  let final_data_reference: Array<any> = [];
+
+  const final_data = useMemo(() => {
+    // the data schema is this
+    // [
+    //   {
+    //     "column_name": "tickers",
+    //     "component": "Typography",
+    //     "state value": "for checkbox" or "for text input" or different components
+    //   },
+    //   {
+    //     "column_name": "companies",
+    //     "component": "Typography",
+    //     "state value": "for checkbox" or "for text input" or different components
+    //   },
+    //   ...
+    // ]
+    const dummy = [...dataset].map((row) =>
+      [...row].map((col) => ({ ...col }))
+    );
+    const start_time = new Date().getTime();
+    if (dummy.length > 0) {
+      const main_data: Array<Array<string | boolean>> = [];
+      dummy.forEach((inner_arr, outer_index: number) => {
+        const nested_arr: Array<string | boolean> = [];
+        inner_arr.forEach((item: any, i: number) => {
+          switch (item.component) {
+            case "Typography":
+              if (item.options.length > 1) {
+                nested_arr.push(item.options);
+              } else {
+                nested_arr.push(item.text_value);
+              }
+              break;
+
+            case "Checkbox":
+              nested_arr.push(item.checkbox_state);
+              break;
+
+            case "Link":
+              nested_arr.push(item.text_value);
+              break;
+
+            case "Textarea":
+              nested_arr.push(item.text_value);
+              break;
+
+            case "Autocomplete":
+              nested_arr.push(item.autocomplete_curr_state);
+              break;
+
+            default:
+              nested_arr.push(item.text_value);
+              break;
+          }
+        });
+        main_data.push(nested_arr);
+      });
+      const end_time = new Date().getTime();
+      console.log(end_time - start_time);
+      if (final_data_reference.length === 0) {
+        final_data_reference = main_data;
+      }
+      return main_data;
+    }
+    // mapped response should be 2D array with components, text or numbers as wanted
+    return dataset;
+  }, [dataset]);
+
+  const detectChanges = (rowIndex: number, columnIndex: number, current_data: string | number | boolean) => {
+    const real_data = [...final_data_reference][rowIndex][columnIndex];
+    if (real_data !== current_data) {
+      return true;
+    }
+    return false;
+  }
 
   const table_columns = [
     {
@@ -410,7 +536,9 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
           <TextareaAutosize
             value={value}
-            onChange={(event) => updateValue(event.target.value)}
+            onChange={(event) => {
+              updateValue(event.target.value)
+            }}
             style={{ padding: 8, width: 300, height: 100 }}
           />
         ),
@@ -537,7 +665,9 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         filter: true,
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Checkbox checked={value} onChange={() => updateValue(!value)} />
+          <Checkbox checked={value} onChange={() =>{ 
+            updateValue(!value);
+          }} />
         ),
       },
     },
@@ -548,7 +678,9 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         filter: true,
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Checkbox checked={value} onChange={() => updateValue(!value)} />
+          <Checkbox checked={value} onChange={() =>{
+            updateValue(!value);
+          }}/>
         ),
       },
     },
@@ -675,13 +807,23 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       options: {
         filter: false,
         sort: false,
-        customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Button
+        customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
+          const dummy = [...final_data_reference][tableMeta.rowIndex]
+          const row_data = [...tableMeta.rowData];
+          let status = false;
+          if (dummy[9] === row_data[9] && dummy[10] === row_data[10] && dummy[11] === row_data[11] && dummy[12] === row_data[12] && dummy[14] === row_data[14] && dummy[14] === row_data[14] && dummy[18] === row_data[18]  && dummy[17] === row_data[17]  && dummy[19] === row_data[19]  && dummy[20] === row_data[20]  && dummy[21] === parseInt(row_data[21])  && dummy[22] === parseInt(row_data[22])) {
+            status = true
+          }
+
+          console.log(dummy[21], row_data[21], "21");
+          console.log(dummy[22], row_data[22], "22");
+          // dummy.forEach((item: any) => { if (tableMeta.rowData.includes(item) === false) { 
+          //   status = true;
+          //  } })
+          return (<Button
             variant="contained"
             sx={{
-              backgroundColor: tableMeta.rowData[tableMeta.columnIndex - 2] || tableMeta.rowData[tableMeta.columnIndex - 1]
-                ? "primary"
-                : "grey",
+              backgroundColor: status === false ? "primary" : "darkgrey",
               "&:hover": {
                 backgroundColor: "darkgrey",
               },
@@ -691,126 +833,11 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
             }
           >
             Submit
-          </Button>
-        ),
+          </Button>);
+        },
       },
     },
   ];
-
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
-  const switchSelection = (section_name: string) => {
-    setCurrentSection(section_name);
-  };
-
-  const copyToClipboard = (text: string) => {
-    window.navigator.clipboard.writeText(text).then(() => {
-      alert("copied to clipboard");
-    });
-  };
-
-  // set the open state to false when the screen is less than 600px
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 800) {
-        setOpen(false);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    const GetDataset = async () => {
-      // this is a dummy data for now
-      // the idea is to make this a paginated based table so that we can load the data in chunks
-      // we need to make a call to the backend to get the data with limit and offset
-      try {
-        const response = await fetch(
-          // `http://localhost:3000/api/dataset?limit=${limit * 3}&offset=${offset}`
-          "http://127.0.0.1:5500/internal-feed.json"
-        );
-        const data: IResponseSchema = await response.json();
-        const serializedData = serializeData(data.source.dataset);
-        if (serializedData.length > 0) {
-          // we need to change the payload later
-          dispatch({ type: "replace", payload: serializedData });
-        }
-      } catch {
-        console.log("error while fetching data information");
-      }
-      setLoading(false);
-    };
-
-    GetDataset();
-  }, []);
-
-  const final_data = useMemo(() => {
-    // the data schema is this
-    // [
-    //   {
-    //     "column_name": "tickers",
-    //     "component": "Typography",
-    //     "state value": "for checkbox" or "for text input" or different components
-    //   },
-    //   {
-    //     "column_name": "companies",
-    //     "component": "Typography",
-    //     "state value": "for checkbox" or "for text input" or different components
-    //   },
-    //   ...
-    // ]
-
-    const dummy = [...dataset].map((row) =>
-      [...row].map((col) => ({ ...col }))
-    );
-    const start_time = new Date().getTime();
-    if (dummy.length > 0) {
-      const main_data: Array<Array<React.ReactNode>> = [];
-      dummy.forEach((inner_arr, outer_index: number) => {
-        const nested_arr: Array<string | React.ReactNode | boolean> = [];
-        inner_arr.forEach((item: any, i: number) => {
-          switch (item.component) {
-            case "Typography":
-              if (item.options.length > 1) {
-                nested_arr.push(item.options);
-              } else {
-                nested_arr.push(item.text_value);
-              }
-              break;
-
-            case "Checkbox":
-              nested_arr.push(item.checkbox_state);
-              break;
-
-            case "Link":
-              nested_arr.push(item.text_value);
-              break;
-
-            case "Textarea":
-              nested_arr.push(item.text_value);
-              break;
-
-            case "Autocomplete":
-              nested_arr.push(item.autocomplete_curr_state);
-              break;
-
-            default:
-              nested_arr.push(item.text_value);
-              break;
-          }
-        });
-        main_data.push(nested_arr);
-      });
-      const end_time = new Date().getTime();
-      console.log(end_time - start_time);
-      return main_data;
-    }
-    // mapped response should be 2D array with components, text or numbers as wanted
-    return dataset;
-  }, [dataset]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
