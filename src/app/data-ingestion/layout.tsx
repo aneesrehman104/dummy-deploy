@@ -678,9 +678,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           "http://127.0.0.1:5500/internal-feed.json"
         );
         const data: IResponseSchema = await response.json();
-        console.log(data, "data");
         const serializedData = serializeData(data.source.dataset);
-        console.log(serializedData, "serialized data");
         if (serializedData.length > 0) {
           // we need to change the payload later
           dispatch({ type: "replace", payload: serializedData });
@@ -715,7 +713,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     );
     const start_time = new Date().getTime();
     if (dummy.length > 0) {
-      console.log(dummy, "dummy");
       const main_data: Array<Array<React.ReactNode>> = [];
       dummy.forEach((inner_arr, outer_index: number) => {
         const nested_arr: Array<string | React.ReactNode | boolean> = [];
@@ -754,7 +751,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       });
       const end_time = new Date().getTime();
       console.log(end_time - start_time);
-      console.log(main_data, "main_data");
       return main_data;
     }
     // mapped response should be 2D array with components, text or numbers as wanted
