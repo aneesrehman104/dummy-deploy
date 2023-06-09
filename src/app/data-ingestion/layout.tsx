@@ -37,6 +37,7 @@ import { reducer } from "@/lib/reducers/internal-feed";
 import { serializeData } from "@/lib/utils/data-ingestion";
 import { IResponseSchema } from "@/lib/ts";
 
+
 export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   const [open, setOpen] = React.useState(true);
   const [current_section, setCurrentSection] = useState<string>(
