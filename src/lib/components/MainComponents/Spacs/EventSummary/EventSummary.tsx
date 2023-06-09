@@ -57,17 +57,17 @@ function EventSummary() {
     },
     series: [
       {
-        name: "IOPS",
+        name: "Label",
         data: [10, 150, 20, 10, 133, 188, 500, 10, 150, 20, 10, 188],
         color: "#F19529",
       },
       {
-        name: "SPACS",
+        name: "Label",
         data: [1, 50, 200, 150, 33, 88, 300, 1, 50, 200, 150, 300],
         color: "#7F98F3",
       },
       {
-        name: "MERGERS",
+        name: "Label",
         data: [1, 550, 100, 130, 33, 88, 600, 1, 50, 200, 150, 88],
         color: "#9747FF",
       },
@@ -87,34 +87,21 @@ function EventSummary() {
           <DynamicChart options={options} />
         </div>
         <div className={styles.frameParent}>
-          <div className={styles.frameGroup}>
-            <div className={styles.parent}>
-              <div className={styles.div}>52</div>
-              <div className={styles.title2}>
-                <div className={styles.titleTwo}>IPOs</div>
-              </div>
-            </div>
-            <div className={styles.group}>
-              <div className={styles.div1}>30</div>
-              <div className={styles.title21}>
-                <div className={styles.titleTwo}>spacs</div>
-              </div>
-            </div>
-            <div className={styles.container}>
-              <div className={styles.div2}>30</div>
-              <div className={styles.title22}>
-                <div className={styles.titleTwo}>mergers</div>
-              </div>
-            </div>
+          <div className={styles.container}>
+            <div>X</div>
+            <div>IPOS</div>
           </div>
-          <div className={styles.indicator} />
-          <div className={styles.eventsummaryinfo}>
-            <div className={styles.text}>
-              Lorem ipsum dolor sit amet consectetur. Turpis pretium ut
-              elementum quisque parturie. Turpis pretium ut elementum quisque
-              parturie.
-            </div>
-            <div className={styles.titlebottom}>COMPARISON</div>
+          <div className={styles.container}>
+            <div>X</div>
+            <div>ANNOUNCED MERGERS</div>
+          </div>
+          <div className={styles.container}>
+            <div>X</div>
+            <div>CLOSED MERGERS</div>
+          </div>
+          <div className={styles.container}>
+            <div>X</div>
+            <div>LIQUIDATIONS</div>
           </div>
         </div>
       </div>

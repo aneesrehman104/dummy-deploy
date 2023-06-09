@@ -2,11 +2,11 @@ import React from "react";
 import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Skeleton from '@mui/material/Skeleton';
+import Skeleton from "@mui/material/Skeleton";
 
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
-  loading: () => <Skeleton  variant="rounded"  height={200}  />,
+  loading: () => <Skeleton variant="rounded" height={200} />,
 });
 
 function EventSummary() {
@@ -57,17 +57,17 @@ function EventSummary() {
     },
     series: [
       {
-        name: "IOPS",
+        name: "Announced",
         data: [10, 150, 20, 10, 133, 188, 500, 10, 150, 20, 10, 188],
         color: "#F19529",
       },
       {
-        name: "SPACS",
+        name: "Closed",
         data: [1, 50, 200, 150, 33, 88, 300, 1, 50, 200, 150, 300],
         color: "#7F98F3",
       },
       {
-        name: "MERGERS",
+        name: "Terminated",
         data: [1, 550, 100, 130, 33, 88, 600, 1, 50, 200, 150, 88],
         color: "#9747FF",
       },
@@ -87,27 +87,19 @@ function EventSummary() {
           <DynamicChart options={options} />
         </div>
         <div className={styles.frameParent}>
-            <div className={styles.frameGroup}>
-              <div className={styles.container}>
-                <div>X</div>
-                <div>Label</div>
-              </div>
-              <div className={styles.container}>
-              <div>X</div>
-                <div>Label</div>
-              </div>
-              
-            </div>
-            <div className={styles.indicator} />
-            <div className={styles.eventsummaryinfo}>
-              <div className={styles.text}>
-                Lorem ipsum dolor sit amet consectetur. Turpis pretium ut
-                elementum quisque parturie. Turpis pretium ut elementum quisque
-                parturie.
-              </div>
-              <div className={styles.titlebottom}>COMPARISON</div>
-            </div>
+          <div className={styles.container}>
+            <div>52</div>
+            <div>ANNOUNCED MERGERS</div>
           </div>
+          <div className={styles.container}>
+            <div>30</div>
+            <div>CLOSED MERGERS</div>
+          </div>
+          <div className={styles.container}>
+            <div>5</div>
+            <div>TERMINATED MERGERS</div>
+          </div>
+        </div>
       </div>
     </section>
   );

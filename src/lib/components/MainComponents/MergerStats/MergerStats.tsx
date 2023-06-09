@@ -5,7 +5,7 @@ import MarketStats from "./MarketStats/MarketStats";
 const MergerStats = () => {
   return (
     <main>
-      <divheader className={styles.dashboardheader}>
+      <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>Merger Stats</div>
         </div>

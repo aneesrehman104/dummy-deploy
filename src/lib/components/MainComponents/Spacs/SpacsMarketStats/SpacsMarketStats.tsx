@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./MergerMarketStats.module.css";
+import styles from "./SpacsMarketStats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { homeConstants } from "@/lib/ts/constants";
-function MergerMarketStats() {
+function SpacsMarketStats() {
   const theme = createTheme({
     palette: {
       primary: {
@@ -17,88 +17,63 @@ function MergerMarketStats() {
       showSpac: false,
       innerHadding: [
         {
-          title: "Announced",
+          title: "IPOs",
 
           data: [
             { value: "50", change: "YTD" },
-            { value: "99", change: "prev year" },
-            { value: "-50%", change: "yearly Chg % " },
           ],
         },
         {
-          title: "Closed",
+          title: "By Status",
           data: [
-            { value: "50", change: "YTD" },
-            { value: "99", change: "prev year" },
-            { value: "-50%", change: "yearly Chg % " },
-          ],
-        },
-        {
-          title: "Terminated",
-          data: [
-            { value: "50", change: "YTD" },
-            { value: "99", change: "prev year" },
-            { value: "-50%", change: "yearly Chg % " },
+            { value: "651", change: "Total active" },
+            { value: "330", change: "Searching" },
+            { value: "185", change: "Live mergers" },
+            { value: "22", change: "liquidating" },
           ],
         },
       ],
     },
     {
-      heading: "Live Merger",
-      showSpac: true,
+      heading: "Liquidations / Terminations",
+      showSpac: false,
       innerHadding: [
         {
-          title: "Premiums",
+          title: "LIQUIDATIONS",
           data: [
-            { value: "200%", change: "at a premium Above 25%" },
-            { value: "50%", change: "AVG. PREMIUM" },
-            { value: "44%", change: "MEDIAN PREMIUM" },
+            { value: "200", change: "YTD" },
+            { value: "100", change: "PREV. YEAR" },
+            { value: "44%", change: "CHG % PREV YEAR" },
           ],
         },
         {
-          title: "Returns",
+          title: "TERMINATIONS",
           data: [
-            { value: "50%", change: "above offer price" },
-            { value: "99%", change: "AVG. RETURN" },
-            { value: "50%", change: "MEDIAN PREMIUM" },
+            { value: "200", change: "YTD" },
+            { value: "100", change: "PREV. YEAR" },
+            { value: "44%", change: "CHG % PREV YEAR" },
           ],
-        },
-        {
-          title: "Valuations",
-          data: [
-            { value: "50%", change: "above '$1B'" },
-            { value: "$50M", change: "AVG. Mkt Cap" },
-            { value: "50%", change: "MEDIAN PREMIUM" },
-          ],
-        },
+        }
       ],
     },
     {
-      heading: "Closed Merger",
-      showSpac: true,
+      heading: "De-SPACS",
+      showSpac: false,
       innerHadding: [
         {
-          title: "Premiums",
+          title: "RETURNS",
           data: [
-            { value: "200%", change: "at a premium Above 25%" },
+            { value: "5", change: "ABOVE SPAC IPO PRICE SINCE 2019" },
             { value: "50%", change: "AVG. PREMIUM" },
             { value: "44%", change: "MEDIAN PREMIUM" },
           ],
         },
         {
-          title: "Returns",
+          title: "MORE RETURNS",
           data: [
-            { value: "50%", change: "above offer price" },
-            { value: "99%", change: "AVG. RETURN" },
-            { value: "50%", change: "MEDIAN PREMIUM" },
-          ],
-        },
-        {
-          title: "Valuations",
-          data: [
-            { value: "50%", change: "above '$1B'" },
-            { value: "$50M", change: "AVG. Mkt Cap" },
-            { value: "50%", change: "MEDIAN PREMIUM" },
+            { value: "10%", change: "% ABOVE SPAC IPO PRICE SINCE 2019" },
+            { value: "5%", change: "BANKRUPT" },
+            { value: "XX%", change: "BANKRUPT" },
           ],
         },
       ],
@@ -106,7 +81,7 @@ function MergerMarketStats() {
   ];
   return (
     <section className={styles.minitables}>
-      <div className={styles.aggregatedMiniTables}>Merger Market Stats</div>
+      <div className={styles.aggregatedMiniTables}>Spacs Market Stats</div>
       <div className={styles.cardscontainer}>
         {dataArray.map((item) => {
           return (
@@ -151,4 +126,4 @@ function MergerMarketStats() {
   );
 }
 
-export default MergerMarketStats;
+export default SpacsMarketStats;

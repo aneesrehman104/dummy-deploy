@@ -1,6 +1,7 @@
 import styles from "./spacs.module.css";
 import React from "react";
 import EventSummary from "./EventSummary/EventSummary";
+import SpacsMarketStats from "./SpacsMarketStats/SpacsMarketStats";
 import Trading from "./Trading/Trading";
 import Announced from "./Announced/Announced";
 import Closed from "./Closed/Closed";
@@ -15,6 +16,7 @@ const Spacs = () => {
       </header>
       <section>
         <EventSummary />
+        <SpacsMarketStats />
         <Trading />
         <Announced />
         <Closed />
