@@ -905,17 +905,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           <Toolbar />
           <ThemeProvider theme={getMuiTheme()}>
             <MUIDataTable
-              title={
-                <Typography variant="h6">
-                  Internal Feed
-                  {isLoading && (
-                    <CircularProgress
-                      size={24}
-                      style={{ marginLeft: 15, position: "relative", top: 4 }}
-                    />
-                  )}
-                </Typography>
-              }
+              title={"Internal Feed Table"}
               data={final_data}
               columns={table_columns}
               options={{
