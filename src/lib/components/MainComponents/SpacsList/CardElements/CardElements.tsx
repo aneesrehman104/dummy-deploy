@@ -77,17 +77,17 @@ function CardElements() {
   };
 
   return (
-    <section className={styles.stockstablesection}>
+    <div className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
       <div className={styles.tableContainerInner}>
-        <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
+        <div className={styles.calenderTabs}>
           <div
             onClick={() => setSelectedTab(0)}
             className={`${styles.headerCell} ${
               selectedTab === 0 && styles.selectedHeader
             }`}
           >
-            All Active SPACs
+           All Active SPACs
           </div>
           <div
             onClick={() => setSelectedTab(1)}
@@ -114,14 +114,6 @@ function CardElements() {
             De-SPACs
           </div>
         </div>
-        <div className={styles.highlightStyle}>
-          <span>
-            Selected basked of 24 stocks up today an average of&nbsp;{" "}
-          </span>
-          <span className={styles.backgroundTitle}>+ 5.33%</span>&nbsp;
-          <span>with an aggregate market capitalization of&nbsp;</span>
-          <span className={styles.backgroundTitle}>$1.5T +$550M</span>
-        </div>
         <div style={{ overflow: "auto" }}>
           <MyTable
             data={data}
@@ -131,7 +123,7 @@ function CardElements() {
           />
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 

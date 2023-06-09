@@ -90,6 +90,12 @@ export const sidebarItem = [
         id: "ipos/screeners",
         breadcrumb: "Home > IPOs > SCREENERS",
       },
+      {
+        name: "LIST",
+        pathname: "/ipos/list",
+        id: "ipos/list",
+        breadcrumb: "Home > IPOs > List",
+      },
     ],
   },
   {
@@ -134,6 +140,12 @@ export const sidebarItem = [
         id: "spacs/calendar",
         breadcrumb: "Home > SPACs > SPAC CALENDAR",
       },
+          {
+        name: "LIST",
+        pathname: "/spacs/list",
+        id: "spacs/list",
+        breadcrumb: "Home > SPACs > List",
+      },
     ],
   },
   {
@@ -173,12 +185,12 @@ export const sidebarItem = [
         id: "mergers/screeners",
         breadcrumb: "Home > MERGERS > SCREENERS",
       },
-      // {
-      //   name: "LIST",
-      //   pathname: "/mergers/list",
-      //   id: "mergers/list",
-      //   breadcrumb: "Home > MERGERS > List",
-      // },
+      {
+        name: "LIST",
+        pathname: "/mergers/list",
+        id: "mergers/list",
+        breadcrumb: "Home > MERGERS > List",
+      },
     ],
   },
   {
