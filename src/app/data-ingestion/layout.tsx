@@ -62,16 +62,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       if (response.ok) {
         console.log("API request successful");
         // After the successful API request, update the dataset state to mark the row as submitted
-        const updatedDataset = [...dataset];
-        updatedDataset[rowIndex] = {
-          ...updatedDataset[rowIndex],
-          submitted: true,
-        };
-        dispatch({
-          type: "submit",
-          payload: updatedDataset,
-          index: [rowIndex, tableMeta.columnIndex],
-        });
+
       } else {
         console.log("API request failed");
       }
@@ -117,6 +108,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         );
         const data: IResponseSchema = await response.json();
         const serializedData = serializeData(data.source.dataset);
+        console.log(serializedData, "serialized data");
         if (serializedData.length > 0) {
           // we need to change the payload later
           dispatch({ type: "replace", payload: serializedData });
@@ -150,6 +142,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     const dummy = [...dataset].map((row) =>
       [...row].map((col) => ({ ...col }))
     );
+
     const start_time = new Date().getTime();
     if (dummy.length > 0) {
       const main_data: Array<Array<string | boolean>> = [];

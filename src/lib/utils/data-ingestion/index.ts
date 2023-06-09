@@ -1,4 +1,7 @@
-import { InternalFeedTableData, sorted_data_feed_keys } from "@/lib/ts/internal-feed";
+import {
+  InternalFeedTableData,
+  sorted_data_feed_keys,
+} from "@/lib/ts/internal-feed";
 import { TTableColumns } from "@/lib/interfaces/data-ingestion";
 import { ResponseBody } from "@/lib/ts";
 type TableResponse = {
@@ -12,7 +15,10 @@ export function GetValuePlaceholder(
 ) {
   switch (component_type) {
     case "Typography":
-      return { text_value: value as string, options: value.toString().split("\n") };
+      return {
+        text_value: value as string,
+        options: value.toString().split("\n"),
+      };
     case "Link":
       return { text_value: value as string };
     case "Checkbox":
@@ -20,21 +26,67 @@ export function GetValuePlaceholder(
     case "Switch":
       return { switch_state: value as boolean };
     case "Autocomplete":
-      return { autocomplete_curr_state: value as string, options: value.toString().split("\n") };
+      return {
+        autocomplete_curr_state: value as string,
+        options: value.toString().split("\n"),
+      };
     case "Badge":
       return { text_value: value as string };
     case "Textarea":
-      return { text_value: value as string, options: value.toString().split("\n") };
+      return {
+        text_value: value as string,
+        options: value.toString().split("\n"),
+      };
     default:
       return { text_value: value as string };
   }
 }
 
-export function serializeData(data: Array<ResponseBody>) {
-  if (data.length === 0) return data;
+export type SerializeDataResponse = 
+      {
+        column_name: string;
+        component: string;
+        text_value: string;
+        checkbox_state?: undefined;
+        switch_state?: undefined;
+        autocomplete_curr_state?: undefined;
+        options?: undefined | string[];
+      }
+    | {
+        column_name: string;
+        component: string;
+        text_value?: undefined;
+        checkbox_state: boolean;
+        switch_state?: undefined;
+        autocomplete_curr_state?: undefined;
+        options?: undefined | string[];
+      }
+    | {
+        column_name: string;
+        component: string;
+        text_value?: undefined;
+        checkbox_state?: undefined;
+        switch_state: boolean;
+        autocomplete_curr_state?: undefined;
+        options?: undefined | string[];
+      }
+    | {
+        column_name: string;
+        component: string;
+        text_value?: undefined;
+        checkbox_state?: undefined;
+        switch_state?: undefined;
+        autocomplete_curr_state: string;
+        options: string[];
+      }
+
+export function serializeData(
+  data: Array<ResponseBody>
+): Array<Array<SerializeDataResponse>> {
+  if (data.length === 0) return [];
   const internal_feed_key = sorted_data_feed_keys;
   const serializedData = data.map((item) => {
-    const sorted_item = {}
+    const sorted_item = {};
     internal_feed_key.forEach((key: string) => {
       // @ts-ignore
       sorted_item[key] = item[key];
@@ -49,45 +101,7 @@ export function serializeData(data: Array<ResponseBody>) {
       });
     }
 
-    const innerData: Array<
-      | {
-          column_name: string;
-          component: string;
-          text_value: string;
-          checkbox_state?: undefined;
-          switch_state?: undefined;
-          autocomplete_curr_state?: undefined;
-          options?: undefined | string[];
-        }
-      | {
-          column_name: string;
-          component: string;
-          text_value?: undefined;
-          checkbox_state: boolean;
-          switch_state?: undefined;
-          autocomplete_curr_state?: undefined;
-          options?: undefined | string[];
-        }
-      | {
-          column_name: string;
-          component: string;
-          text_value?: undefined;
-          checkbox_state?: undefined;
-          switch_state: boolean;
-          autocomplete_curr_state?: undefined;
-          options?: undefined | string[];
-        }
-      | {
-          column_name: string;
-          component: string;
-          text_value?: undefined;
-          checkbox_state?: undefined;
-          switch_state?: undefined;
-          autocomplete_curr_state: string;
-          options: string[];
-        }
-    > = [];
-
+    const innerData: Array<SerializeDataResponse> = [];
 
     tableResponse.forEach((table_response_item, i) => {
       const _elmKey = internal_feed_key.find(
@@ -97,14 +111,11 @@ export function serializeData(data: Array<ResponseBody>) {
       if (_elmKey) {
         const _componentType =
           InternalFeedTableData[_elmKey as TTableColumns].component;
-        const value = GetValuePlaceholder(
-          table_response_item.value,
-          _componentType
-        );
+        const value = GetValuePlaceholder(table_response_item.value, _componentType);
         innerData.push({
-          column_name: table_response_item.column_name,
-          component: _componentType,
           ...value,
+          component: _componentType,
+          column_name: table_response_item.column_name,
         });
       }
     });

@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 import { TableDataInterface } from "@/lib/interfaces";
+import { SerializeDataResponse } from "../utils/data-ingestion";
 
 // mapper for the internal feed table
 // maps the internal feed table column to the internal feed table data
@@ -548,5 +549,5 @@ export const DataCategoryNesting = {
 // TODO remove, this demo shouldn't need to reset the theme.
 export const defaultTheme = createTheme();
 export const title_name = "Internal Feed";
-export const initialState: Array<Array<TableDataInterface>> = [];
+export const initialState: Array<Array<SerializeDataResponse>> = [];
 export const limit: number = 10;
