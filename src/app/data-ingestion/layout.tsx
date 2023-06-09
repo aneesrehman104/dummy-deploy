@@ -191,6 +191,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       const end_time = new Date().getTime();
       console.log(end_time - start_time);
       if (final_data_reference.length === 0) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         final_data_reference = main_data;
       }
       return main_data;
