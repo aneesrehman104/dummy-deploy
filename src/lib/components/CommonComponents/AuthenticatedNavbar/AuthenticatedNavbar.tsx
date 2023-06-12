@@ -19,18 +19,21 @@ import {
   useTheme,
   TextField,
   InputAdornment,
-  Breadcrumbs,
+  Dialog,
+  DialogTitle,
+  DialogContent,
 } from "@mui/material";
 import "./AuthenticatedNavbar.css";
 import dynamic from "next/dynamic";
 import searchIcon from "../../../../../public/searchIcon.svg";
 import { styled } from "@mui/material/styles";
 import { Props, SidebarState } from "@/lib/ts/interface";
-import { sidebarItem,navBarText } from "@/lib/ts/constants";
+import { sidebarItem, navBarText } from "@/lib/ts/constants";
+import CloseIcon from "@mui/icons-material/Close";
+import { toggleItem } from "./functions";
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 const drawerWidth = 240;
-
 
 export default function AuthenticatedNavbar(props: Props) {
   const router = useRouter();
@@ -41,9 +44,10 @@ export default function AuthenticatedNavbar(props: Props) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("Home");
   const [isOpen, setIsOpen] = useState<SidebarState>({});
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
 
   const CssTextField = styled(TextField)({
-    width: isMediumScreen ? "100%" : "390px",
+    width: "375px",
     height: "40px",
     border: "1px solid #dddee0",
     background: "#dddee0",
@@ -54,29 +58,6 @@ export default function AuthenticatedNavbar(props: Props) {
       },
     },
   });
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-  const toggleItem = (itemId: string) => {
-    setIsOpen((prevState) => {
-      const newState: SidebarState = { ...prevState };
-      const hasSubItems = sidebarItem.some(
-        (item) => item.id === itemId && item.items
-      );
-
-      if (hasSubItems) {
-        newState[itemId] = !prevState[itemId];
-      } else {
-        // Close all items except the current item when navigating to a leaf item
-        Object.keys(prevState).forEach((key) => {
-          newState[key] = key === itemId ? !prevState[key] : false;
-        });
-      }
-
-      return newState;
-    });
-  };
 
   useEffect(() => {
     const foundItem = sidebarItem.find((item) => {
@@ -93,7 +74,7 @@ export default function AuthenticatedNavbar(props: Props) {
     });
 
     if (foundItem) {
-      toggleItem(foundItem.id);
+      toggleItem(foundItem.id, setIsOpen);
       if (foundItem?.pathname === pathname) {
         setCurrentBreadcrumb(foundItem.breadcrumb);
       } else {
@@ -106,6 +87,13 @@ export default function AuthenticatedNavbar(props: Props) {
       }
     }
   }, [pathname]);
+  const handleOpenModal = () => {
+    setIsSearchModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsSearchModalOpen(false);
+  };
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -122,7 +110,7 @@ export default function AuthenticatedNavbar(props: Props) {
                     color="inherit"
                     aria-label="open drawer"
                     edge="start"
-                    onClick={toggleSidebar}
+                    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                     sx={{ mr: 2 }}
                   >
                     <MenuIcon />
@@ -138,27 +126,50 @@ export default function AuthenticatedNavbar(props: Props) {
                   style={{ marginRight: 20 }}
                 />
               ) : null}
-              <CssTextField
-                placeholder="Search ticker or company"
-                className=""
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Image
-                        src={searchIcon}
-                        alt="searchIcon"
-                        width={18}
-                        height={18}
-                      />
-                    </InputAdornment>
-                  ),
-                }}
-                size="small"
-                hiddenLabel
-              />
+              {!isMediumScreen ? (
+                <CssTextField
+                  placeholder="Search ticker or company"
+                  className=""
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Image
+                          src={searchIcon}
+                          alt="searchIcon"
+                          width={18}
+                          height={18}
+                        />
+                      </InputAdornment>
+                    ),
+                  }}
+                  size="small"
+                  hiddenLabel
+                />
+              ) : (
+                <div
+                  style={{
+                    backgroundColor: "#dddee0",
+                    width: "36px",
+                    height: "36px",
+                    borderRadius: "50%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  onClick={handleOpenModal}
+                >
+                  <Image
+                    src={searchIcon}
+                    alt="searchIcon"
+                    width={18}
+                    height={18}
+                  />
+                </div>
+              )}
             </div>
             <div className="textStyle cursorPointer">
-              <span>{navBarText.signUp}</span> / <span>{navBarText.signIn}</span>
+              <span>{navBarText.signUp}</span> /{" "}
+              <span>{navBarText.signIn}</span>
             </div>
           </div>
         </div>
@@ -187,7 +198,7 @@ export default function AuthenticatedNavbar(props: Props) {
                       onClick={() => {
                         if (item.items) {
                           if (pathname === item.pathname) {
-                            toggleItem(item.id);
+                            toggleItem(item.id, setIsOpen);
                           } else {
                             router.push(item.pathname);
                           }
@@ -277,7 +288,7 @@ export default function AuthenticatedNavbar(props: Props) {
                       onClick={() => {
                         if (item.items) {
                           if (pathname === item.pathname) {
-                            toggleItem(item.id);
+                            toggleItem(item.id, setIsOpen);
                           } else {
                             router.push(item.pathname);
                           }
@@ -353,6 +364,63 @@ export default function AuthenticatedNavbar(props: Props) {
         {props.children}
         <Footer />
       </Box>
+      <Dialog
+        open={isSearchModalOpen}
+        onClose={handleCloseModal}
+        // maxWidth="xl"
+        // fullWidth
+        PaperProps={{
+          style: {
+            height: "100%",
+            width: "100%",
+            overflowY: "unset", // Remove the default y-axis overflow
+            padding: 0, // Remove the default padding
+            margin: 0, // Remove the default margin
+            maxHeight: "100%", // Remove the max-height property
+          },
+        }}
+      >
+        <IconButton
+          edge="end"
+          color="inherit"
+          onClick={handleCloseModal}
+          aria-label="close"
+          sx={{
+            position: "absolute",
+            top: 8,
+            right: 20,
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent
+          style={{
+            overflowY: "unset",
+            padding: "50px 0px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <CssTextField
+            placeholder="Search ticker or company"
+            className=""
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Image
+                    src={searchIcon}
+                    alt="searchIcon"
+                    width={18}
+                    height={18}
+                  />
+                </InputAdornment>
+              ),
+            }}
+            size="small"
+            hiddenLabel
+          />
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 }

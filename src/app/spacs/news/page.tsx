@@ -1,11 +1,12 @@
 "use client";
 import RootLayout from "../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
+import SpacsNews from "@/lib/components/MainComponents/SpacsNews";
 export default function IposPage() {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="spacs/news">
-        <div style={{ minHeight: "10vh" }}>spacs news</div>
+       <SpacsNews/>
       </AuthenticatedNavbar>
     </RootLayout>
   );

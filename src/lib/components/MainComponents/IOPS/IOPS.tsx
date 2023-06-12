@@ -2,10 +2,10 @@ import styles from "./iops.module.css";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-
+import Skeleton from '@mui/material/Skeleton';
 const DynamicChart = dynamic(() => import("./IOPSChart"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => <Skeleton  variant="rounded"  height={200}  />,
 });
 
 const dataSet = [

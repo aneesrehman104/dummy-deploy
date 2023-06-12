@@ -13,7 +13,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
 import Image from "next/image";
 import { Diversity1Outlined } from "@mui/icons-material";
-
+import MyTable from "./functions";
 function Announced() {
   const data = [
     {
@@ -38,149 +38,9 @@ function Announced() {
       marketCap: "$723.23T",
     },
   ];
-  const MyTable = ({ data }: any) => {
-    const [sortColumn, setSortColumn] = useState("");
-    const [sortDirection, setSortDirection] = useState("asc");
 
-    const handleSort = (column: string) => {
-      setSortColumn(column);
-      setSortDirection(
-        sortDirection === TABLETITLESECTION.asc
-          ? TABLETITLESECTION.desc
-          : TABLETITLESECTION.asc
-      );
-    };
-
-    const sortedData = [...data].sort((a, b) => {
-      if (sortColumn) {
-        if (sortDirection === TABLETITLESECTION.asc) {
-          return a[sortColumn].localeCompare(b[sortColumn]);
-        } else {
-          return b[sortColumn].localeCompare(a[sortColumn]);
-        }
-      } else {
-        return 0;
-      }
-    });
-    return (
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell onClick={() => handleSort("company")}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontWeight: 700,
-                }}
-              >
-                {sortDirection === TABLETITLESECTION.desc &&
-                sortColumn === TABLETITLESECTION.company ? (
-                  <ArrowUpwardIcon fontSize="inherit" />
-                ) : (
-                  <ArrowDownwardIcon fontSize="inherit" />
-                )}
-                Company
-              </div>
-            </TableCell>
-            <TableCell onClick={() => handleSort("symbol")}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontWeight: 700,
-                }}
-              >
-                {sortDirection === TABLETITLESECTION.desc &&
-                sortColumn === TABLETITLESECTION.symbol ? (
-                  <ArrowUpwardIcon fontSize="inherit" />
-                ) : (
-                  <ArrowDownwardIcon fontSize="inherit" />
-                )}
-                Symbol
-              </div>
-            </TableCell>
-            <TableCell onClick={() => handleSort("price")}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontWeight: 700,
-                }}
-              >
-                {sortDirection === TABLETITLESECTION.desc &&
-                sortColumn === TABLETITLESECTION.price ? (
-                  <ArrowUpwardIcon fontSize="inherit" />
-                ) : (
-                  <ArrowDownwardIcon fontSize="inherit" />
-                )}
-                Price
-              </div>
-            </TableCell>
-            <TableCell onClick={() => handleSort("today")}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontWeight: 700,
-                }}
-              >
-                {sortDirection === TABLETITLESECTION.desc &&
-                sortColumn === TABLETITLESECTION.today ? (
-                  <ArrowUpwardIcon fontSize="inherit" />
-                ) : (
-                  <ArrowDownwardIcon fontSize="inherit" />
-                )}
-                Today
-              </div>
-            </TableCell>
-            <TableCell onClick={() => handleSort("marketCap")}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  fontWeight: 700,
-                }}
-              >
-                {sortDirection === TABLETITLESECTION.desc &&
-                sortColumn === TABLETITLESECTION.marketCap ? (
-                  <ArrowUpwardIcon fontSize="inherit" />
-                ) : (
-                  <ArrowDownwardIcon fontSize="inherit" />
-                )}
-                Market Cap
-              </div>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {sortedData.map((item, index) => (
-            <TableRow key={index}>
-              <TableCell>
-                <div className={styles.customTableCustomCell}>
-                  <div className={styles.imageWrapper}>
-                    <Image
-                      src="/image.svg"
-                      alt="image"
-                      width={24}
-                      height={24}
-                    />
-                  </div>
-                  <div className={styles.activision}>{item.company}</div>
-                </div>
-              </TableCell>
-              <TableCell>{item.symbol}</TableCell>
-              <TableCell>{item.price}</TableCell>
-              <TableCell>{item.today}</TableCell>
-              <TableCell>{item.marketCap}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    );
-  };
   return (
-    <div className={styles.stockstablesection}>
+    <section className={styles.stockstablesection}>
       <div
         style={{
           display: "flex",
@@ -195,7 +55,7 @@ function Announced() {
           <MyTable data={data} />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

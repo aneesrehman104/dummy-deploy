@@ -3,10 +3,42 @@ import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { homeConstants, weekName } from "@/lib/ts/constants";
+import Skeleton from "@mui/material/Skeleton";
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
-  loading: () => <p>Loading...</p>,
+  loading: () => <Skeleton variant="rounded" height={200} />,
 });
+function ChartTitle() {
+  return (
+    <div className={styles.ytdEventSummary}>{homeConstants.chartTitle}</div>
+  );
+}
+
+function ChartBottomSide() {
+  return (
+    <div className={styles.chartBottomSide}>
+      <div className={styles.chartBottomSideInnerDiv}>
+        <div className={styles.titleText}>
+          <div>52</div>
+          <div>{homeConstants.IOPS}</div>
+        </div>
+        <div className={styles.titleText}>
+          <div>30</div>
+          <div>{homeConstants.SPACS}</div>
+        </div>
+        <div className={styles.titleText}>
+          <div>30</div>
+          <div>{homeConstants.MERGERS}</div>
+        </div>
+      </div>
+      <div className={styles.indicator} />
+      <div className={styles.eventsummaryinfo}>
+        <div className={styles.text}>{homeConstants.details}</div>
+        <div className={styles.titlebottom}>{homeConstants.COMPARISON}</div>
+      </div>
+    </div>
+  );
+}
 
 function EventSummary() {
   const options = {
@@ -61,12 +93,10 @@ function EventSummary() {
   };
 
   return (
-    <div className={styles.sectionsummarycontainer}>
+    <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>
-            {homeConstants.chartTitle}
-          </div>
+          <ChartTitle />
           <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
         </div>
       </div>
@@ -74,29 +104,9 @@ function EventSummary() {
         <div style={{ width: "100%" }}>
           <DynamicChart options={options} />
         </div>
-        <div className={styles.chartBottomSide}>
-          <div className={styles.chartBottomSideInnerDiv}>
-            <div className={styles.titleText}>
-              <div>52</div>
-              <div>{homeConstants.IOPS}</div>
-            </div>
-            <div className={styles.titleText}>
-              <div>30</div>
-              <div>{homeConstants.SPACS}</div>
-            </div>
-            <div className={styles.titleText}>
-              <div>30</div>
-              <div>{homeConstants.MERGERS}</div>
-            </div>
-          </div>
-          <div className={styles.indicator} />
-          <div className={styles.eventsummaryinfo}>
-            <div className={styles.text}>{homeConstants.details}</div>
-            <div className={styles.titlebottom}>{homeConstants.COMPARISON}</div>
-          </div>
-        </div>
+        <ChartBottomSide />
       </div>
-    </div>
+    </section>
   );
 }
 
