@@ -53,3 +53,17 @@ export type GainerInterFace = {
 export type LoserInterFace = {
   title: string;
 };
+export interface GraphDataInterface {
+  additional_dataset?: {
+    IPO?: number;
+    Closed_Mergers?: number;
+    Announced_Mergers?: number;
+    Liquidations?:number;
+  };
+  dataset: {
+    month: string;
+    data: number;
+    event: string;
+  }[];
+  // Define other properties here if needed
+}
