@@ -37,7 +37,6 @@ import { reducer } from "@/lib/reducers/internal-feed";
 import { serializeData } from "@/lib/utils/data-ingestion";
 import { IResponseSchema } from "@/lib/ts";
 
-
 export default function RootLayout(children: JSX.Element | JSX.Element[]) {
   const [open, setOpen] = React.useState(true);
   const [current_section, setCurrentSection] = useState<string>(
@@ -63,7 +62,6 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
       if (response.ok) {
         console.log("API request successful");
         // After the successful API request, update the dataset state to mark the row as submitted
-
       } else {
         console.log("API request failed");
       }
@@ -99,6 +97,8 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
 
   useEffect(() => {
     const GetDataset = async () => {
+      setLoading(true); // Set isLoading to true before fetching data
+
       // this is a dummy data for now
       // the idea is to make this a paginated based table so that we can load the data in chunks
       // we need to make a call to the backend to get the data with limit and offset
@@ -194,13 +194,17 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
     return dataset;
   }, [dataset]);
 
-  const detectChanges = (rowIndex: number, columnIndex: number, current_data: string | number | boolean) => {
+  const detectChanges = (
+    rowIndex: number,
+    columnIndex: number,
+    current_data: string | number | boolean
+  ) => {
     const real_data = [...final_data_reference][rowIndex][columnIndex];
     if (real_data !== current_data) {
       return true;
     }
     return false;
-  }
+  };
 
   const table_columns = [
     {
@@ -428,7 +432,11 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           if (Object.keys(DataCategoryNesting).includes(dataCategory) === false)
             return <Typography>No options</Typography>;
           // @ts-ignore
-          if ( DataCategoryNesting[dataCategory] === undefined || DataCategoryNesting[dataCategory] === null )
+          if ( //@ts-ignore
+            DataCategoryNesting[dataCategory] === undefined ||
+            //@ts-ignore
+            DataCategoryNesting[dataCategory] === null
+          )
             return <Typography>No options</Typography>;
           // @ts-ignore
           const subCategories = Object.keys(DataCategoryNesting[dataCategory]);
@@ -477,7 +485,12 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           if (Object.keys(DataCategoryNesting).includes(dataCategory) === false)
             return <Typography>No suggestions</Typography>;
           // @ts-ignore
-          if (DataCategoryNesting[dataCategory] === undefined ||DataCategoryNesting[dataCategory] === null)
+          if (
+            //@ts-ignore
+            DataCategoryNesting[dataCategory] === undefined ||
+            //@ts-ignore
+            DataCategoryNesting[dataCategory] === null
+          )
             return <Typography>No =suggestions</Typography>;
           // @ts-ignore
           const subCategories = DataCategoryNesting[dataCategory];
@@ -532,7 +545,7 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           <TextareaAutosize
             value={value}
             onChange={(event) => {
-              updateValue(event.target.value)
+              updateValue(event.target.value);
             }}
             style={{ padding: 8, width: 300, height: 100 }}
           />
@@ -553,7 +566,12 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           if (Object.keys(DataCategoryNesting).includes(dataCategory) === false)
             return <Typography>No suggestions</Typography>;
           // @ts-ignore
-          if (DataCategoryNesting[dataCategory] === undefined ||DataCategoryNesting[dataCategory] === null)
+          if (
+            //@ts-ignore
+            DataCategoryNesting[dataCategory] === undefined ||
+            //@ts-ignore
+            DataCategoryNesting[dataCategory] === null
+          )
             return <Typography>No =suggestions</Typography>;
           // @ts-ignore
           const subCategories = DataCategoryNesting[dataCategory];
@@ -660,9 +678,12 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         filter: true,
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Checkbox checked={value} onChange={() =>{ 
-            updateValue(!value);
-          }} />
+          <Checkbox
+            checked={value}
+            onChange={() => {
+              updateValue(!value);
+            }}
+          />
         ),
       },
     },
@@ -673,9 +694,12 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         filter: true,
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => (
-          <Checkbox checked={value} onChange={() =>{
-            updateValue(!value);
-          }}/>
+          <Checkbox
+            checked={value}
+            onChange={() => {
+              updateValue(!value);
+            }}
+          />
         ),
       },
     },
@@ -803,32 +827,51 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
         filter: false,
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
-          const dummy = [...final_data_reference][tableMeta.rowIndex]
+          const dummy = [...final_data_reference][tableMeta.rowIndex];
           const row_data = [...tableMeta.rowData];
           let status = false;
-          if (dummy[9] === row_data[9] && dummy[10] === row_data[10] && dummy[11] === row_data[11] && dummy[12] === row_data[12] && dummy[14] === row_data[14] && dummy[14] === row_data[14] && dummy[18] === row_data[18]  && dummy[17] === row_data[17]  && dummy[19] === row_data[19]  && dummy[20] === row_data[20]  && dummy[21] === parseInt(row_data[21])  && dummy[22] === parseInt(row_data[22])) {
-            status = true
+          if (
+            dummy[9] === row_data[9] &&
+            dummy[10] === row_data[10] &&
+            dummy[11] === row_data[11] &&
+            dummy[12] === row_data[12] &&
+            dummy[14] === row_data[14] &&
+            dummy[14] === row_data[14] &&
+            dummy[18] === row_data[18] &&
+            dummy[17] === row_data[17] &&
+            dummy[19] === row_data[19] &&
+            dummy[20] === row_data[20] &&
+            dummy[21] === parseInt(row_data[21]) &&
+            dummy[22] === parseInt(row_data[22])
+          ) {
+            status = true;
           }
 
           console.log(dummy[21], row_data[21], "21");
           console.log(dummy[22], row_data[22], "22");
-          // dummy.forEach((item: any) => { if (tableMeta.rowData.includes(item) === false) { 
+          // dummy.forEach((item: any) => { if (tableMeta.rowData.includes(item) === false) {
           //   status = true;
           //  } })
-          return (<Button
-            variant="contained"
-            sx={{
-              backgroundColor: status === false ? "primary" : "darkgrey",
-              "&:hover": {
-                backgroundColor: "darkgrey",
-              },
-            }}
-            onClick={() =>
-              handleRowSubmit(tableMeta.rowData, tableMeta.rowIndex, tableMeta)
-            }
-          >
-            Submit
-          </Button>);
+          return (
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: status === false ? "primary" : "darkgrey",
+                "&:hover": {
+                  backgroundColor: "darkgrey",
+                },
+              }}
+              onClick={() =>
+                handleRowSubmit(
+                  tableMeta.rowData,
+                  tableMeta.rowIndex,
+                  tableMeta
+                )
+              }
+            >
+              Submit
+            </Button>
+          );
         },
       },
     },
@@ -904,22 +947,38 @@ export default function RootLayout(children: JSX.Element | JSX.Element[]) {
           }}
         >
           <Toolbar />
-          <ThemeProvider theme={getMuiTheme()}>
-            <MUIDataTable
-              title={"Internal Feed Table"}
-              data={final_data}
-              columns={table_columns}
-              options={{
-                pagination: true,
-                tableId: "internal_feed",
-                filter: true,
-                search: true,
-                filterType: "dropdown",
-                rowsPerPageOptions: [10],
-                rowsPerPage: 10,
+
+          {isLoading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
               }}
-            />
-          </ThemeProvider>
+            >
+              <CircularProgress />
+            </div>
+          ) : (
+            <ThemeProvider theme={getMuiTheme()}>
+              <MUIDataTable
+                title={"Internal Feed Table"}
+                data={final_data}
+                columns={table_columns}
+                options={{
+                  pagination: true,
+                  tableId: "internal_feed",
+                  filter: true,
+                  search: true,
+                  filterType: "dropdown",
+                  rowsPerPageOptions: [10],
+                  rowsPerPage: 10,
+                }}
+              />
+            </ThemeProvider>
+          )}
+
+        
         </Box>
       </Box>
     </ThemeProvider>
