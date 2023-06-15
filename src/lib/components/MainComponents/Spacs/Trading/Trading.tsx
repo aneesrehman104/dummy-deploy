@@ -6,6 +6,12 @@ import Losers from "../Losers/Losers";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 function Trading() {
+  const tabValues: { [key: number]: string } = {
+    0: "daily",
+    1: "weekly",
+    2: "merger_closing",
+  };
+
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingLooser, setIsLoadingLooser] = useState(true);
@@ -38,11 +44,7 @@ function Trading() {
       `${
         URLs.spacTrading
       }?page=${spacsTradingGainerDataCurrentPage}&offset=${itemsPerPage}&period=${
-        spacsTradingGainerDataSelectedTab == 0
-          ? "daily"
-          : spacsTradingGainerDataSelectedTab == 1
-          ? "weekly"
-          : "merger_closing"
+        tabValues[spacsTradingGainerDataSelectedTab]
       }&gainOrLoser=gain&activeOrDeSPAC=${
         selectedTab === 0 ? "active" : "DeSPAC"
       }`
@@ -61,11 +63,7 @@ function Trading() {
       `${
         URLs.spacTrading
       }?page=${spacsTradingLoserDataCurrentPage}&offset=${itemsPerPage}&period=${
-        spacsTradingLoserDataSelectedTab == 0
-          ? "daily"
-          : spacsTradingLoserDataSelectedTab == 1
-          ? "weekly"
-          : "merger_closing"
+        tabValues[spacsTradingLoserDataSelectedTab]
       }&gainOrLoser=gain&activeOrDeSPAC=${
         selectedTab === 0 ? "active" : "DeSPAC"
       }`
@@ -80,11 +78,19 @@ function Trading() {
 
   useEffect(() => {
     getSpacsTradingGainerData();
-  }, [spacsTradingGainerDataSelectedTab, spacsTradingGainerDataCurrentPage]);
+  }, [
+    spacsTradingGainerDataSelectedTab,
+    spacsTradingGainerDataCurrentPage,
+    selectedTab,
+  ]);
 
   useEffect(() => {
     getSpacsTradingLoserData();
-  }, [spacsTradingLoserDataSelectedTab, spacsTradingLoserDataCurrentPage]);
+  }, [
+    spacsTradingLoserDataSelectedTab,
+    spacsTradingLoserDataCurrentPage,
+    selectedTab,
+  ]);
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Trading</div>
