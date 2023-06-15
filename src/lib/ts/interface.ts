@@ -67,7 +67,7 @@ export type LoserInterFace = {
   spacsTradingLoserDataCurrentPage?: any;
   setSpacsTradingLoserDataCurrentPage?: any;
   spacsTradingGainerData?: any;
-  isLoadingLooser?:boolean;
+  isLoadingLooser?: boolean;
 };
 export interface GraphDataInterface {
   additional_dataset?: {
@@ -82,4 +82,11 @@ export interface GraphDataInterface {
     event: string;
   }[];
   // Define other properties here if needed
+}
+export interface PipelineInterface {
+  data: any[];
+  totalLength?: any;
+  itemsPerPage?: any;
+  currentPage?: any;
+  paginate?: any;
 }
