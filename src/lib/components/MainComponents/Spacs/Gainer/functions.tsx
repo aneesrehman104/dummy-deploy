@@ -10,14 +10,14 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
 import dynamic from "next/dynamic";
-import Skeleton from '@mui/material/Skeleton';
+import Skeleton from "@mui/material/Skeleton";
 
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
-  loading: () => <Skeleton  variant="rounded"  height={200}  />,
+  loading: () => <Skeleton variant="rounded" height={50} />,
 });
 
-const headerArray = [
+const headerDailyTradingArray = [
   {
     name: "Company",
     key: "company",
@@ -43,9 +43,74 @@ const headerArray = [
     key: "vol",
   },
 ];
-const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
+const headerWeeklyTradingArray = [
+  {
+    name: "Company",
+    key: "company",
+  },
+  {
+    name: "Symbol",
+    key: "symbol",
+  },
+  {
+    name: "Last 30D",
+    key: "last30D",
+  },
+  {
+    name: "Price",
+    key: "price",
+  },
+  {
+    name: "Weekly",
+    key: "weekly",
+  },
+  {
+    name: "Vol",
+    key: "vol",
+  },
+];
+const headerMonthlyTradingArray = [
+  {
+    name: "Company",
+    key: "company",
+  },
+  {
+    name: "Symbol",
+    key: "symbol",
+  },
+  {
+    name: "Last 30D",
+    key: "last30D",
+  },
+  {
+    name: "Price",
+    key: "price",
+  },
+  {
+    name: "Since Merger Closing",
+    key: "merger_closing",
+  },
+  {
+    name: "Vol",
+    key: "vol",
+  },
+];
+const MyTable = ({
+  data,
+  currentPage,
+  itemsPerPage,
+  paginate,
+  spacsTradingGainerDataSelectedTab,
+  totalLength,
+}: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
+  let headerArray =
+    spacsTradingGainerDataSelectedTab === 0
+      ? headerDailyTradingArray
+      : spacsTradingGainerDataSelectedTab === 1
+      ? headerWeeklyTradingArray
+      : headerMonthlyTradingArray;
 
   const handleSort = (column: string) => {
     if (column !== "last30D") {
@@ -110,7 +175,14 @@ const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
               <DynamicChart data={item.last30D} />
             </TableCell>
             <TableCell>{item.price}</TableCell>
-            <TableCell style={{ color: "#0AAC1A" }}>{item.daily}</TableCell>
+            {spacsTradingGainerDataSelectedTab === 0 ? (
+              <TableCell style={{ color: "#0AAC1A" }}>{item.daily}</TableCell>
+            ) : spacsTradingGainerDataSelectedTab === 1 ? (
+              <TableCell style={{ color: "#0AAC1A" }}>{item.weekly}</TableCell>
+            ) : (
+              <TableCell style={{ color: "#0AAC1A" }}>{item.merger_closing}</TableCell>
+            )}
+
             <TableCell>{item.vol}</TableCell>
           </TableRow>
         ))}
@@ -119,7 +191,7 @@ const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
         <TableRow>
           <TablePagination
             colSpan={6} // Number of columns in the table
-            count={sortedData.length} // Total number of items
+            count={totalLength?.totalLength} // Total number of items
             rowsPerPage={itemsPerPage}
             page={currentPage - 1} // Page number starts from 0
             onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
