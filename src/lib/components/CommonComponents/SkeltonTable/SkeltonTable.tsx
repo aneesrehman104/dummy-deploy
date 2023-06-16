@@ -7,25 +7,37 @@ const SkeltonTable = () => {
     <>
     <Skeleton
       variant="rounded"
-      height={35}
+      height={50}
       width={"100%"}
       style={{ marginTop: 15 }}
     />
     <Skeleton
       variant="rounded"
-      height={35}
+      height={50}
       width={"100%"}
       style={{ marginTop: 15 }}
     />
     <Skeleton
       variant="rounded"
-      height={35}
+      height={50}
       width={"100%"}
       style={{ marginTop: 15 }}
     />
     <Skeleton
       variant="rounded"
-      height={35}
+      height={50}
+      width={"100%"}
+      style={{ marginTop: 15 }}
+    />
+     <Skeleton
+      variant="rounded"
+      height={50}
+      width={"100%"}
+      style={{ marginTop: 15 }}
+    />
+     <Skeleton
+      variant="rounded"
+      height={50}
       width={"100%"}
       style={{ marginTop: 15 }}
     />

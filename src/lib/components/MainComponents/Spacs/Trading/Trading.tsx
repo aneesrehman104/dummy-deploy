@@ -36,7 +36,7 @@ function Trading() {
     setSpacsTradingLoserDataCurrentPage,
   ] = useState(1);
 
-  const [itemsPerPage] = useState(4);
+  const [itemsPerPage] = useState(5);
 
   const getSpacsTradingGainerData = async () => {
     setIsLoading(true);

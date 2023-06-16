@@ -10,29 +10,6 @@ function Announced() {
   const [isLoadingAnnounced, setIsLoadingAnnounced] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  const data = [
-    {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
-    },
-    {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
-    },
-    {
-      company: "Activision3",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23T",
-    },
-  ];
 
   const getLatestAnnounced = async () => {
     setIsLoadingAnnounced(true);
