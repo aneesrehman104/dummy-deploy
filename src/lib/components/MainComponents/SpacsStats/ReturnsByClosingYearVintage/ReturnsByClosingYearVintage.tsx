@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./event-summary.module.css";
+import styles from "./ReturnsByClosingYearVintage.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
@@ -11,7 +11,7 @@ const DynamicChart = dynamic(() => import("./EventsChart"), {
   loading: () => <Skeleton variant="rounded" height={200} />,
 });
 
-function EventSummary() {
+function ReturnsByClosingYearVintage() {
   const [isLoading, setIsLoading] = useState(true);
   const [graphData, setGraphData] = useState<GraphDataInterface>({
     additional_dataset: {},
@@ -19,8 +19,8 @@ function EventSummary() {
   });
   const options = {
     chart: {
-      type: "line",
-      height: null,
+      type: "bar", // Change the chart type to "bar"
+      height: 550,
       width: null,
       marginTop: 50,
       marginBottom: 90,
@@ -46,21 +46,20 @@ function EventSummary() {
         "NOV",
         "DEC",
       ],
-    },
-    yAxis: {
-      opposite: true,
       title: {
         text: null, // or text: ''
       },
     },
-
+    yAxis: {
+      opposite: true,
+    },
     credits: {
       enabled: false,
     },
     legend: {
       align: "start",
-      verticalAlign: "bottom",
-      layout: "horizontal",
+      verticalAlign: "bottom", // Change verticalAlign to "middle"
+      layout: "horizontal", // Change layout to "vertical"
     },
     series: [
       {
@@ -88,6 +87,7 @@ function EventSummary() {
   };
   const getStatsData = async () => {
     const response = await getApiWithoutAuth(URLs.spacGraph);
+    console.log('=======================res',response)
     if (response.status === 200) {
       setGraphData(response.data);
 
@@ -104,8 +104,7 @@ function EventSummary() {
     <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>2023 SPACs Stats</div>
-          <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
+          <div className={styles.ytdEventSummary}>YTD De-SPAC Returns by Closing Year Vintage</div>
         </div>
       </div>
       <div className={styles.chartcontainer}>
@@ -147,4 +146,4 @@ function EventSummary() {
   );
 }
 
-export default EventSummary;
+export default ReturnsByClosingYearVintage;

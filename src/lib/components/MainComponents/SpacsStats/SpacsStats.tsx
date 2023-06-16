@@ -2,6 +2,8 @@ import styles from "./spacsStats.module.css";
 import React from "react";
 import EventSummary from "./EventSummary/EventSummary";
 import MarketStats from "./MarketStats/MarketStats";
+import ReturnsByTargetIndustry from "./ReturnsByTargetIndustry/ReturnsByTargetIndustry";
+import ReturnsByClosingYearVintage from "./ReturnsByClosingYearVintage/ReturnsByClosingYearVintage";
 const SpacsStats = () => {
   return (
     <main>
@@ -13,8 +15,8 @@ const SpacsStats = () => {
       <section>
         <EventSummary />
         <MarketStats />
-        <EventSummary />
-        <MarketStats />
+        <ReturnsByTargetIndustry />
+        <ReturnsByClosingYearVintage />
       </section>
     </main>
   );

@@ -208,7 +208,7 @@ export const navBarText = {
 
 export const homeConstants = {
   title: "LISTINGTRACK",
-  IOPS: "IOPS",
+  IOPS: "IPOS",
   SPACS: "SPACS",
   MERGERS: "MERGERS",
   details:

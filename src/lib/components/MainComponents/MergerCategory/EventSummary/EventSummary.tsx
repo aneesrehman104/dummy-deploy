@@ -57,7 +57,7 @@ function EventSummary() {
     },
     series: [
       {
-        name: "IOPS",
+        name: "IPOS",
         data: [10, 150, 20, 10, 133, 188, 500, 10, 150, 20, 10, 188],
         color: "#F19529",
       },
