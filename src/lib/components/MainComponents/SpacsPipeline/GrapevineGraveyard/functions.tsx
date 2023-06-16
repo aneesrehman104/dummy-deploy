@@ -38,18 +38,23 @@ const headerArray = [
     key: "proceedsRange",
   },
 ];
-const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
+const MyTable = ({
+  data,
+  itemsPerPage,
+  currentPage,
+  paginate,
+  totalLength,
+}: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
   const handleSort = (column: string) => {
-      setSortColumn(column);
-      setSortDirection(
-        sortDirection === TABLETITLESECTION.asc
-          ? TABLETITLESECTION.desc
-          : TABLETITLESECTION.asc
-      );
-    
+    setSortColumn(column);
+    setSortDirection(
+      sortDirection === TABLETITLESECTION.asc
+        ? TABLETITLESECTION.desc
+        : TABLETITLESECTION.asc
+    );
   };
 
   const sortedData = [...data].sort((a, b) => {
@@ -79,7 +84,7 @@ const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
                   }}
                 >
                   {sortDirection === TABLETITLESECTION.desc &&
-                  sortColumn === item.key? (
+                  sortColumn === item.key ? (
                     <ArrowUpwardIcon fontSize="inherit" />
                   ) : (
                     <ArrowDownwardIcon fontSize="inherit" />
@@ -94,7 +99,7 @@ const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
       <TableBody>
         {sortedData.map((item, index) => (
           <TableRow key={index}>
-            <TableCell>
+             <TableCell>
               <div className={styles.customTableCustomCell}>
                 <div className={styles.imageWrapper}>
                   <Image src="/image.svg" alt="image" width={24} height={24} />
@@ -104,24 +109,24 @@ const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
             </TableCell>
             <TableCell>{item.event}</TableCell>
             <TableCell>{item.status}</TableCell>
-            <TableCell>{item.pricingDate}</TableCell>
-            <TableCell>{item.priceRange}</TableCell>
-            <TableCell>{item.proceedsRange}</TableCell>
+            <TableCell>{item.est_pricing_date}</TableCell>
+            <TableCell>{item.price}</TableCell>
+            <TableCell>{item.proceed}</TableCell>
           </TableRow>
         ))}
       </TableBody>
       <tfoot>
-          <TableRow>
-            <TablePagination
-              colSpan={6} // Number of columns in the table
-              count={sortedData.length} // Total number of items
-              rowsPerPage={itemsPerPage}
-              page={currentPage - 1} // Page number starts from 0
-              onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
-              rowsPerPageOptions={[]} // Hide rows per page options
-            />
-          </TableRow>
-        </tfoot>
+        <TableRow>
+          <TablePagination
+            colSpan={6} // Number of columns in the table
+            count={totalLength?.totalLength} // Total number of items
+            rowsPerPage={itemsPerPage}
+            page={currentPage - 1} // Page number starts from 0
+            onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
+            rowsPerPageOptions={[]} // Hide rows per page options
+          />
+        </TableRow>
+      </tfoot>
     </Table>
   );
 };
