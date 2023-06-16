@@ -1,15 +1,19 @@
 import React from "react";
-import { useState } from "react";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableBody from "@mui/material/TableBody";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
+import styles from "./LatestAnnouncedSpacMergers.module.css";
+import { useState, useEffect } from "react";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
-import styles from "./LatestAnnouncedSpacMergers.module.css";
 import Image from "next/image";
+import { PipelineInterface } from "@/lib/ts/interface";
+import TablePagination from "@mui/material/TablePagination";
 
 const headerArray = [
   {
@@ -26,29 +30,34 @@ const headerArray = [
   },
   {
     name: "Est. Pricing Date",
-    key: "pricingDate",
+    key: "est_pricing_date",
   },
   {
     name: "Price/range",
-    key: "priceRange",
+    key: "price",
   },
   {
     name: "Proceeds/range",
-    key: "proceedsRange",
+    key: "proceed",
   },
 ];
-const MyTable = ({ data }: any) => {
+const MyTable = ({
+  data,
+  totalLength,
+  itemsPerPage,
+  currentPage,
+  paginate,
+}: PipelineInterface) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
   const handleSort = (column: string) => {
-      setSortColumn(column);
-      setSortDirection(
-        sortDirection === TABLETITLESECTION.asc
-          ? TABLETITLESECTION.desc
-          : TABLETITLESECTION.asc
-      );
-    
+    setSortColumn(column);
+    setSortDirection(
+      sortDirection === TABLETITLESECTION.asc
+        ? TABLETITLESECTION.desc
+        : TABLETITLESECTION.asc
+    );
   };
 
   const sortedData = [...data].sort((a, b) => {
@@ -62,7 +71,6 @@ const MyTable = ({ data }: any) => {
       return 0;
     }
   });
-
   return (
     <Table>
       <TableHead>
@@ -78,7 +86,7 @@ const MyTable = ({ data }: any) => {
                   }}
                 >
                   {sortDirection === TABLETITLESECTION.desc &&
-                  sortColumn === item.key? (
+                  sortColumn === item.key ? (
                     <ArrowUpwardIcon fontSize="inherit" />
                   ) : (
                     <ArrowDownwardIcon fontSize="inherit" />
@@ -103,13 +111,26 @@ const MyTable = ({ data }: any) => {
             </TableCell>
             <TableCell>{item.event}</TableCell>
             <TableCell>{item.status}</TableCell>
-            <TableCell>{item.pricingDate}</TableCell>
-            <TableCell>{item.priceRange}</TableCell>
-            <TableCell>{item.proceedsRange}</TableCell>
+            <TableCell>{item.est_pricing_date}</TableCell>
+            <TableCell>{item.price}</TableCell>
+            <TableCell>{item.proceed}</TableCell>
           </TableRow>
         ))}
       </TableBody>
+      <tfoot>
+        <TableRow>
+          <TablePagination
+            colSpan={6} // Number of columns in the table
+            count={totalLength.totalLength} // Total number of items
+            rowsPerPage={itemsPerPage}
+            page={currentPage - 1} // Page number starts from 0
+            onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
+            rowsPerPageOptions={[]} // Hide rows per page options
+          />
+        </TableRow>
+      </tfoot>
     </Table>
   );
 };
+
 export default MyTable;
