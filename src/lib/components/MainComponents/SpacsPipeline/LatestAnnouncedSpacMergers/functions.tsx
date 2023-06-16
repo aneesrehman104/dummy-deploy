@@ -60,12 +60,24 @@ const MyTable = ({
     );
   };
 
-  const sortedData = [...data].sort((a, b) => {
+  const sortedData = [...data]?.sort((a, b) => {
     if (sortColumn) {
       if (sortDirection === TABLETITLESECTION.asc) {
-        return a[sortColumn].localeCompare(b[sortColumn]);
+        if (
+          typeof a[sortColumn] === "number" &&
+          typeof b[sortColumn] === "number"
+        ) {
+          return a[sortColumn] - b[sortColumn];
+        }
+        return String(a[sortColumn]).localeCompare(String(b[sortColumn]));
       } else {
-        return b[sortColumn].localeCompare(a[sortColumn]);
+        if (
+          typeof a[sortColumn] === "number" &&
+          typeof b[sortColumn] === "number"
+        ) {
+          return b[sortColumn] - a[sortColumn];
+        }
+        return String(b[sortColumn]).localeCompare(String(a[sortColumn]));
       }
     } else {
       return 0;
