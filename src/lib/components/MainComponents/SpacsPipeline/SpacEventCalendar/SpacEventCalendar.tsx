@@ -6,6 +6,15 @@ import { URLs } from "@/lib/ts/apiUrl";
 import { SkeltonTable } from "@/lib/components/CommonComponents";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+// import { FullCalendarComponet } from "./FullCalender";
+import dynamic from "next/dynamic";
+import Skeleton from "@mui/material/Skeleton";
+
+const FullCalendarComponet = dynamic(() => import("./FullCalender"), {
+  ssr: false,
+  loading: () => <Skeleton variant="rounded" height={200} />,
+});
+
 function SpacEventCalendar() {
   const theme = createTheme({
     palette: {
@@ -113,7 +122,7 @@ function SpacEventCalendar() {
             </div>
           </>
         ) : (
-          <div>Show Month View</div>
+          <FullCalendarComponet />
         )}
       </div>
     </section>
