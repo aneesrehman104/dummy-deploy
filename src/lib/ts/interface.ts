@@ -47,9 +47,46 @@ export type ButtonProps = {
 };
 
 export type GainerInterFace = {
-  title: string;
+  title?: string;
+  data?: any;
+  itemsPerPage?: any;
+  spacsTradingGainerDataSelectedTab?: any;
+  setSpacsTradingGainerDataSelectedTab?: any;
+  spacsTradingGainerDataCurrentPage?: any;
+  setSpacsTradingGainerDataCurrentPage?: any;
+  spacsTradingGainerData?: any;
+  isLoading?: boolean;
 };
 
 export type LoserInterFace = {
-  title: string;
+  title?: string;
+  data?: any;
+  itemsPerPage?: any;
+  spacsTradingLoserDataSelectedTab?: any;
+  setSpacsTradingLoserDataSelectedTab?: any;
+  spacsTradingLoserDataCurrentPage?: any;
+  setSpacsTradingLoserDataCurrentPage?: any;
+  spacsTradingGainerData?: any;
+  isLoadingLooser?: boolean;
 };
+export interface GraphDataInterface {
+  additional_dataset?: {
+    IPO?: number;
+    Closed_Mergers?: number;
+    Announced_Mergers?: number;
+    Liquidations?: number;
+  };
+  dataset: {
+    month: string;
+    data: number;
+    event: string;
+  }[];
+  // Define other properties here if needed
+}
+export interface PipelineInterface {
+  data: any[];
+  totalLength?: any;
+  itemsPerPage?: any;
+  currentPage?: any;
+  paginate?: any;
+}

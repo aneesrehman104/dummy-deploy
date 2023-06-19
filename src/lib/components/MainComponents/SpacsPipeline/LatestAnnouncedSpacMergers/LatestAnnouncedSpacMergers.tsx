@@ -1,50 +1,59 @@
 import React from "react";
 import styles from "./LatestAnnouncedSpacMergers.module.css";
-
+import { useState, useEffect } from "react";
 import MyTable from "./functions";
+import { getApiWithoutAuth } from "@/lib/ts/api";
+import { URLs } from "@/lib/ts/apiUrl";
+import { SkeltonTable } from "@/lib/components/CommonComponents";
 function LatestAnnouncedSpacMergers() {
-  const data = [
-    {
-      company: "Activision",
-      event: "IPO",
-      status: "Announced",
-      pricingDate: "Jan 2 ‘22",
-      priceRange: "$21/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "BBC",
-      event: "SPAC",
-      status: "Closed",
-      pricingDate: "Jun 2 ‘22",
-      priceRange: "$34/share2",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "CNN",
-      event: "Merger",
-      status: "Announced",
-      pricingDate: "May 2 ‘22",
-      priceRange: "$74/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "Fair Foods",
-      event: "IPO",
-      status: "Closed",
-      pricingDate: "Sept 2 ‘22",
-      priceRange: "$12/share2",
-      proceedsRange: "$150M - $175M",
-    },
-  ];
+  const [latestAnnounced, setLatestAnnounced] = useState<any>(null);
+  const [isLoadingAnnounced, setIsLoadingAnnounced] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
 
+  const getLatestAnnounced = async () => {
+    setIsLoadingAnnounced(true);
+    const response = await getApiWithoutAuth(
+      `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=latest_announced`
+    );
+    if (response.status === 200) {
+      setLatestAnnounced(response.data);
+      setIsLoadingAnnounced(false);
+    } else {
+      setIsLoadingAnnounced(false);
+    }
+  };
 
+  useEffect(() => {
+    getLatestAnnounced();
+  }, [currentPage]);
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
   return (
     <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>Latest Announced SPAC Mergers</div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+      >
+        <div className={styles.tableTitle}>Latest Announced SPAC Mergers</div>
+      </div>
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
-          <MyTable data={data} />
+          {isLoadingAnnounced ? (
+            <SkeltonTable />
+          ) : (
+            <MyTable
+              data={latestAnnounced?.dataset}
+              totalLength={latestAnnounced?.additional_dataset}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              paginate={paginate}
+            />
+          )}
         </div>
       </div>
     </section>

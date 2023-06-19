@@ -2,6 +2,7 @@ import styles from "./dashboard-header.module.css";
 import React from "react";
 import LatestAnnouncedSpacMergers from "./LatestAnnouncedSpacMergers/LatestAnnouncedSpacMergers";
 import LatestClosedSpacMergers from "./LatestClosedSpacMergers/LatestClosedSpacMergers";
+import SpacEventCalendar from "./SpacEventCalendar/SpacEventCalendar";
 import GrapevineGraveyard from "./GrapevineGraveyard/GrapevineGraveyard";
 const SpacsPipeline = () => {
   return (
@@ -14,6 +15,8 @@ const SpacsPipeline = () => {
       <section>
         <LatestAnnouncedSpacMergers />
         <LatestClosedSpacMergers />
+        <SpacEventCalendar />
+
         <GrapevineGraveyard />
       </section>
     </main>

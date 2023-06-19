@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SpacsMarketStats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { homeConstants } from "@/lib/ts/constants";
+import { getApiWithoutAuth } from "@/lib/ts/api";
+import Skeleton from "@mui/material/Skeleton";
+
+import { URLs } from "@/lib/ts/apiUrl";
 function SpacsMarketStats() {
   const theme = createTheme({
     palette: {
@@ -11,6 +14,25 @@ function SpacsMarketStats() {
       },
     },
   });
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [statsData, setStatsData] = useState<any>(null);
+
+  const getStats = async () => {
+    setIsLoading(true);
+    const response = await getApiWithoutAuth(`${URLs.spacsStats}`);
+    if (response.status === 200) {
+      setStatsData(response.data);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getStats();
+  }, []);
+
   const dataArray = [
     {
       heading: "Overview",
@@ -19,9 +41,7 @@ function SpacsMarketStats() {
         {
           title: "IPOs",
 
-          data: [
-            { value: "50", change: "YTD" },
-          ],
+          data: [{ value: "50", change: "YTD" }],
         },
         {
           title: "By Status",
@@ -53,7 +73,7 @@ function SpacsMarketStats() {
             { value: "100", change: "PREV. YEAR" },
             { value: "44%", change: "CHG % PREV YEAR" },
           ],
-        }
+        },
       ],
     },
     {
@@ -82,46 +102,199 @@ function SpacsMarketStats() {
   return (
     <section className={styles.minitables}>
       <div className={styles.aggregatedMiniTables}>Spacs Market Stats</div>
-      <div className={styles.cardscontainer}>
-        {dataArray.map((item) => {
-          return (
-            <div className={styles.card} key={item.heading}>
-              <div className={styles.cardheader}>
-                <div>{item.heading} </div>
-                {item.showSpac ? (
-                  <div className={styles.showSpacsParent}>
-                    <div className={styles.showSpacs}>Include SPACs</div>
-                    <ThemeProvider theme={theme}>
-                      <Switch defaultChecked color="primary" />
-                    </ThemeProvider>
-                  </div>
-                ) : null}
-              </div>
-              {item.innerHadding?.map((innerData) => {
-                return (
-                  <div className={styles.cardrowinfo} key={innerData.title}>
-                    <div className={styles.cardrowheader}>
-                      {innerData.title}
-                    </div>
-                    <div className={styles.frameParent}>
-                      {innerData.data.map((value) => {
-                        return (
-                          <div className={styles.parent} key={value.change}>
-                            <div className={styles.div}>{value.value}</div>
-                            <div className={styles.ytdWithSpacsContainer}>
-                              {value.change}
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
+      {isLoading ? (
+        <Skeleton
+          variant="rounded"
+          height={200}
+          width={"100%"}
+          style={{ marginTop: 15 }}
+        />
+      ) : (
+        <div className={styles.cardscontainer}>
+          <div className={styles.card}>
+            <div className={styles.cardheader}>
+              <div>Overview </div>
             </div>
-          );
-        })}
-      </div>
+            <div className={styles.cardrowinfo}>
+              <div className={styles.cardrowheader}>IPOS</div>
+              <div className={styles.frameParent}>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.overview[0]?.YTD}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>YTD</div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.cardrowinfo}>
+              <div className={styles.cardrowheader}>By Status</div>
+              <div className={styles.frameParent}>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.overview[1]?.Total_Active}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>
+                    Total active
+                  </div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.overview[1]?.Searching}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>Searching</div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.overview[1]?.Live_Mergers}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>
+                    Live mergers
+                  </div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.overview[1]?.Liquidating}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>
+                    liquidating
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.card}>
+            <div className={styles.cardheader}>
+              <div>Liquidations / Terminations </div>
+            </div>
+            <div className={styles.cardrowinfo}>
+              <div className={styles.cardrowheader}>LIQUIDATIONS</div>
+              <div className={styles.frameParent}>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.Liquidations_Terminations[0]?.YTD}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>YTD</div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {
+                      statsData?.dataset[0]?.Liquidations_Terminations[0]
+                        ?.Prev_Year
+                    }
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>PREV. YEAR</div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {
+                      statsData?.dataset[0]?.Liquidations_Terminations[0]
+                        ?.CHG_Prev_Year
+                    }
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>
+                    CHG % PREV YEAR
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.cardrowinfo}>
+              <div className={styles.cardrowheader}>TERMINATIONS</div>
+              <div className={styles.frameParent}>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.Liquidations_Terminations[1]?.YTD}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>YTD</div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {
+                      statsData?.dataset[0]?.Liquidations_Terminations[1]
+                        ?.Prev_Year
+                    }
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>PREV. YEAR</div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {
+                      statsData?.dataset[0]?.Liquidations_Terminations[1]
+                        ?.CHG_Prev_Year
+                    }
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>
+                    CHG % PREV YEAR
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.card}>
+            <div className={styles.cardheader}>
+              <div>De-SPACS </div>
+            </div>
+            <div className={styles.cardrowinfo}>
+              <div className={styles.cardrowheader}>RETURNS</div>
+              <div className={styles.frameParent}>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.DeSPACS[0]?.Above_SPAC}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>
+                    ABOVE SPAC IPO PRICE SINCE 2019
+                  </div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.DeSPACS[0]?.Avg_Return}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>
+                    AVG. RETURN
+                  </div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.DeSPACS[0]?.Median_Return}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>
+                    MEDIAN RETURNS
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.cardrowinfo}>
+              <div className={styles.cardrowheader}>MORE RETURNS</div>
+              <div className={styles.frameParent}>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {
+                      statsData?.dataset[0]?.DeSPACS[1]
+                        ?.perc_Above_SPMedian_ReturnAC
+                    }
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>
+                    % ABOVE SPAC IPO PRICE SINCE 2019
+                  </div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.DeSPACS[1]?.Bankrupt}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>BANKRUPT</div>
+                </div>
+                <div className={styles.parent}>
+                  <div className={styles.div}>
+                    {statsData?.dataset[0]?.DeSPACS[1]?.Bankrupt2}
+                  </div>
+                  <div className={styles.ytdWithSpacsContainer}>BANKRUPT</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

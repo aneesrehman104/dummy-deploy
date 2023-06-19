@@ -12,29 +12,42 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
 import Image from "next/image";
+import { PipelineInterface } from "@/lib/ts/interface";
+import TablePagination from "@mui/material/TablePagination";
+
 const headerArray = [
   {
     name: "Company",
     key: "company",
   },
   {
-    name: "Symbol",
-    key: "symbol",
+    name: "Event",
+    key: "event",
   },
   {
-    name: "Price",
+    name: "Status",
+    key: "status",
+  },
+  {
+    name: "Est. Pricing Date",
+    key: "est_pricing_date",
+  },
+  {
+    name: "Price/range",
     key: "price",
   },
   {
-    name: "Today",
-    key: "today",
-  },
-  {
-    name: "Market Cap",
-    key: "marketCap",
+    name: "Proceeds/range",
+    key: "proceed",
   },
 ];
-const MyTable = ({ data }: any) => {
+const MyTable = ({
+  data,
+  totalLength,
+  itemsPerPage,
+  currentPage,
+  paginate,
+}: PipelineInterface) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
@@ -96,14 +109,28 @@ const MyTable = ({ data }: any) => {
                 <div className={styles.activision}>{item.company}</div>
               </div>
             </TableCell>
-            <TableCell>{item.symbol}</TableCell>
+            <TableCell>{item.event}</TableCell>
+            <TableCell>{item.status}</TableCell>
+            <TableCell>{item.est_pricing_date}</TableCell>
             <TableCell>{item.price}</TableCell>
-            <TableCell>{item.today}</TableCell>
-            <TableCell>{item.marketCap}</TableCell>
+            <TableCell>{item.proceed}</TableCell>
           </TableRow>
         ))}
       </TableBody>
+      <tfoot>
+        <TableRow>
+          <TablePagination
+            colSpan={6} // Number of columns in the table
+            count={totalLength.totalLength} // Total number of items
+            rowsPerPage={itemsPerPage}
+            page={currentPage - 1} // Page number starts from 0
+            onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
+            rowsPerPageOptions={[]} // Hide rows per page options
+          />
+        </TableRow>
+      </tfoot>
     </Table>
   );
 };
+
 export default MyTable;
