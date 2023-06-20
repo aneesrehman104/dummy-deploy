@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./CardElements.module.css";
-import { useState } from "react";
 import MyTable from "./functions";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
@@ -11,7 +10,9 @@ import saveScreenerSvg from "../../../../../../public/saveScreenerSvg.svg";
 import exportSvg from "../../../../../../public/exportSvg.svg";
 import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/proSvg.svg";
-
+import { getApiWithoutAuth } from "@/lib/ts/api";
+import { URLs } from "@/lib/ts/apiUrl";
+import { SkeltonTable } from "@/lib/components/CommonComponents";
 import {
   TextField,
   InputAdornment,
@@ -46,7 +47,16 @@ function CardElements() {
     boxShadow: 24,
     p: 1,
   };
+  const tabValues: { [key: number]: string } = {
+    0: "pre_deal",
+    1: "announced",
+    2: "all",
+    3: "de_spac",
+  };
+  const [isLoading, setIsLoading] = useState(true);
   const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [screenerData, setScreenerData] = useState<any>();
+
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCount, setFilerCount] = useState(0);
@@ -62,9 +72,9 @@ function CardElements() {
     SPACProgressStatus: null,
     De_SPAC_Closing_Year: null,
   });
-  const [isUser, setIsUser] = useState(false);
+  const [isUser, setIsUser] = useState(true);
 
-  const [itemsPerPage,setItemPerPage] = useState(5);
+  const [itemsPerPage, setItemPerPage] = useState(5);
   const data = [
     {
       company: "Activision",
@@ -162,9 +172,27 @@ function CardElements() {
         count++;
       }
     }
-    setFilerCount(count)
+    setFilerCount(count);
     setOpenFilterModal(false);
   };
+
+  const getScreenerData = async () => {
+    setIsLoading(true);
+    const response = await getApiWithoutAuth(
+      `${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
+    );
+    console.log("========================res", response);
+    if (response.status === 200) {
+      setScreenerData(response.data);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getScreenerData();
+  }, [selectedTab, currentPage,itemsPerPage]);
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
@@ -270,12 +298,19 @@ function CardElements() {
           </div>
         </div>
         <div style={{ overflow: "auto" }}>
-          <MyTable
-            data={data}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            paginate={paginate}
-          />
+          {isLoading ? (
+            <SkeltonTable />
+          ) : (
+            <MyTable
+              data={screenerData?.dataset}
+              itemsPerPage={itemsPerPage}
+              setItemPerPage={setItemPerPage}
+              currentPage={currentPage}
+              paginate={paginate}
+              totalLength={screenerData?.additional_dataset}
+              isUser={isUser}
+            />
+          )}
         </div>
       </div>
       <Modal

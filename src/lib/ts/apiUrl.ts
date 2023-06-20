@@ -5,5 +5,6 @@ export const URLs = {
   spacPipeline: "api/spac/pipeline",
   spacNews: "api/spac/news",
   spacsStats:'api/spac/stats/comparison',
-  spacsReturns:'/api/spac/graph'
+  spacsReturns:'api/spac/graph',
+  spacsScreeners:"api/spac/screener"
 };

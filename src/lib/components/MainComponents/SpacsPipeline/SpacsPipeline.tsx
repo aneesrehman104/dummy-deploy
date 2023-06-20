@@ -16,7 +16,6 @@ const SpacsPipeline = () => {
         <LatestAnnouncedSpacMergers />
         <LatestClosedSpacMergers />
         <SpacEventCalendar />
-
         <GrapevineGraveyard />
       </section>
     </main>
