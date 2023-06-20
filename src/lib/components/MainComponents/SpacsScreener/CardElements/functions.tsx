@@ -32,20 +32,19 @@ const headerArray = [
   {
     name: "Market Cap",
     key: "marketCap",
-  }
+  },
 ];
-const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
+const MyTable = ({ data, itemsPerPage, currentPage, paginate }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
   const handleSort = (column: string) => {
-      setSortColumn(column);
-      setSortDirection(
-        sortDirection === TABLETITLESECTION.asc
-          ? TABLETITLESECTION.desc
-          : TABLETITLESECTION.asc
-      );
-    
+    setSortColumn(column);
+    setSortDirection(
+      sortDirection === TABLETITLESECTION.asc
+        ? TABLETITLESECTION.desc
+        : TABLETITLESECTION.asc
+    );
   };
 
   const sortedData = [...data].sort((a, b) => {
@@ -75,7 +74,7 @@ const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
                   }}
                 >
                   {sortDirection === TABLETITLESECTION.desc &&
-                  sortColumn === item.key? (
+                  sortColumn === item.key ? (
                     <ArrowUpwardIcon fontSize="inherit" />
                   ) : (
                     <ArrowDownwardIcon fontSize="inherit" />
@@ -93,12 +92,7 @@ const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
             <TableCell>
               <div className={styles.customTableCustomCell}>
                 <div className={styles.imageWrapper}>
-                  <Image
-                    src="/image.svg"
-                    alt="image"
-                    width={24}
-                    height={24}
-                  />
+                  <Image src="/image.svg" alt="image" width={24} height={24} />
                 </div>
                 <div className={styles.activision}>{item.company}</div>
               </div>
@@ -111,17 +105,17 @@ const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
         ))}
       </TableBody>
       <tfoot>
-          <TableRow>
-            <TablePagination
-              colSpan={6} // Number of columns in the table
-              count={sortedData.length} // Total number of items
-              rowsPerPage={itemsPerPage}
-              page={currentPage - 1} // Page number starts from 0
-              onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
-              rowsPerPageOptions={[]} // Hide rows per page options
-            />
-          </TableRow>
-        </tfoot>
+        <TableRow>
+          <TablePagination
+            colSpan={6} // Number of columns in the table
+            count={sortedData.length} // Total number of items
+            rowsPerPage={itemsPerPage}
+            page={currentPage - 1} // Page number starts from 0
+            onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
+            rowsPerPageOptions={[]} // Hide rows per page options
+          />
+        </TableRow>
+      </tfoot>
     </Table>
   );
 };
