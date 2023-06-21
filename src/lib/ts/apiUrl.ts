@@ -6,5 +6,6 @@ export const URLs = {
   spacNews: "api/spac/news",
   spacsStats:'api/spac/stats/comparison',
   spacsReturns:'api/spac/graph',
-  spacsScreeners:"api/spac/screener"
+  spacsScreeners:"api/spac/screener",
+  spacsList:"api/spac/list"
 };

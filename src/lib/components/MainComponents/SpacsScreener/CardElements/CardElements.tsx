@@ -21,10 +21,13 @@ import {
   Box,
   FormControl,
   InputLabel,
-  Select,
   Button,
   MenuItem,
 } from "@mui/material";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import ListItemText from "@mui/material/ListItemText";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Checkbox from "@mui/material/Checkbox";
 function CardElements() {
   const CssTextField = styled(TextField)({
     width: "368px",
@@ -55,15 +58,14 @@ function CardElements() {
   };
   const [isLoading, setIsLoading] = useState(true);
   const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [openColumnModal, setOpenColumnModal] = useState(false);
   const [screenerData, setScreenerData] = useState<any>();
-
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCount, setFilerCount] = useState(0);
   const [filters, setFilters] = useState({
     IPOYear: null,
-    Votes: null,
-    Deadlines: null,
+    VotesDeadlines: null,
     SPAC_Profile: null,
     Trading: null,
     TargetSector: null,
@@ -72,7 +74,7 @@ function CardElements() {
     SPACProgressStatus: null,
     De_SPAC_Closing_Year: null,
   });
-  const [isUser, setIsUser] = useState(true);
+  const [isUser, setIsUser] = useState(false);
 
   const [itemsPerPage, setItemPerPage] = useState(5);
   const data = [
@@ -140,6 +142,29 @@ function CardElements() {
       marketCap: "$723.23T",
     },
   ];
+  const names = [
+    "Oliver Hansen",
+    "Van Henry",
+    "April Tucker",
+    "Ralph Hubbard",
+    "Omar Alexander",
+    "Carlos Abbott",
+    "Miriam Wagner",
+    "Bradley Wilkerson",
+    "Virginia Andrews",
+    "Kelly Snyder",
+  ];
+  const [personName, setPersonName] = React.useState<string[]>([]);
+
+  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
@@ -150,8 +175,7 @@ function CardElements() {
   const clearAll = () => {
     setFilters({
       IPOYear: null,
-      Votes: null,
-      Deadlines: null,
+      VotesDeadlines: null,
       SPAC_Profile: null,
       Trading: null,
       TargetSector: null,
@@ -161,6 +185,7 @@ function CardElements() {
       De_SPAC_Closing_Year: null,
     });
     setOpenFilterModal(false);
+    setFilerCount(0);
   };
   const applyFilters = () => {
     console.log("====================filters", filters);
@@ -168,7 +193,7 @@ function CardElements() {
     let count = 0;
 
     for (const key in filters) {
-      if (filters[key] !== null) {
+      if (filters[key as keyof typeof filters] !== null) {
         count++;
       }
     }
@@ -192,14 +217,17 @@ function CardElements() {
 
   useEffect(() => {
     getScreenerData();
-  }, [selectedTab, currentPage,itemsPerPage]);
+  }, [selectedTab, currentPage, itemsPerPage]);
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
           <div
-            onClick={() => setSelectedTab(0)}
+            onClick={() => {
+              setSelectedTab(0);
+              setFilerCount(0);
+            }}
             className={`${styles.headerCell} ${
               selectedTab === 0 && styles.selectedHeader
             }`}
@@ -207,7 +235,10 @@ function CardElements() {
             Pre-Deal SPAC Screener
           </div>
           <div
-            onClick={() => setSelectedTab(1)}
+            onClick={() => {
+              setSelectedTab(1);
+              setFilerCount(0);
+            }}
             className={`${styles.headerCell} ${
               selectedTab === 1 && styles.selectedHeader
             }`}
@@ -215,7 +246,10 @@ function CardElements() {
             Announced SPAC Mergers Screener
           </div>
           <div
-            onClick={() => setSelectedTab(2)}
+            onClick={() => {
+              setSelectedTab(2);
+              setFilerCount(0);
+            }}
             className={`${styles.headerCell} ${
               selectedTab === 2 && styles.selectedHeader
             }`}
@@ -223,7 +257,10 @@ function CardElements() {
             All Active SPACs Screener
           </div>
           <div
-            onClick={() => setSelectedTab(3)}
+            onClick={() => {
+              setSelectedTab(3);
+              setFilerCount(0);
+            }}
             className={`${styles.headerCell} ${
               selectedTab === 3 && styles.selectedHeader
             }`}
@@ -271,7 +308,10 @@ function CardElements() {
                 <div>Filter&nbsp;&nbsp;</div>
               </Badge>
             </div>
-            <div className={styles.filterGap}>
+            <div
+              className={styles.filterGap}
+              onClick={() => setOpenColumnModal(true)}
+            >
               <Image
                 src={selectedColumnSvg}
                 alt="filterSvg"
@@ -281,16 +321,25 @@ function CardElements() {
 
               <div>SELECT COLUMNS</div>
             </div>{" "}
-            <div className={styles.filterGap}>
-              <Image
-                src={saveScreenerSvg}
-                alt="filterSvg"
-                width={18}
-                height={18}
-              />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+              }}
+            >
+              <Image src={proSvg} alt="filterSvg" width={50} height={26} />
+              <div className={styles.filterGap}>
+                <Image
+                  src={saveScreenerSvg}
+                  alt="filterSvg"
+                  width={18}
+                  height={18}
+                />
 
-              <div>SAVED SCREENS</div>
-            </div>{" "}
+                <div>SAVED SCREENS</div>
+              </div>{" "}
+            </div>
             <div className={styles.filterGap}>
               <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
               <div>EXPORT</div>
@@ -339,267 +388,6 @@ function CardElements() {
                 }}
               >
                 <div className={styles.filterModalStyling}>
-                  {filters?.IPOYear ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() => setFilters({ ...filters, IPOYear: null })}
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      IPO Year
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="IPOYear"
-                      value={filters?.IPOYear}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={2023}>2023</MenuItem>
-                      <MenuItem value={2022}>2022</MenuItem>
-                      <MenuItem value={2021}>2021</MenuItem>
-                      <MenuItem value={2020}>2020</MenuItem>
-                      <MenuItem value={2019}>2019</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.Votes ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() => setFilters({ ...filters, Votes: null })}
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">Votes</InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="Votes"
-                      value={filters?.Votes}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Merger Vote Set"}>
-                        Merger Vote Set
-                      </MenuItem>
-                      <MenuItem value={"Extension Vote Set"}>
-                        Extension Vote Set
-                      </MenuItem>
-                      <MenuItem value={"Upcoming Vote"}>Upcoming Vote</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.Deadlines ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, Deadlines: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Deadlines
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="Deadlines"
-                      value={filters?.Deadlines}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"1 Month to Deadline"}>
-                        1 Month to Deadline
-                      </MenuItem>
-                      <MenuItem value={"2 Months to Deadline"}>
-                        2 Months to Deadline
-                      </MenuItem>
-                      <MenuItem value={"3 Months to Deadline"}>
-                        3 Months to Deadline
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.SPAC_Profile ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, SPAC_Profile: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      SPAC Profile
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="SPAC_Profile"
-                      value={filters?.SPAC_Profile}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"US Domicile"}>US Domicile</MenuItem>
-                      <MenuItem value={"Non-US Domicile"}>
-                        Non-US Domicile
-                      </MenuItem>
-                      <MenuItem value={"Has Warrants"}>Has Warrants</MenuItem>
-                      <MenuItem value={"Has Rights"}>Has Rights</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.Trading ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() => setFilters({ ...filters, Trading: null })}
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Trading
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="Trading"
-                      value={filters?.Trading}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Has Warrants"}>Has Warrants</MenuItem>
-                      <MenuItem value={"Has Rights"}>Has Rights</MenuItem>
-                      <MenuItem value={"Optionable"}>Optionable</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-              </div>
-            ) : selectedTab === 1 ? (
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                }}
-              >
-                <div className={styles.filterModalStyling}>
-                  {filters?.TargetSector ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, TargetSector: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Target Sector
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="TargetSector"
-                      value={filters?.TargetSector}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Tech"}>Tech</MenuItem>
-                      <MenuItem value={"Energy"}>Energy</MenuItem>
-                      <MenuItem value={"Financials"}>Financials</MenuItem>
-                      <MenuItem value={"Communications"}>
-                        Communications
-                      </MenuItem>
-                      <MenuItem value={"Materials"}>Materials</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.TargetRegion ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, TargetRegion: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      TargetRegion
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="TargetRegion"
-                      value={filters?.TargetRegion}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"U.S. & Canada"}>U.S. & Canada</MenuItem>
-                      <MenuItem value={"Latin America"}>Latin America</MenuItem>
-                      <MenuItem value={"Asia & Oceania"}>
-                        Asia & Oceania
-                      </MenuItem>
-                      <MenuItem value={"Africa"}>Africa</MenuItem>
-                      <MenuItem value={"Europe"}>Europe</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.Activity ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() => setFilters({ ...filters, Activity: null })}
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Activity
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="Activity"
-                      value={filters?.Activity}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={" Recent DA"}>Recent DA</MenuItem>
-                      <MenuItem value={"Filed S-4"}>Filed S-4</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-              </div>
-            ) : selectedTab === 2 ? (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                  flexWrap: "wrap",
-                }}
-              >
-                <div className={styles.filterModalStyling}>
                   {filters?.SPACProgressStatus ? (
                     <Image
                       src={crossIconSvg}
@@ -612,9 +400,9 @@ function CardElements() {
                     />
                   ) : null}
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl sx={{ m: 2, minWidth: 150 }}>
+                    <FormControl sx={{ m: 2, minWidth: 180 }}>
                       <InputLabel htmlFor="demo-dialog-native">
-                        SPACProgressStatus
+                        SPAC Progress Status
                       </InputLabel>
                       <Select
                         disabled={!isUser}
@@ -638,6 +426,7 @@ function CardElements() {
                     />
                   </div>
                 </div>
+
                 <div className={styles.filterModalStyling}>
                   {filters?.IPOYear ? (
                     <Image
@@ -648,7 +437,7 @@ function CardElements() {
                       onClick={() => setFilters({ ...filters, IPOYear: null })}
                     />
                   ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
+                  <FormControl sx={{ m: 2, minWidth: 180 }}>
                     <InputLabel htmlFor="demo-dialog-native">
                       IPO Year
                     </InputLabel>
@@ -659,78 +448,85 @@ function CardElements() {
                       onChange={(e) => saveValue(e)}
                       variant="standard"
                     >
-                      <MenuItem value={2023}>2023</MenuItem>
-                      <MenuItem value={2022}>2022</MenuItem>
-                      <MenuItem value={2021}>2021</MenuItem>
-                      <MenuItem value={2020}>2020</MenuItem>
-                      <MenuItem value={2019}>2019</MenuItem>
+                      <MenuItem value={"2023"}>2023</MenuItem>
+                      <MenuItem value={"2022"}>2022</MenuItem>
+                      <MenuItem value={"2021"}>2021</MenuItem>
+                      <MenuItem value={"2020"} disabled={!isUser}>
+                        2020
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"2019"} disabled={!isUser}>
+                        2019
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </div>
                 <div className={styles.filterModalStyling}>
-                  {filters?.Votes ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() => setFilters({ ...filters, Votes: null })}
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">Votes</InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="Votes"
-                      value={filters?.Votes}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Merger Vote Set"}>
-                        Merger Vote Set
-                      </MenuItem>
-                      <MenuItem value={"Extension Vote Set"}>
-                        Extension Vote Set
-                      </MenuItem>
-                      <MenuItem value={"Upcoming Vote"}>Upcoming Vote</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.Deadlines ? (
+                  {filters?.VotesDeadlines ? (
                     <Image
                       src={crossIconSvg}
                       alt="filterSvg"
                       width={18}
                       height={18}
                       onClick={() =>
-                        setFilters({ ...filters, Deadlines: null })
+                        setFilters({ ...filters, VotesDeadlines: null })
                       }
                     />
                   ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Deadlines
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="Deadlines"
-                      value={filters?.Deadlines}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"1 Month to Deadline"}>
-                        1 Month to Deadline
-                      </MenuItem>
-                      <MenuItem value={"2 Months to Deadline"}>
-                        2 Months to Deadline
-                      </MenuItem>
-                      <MenuItem value={"3 Months to Deadline"}>
-                        3 Months to Deadline
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl sx={{ m: 2, minWidth: 180 }}>
+                      <InputLabel htmlFor="demo-dialog-native">
+                        Votes / Deadlines
+                      </InputLabel>
+                      <Select
+                        disabled={!isUser}
+                        placeholder="Select"
+                        name="VotesDeadlines"
+                        value={filters?.VotesDeadlines}
+                        onChange={(e) => saveValue(e)}
+                        variant="standard"
+                      >
+                        <MenuItem value={"Merger Vote Set"}>
+                          Merger Vote Set
+                        </MenuItem>
+                        <MenuItem value={"Extension Vote Set"}>
+                          Extension Vote Set
+                        </MenuItem>
+                        <MenuItem value={"Upcoming Vote"}>
+                          Upcoming Vote
+                        </MenuItem>
+                        <MenuItem value={"1 Month to Deadline"}>
+                          1 Month to Deadline
+                        </MenuItem>
+                        <MenuItem value={"2 Months to Deadline"}>
+                          2 Months to Deadline
+                        </MenuItem>
+                        <MenuItem value={"3 Months to Deadline"}>
+                          3 Months to Deadline
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                    <Image
+                      src={proSvg}
+                      alt="filterSvg"
+                      width={50}
+                      height={32}
+                      style={{ marginTop: 10 }}
+                    />
+                  </div>
                 </div>
+
                 <div className={styles.filterModalStyling}>
                   {filters?.SPAC_Profile ? (
                     <Image
@@ -743,26 +539,37 @@ function CardElements() {
                       }
                     />
                   ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      SPAC Profile
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="SPAC_Profile"
-                      value={filters?.SPAC_Profile}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"US Domicile"}>US Domicile</MenuItem>
-                      <MenuItem value={"Non-US Domicile"}>
-                        Non-US Domicile
-                      </MenuItem>
-                      <MenuItem value={"Has Warrants"}>Has Warrants</MenuItem>
-                      <MenuItem value={"Has Rights"}>Has Rights</MenuItem>
-                    </Select>
-                  </FormControl>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl sx={{ m: 2, minWidth: 180 }}>
+                      <InputLabel htmlFor="demo-dialog-native">
+                        SPAC Profile
+                      </InputLabel>
+                      <Select
+                        disabled={!isUser}
+                        placeholder="Select"
+                        name="SPAC_Profile"
+                        value={filters?.SPAC_Profile}
+                        onChange={(e) => saveValue(e)}
+                        variant="standard"
+                      >
+                        <MenuItem value={"US Domicile"}>US Domicile</MenuItem>
+                        <MenuItem value={"Non-US Domicile"}>
+                          Non-US Domicile
+                        </MenuItem>
+                        <MenuItem value={"Has Warrants"}>Has Warrants</MenuItem>
+                        <MenuItem value={"Has Rights"}>Has Rights</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <Image
+                      src={proSvg}
+                      alt="filterSvg"
+                      width={50}
+                      height={32}
+                      style={{ marginTop: 10 }}
+                    />
+                  </div>
                 </div>
+
                 <div className={styles.filterModalStyling}>
                   {filters?.Trading ? (
                     <Image
@@ -773,22 +580,421 @@ function CardElements() {
                       onClick={() => setFilters({ ...filters, Trading: null })}
                     />
                   ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl sx={{ m: 2, minWidth: 180 }}>
+                      <InputLabel htmlFor="demo-dialog-native">
+                        Trading
+                      </InputLabel>
+                      <Select
+                        disabled={!isUser}
+                        placeholder="Select"
+                        name="Trading"
+                        value={filters?.Trading}
+                        onChange={(e) => saveValue(e)}
+                        variant="standard"
+                      >
+                        <MenuItem value={"Has Warrants"}>Has Warrants</MenuItem>
+                        <MenuItem value={"Has Rights"}>Has Rights</MenuItem>
+                        <MenuItem value={"Optionable"}>Optionable</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <Image
+                      src={proSvg}
+                      alt="filterSvg"
+                      width={50}
+                      height={32}
+                      style={{ marginTop: 10 }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : selectedTab === 1 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div className={styles.filterModalStyling}>
+                  {filters?.TargetSector ? (
+                    <Image
+                      src={crossIconSvg}
+                      alt="filterSvg"
+                      width={18}
+                      height={18}
+                      onClick={() =>
+                        setFilters({ ...filters, TargetSector: null })
+                      }
+                    />
+                  ) : null}
+                  <FormControl sx={{ m: 2, minWidth: 180 }}>
                     <InputLabel htmlFor="demo-dialog-native">
-                      Trading
+                      Target Sector
                     </InputLabel>
                     <Select
                       placeholder="Select"
-                      name="Trading"
-                      value={filters?.Trading}
+                      name="TargetSector"
+                      value={filters?.TargetSector}
                       onChange={(e) => saveValue(e)}
                       variant="standard"
                     >
-                      <MenuItem value={"Has Warrants"}>Has Warrants</MenuItem>
-                      <MenuItem value={"Has Rights"}>Has Rights</MenuItem>
-                      <MenuItem value={"Optionable"}>Optionable</MenuItem>
+                      <MenuItem value={"Tech"}>Tech</MenuItem>
+                      <MenuItem value={"Energy"} disabled={!isUser}>
+                        Energy{" "}
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"Financials"} disabled={!isUser}>
+                        Financials{" "}
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"Communications"} disabled={!isUser}>
+                        Communications
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"Materials"} disabled={!isUser}>
+                        Materials
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
                     </Select>
                   </FormControl>
+                </div>
+                <div className={styles.filterModalStyling}>
+                  {filters?.TargetRegion ? (
+                    <Image
+                      src={crossIconSvg}
+                      alt="filterSvg"
+                      width={18}
+                      height={18}
+                      onClick={() =>
+                        setFilters({ ...filters, TargetRegion: null })
+                      }
+                    />
+                  ) : null}
+                  <FormControl sx={{ m: 2, minWidth: 180 }}>
+                    <InputLabel htmlFor="demo-dialog-native">
+                      TargetRegion
+                    </InputLabel>
+                    <Select
+                      placeholder="Select"
+                      name="TargetRegion"
+                      value={filters?.TargetRegion}
+                      onChange={(e) => saveValue(e)}
+                      variant="standard"
+                    >
+                      <MenuItem value={"U.S. & Canada"}>U.S. & Canada</MenuItem>
+                      <MenuItem value={"Latin America"} disabled={!isUser}>
+                        Latin America
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={" Asia & Oceania"} disabled={!isUser}>
+                        Asia & Oceania
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"Africa"} disabled={!isUser}>
+                        Africa
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"Europe"} disabled={!isUser}>
+                        Europe
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+
+                <div className={styles.filterModalStyling}>
+                  {filters?.Activity ? (
+                    <Image
+                      src={crossIconSvg}
+                      alt="filterSvg"
+                      width={18}
+                      height={18}
+                      onClick={() => setFilters({ ...filters, Activity: null })}
+                    />
+                  ) : null}
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl sx={{ m: 2, minWidth: 180 }}>
+                      <InputLabel htmlFor="demo-dialog-native">
+                        Activity
+                      </InputLabel>
+                      <Select
+                        disabled={!isUser}
+                        placeholder="Select"
+                        name="Activity"
+                        value={filters?.Activity}
+                        onChange={(e) => saveValue(e)}
+                        variant="standard"
+                      >
+                        <MenuItem value={" Recent DA"}>Recent DA</MenuItem>
+                        <MenuItem value={"Filed S-4"}>Filed S-4</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <Image
+                      src={proSvg}
+                      alt="filterSvg"
+                      width={50}
+                      height={32}
+                      style={{ marginTop: 10 }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : selectedTab === 2 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div className={styles.filterModalStyling}>
+                  {filters?.SPACProgressStatus ? (
+                    <Image
+                      src={crossIconSvg}
+                      alt="filterSvg"
+                      width={18}
+                      height={18}
+                      onClick={() =>
+                        setFilters({ ...filters, SPACProgressStatus: null })
+                      }
+                    />
+                  ) : null}
+                  <FormControl sx={{ m: 2, minWidth: 180 }}>
+                    <InputLabel htmlFor="demo-dialog-native">
+                      SPAC Progress Status
+                    </InputLabel>
+                    <Select
+                      placeholder="Select"
+                      name="SPACProgressStatus"
+                      value={filters?.SPACProgressStatus}
+                      onChange={(e) => saveValue(e)}
+                      variant="standard"
+                    >
+                      <MenuItem value={"Searching"}>Searching</MenuItem>
+                      <MenuItem value={"Announced"}>Announced</MenuItem>
+                      <MenuItem value={"Liquidating"}>Liquidating</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className={styles.filterModalStyling}>
+                  {filters?.IPOYear ? (
+                    <Image
+                      src={crossIconSvg}
+                      alt="filterSvg"
+                      width={18}
+                      height={18}
+                      onClick={() => setFilters({ ...filters, IPOYear: null })}
+                    />
+                  ) : null}
+                  <FormControl sx={{ m: 2, minWidth: 180 }}>
+                    <InputLabel htmlFor="demo-dialog-native">
+                      IPO Year
+                    </InputLabel>
+                    <Select
+                      placeholder="Select"
+                      name="IPOYear"
+                      value={filters?.IPOYear}
+                      onChange={(e) => saveValue(e)}
+                      variant="standard"
+                    >
+                      <MenuItem value={"2023"}>2023</MenuItem>
+                      <MenuItem value={"2022"}>2022</MenuItem>
+                      <MenuItem value={"2021"}>2021</MenuItem>
+                      <MenuItem value={"2020"} disabled={!isUser}>
+                        2020
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"2019"} disabled={!isUser}>
+                        2019
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+                <div className={styles.filterModalStyling}>
+                  {filters?.VotesDeadlines ? (
+                    <Image
+                      src={crossIconSvg}
+                      alt="filterSvg"
+                      width={18}
+                      height={18}
+                      onClick={() =>
+                        setFilters({ ...filters, VotesDeadlines: null })
+                      }
+                    />
+                  ) : null}
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl sx={{ m: 2, minWidth: 180 }}>
+                      <InputLabel htmlFor="demo-dialog-native">
+                        Votes / Deadlines
+                      </InputLabel>
+                      <Select
+                        disabled={!isUser}
+                        placeholder="Select"
+                        name="VotesDeadlines"
+                        value={filters?.VotesDeadlines}
+                        onChange={(e) => saveValue(e)}
+                        variant="standard"
+                      >
+                        <MenuItem value={"Merger Vote Set"}>
+                          Merger Vote Set
+                        </MenuItem>
+                        <MenuItem value={"Extension Vote Set"}>
+                          Extension Vote Set
+                        </MenuItem>
+                        <MenuItem value={"Upcoming Vote"}>
+                          Upcoming Vote
+                        </MenuItem>
+                        <MenuItem value={"1 Month to Deadline"}>
+                          1 Month to Deadline
+                        </MenuItem>
+                        <MenuItem value={"2 Months to Deadline"}>
+                          2 Months to Deadline
+                        </MenuItem>
+                        <MenuItem value={"3 Months to Deadline"}>
+                          3 Months to Deadline
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                    <Image
+                      src={proSvg}
+                      alt="filterSvg"
+                      width={50}
+                      height={32}
+                      style={{ marginTop: 10 }}
+                    />
+                  </div>
+                </div>
+
+                <div className={styles.filterModalStyling}>
+                  {filters?.SPAC_Profile ? (
+                    <Image
+                      src={crossIconSvg}
+                      alt="filterSvg"
+                      width={18}
+                      height={18}
+                      onClick={() =>
+                        setFilters({ ...filters, SPAC_Profile: null })
+                      }
+                    />
+                  ) : null}
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl sx={{ m: 2, minWidth: 180 }}>
+                      <InputLabel htmlFor="demo-dialog-native">
+                        SPAC Profile
+                      </InputLabel>
+                      <Select
+                        disabled={!isUser}
+                        placeholder="Select"
+                        name="SPAC_Profile"
+                        value={filters?.SPAC_Profile}
+                        onChange={(e) => saveValue(e)}
+                        variant="standard"
+                      >
+                        <MenuItem value={"US Domicile"}>US Domicile</MenuItem>
+                        <MenuItem value={"Non-US Domicile"}>
+                          Non-US Domicile
+                        </MenuItem>
+                        <MenuItem value={"Has Warrants"}>Has Warrants</MenuItem>
+                        <MenuItem value={"Has Rights"}>Has Rights</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <Image
+                      src={proSvg}
+                      alt="filterSvg"
+                      width={50}
+                      height={32}
+                      style={{ marginTop: 10 }}
+                    />
+                  </div>
+                </div>
+
+                <div className={styles.filterModalStyling}>
+                  {filters?.Trading ? (
+                    <Image
+                      src={crossIconSvg}
+                      alt="filterSvg"
+                      width={18}
+                      height={18}
+                      onClick={() => setFilters({ ...filters, Trading: null })}
+                    />
+                  ) : null}
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl sx={{ m: 2, minWidth: 180 }}>
+                      <InputLabel htmlFor="demo-dialog-native">
+                        Trading
+                      </InputLabel>
+                      <Select
+                        disabled={!isUser}
+                        placeholder="Select"
+                        name="Trading"
+                        value={filters?.Trading}
+                        onChange={(e) => saveValue(e)}
+                        variant="standard"
+                      >
+                        <MenuItem value={"Has Warrants"}>Has Warrants</MenuItem>
+                        <MenuItem value={"Has Rights"}>Has Rights</MenuItem>
+                        <MenuItem value={"Optionable"}>Optionable</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <Image
+                      src={proSvg}
+                      alt="filterSvg"
+                      width={50}
+                      height={32}
+                      style={{ marginTop: 10 }}
+                    />
+                  </div>
                 </div>
               </div>
             ) : (
@@ -810,7 +1016,7 @@ function CardElements() {
                       }
                     />
                   ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
+                  <FormControl sx={{ m: 2, minWidth: 180 }}>
                     <InputLabel htmlFor="demo-dialog-native">
                       Target Sector
                     </InputLabel>
@@ -822,12 +1028,42 @@ function CardElements() {
                       variant="standard"
                     >
                       <MenuItem value={"Tech"}>Tech</MenuItem>
-                      <MenuItem value={"Energy"}>Energy</MenuItem>
-                      <MenuItem value={"Financials"}>Financials</MenuItem>
-                      <MenuItem value={"Communications"}>
-                        Communications
+                      <MenuItem value={"Energy"} disabled={!isUser}>
+                        Energy{" "}
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
                       </MenuItem>
-                      <MenuItem value={"Materials"}>Materials</MenuItem>
+                      <MenuItem value={"Financials"} disabled={!isUser}>
+                        Financials{" "}
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"Communications"} disabled={!isUser}>
+                        Communications
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"Materials"} disabled={!isUser}>
+                        Materials
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -843,7 +1079,7 @@ function CardElements() {
                       }
                     />
                   ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
+                  <FormControl sx={{ m: 2, minWidth: 180 }}>
                     <InputLabel htmlFor="demo-dialog-native">
                       TargetRegion
                     </InputLabel>
@@ -855,12 +1091,42 @@ function CardElements() {
                       variant="standard"
                     >
                       <MenuItem value={"U.S. & Canada"}>U.S. & Canada</MenuItem>
-                      <MenuItem value={"Latin America"}>Latin America</MenuItem>
-                      <MenuItem value={"Asia & Oceania"}>
-                        Asia & Oceania
+                      <MenuItem value={"Latin America"} disabled={!isUser}>
+                        Latin America
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
                       </MenuItem>
-                      <MenuItem value={"Africa"}>Africa</MenuItem>
-                      <MenuItem value={"Europe"}>Europe</MenuItem>
+                      <MenuItem value={" Asia & Oceania"} disabled={!isUser}>
+                        Asia & Oceania
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"Africa"} disabled={!isUser}>
+                        Africa
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"Europe"} disabled={!isUser}>
+                        Europe
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -876,7 +1142,7 @@ function CardElements() {
                       }
                     />
                   ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 150 }}>
+                  <FormControl sx={{ m: 2, minWidth: 180 }}>
                     <InputLabel htmlFor="demo-dialog-native">
                       De-SPAC Closing Year
                     </InputLabel>
@@ -890,13 +1156,88 @@ function CardElements() {
                       <MenuItem value={2023}>2023</MenuItem>
                       <MenuItem value={2022}>2022</MenuItem>
                       <MenuItem value={2021}>2021</MenuItem>
-                      <MenuItem value={2020}>2020</MenuItem>
-                      <MenuItem value={2019}>2019</MenuItem>
+                      <MenuItem value={"2020"} disabled={!isUser}>
+                        2020
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
+                      <MenuItem value={"2019"} disabled={!isUser}>
+                        2019
+                        <Image
+                          src={proSvg}
+                          alt="filterSvg"
+                          width={50}
+                          height={32}
+                        />
+                      </MenuItem>
                     </Select>
                   </FormControl>
                 </div>
               </div>
             )}
+            <div
+              style={{
+                marginLeft: 15,
+                width: 200,
+                display: "flex",
+                justifyContent: "space-evenly",
+              }}
+            >
+              <Button variant="text" color="error" onClick={clearAll}>
+                Clear
+              </Button>
+
+              <Button variant="text" color="success" onClick={applyFilters}>
+                Apply
+              </Button>
+            </div>
+          </Box>
+        </>
+      </Modal>
+      <Modal
+        keepMounted
+        open={openColumnModal}
+        onClose={() => setOpenColumnModal(false)}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <>
+          <Box sx={style}>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Image
+                src={crossIconSvg}
+                alt="filterSvg"
+                width={18}
+                height={18}
+                onClick={() => setOpenColumnModal(false)}
+              />
+            </div>
+            <FormControl sx={{ m: 1, width: 300 }}>
+              <InputLabel id="demo-multiple-checkbox-label">
+                Find Column
+              </InputLabel>
+              <Select
+                labelId="demo-multiple-checkbox-label"
+                id="demo-multiple-checkbox"
+                multiple
+                value={personName}
+                onChange={handleChange}
+                // input={<OutlinedInput label="Tag" />}
+                renderValue={(selected) => selected.join(", ")}
+                // MenuProps={MenuProps}
+              >
+                {names.map((name: any) => (
+                  <MenuItem key={name} value={name}>
+                    <Checkbox checked={personName.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <div
               style={{
                 marginLeft: 15,
