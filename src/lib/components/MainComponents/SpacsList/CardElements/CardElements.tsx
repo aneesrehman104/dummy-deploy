@@ -933,6 +933,7 @@ function CardElements() {
                         Liquidation Status
                       </InputLabel>
                       <Select
+                        disabled={!isUser}
                         placeholder="Select"
                         name="LiquidationStatus"
                         value={filters?.LiquidationStatus}
@@ -970,6 +971,7 @@ function CardElements() {
                         Liquidation Year
                       </InputLabel>
                       <Select
+                        disabled={!isUser}
                         placeholder="Select"
                         name="LiquidationYear"
                         value={filters?.LiquidationYear}
