@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8080",
     "lint": "next lint",
     "test": "",
-    "prepare-deployment": "npm run build && zip -r build.zip .next/"
+    "prestart": "npm run build",
+    "package": "7z a -r publish.zip . -x!.git -x!node_modules -x!.next -x!.github -x!__tests__" 
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
