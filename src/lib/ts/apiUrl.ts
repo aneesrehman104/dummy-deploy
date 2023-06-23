@@ -7,5 +7,6 @@ export const URLs = {
   spacsStats:'api/spac/stats/comparison',
   spacsReturns:'api/spac/graph',
   spacsScreeners:"api/spac/screener",
-  spacsList:"api/spac/list"
+  spacsList:"api/spac/list",
+  spacsCalender:'api/spac/calendar'
 };

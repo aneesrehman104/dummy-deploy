@@ -38,6 +38,7 @@ import {
   AnnouncedSPACMergersScreener,
   DealProfile,
   RumorsTerminations,
+  SPACTargetProfile,
   DeSPACScreener,
 } from "@/lib/ts/constants";
 function CardElements() {
@@ -72,7 +73,7 @@ function CardElements() {
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openColumnModal, setOpenColumnModal] = useState(false);
   const [screenerData, setScreenerData] = useState<any>();
-  const [selectedTab, setSelectedTab] = useState(1);
+  const [selectedTab, setSelectedTab] = useState(2);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCount, setFilerCount] = useState(0);
   const [filters, setFilters] = useState({
@@ -117,16 +118,16 @@ function CardElements() {
       key: "symbol",
     },
     {
-      name: "Price",
-      key: "price",
+      name: "Listing Method",
+      key: "listing_method",
     },
     {
-      name: "Today",
-      key: "daily",
+      name: "Listing Status",
+      key: "listing_status",
     },
     {
       name: "Market Cap",
-      key: "vol",
+      key: "marketCap",
     },
   ]);
 
@@ -1698,6 +1699,58 @@ function CardElements() {
                       }}
                     >
                       {DealProfile.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Rumors / Terminations
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = SPACTargetProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {SPACTargetProfile.map((item: any) => (
                         <MenuItem key={item.key} value={item.key}>
                           <Checkbox
                             checked={personName.some(

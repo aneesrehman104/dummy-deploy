@@ -279,12 +279,12 @@ export const PreDealSpacScreener = [
   },
   {
     name: "Listing Method",
-    key: "price",
+    key: "listing_method",
     pro: false,
   },
   {
     name: "Listing Status",
-    key: "status",
+    key: "listing_status",
     pro: false,
   },
   {
@@ -294,7 +294,7 @@ export const PreDealSpacScreener = [
   },
   {
     name: "Market Cap",
-    key: "vol",
+    key: "marketCap",
     pro: false,
   },
   {
@@ -817,12 +817,12 @@ export const CompanyProfile = [
   },
   {
     name: "Listing Method",
-    key: "price",
+    key: "listing_method",
     pro: false,
   },
   {
     name: "Listing Status",
-    key: "status",
+    key: "listing_status",
     pro: false,
   },
   {
@@ -832,7 +832,7 @@ export const CompanyProfile = [
   },
   {
     name: "Market Cap",
-    key: "vol",
+    key: "marketCap",
     pro: false,
   },
   {
@@ -1496,6 +1496,36 @@ export const AnnouncedSPACMergersScreener = [
     pro: true,
   },
   {
+    name: "Financial Historicals Slide from Investor Deck",
+    key: "FinancialHistoricalsSlidefromInvestorDeck",
+    pro: true,
+  },
+  {
+    name: "Latest Transaction Overview Slide",
+    key: "LatestTransactionOverviewSlide",
+    pro: true,
+  },
+  {
+    name: "Comparable Landscape Slide",
+    key: "ComparableLandscapeSlide",
+    pro: true,
+  },
+  {
+    name: "Operational Benchmarking Slide",
+    key: "OperationalBenchmarkingSlide",
+    pro: true,
+  },
+  {
+    name: "Competitive Valuation Benchmarking Slide ",
+    key: "CompetitiveValuationBenchmarkingSlide",
+    pro: true,
+  },
+  {
+    name: "Financial Projections Slide from Investor Deck",
+    key: "FinancialProjectionsSlidefromInvestorDeck",
+    pro: true,
+  },
+  {
     name: "Post-Merger SEC Filings Link",
     key: "PostMergerSECFilingsLink",
     pro: true,
@@ -1541,7 +1571,6 @@ export const AnnouncedSPACMergersScreener = [
     pro: true,
   },
 ];
-
 
 export const DealProfile = [
   {
@@ -1689,9 +1718,39 @@ export const DealProfile = [
     key: "PostMergerSECFilingsLink",
     pro: true,
   },
-
 ];
-
+export const SPACTargetProfile = [
+  {
+    name: "Financial Historicals Slide from Investor Deck",
+    key: "FinancialHistoricalsSlidefromInvestorDeck",
+    pro: true,
+  },
+  {
+    name: "Latest Transaction Overview Slide",
+    key: "LatestTransactionOverviewSlide",
+    pro: true,
+  },
+  {
+    name: "Comparable Landscape Slide",
+    key: "ComparableLandscapeSlide",
+    pro: true,
+  },
+  {
+    name: "Operational Benchmarking Slide",
+    key: "OperationalBenchmarkingSlide",
+    pro: true,
+  },
+  {
+    name: "Competitive Valuation Benchmarking Slide ",
+    key: "CompetitiveValuationBenchmarkingSlide",
+    pro: true,
+  },
+  {
+    name: "Financial Projections Slide from Investor Deck",
+    key: "FinancialProjectionsSlidefromInvestorDeck",
+    pro: true,
+  },
+];
 export const RumorsTerminations = [
   {
     name: "Terminated Date",
@@ -1733,7 +1792,7 @@ export const RumorsTerminations = [
     key: "MergerTalksFailedSource",
     pro: true,
   },
-]
+];
 
 export const DeSPACScreener = [
   {
@@ -1748,12 +1807,12 @@ export const DeSPACScreener = [
   },
   {
     name: "Listing Method",
-    key: "price",
+    key: "listing_method",
     pro: false,
   },
   {
     name: "Listing Status",
-    key: "status",
+    key: "listing_status",
     pro: false,
   },
   {
@@ -1763,7 +1822,7 @@ export const DeSPACScreener = [
   },
   {
     name: "Market Cap",
-    key: "vol",
+    key: "marketCap",
     pro: false,
   },
   {
@@ -1976,6 +2035,108 @@ export const DeSPACScreener = [
     key: "1yearPercentChange ",
     pro: true,
   },
- 
 ];
 
+export const Extension = [
+  {
+    name: "Ext. Vote Date",
+    key: "ExtVoteDate",
+    pro: false,
+  },
+  {
+    name: "Ext. Red. Deadline",
+    key: "ExtRedDeadline",
+    pro: false,
+  },
+  {
+    name: "Ext. Ex-Red. Date",
+    key: "ExtExRedDeadline",
+    pro: false,
+  },
+  {
+    name: "Ext. Vote Proxy",
+    key: "ExtVoteProxy",
+    pro: false,
+  },
+  {
+    name: "Trust per Share at Proxy",
+    key: "ExtTrustProxy",
+    pro: false,
+  },
+  {
+    name: "Ext. Vote Proposal",
+    key: "ExtVoteProposal",
+    pro: false,
+  },
+  {
+    name: "Ext. Vote Notes",
+    key: "ExtVoteNote",
+    pro: false,
+  },
+];
+
+export const Mergers = [
+  {
+    name: "Merger Vote Date",
+    key: "MergerVoteDate",
+    pro: false,
+  },
+  {
+    name: "Merger. Red. Deadline",
+    key: "MergerRedDeadline",
+    pro: false,
+  },
+  {
+    name: "Merger Ex-Red. Date",
+    key: "MergerExRedDeadline",
+    pro: false,
+  },
+  {
+    name: "Merger Vote Proxy",
+    key: "MergerVoteProxy",
+    pro: false,
+  },
+  {
+    name: "Trust per Share at Proxy",
+    key: "MergerTrustProxy",
+    pro: false,
+  },
+  {
+    name: "Merger Vote Notes",
+    key: "MergerVoteNote",
+    pro: false,
+  },
+  {
+    name: "Expected Closing Date",
+    key: "ExpClosingDate",
+    pro: false,
+  },
+  {
+    name: "Expected Ticker Change Date",
+    key: "ExpTicChangeDate",
+    pro: false,
+  },
+];
+
+export const IPOAndSplitDates = [
+  {
+    name: "Expected IPO Date",
+    key: "ExpIPODate",
+    pro: false,
+  },
+  {
+    name: "IPO Date",
+    key: "IPODate",
+    pro: false,
+  },
+  {
+    name: "Estimated Split Date",
+    key: "EstSplitDate",
+    pro: false,
+  },
+  {
+    name: "Confirmed Split Date",
+    key: "ConfSplitDate",
+    pro: false,
+  },
+];
