@@ -14,28 +14,6 @@ import proSvg from "../../../../../../public/proSvg.svg";
 
 import Image from "next/image";
 
-const headerArray = [
-  {
-    name: "Company",
-    key: "company",
-  },
-  {
-    name: "Symbol",
-    key: "symbol",
-  },
-  {
-    name: "Price",
-    key: "price",
-  },
-  {
-    name: "Today",
-    key: "daily",
-  },
-  {
-    name: "Market Cap",
-    key: "vol",
-  },
-];
 const MyTable = ({
   data,
   itemsPerPage,
@@ -44,6 +22,7 @@ const MyTable = ({
   totalLength,
   setItemPerPage,
   isUser,
+  headerArray,
 }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
@@ -101,7 +80,7 @@ const MyTable = ({
     <Table>
       <TableHead>
         <TableRow>
-          {headerArray.map((item) => {
+          {headerArray.map((item: any) => {
             return (
               <TableCell key={item.key} onClick={() => handleSort(item.key)}>
                 <div
@@ -127,25 +106,15 @@ const MyTable = ({
       <TableBody>
         {sortedData.map((item, index) => (
           <TableRow key={index}>
-            <TableCell>
-              <div className={styles.customTableCustomCell}>
-                <div className={styles.imageWrapper}>
-                  <Image src="/image.svg" alt="image" width={24} height={24} />
-                </div>
-                <div className={styles.activision}>{item.company}</div>
-              </div>
-            </TableCell>
-            <TableCell>{item.symbol}</TableCell>
-            <TableCell>{item.price}</TableCell>
-            <TableCell>{item.daily}</TableCell>
-            <TableCell>{item.vol}</TableCell>
+            {headerArray.map((headerItem:any) => (
+              <TableCell key={headerItem.key}>{item[headerItem.key]}</TableCell>
+            ))}
           </TableRow>
         ))}
       </TableBody>
       <tfoot>
         <TableRow>
-          
-        {/* <TableCell align="right"  >
+          {/* <TableCell align="right"  >
             <Image src={proSvg} alt="filterSvg" width={50} height={32} />
           </TableCell> */}
           <TablePagination

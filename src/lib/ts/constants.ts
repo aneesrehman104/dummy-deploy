@@ -265,3 +265,1133 @@ export const weekName = [
   "NOV",
   "DEC",
 ];
+
+export const PreDealSpacScreener = [
+  {
+    name: "Company",
+    key: "company",
+    pro: false,
+  },
+  {
+    name: "Symbol",
+    key: "symbol",
+    pro: false,
+  },
+  {
+    name: "Listing Method",
+    key: "price",
+    pro: false,
+  },
+  {
+    name: "Listing Status",
+    key: "status",
+    pro: false,
+  },
+  {
+    name: "Exchange",
+    key: "daily",
+    pro: false,
+  },
+  {
+    name: "Market Cap",
+    key: "vol",
+    pro: false,
+  },
+  {
+    name: "Region",
+    key: "Region",
+    pro: true,
+  },
+  {
+    name: "Sector",
+    key: "Sector",
+    pro: true,
+  },
+  {
+    name: "Industry",
+    key: "Industry",
+    pro: true,
+  },
+  {
+    name: "HQ City, Country",
+    key: "HQCityCountry",
+    pro: true,
+  },
+  {
+    name: "Employees",
+    key: "Employees",
+    pro: true,
+  },
+  {
+    name: "IPO Status",
+    key: "IPOStatus",
+    pro: false,
+  },
+  {
+    name: "IPO Type",
+    key: "IPOType",
+    pro: false,
+  },
+  {
+    name: "IPO Price",
+    key: "IPOPrice",
+    pro: false,
+  },
+  {
+    name: "IPO Date",
+    key: "IPODate",
+    pro: false,
+  },
+  {
+    name: "IPO Proceeds",
+    key: "IPOProceeds",
+    pro: false,
+  },
+  {
+    name: "IPO Underwriters",
+    key: "IPOUnderwriters",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Date",
+    key: "ExpectedIPODate",
+    pro: false,
+  },
+  {
+    name: "ExpectedIPOShares",
+    key: "ExpectedIPOShares",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Price Range",
+    key: "ExpectedIPOPriceRange",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Valuation",
+    key: "ExpectedIPOValuation",
+    pro: false,
+  },
+  {
+    name: "IPO Market Cap",
+    key: "IPOMarketCap",
+    pro: true,
+  },
+  {
+    name: "IPO S-1 Registration Link",
+    key: "IPOS1RegistrationLink",
+    pro: true,
+  },
+  {
+    name: "IPO Filed Date",
+    key: "IPOFiledDate",
+    pro: true,
+  },
+  {
+    name: "Registration Domicile",
+    key: "RegistrationDomicile",
+    pro: true,
+  },
+  {
+    name: "S-1 Withdrawal Date",
+    key: "S1WithdrawalDate",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Date",
+    key: "IPORumorDate",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Publication",
+    key: "IPORumorPublication",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Source",
+    key: "IPORumorSource",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Date",
+    key: "IPOStallDate",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Publication",
+    key: "IPOStallPublication",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Source",
+    key: "IPOStallSource",
+    pro: true,
+  },
+  {
+    name: "Latest Price",
+    key: "LatestPrice",
+    pro: false,
+  },
+  {
+    name: "1-day Price Chg %",
+    key: "1dayPriceChg",
+    pro: false,
+  },
+  {
+    name: "Outstanding Shares",
+    key: "OutstandingShares",
+    pro: false,
+  },
+  {
+    name: "52-Week High",
+    key: "52WeekHigh",
+    pro: false,
+  },
+  {
+    name: "52-Week Low",
+    key: "52WeekLow",
+    pro: false,
+  },
+  {
+    name: "52-Week High Percent Change",
+    key: "52WeekHighPercentChange",
+    pro: false,
+  },
+  {
+    name: "52-Week Low Percent Change",
+    key: "52WeekLowPercentChange",
+    pro: false,
+  },
+  {
+    name: "Volume",
+    key: "Volume",
+    pro: false,
+  },
+  {
+    name: "Average 30 Day Volume",
+    key: "Average30DayVolume",
+    pro: false,
+  },
+  {
+    name: "YTD Percent Change",
+    key: "YTDPercentChange",
+    pro: false,
+  },
+  {
+    name: "Optionable",
+    key: "Optionable",
+    pro: false,
+  },
+  {
+    name: "1-week Percent Change ",
+    key: "1weekPercentChange ",
+    pro: true,
+  },
+  {
+    name: "30-day Change Percent",
+    key: "30dayChangePercent",
+    pro: true,
+  },
+  {
+    name: "1-month Percent Change",
+    key: "1monthPercentChange",
+    pro: true,
+  },
+  {
+    name: "3-month Percent Change",
+    key: "3monthPercentChange",
+    pro: true,
+  },
+  {
+    name: "1-year Percent Change ",
+    key: "1yearPercentChange ",
+    pro: true,
+  },
+  {
+    name: "Warrant Symbol",
+    key: "WarrantSymbol",
+    pro: false,
+  },
+  {
+    name: "Latest Warrant Price",
+    key: "LatestWarrantPrice",
+    pro: false,
+  },
+  {
+    name: "Warrant Price Change Previous",
+    key: "WarrantPriceChangePrevious",
+    pro: false,
+  },
+  {
+    name: "SPAC Warrant Intrinsic Value",
+    key: "SPACWarrantIntrinsicValue",
+    pro: false,
+  },
+  {
+    name: "Warrant 52-Week High",
+    key: "Warrant52WeekHigh",
+    pro: false,
+  },
+  {
+    name: "Warrant 52-Week Low",
+    key: "Warrant52WeekLow",
+    pro: false,
+  },
+  {
+    name: "Warrant Percent Change 52-Week High",
+    key: "WarrantPercentChange52WeekHigh",
+    pro: false,
+  },
+  {
+    name: "Warrant Percent Change 52-Week Low",
+    key: "WarrantPercentChange52WeekLow",
+    pro: false,
+  },
+  {
+    name: "Warrant Volume",
+    key: "WarrantVolume",
+    pro: false,
+  },
+  {
+    name: "Warrant Average 30 Day Volume",
+    key: "WarrantAverage30DayVolume",
+    pro: false,
+  },
+  // {
+  //   name: "Warrant Percent Change 1-week",
+  //   key: "WarrantPercentChange1week",
+  //   pro: false,
+  // },
+  // {
+  //   name: "Warrant Percent Change 1-month",
+  //   key: "WarrantPercentChange1month",
+  //   pro: false,
+  // },
+  // {
+  //   name: "Warrant Percent Change 1-year",
+  //   key: "WarrantPercentChange1year",
+  //   pro: false,
+  // },
+  {
+    name: "Warrant Return YTD",
+    key: "WarrantReturnYTD",
+    pro: false,
+  },
+  {
+    name: "Unit Symbol",
+    key: "UnitSymbol",
+    pro: false,
+  },
+  {
+    name: "Latest Unit Price",
+    key: "LatestUnitPrice",
+    pro: false,
+  },
+  {
+    name: "Unit Price Change Previous Day",
+    key: "UnitPriceChangePreviousDay",
+    pro: false,
+  },
+  {
+    name: "Unit Outstanding Shares",
+    key: "UnitOutstandingShares",
+    pro: false,
+  },
+  {
+    name: "Unit 52-Week High",
+    key: "Unit52WeekHigh",
+    pro: false,
+  },
+  {
+    name: "Unit 52-Week Low",
+    key: "Unit52WeekLow",
+    pro: false,
+  },
+  {
+    name: "Unit 52-Week High Percent Change",
+    key: "Unit52WeekHighPercentChange",
+    pro: false,
+  },
+  {
+    name: "Unit 52-Week Low Percent Change",
+    key: "Unit52WeekLowPercentChange",
+    pro: false,
+  },
+  {
+    name: "Unit Volume",
+    key: "UnitVolume",
+    pro: false,
+  },
+  {
+    name: "Unit YTD Percent Change",
+    key: "UnitYTDPercentChange",
+    pro: false,
+  },
+  {
+    name: "Warrant Percent Change 1-week",
+    key: "WarrantPercentChange1week",
+    pro: true,
+  },
+  {
+    name: "Warrant Percent Change 1-month",
+    key: "WarrantPercentChange1month",
+    pro: true,
+  },
+  {
+    name: "Warrant Percent Change 1-year",
+    key: "WarrantPercentChange1year",
+    pro: true,
+  },
+  {
+    name: "Unit 1-month Percent Change",
+    key: "Unit1monthPercentChange",
+    pro: true,
+  },
+  {
+    name: "SPAC Progress Status",
+    key: "SPACProgressStatus",
+    pro: false,
+  },
+  {
+    name: "Desired Target Focus",
+    key: "DesiredTargetFocus",
+    pro: false,
+  },
+  {
+    name: "Prominent Leaders",
+    key: "ProminentLeaders",
+    pro: false,
+  },
+  {
+    name: "Unit and Warrant Conversion Details",
+    key: "UnitandWarrantConversionDetails",
+    pro: false,
+  },
+  {
+    name: "Split Date",
+    key: "SplitDate",
+    pro: false,
+  },
+  {
+    name: "Initial SPAC Deadline Date",
+    key: "InitialSPACDeadlineDate",
+    pro: false,
+  },
+  {
+    name: "Est. SPAC Deadline Date",
+    key: "EstSPACDeadlineDate",
+    pro: false,
+  },
+  {
+    name: "Time Progress to SPAC Deadline",
+    key: "TimeProgresstoSPACDeadline",
+    pro: false,
+  },
+  {
+    name: "Extension Details",
+    key: "ExtensionDetails",
+    pro: false,
+  },
+  {
+    name: "Latest SPAC Extension Shareholder Vote Date",
+    key: "LatestSPACExtensionShareholderVoteDate",
+    pro: false,
+  },
+  {
+    name: "DespacCloseDate",
+    key: "DespacCloseDate",
+    pro: false,
+  },
+  {
+    name: "Post-SPAC Merger Estimated Warrant Exercisable Date",
+    key: "PostSPACMergerEstimatedWarrantExercisableDate",
+    pro: false,
+  },
+  {
+    name: "Post-SPAC Merger Warrant Exercise Deadline Date",
+    key: "PostSPACMergerWarrantExerciseDeadlineDate",
+    pro: false,
+  },
+  {
+    name: "Latest SPAC Extension Proxy Link",
+    key: "LatestSPACExtensionProxyLink",
+    pro: true,
+  },
+  {
+    name: "SPAC Latest Extension Vote Redemption Deadline Date",
+    key: "SPACLatestExtensionVoteRedemptionDeadlineDate",
+    pro: true,
+  },
+  {
+    name: "SPAC Latest Extension Vote Ex-Redemption Date",
+    key: "SPACLatestExtensionVoteExRedemptionDate",
+    pro: true,
+  },
+  {
+    name: "Merger Vote Redemption Deadline Date",
+    key: "MergerVoteRedemptionDeadlineDate",
+    pro: true,
+  },
+  {
+    name: "Merger Vote Ex-Redemption Date",
+    key: "MergerVoteExRedemptionDate",
+    pro: true,
+  },
+  {
+    name: "Latest Post-SPAC Merger Share Registration S-1 Link",
+    key: "LatestPostSPACMergerShareRegistrationS1Link",
+    pro: true,
+  },
+  {
+    name: "Post-SPAC Merger Share Registration Effective Date",
+    key: "PostSPACMergerShareRegistrationEffectiveDate",
+    pro: true,
+  },
+  {
+    name: "Liquidation Date",
+    key: "LiquidationDate",
+    pro: true,
+  },
+  {
+    name: "Liquidation Redemption Price",
+    key: "LiquidationRedemptionPrice",
+    pro: true,
+  },
+  {
+    name: "Liquidation Announcement Link",
+    key: "LiquidationAnnouncementLink",
+    pro: true,
+  },
+  {
+    name: "Liquidation Trust Value",
+    key: "LiquidationTrustValue",
+    pro: true,
+  },
+  {
+    name: "Est. Trust Value",
+    key: "EstTrustValue",
+    pro: false,
+  },
+  {
+    name: "Trust per Share",
+    key: "TrustperShare",
+    pro: false,
+  },
+  {
+    name: "Trust Per Share Date",
+    key: "TrustPerShareDate",
+    pro: false,
+  },
+  {
+    name: "Est. Shares Remaining Pre-Close (M)",
+    key: "EstSharesRemainingPreCloseM",
+    pro: false,
+  },
+  {
+    name: "Est. Shares Remaining Post-Close (M)",
+    key: "EstSharesRemainingPostCloseM",
+    pro: false,
+  },
+  {
+    name: "Trust P.S. at IPO",
+    key: "TrustPSatIPO",
+    pro: true,
+  },
+  {
+    name: "Trust per Share Source",
+    key: "TrustperShareSource",
+    pro: true,
+  },
+  {
+    name: "Trading Premium/Discount",
+    key: "TradingPremiumDiscount",
+    pro: true,
+  },
+  {
+    name: "SPAC Shares Redeemed at Merger Vote (%)",
+    key: "SPACSharesRedeemedatMergerVote",
+    pro: true,
+  },
+  {
+    name: "SPAC Shares Redeemed Lifetime (%)",
+    key: "SPACSharesRedeemedLifetime",
+    pro: true,
+  },
+];
+
+// {
+//   name: "",
+//   key: "",
+//   pro: false,
+// },
+
+// {
+//   name: "",
+//   key: "",
+//   pro: true,
+// },
+
+export const CompanyProfile = [
+  {
+    name: "Company",
+    key: "company",
+    pro: false,
+  },
+  {
+    name: "Symbol",
+    key: "symbol",
+    pro: false,
+  },
+  {
+    name: "Listing Method",
+    key: "price",
+    pro: false,
+  },
+  {
+    name: "Listing Status",
+    key: "status",
+    pro: false,
+  },
+  {
+    name: "Exchange",
+    key: "daily",
+    pro: false,
+  },
+  {
+    name: "Market Cap",
+    key: "vol",
+    pro: false,
+  },
+  {
+    name: "Region",
+    key: "Region",
+    pro: true,
+  },
+  {
+    name: "Sector",
+    key: "Sector",
+    pro: true,
+  },
+  {
+    name: "Industry",
+    key: "Industry",
+    pro: true,
+  },
+  {
+    name: "HQ City, Country",
+    key: "HQCityCountry",
+    pro: true,
+  },
+  {
+    name: "Employees",
+    key: "Employees",
+    pro: true,
+  },
+];
+export const IPOProfile = [
+  {
+    name: "IPO Status",
+    key: "IPOStatus",
+    pro: false,
+  },
+  {
+    name: "IPO Type",
+    key: "IPOType",
+    pro: false,
+  },
+  {
+    name: "IPO Price",
+    key: "IPOPrice",
+    pro: false,
+  },
+  {
+    name: "IPO Date",
+    key: "IPODate",
+    pro: false,
+  },
+  {
+    name: "IPO Proceeds",
+    key: "IPOProceeds",
+    pro: false,
+  },
+  {
+    name: "IPO Underwriters",
+    key: "IPOUnderwriters",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Date",
+    key: "ExpectedIPODate",
+    pro: false,
+  },
+  {
+    name: "ExpectedIPOShares",
+    key: "ExpectedIPOShares",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Price Range",
+    key: "ExpectedIPOPriceRange",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Valuation",
+    key: "ExpectedIPOValuation",
+    pro: false,
+  },
+  {
+    name: "IPO Market Cap",
+    key: "IPOMarketCap",
+    pro: true,
+  },
+  {
+    name: "IPO S-1 Registration Link",
+    key: "IPOS1RegistrationLink",
+    pro: true,
+  },
+  {
+    name: "IPO Filed Date",
+    key: "IPOFiledDate",
+    pro: true,
+  },
+  {
+    name: "Registration Domicile",
+    key: "RegistrationDomicile",
+    pro: true,
+  },
+  {
+    name: "S-1 Withdrawal Date",
+    key: "S1WithdrawalDate",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Date",
+    key: "IPORumorDate",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Publication",
+    key: "IPORumorPublication",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Source",
+    key: "IPORumorSource",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Date",
+    key: "IPOStallDate",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Publication",
+    key: "IPOStallPublication",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Source",
+    key: "IPOStallSource",
+    pro: true,
+  },
+];
+
+export const Trading = [
+  {
+    name: "Latest Price",
+    key: "LatestPrice",
+    pro: false,
+  },
+  {
+    name: "1-day Price Chg %",
+    key: "1dayPriceChg",
+    pro: false,
+  },
+  {
+    name: "Outstanding Shares",
+    key: "OutstandingShares",
+    pro: false,
+  },
+  {
+    name: "52-Week High",
+    key: "52WeekHigh",
+    pro: false,
+  },
+  {
+    name: "52-Week Low",
+    key: "52WeekLow",
+    pro: false,
+  },
+  {
+    name: "52-Week High Percent Change",
+    key: "52WeekHighPercentChange",
+    pro: false,
+  },
+  {
+    name: "52-Week Low Percent Change",
+    key: "52WeekLowPercentChange",
+    pro: false,
+  },
+  {
+    name: "Volume",
+    key: "Volume",
+    pro: false,
+  },
+  {
+    name: "Average 30 Day Volume",
+    key: "Average30DayVolume",
+    pro: false,
+  },
+  {
+    name: "YTD Percent Change",
+    key: "YTDPercentChange",
+    pro: false,
+  },
+  {
+    name: "Optionable",
+    key: "Optionable",
+    pro: false,
+  },
+  {
+    name: "1-week Percent Change ",
+    key: "1weekPercentChange ",
+    pro: true,
+  },
+  {
+    name: "30-day Change Percent",
+    key: "30dayChangePercent",
+    pro: true,
+  },
+  {
+    name: "1-month Percent Change",
+    key: "1monthPercentChange",
+    pro: true,
+  },
+  {
+    name: "3-month Percent Change",
+    key: "3monthPercentChange",
+    pro: true,
+  },
+  {
+    name: "1-year Percent Change ",
+    key: "1yearPercentChange ",
+    pro: true,
+  },
+];
+export const SPACTrading = [
+  {
+    name: "Warrant Symbol",
+    key: "WarrantSymbol",
+    pro: false,
+  },
+  {
+    name: "Latest Warrant Price",
+    key: "LatestWarrantPrice",
+    pro: false,
+  },
+  {
+    name: "Warrant Price Change Previous",
+    key: "WarrantPriceChangePrevious",
+    pro: false,
+  },
+  {
+    name: "SPAC Warrant Intrinsic Value",
+    key: "SPACWarrantIntrinsicValue",
+    pro: false,
+  },
+  {
+    name: "Warrant 52-Week High",
+    key: "Warrant52WeekHigh",
+    pro: false,
+  },
+  {
+    name: "Warrant 52-Week Low",
+    key: "Warrant52WeekLow",
+    pro: false,
+  },
+  {
+    name: "Warrant Percent Change 52-Week High",
+    key: "WarrantPercentChange52WeekHigh",
+    pro: false,
+  },
+  {
+    name: "Warrant Percent Change 52-Week Low",
+    key: "WarrantPercentChange52WeekLow",
+    pro: false,
+  },
+  {
+    name: "Warrant Volume",
+    key: "WarrantVolume",
+    pro: false,
+  },
+  {
+    name: "Warrant Average 30 Day Volume",
+    key: "WarrantAverage30DayVolume",
+    pro: false,
+  },
+  // {
+  //   name: "Warrant Percent Change 1-week",
+  //   key: "WarrantPercentChange1week",
+  //   pro: false,
+  // },
+  // {
+  //   name: "Warrant Percent Change 1-month",
+  //   key: "WarrantPercentChange1month",
+  //   pro: false,
+  // },
+  // {
+  //   name: "Warrant Percent Change 1-year",
+  //   key: "WarrantPercentChange1year",
+  //   pro: false,
+  // },
+  {
+    name: "Warrant Return YTD",
+    key: "WarrantReturnYTD",
+    pro: false,
+  },
+  {
+    name: "Unit Symbol",
+    key: "UnitSymbol",
+    pro: false,
+  },
+  {
+    name: "Latest Unit Price",
+    key: "LatestUnitPrice",
+    pro: false,
+  },
+  {
+    name: "Unit Price Change Previous Day",
+    key: "UnitPriceChangePreviousDay",
+    pro: false,
+  },
+  {
+    name: "Unit Outstanding Shares",
+    key: "UnitOutstandingShares",
+    pro: false,
+  },
+  {
+    name: "Unit 52-Week High",
+    key: "Unit52WeekHigh",
+    pro: false,
+  },
+  {
+    name: "Unit 52-Week Low",
+    key: "Unit52WeekLow",
+    pro: false,
+  },
+  {
+    name: "Unit 52-Week High Percent Change",
+    key: "Unit52WeekHighPercentChange",
+    pro: false,
+  },
+  {
+    name: "Unit 52-Week Low Percent Change",
+    key: "Unit52WeekLowPercentChange",
+    pro: false,
+  },
+  {
+    name: "Unit Volume",
+    key: "UnitVolume",
+    pro: false,
+  },
+  {
+    name: "Unit YTD Percent Change",
+    key: "UnitYTDPercentChange",
+    pro: false,
+  },
+  {
+    name: "Warrant Percent Change 1-week",
+    key: "WarrantPercentChange1week",
+    pro: true,
+  },
+  {
+    name: "Warrant Percent Change 1-month",
+    key: "WarrantPercentChange1month",
+    pro: true,
+  },
+  {
+    name: "Warrant Percent Change 1-year",
+    key: "WarrantPercentChange1year",
+    pro: true,
+  },
+  {
+    name: "Unit 1-month Percent Change",
+    key: "Unit1monthPercentChange",
+    pro: true,
+  },
+];
+
+export const SPACProfile = [
+  {
+    name: "SPAC Progress Status",
+    key: "SPACProgressStatus",
+    pro: false,
+  },
+  {
+    name: "Desired Target Focus",
+    key: "DesiredTargetFocus",
+    pro: false,
+  },
+  {
+    name: "Prominent Leaders",
+    key: "ProminentLeaders",
+    pro: false,
+  },
+  {
+    name: "Unit and Warrant Conversion Details",
+    key: "UnitandWarrantConversionDetails",
+    pro: false,
+  },
+  {
+    name: "Split Date",
+    key: "SplitDate",
+    pro: false,
+  },
+  {
+    name: "Initial SPAC Deadline Date",
+    key: "InitialSPACDeadlineDate",
+    pro: false,
+  },
+  {
+    name: "Est. SPAC Deadline Date",
+    key: "EstSPACDeadlineDate",
+    pro: false,
+  },
+  {
+    name: "Time Progress to SPAC Deadline",
+    key: "TimeProgresstoSPACDeadline",
+    pro: false,
+  },
+  {
+    name: "Extension Details",
+    key: "ExtensionDetails",
+    pro: false,
+  },
+  {
+    name: "Latest SPAC Extension Shareholder Vote Date",
+    key: "LatestSPACExtensionShareholderVoteDate",
+    pro: false,
+  },
+  {
+    name: "DespacCloseDate",
+    key: "DespacCloseDate",
+    pro: false,
+  },
+  {
+    name: "Post-SPAC Merger Estimated Warrant Exercisable Date",
+    key: "PostSPACMergerEstimatedWarrantExercisableDate",
+    pro: false,
+  },
+  {
+    name: "Post-SPAC Merger Warrant Exercise Deadline Date",
+    key: "PostSPACMergerWarrantExerciseDeadlineDate",
+    pro: false,
+  },
+  {
+    name: "Latest SPAC Extension Proxy Link",
+    key: "LatestSPACExtensionProxyLink",
+    pro: true,
+  },
+  {
+    name: "SPAC Latest Extension Vote Redemption Deadline Date",
+    key: "SPACLatestExtensionVoteRedemptionDeadlineDate",
+    pro: true,
+  },
+  {
+    name: "SPAC Latest Extension Vote Ex-Redemption Date",
+    key: "SPACLatestExtensionVoteExRedemptionDate",
+    pro: true,
+  },
+  {
+    name: "Merger Vote Redemption Deadline Date",
+    key: "MergerVoteRedemptionDeadlineDate",
+    pro: true,
+  },
+  {
+    name: "Merger Vote Ex-Redemption Date",
+    key: "MergerVoteExRedemptionDate",
+    pro: true,
+  },
+  {
+    name: "Latest Post-SPAC Merger Share Registration S-1 Link",
+    key: "LatestPostSPACMergerShareRegistrationS1Link",
+    pro: true,
+  },
+  {
+    name: "Post-SPAC Merger Share Registration Effective Date",
+    key: "PostSPACMergerShareRegistrationEffectiveDate",
+    pro: true,
+  },
+  {
+    name: "Liquidation Date",
+    key: "LiquidationDate",
+    pro: true,
+  },
+  {
+    name: "Liquidation Redemption Price",
+    key: "LiquidationRedemptionPrice",
+    pro: true,
+  },
+  {
+    name: "Liquidation Announcement Link",
+    key: "LiquidationAnnouncementLink",
+    pro: true,
+  },
+  {
+    name: "Liquidation Trust Value",
+    key: "LiquidationTrustValue",
+    pro: true,
+  },
+];
+export const TrustRedemptions = [
+  {
+    name: "Est. Trust Value",
+    key: "EstTrustValue",
+    pro: false,
+  },
+  {
+    name: "Trust per Share",
+    key: "TrustperShare",
+    pro: false,
+  },
+  {
+    name: "Trust Per Share Date",
+    key: "TrustPerShareDate",
+    pro: false,
+  },
+  {
+    name: "Est. Shares Remaining Pre-Close (M)",
+    key: "EstSharesRemainingPreCloseM",
+    pro: false,
+  },
+  {
+    name: "Est. Shares Remaining Post-Close (M)",
+    key: "EstSharesRemainingPostCloseM",
+    pro: false,
+  },
+  {
+    name: "Trust P.S. at IPO",
+    key: "TrustPSatIPO",
+    pro: true,
+  },
+  {
+    name: "Trust per Share Source",
+    key: "TrustperShareSource",
+    pro: true,
+  },
+  {
+    name: "Trading Premium/Discount",
+    key: "TradingPremiumDiscount",
+    pro: true,
+  },
+  {
+    name: "SPAC Shares Redeemed at Merger Vote (%)",
+    key: "SPACSharesRedeemedatMergerVote",
+    pro: true,
+  },
+  {
+    name: "SPAC Shares Redeemed Lifetime (%)",
+    key: "SPACSharesRedeemedLifetime",
+    pro: true,
+  },
+];
