@@ -22,9 +22,12 @@ jobs:
 
     - name: Test
       run: npm test
+      
+    - name: Install 7zip
+      run: sudo apt-get install p7zip-full
 
     - name: Prepare Deployment
-      run: npm run prepare-deployment
+      run: npm run package
       
     - name: Set version label
       id: prep
@@ -39,4 +42,4 @@ jobs:
         environment_name: staging-ui
         version_label: git-action ${{ steps.prep.outputs.version }}
         region: us-east-1
-        deployment_package: build.zip
+        deployment_package: publish.zip
