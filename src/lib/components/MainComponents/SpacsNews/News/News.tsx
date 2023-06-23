@@ -42,9 +42,9 @@ function News() {
             style={{ marginTop: 15 }}
           />
         ) : (
-          newsData?.dataset.map((item: any) => {
+          newsData?.dataset.map((item: any, index: number) => {
             return (
-              <div className={styles.cardStyle}>
+              <div className={styles.cardStyle} key={index}>
                 <div style={{ height: 180 }}>
                   <div
                     style={{ width: "100%", height: 180, position: "relative" }}
