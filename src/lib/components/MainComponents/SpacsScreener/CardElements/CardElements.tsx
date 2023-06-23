@@ -35,6 +35,10 @@ import {
   SPACTrading,
   SPACProfile,
   TrustRedemptions,
+  AnnouncedSPACMergersScreener,
+  DealProfile,
+  RumorsTerminations,
+  DeSPACScreener,
 } from "@/lib/ts/constants";
 function CardElements() {
   const CssTextField = styled(TextField)({
@@ -85,96 +89,22 @@ function CardElements() {
   const [isUser, setIsUser] = useState(false);
 
   const [itemsPerPage, setItemPerPage] = useState(5);
-  const data = [
+  const tabData = [
     {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
+      name: "Pre-Deal SPAC Screener",
+      key: 0,
     },
     {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
+      name: "Announced SPAC Mergers Screener",
+      key: 1,
     },
     {
-      company: "Activision3",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23T",
+      name: "All Active SPACs Screener",
+      key: 2,
     },
     {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
-    },
-    {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
-    },
-    {
-      company: "Activision3",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23T",
-    },
-    {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
-    },
-    {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
-    },
-    {
-      company: "Activision3",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23T",
-    },
-  ];
-
-  const headerArray = [
-    {
-      name: "Company",
-      key: "company",
-    },
-    {
-      name: "Symbol",
-      key: "symbol",
-    },
-    {
-      name: "Listing Method",
-      key: "price",
-    },
-    {
-      name: "Listing Status",
-      key: "status",
-    },
-    {
-      name: "Exchange",
-      key: "daily",
-    },
-    {
-      name: "Market Cap",
-      key: "vol",
+      name: "De-SPAC Screener",
+      key: 3,
     },
   ];
   const [personName, setPersonName] = React.useState([
@@ -279,55 +209,49 @@ function CardElements() {
   useEffect(() => {
     getScreenerData();
   }, [selectedTab, currentPage, itemsPerPage]);
+
+  const handleTabClick = (key:any) => {
+    setSelectedTab(key);
+    setFilerCount(0);
+    setPersonName([
+      {
+        name: "Company",
+        key: "company",
+      },
+      {
+        name: "Symbol",
+        key: "symbol",
+      },
+      {
+        name: "Price",
+        key: "price",
+      },
+      {
+        name: "Today",
+        key: "daily",
+      },
+      {
+        name: "Market Cap",
+        key: "vol",
+      },
+    ]);
+  };
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
-          <div
-            onClick={() => {
-              setSelectedTab(0);
-              setFilerCount(0);
-            }}
-            className={`${styles.headerCell} ${
-              selectedTab === 0 && styles.selectedHeader
-            }`}
-          >
-            Pre-Deal SPAC Screener
-          </div>
-          <div
-            onClick={() => {
-              setSelectedTab(1);
-              setFilerCount(0);
-            }}
-            className={`${styles.headerCell} ${
-              selectedTab === 1 && styles.selectedHeader
-            }`}
-          >
-            Announced SPAC Mergers Screener
-          </div>
-          <div
-            onClick={() => {
-              setSelectedTab(2);
-              setFilerCount(0);
-            }}
-            className={`${styles.headerCell} ${
-              selectedTab === 2 && styles.selectedHeader
-            }`}
-          >
-            All Active SPACs Screener
-          </div>
-          <div
-            onClick={() => {
-              setSelectedTab(3);
-              setFilerCount(0);
-            }}
-            className={`${styles.headerCell} ${
-              selectedTab === 3 && styles.selectedHeader
-            }`}
-          >
-            De-SPAC Screener
-          </div>
+          {tabData.map((tab) => (
+            <div
+              key={tab.key}
+              onClick={() => handleTabClick(tab.key)}
+              className={`${styles.headerCell} ${
+                selectedTab === tab.key && styles.selectedHeader
+              }`}
+            >
+              {tab.name}
+            </div>
+          ))}
         </div>
         <div className={styles.highlightStyle}>
           <span>
@@ -1278,343 +1202,1203 @@ function CardElements() {
                 onClick={() => setOpenColumnModal(false)}
               />
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
-            >
+            {selectedTab === 0 ? (
               <div
                 style={{
                   display: "flex",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  width: "100%",
                 }}
               >
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    Find Column
-                  </InputLabel>
-                  <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={personName.map((item: any) => item.key)}
-                    onChange={handleChange}
-                    renderValue={(selected) =>
-                      selected
-                        .map((selectedKey: string) => {
-                          const selectedItem = personName.find(
-                            (item) => item.key === selectedKey
-                          );
-                          return selectedItem ? selectedItem.name : "";
-                        })
-                        .join(", ")
-                    }
-                    MenuProps={{
-                      style: {
-                        maxHeight: 250,
-                      },
-                      PaperProps: {
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Find Column
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = personName.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : "";
+                          })
+                          .join(", ")
+                      }
+                      MenuProps={{
                         style: {
                           maxHeight: 250,
                         },
-                      },
-                    }}
-                  >
-                    {PreDealSpacScreener.map((item: any) => (
-                      <MenuItem key={item.key} value={item.key}>
-                        <Checkbox
-                          checked={personName.some(
-                            (selectedItem) => selectedItem.key === item.key
-                          )}
-                        />
-                        <ListItemText primary={item.name} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {PreDealSpacScreener.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Company Profile
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = CompanyProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : "";
+                          })
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {CompanyProfile.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      IPO Profile
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = IPOProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {IPOProfile.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Trading
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = Trading.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {Trading.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      SPAC Trading
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = SPACTrading.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {SPACTrading.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      SPAC Profile
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = SPACProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {SPACProfile.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Trust Redemptions
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = TrustRedemptions.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {TrustRedemptions.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
               </div>
+            ) : selectedTab === 1 ? (
               <div
                 style={{
                   display: "flex",
-                  flexWrap: "wrap",
-                  justifyContent: "center",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  width: "100%",
                 }}
               >
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    Company Profile
-                  </InputLabel>
-                  <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={personName.map((item: any) => item.key)}
-                    onChange={handleChange}
-                    renderValue={(selected) =>
-                      selected
-                        .map((selectedKey: string) => {
-                          const selectedItem = CompanyProfile.find(
-                            (item) => item.key === selectedKey
-                          );
-                          return selectedItem ? selectedItem.name : "";
-                        })
-                        .join(", ")
-                    }
-                    MenuProps={{
-                      style: {
-                        maxHeight: 250,
-                      },
-                      PaperProps: {
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Find Column
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = personName.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : "";
+                          })
+                          .join(", ")
+                      }
+                      MenuProps={{
                         style: {
                           maxHeight: 250,
                         },
-                      },
-                    }}
-                  >
-                    {CompanyProfile.map((item: any) => (
-                      <MenuItem key={item.key} value={item.key}>
-                        <Checkbox
-                          checked={personName.some(
-                            (selectedItem) => selectedItem.key === item.key
-                          )}
-                        />
-                        <ListItemText primary={item.name} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    IPO Profile
-                  </InputLabel>
-                  <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={personName.map((item: any) => item.key)}
-                    onChange={handleChange}
-                    renderValue={(selected) =>
-                      selected
-                        .map((selectedKey: string) => {
-                          const selectedItem = IPOProfile.find(
-                            (item) => item.key === selectedKey
-                          );
-                          return selectedItem ? selectedItem.name : null;
-                        })
-                        .filter(Boolean) // Remove null values
-                        .join(", ")
-                    }
-                    MenuProps={{
-                      style: {
-                        maxHeight: 250,
-                      },
-                      PaperProps: {
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {AnnouncedSPACMergersScreener.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Deal Profile
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = DealProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
                         style: {
                           maxHeight: 250,
                         },
-                      },
-                    }}
-                  >
-                    {IPOProfile.map((item: any) => (
-                      <MenuItem key={item.key} value={item.key}>
-                        <Checkbox
-                          checked={personName.some(
-                            (selectedItem) => selectedItem.key === item.key
-                          )}
-                        />
-                        <ListItemText primary={item.name} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    Trading
-                  </InputLabel>
-                  <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={personName.map((item: any) => item.key)}
-                    onChange={handleChange}
-                    renderValue={(selected) =>
-                      selected
-                        .map((selectedKey: string) => {
-                          const selectedItem = Trading.find(
-                            (item) => item.key === selectedKey
-                          );
-                          return selectedItem ? selectedItem.name : null;
-                        })
-                        .filter(Boolean) // Remove null values
-                        .join(", ")
-                    }
-                    MenuProps={{
-                      style: {
-                        maxHeight: 250,
-                      },
-                      PaperProps: {
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {DealProfile.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Rumors / Terminations
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = RumorsTerminations.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
                         style: {
                           maxHeight: 250,
                         },
-                      },
-                    }}
-                  >
-                    {Trading.map((item: any) => (
-                      <MenuItem key={item.key} value={item.key}>
-                        <Checkbox
-                          checked={personName.some(
-                            (selectedItem) => selectedItem.key === item.key
-                          )}
-                        />
-                        <ListItemText primary={item.name} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    SPAC Trading
-                  </InputLabel>
-                  <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={personName.map((item: any) => item.key)}
-                    onChange={handleChange}
-                    renderValue={(selected) =>
-                      selected
-                        .map((selectedKey: string) => {
-                          const selectedItem = SPACTrading.find(
-                            (item) => item.key === selectedKey
-                          );
-                          return selectedItem ? selectedItem.name : null;
-                        })
-                        .filter(Boolean) // Remove null values
-                        .join(", ")
-                    }
-                    MenuProps={{
-                      style: {
-                        maxHeight: 250,
-                      },
-                      PaperProps: {
-                        style: {
-                          maxHeight: 250,
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
                         },
-                      },
-                    }}
-                  >
-                    {SPACTrading.map((item: any) => (
-                      <MenuItem key={item.key} value={item.key}>
-                        <Checkbox
-                          checked={personName.some(
-                            (selectedItem) => selectedItem.key === item.key
-                          )}
-                        />
-                        <ListItemText primary={item.name} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    SPAC Profile
-                  </InputLabel>
-                  <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={personName.map((item: any) => item.key)}
-                    onChange={handleChange}
-                    renderValue={(selected) =>
-                      selected
-                        .map((selectedKey: string) => {
-                          const selectedItem = SPACProfile.find(
-                            (item) => item.key === selectedKey
-                          );
-                          return selectedItem ? selectedItem.name : null;
-                        })
-                        .filter(Boolean) // Remove null values
-                        .join(", ")
-                    }
-                    MenuProps={{
-                      style: {
-                        maxHeight: 250,
-                      },
-                      PaperProps: {
-                        style: {
-                          maxHeight: 250,
-                        },
-                      },
-                    }}
-                  >
-                    {SPACProfile.map((item: any) => (
-                      <MenuItem key={item.key} value={item.key}>
-                        <Checkbox
-                          checked={personName.some(
-                            (selectedItem) => selectedItem.key === item.key
-                          )}
-                        />
-                        <ListItemText primary={item.name} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    Trust Redemptions
-                  </InputLabel>
-                  <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={personName.map((item: any) => item.key)}
-                    onChange={handleChange}
-                    renderValue={(selected) =>
-                      selected
-                        .map((selectedKey: string) => {
-                          const selectedItem = TrustRedemptions.find(
-                            (item) => item.key === selectedKey
-                          );
-                          return selectedItem ? selectedItem.name : null;
-                        })
-                        .filter(Boolean) // Remove null values
-                        .join(", ")
-                    }
-                    MenuProps={{
-                      style: {
-                        maxHeight: 250,
-                      },
-                      PaperProps: {
-                        style: {
-                          maxHeight: 250,
-                        },
-                      },
-                    }}
-                  >
-                    {TrustRedemptions.map((item: any) => (
-                      <MenuItem key={item.key} value={item.key}>
-                        <Checkbox
-                          checked={personName.some(
-                            (selectedItem) => selectedItem.key === item.key
-                          )}
-                        />
-                        <ListItemText primary={item.name} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                      }}
+                    >
+                      {RumorsTerminations.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
               </div>
-            </div>
+            ) : selectedTab === 2 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Find Column
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = personName.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : "";
+                          })
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {PreDealSpacScreener.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Company Profile
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = CompanyProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : "";
+                          })
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {CompanyProfile.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      IPO Profile
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = IPOProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {IPOProfile.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Trading
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = Trading.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {Trading.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      SPAC Trading
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = SPACTrading.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {SPACTrading.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      SPAC Profile
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = SPACProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {SPACProfile.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Trust Redemptions
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = TrustRedemptions.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {TrustRedemptions.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Find Column
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = personName.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : "";
+                          })
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {DeSPACScreener.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Company Profile
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = CompanyProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : "";
+                          })
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {CompanyProfile.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      IPO Profile
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = IPOProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {IPOProfile.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Trading
+                    </InputLabel>
+                    <Select
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = Trading.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {Trading.map((item: any) => (
+                        <MenuItem key={item.key} value={item.key}>
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+            )}
             {/* <div
               style={{
                 marginLeft: 15,
                 width: 200,
                 display: "flex",
                 justifyContent: "space-evenly",
+                
               }}
             >
               <Button variant="text" color="error" onClick={clearAll}>

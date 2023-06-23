@@ -557,21 +557,6 @@ export const PreDealSpacScreener = [
     key: "WarrantAverage30DayVolume",
     pro: false,
   },
-  // {
-  //   name: "Warrant Percent Change 1-week",
-  //   key: "WarrantPercentChange1week",
-  //   pro: false,
-  // },
-  // {
-  //   name: "Warrant Percent Change 1-month",
-  //   key: "WarrantPercentChange1month",
-  //   pro: false,
-  // },
-  // {
-  //   name: "Warrant Percent Change 1-year",
-  //   key: "WarrantPercentChange1year",
-  //   pro: false,
-  // },
   {
     name: "Warrant Return YTD",
     key: "WarrantReturnYTD",
@@ -818,18 +803,6 @@ export const PreDealSpacScreener = [
     pro: true,
   },
 ];
-
-// {
-//   name: "",
-//   key: "",
-//   pro: false,
-// },
-
-// {
-//   name: "",
-//   key: "",
-//   pro: true,
-// },
 
 export const CompanyProfile = [
   {
@@ -1129,21 +1102,6 @@ export const SPACTrading = [
     key: "WarrantAverage30DayVolume",
     pro: false,
   },
-  // {
-  //   name: "Warrant Percent Change 1-week",
-  //   key: "WarrantPercentChange1week",
-  //   pro: false,
-  // },
-  // {
-  //   name: "Warrant Percent Change 1-month",
-  //   key: "WarrantPercentChange1month",
-  //   pro: false,
-  // },
-  // {
-  //   name: "Warrant Percent Change 1-year",
-  //   key: "WarrantPercentChange1year",
-  //   pro: false,
-  // },
   {
     name: "Warrant Return YTD",
     key: "WarrantReturnYTD",
@@ -1395,3 +1353,629 @@ export const TrustRedemptions = [
     pro: true,
   },
 ];
+
+export const AnnouncedSPACMergersScreener = [
+  {
+    name: "Deal Name",
+    key: "DealName",
+    pro: false,
+  },
+  {
+    name: "Acquirer Company Name",
+    key: "AcquirerCompanyName",
+    pro: false,
+  },
+  {
+    name: "Acquirer Symbol",
+    key: "AcquirerSymbol",
+    pro: false,
+  },
+  {
+    name: "Acquirer Listing Status",
+    key: "AcquirerListingStatus",
+    pro: false,
+  },
+  {
+    name: "Target Company Name",
+    key: "TargetCompanyName",
+    pro: false,
+  },
+  {
+    name: "Target Symbol",
+    key: "TargetSymbol",
+    pro: false,
+  },
+  {
+    name: "Merger Announced Date",
+    key: "MergerAnnouncedDate",
+    pro: false,
+  },
+  {
+    name: "Deal Valuation",
+    key: "DealValuation",
+    pro: false,
+  },
+  {
+    name: "Price per Share",
+    key: "PriceperShare",
+    pro: false,
+  },
+  {
+    name: "Current Premium",
+    key: "CurrentPremium",
+    pro: false,
+  },
+  {
+    name: "PIPE Equity Proceeds",
+    key: "PIPEEquityProceeds",
+    pro: false,
+  },
+  {
+    name: "Announced PIPE Investors",
+    key: "AnnouncedPIPEInvestors",
+    pro: false,
+  },
+  {
+    name: "Target Merger Vote Date",
+    key: "TargetMergerVoteDate",
+    pro: false,
+  },
+  {
+    name: "Closing Date",
+    key: "ClosingDate",
+    pro: false,
+  },
+  {
+    name: "Merger Type",
+    key: "MergerType",
+    pro: true,
+  },
+  {
+    name: "Target Listing Status",
+    key: "TargetListingStatus",
+    pro: true,
+  },
+  {
+    name: "Merger Announcement Link",
+    key: "MergerAnnouncementLink",
+    pro: true,
+  },
+  {
+    name: "Investor Presentation Link",
+    key: "InvestorPresentationLink",
+    pro: true,
+  },
+  {
+    name: "BCA Link",
+    key: "BCALink",
+    pro: true,
+  },
+  {
+    name: "Deal Valuation Summary",
+    key: "DealValuationSummary",
+    pro: true,
+  },
+  {
+    name: "Premium at Deal Announcement",
+    key: "PremiumatDealAnnouncement",
+    pro: true,
+  },
+  {
+    name: "Funding Summary",
+    key: "FundingSummary",
+    pro: true,
+  },
+  {
+    name: "S-4 Link",
+    key: "S4Link",
+    pro: true,
+  },
+  {
+    name: "Expected Closing Date",
+    key: "ExpectedClosingDate",
+    pro: true,
+  },
+  {
+    name: "Target Prelim Merger Vote Proxy Link",
+    key: "TargetPrelimMergerVoteProxyLink",
+    pro: true,
+  },
+  {
+    name: "Target Definitive Merger Vote Link",
+    key: "TargetDefinitiveMergerVoteLink",
+    pro: true,
+  },
+  {
+    name: "Outside Date",
+    key: "OutsideDate",
+    pro: true,
+  },
+  {
+    name: "Closing Announcement Link",
+    key: "ClosingAnnouncementLink",
+    pro: true,
+  },
+  {
+    name: "Post-Merger SEC Filings Link",
+    key: "PostMergerSECFilingsLink",
+    pro: true,
+  },
+  {
+    name: "Terminated Date",
+    key: "TerminatedDate",
+    pro: true,
+  },
+  {
+    name: "Terminated Source Link",
+    key: "TerminatedSourceLink",
+    pro: true,
+  },
+  {
+    name: "Merger Rumor Date",
+    key: "MergerRumorDate",
+    pro: true,
+  },
+  {
+    name: "Merger Rumor Publication",
+    key: "MergerRumorPublication",
+    pro: true,
+  },
+  {
+    name: "Merger Rumor Source",
+    key: "MergerRumorSource",
+    pro: true,
+  },
+  {
+    name: "Merger Talks Failed Date",
+    key: "MergerTalksFailedDate",
+    pro: true,
+  },
+  {
+    name: "Merger Talks Failed Publication",
+    key: "MergerTalksFailedPublication",
+    pro: true,
+  },
+  {
+    name: "Merger Talks Failed Source",
+    key: "MergerTalksFailedSource",
+    pro: true,
+  },
+];
+
+
+export const DealProfile = [
+  {
+    name: "Deal Name",
+    key: "DealName",
+    pro: false,
+  },
+  {
+    name: "Acquirer Company Name",
+    key: "AcquirerCompanyName",
+    pro: false,
+  },
+  {
+    name: "Acquirer Symbol",
+    key: "AcquirerSymbol",
+    pro: false,
+  },
+  {
+    name: "Acquirer Listing Status",
+    key: "AcquirerListingStatus",
+    pro: false,
+  },
+  {
+    name: "Target Company Name",
+    key: "TargetCompanyName",
+    pro: false,
+  },
+  {
+    name: "Target Symbol",
+    key: "TargetSymbol",
+    pro: false,
+  },
+  {
+    name: "Merger Announced Date",
+    key: "MergerAnnouncedDate",
+    pro: false,
+  },
+  {
+    name: "Deal Valuation",
+    key: "DealValuation",
+    pro: false,
+  },
+  {
+    name: "Price per Share",
+    key: "PriceperShare",
+    pro: false,
+  },
+  {
+    name: "Current Premium",
+    key: "CurrentPremium",
+    pro: false,
+  },
+  {
+    name: "PIPE Equity Proceeds",
+    key: "PIPEEquityProceeds",
+    pro: false,
+  },
+  {
+    name: "Announced PIPE Investors",
+    key: "AnnouncedPIPEInvestors",
+    pro: false,
+  },
+  {
+    name: "Target Merger Vote Date",
+    key: "TargetMergerVoteDate",
+    pro: false,
+  },
+  {
+    name: "Closing Date",
+    key: "ClosingDate",
+    pro: false,
+  },
+  {
+    name: "Merger Type",
+    key: "MergerType",
+    pro: true,
+  },
+  {
+    name: "Target Listing Status",
+    key: "TargetListingStatus",
+    pro: true,
+  },
+  {
+    name: "Merger Announcement Link",
+    key: "MergerAnnouncementLink",
+    pro: true,
+  },
+  {
+    name: "Investor Presentation Link",
+    key: "InvestorPresentationLink",
+    pro: true,
+  },
+  {
+    name: "BCA Link",
+    key: "BCALink",
+    pro: true,
+  },
+  {
+    name: "Deal Valuation Summary",
+    key: "DealValuationSummary",
+    pro: true,
+  },
+  {
+    name: "Premium at Deal Announcement",
+    key: "PremiumatDealAnnouncement",
+    pro: true,
+  },
+  {
+    name: "Funding Summary",
+    key: "FundingSummary",
+    pro: true,
+  },
+  {
+    name: "S-4 Link",
+    key: "S4Link",
+    pro: true,
+  },
+  {
+    name: "Expected Closing Date",
+    key: "ExpectedClosingDate",
+    pro: true,
+  },
+  {
+    name: "Target Prelim Merger Vote Proxy Link",
+    key: "TargetPrelimMergerVoteProxyLink",
+    pro: true,
+  },
+  {
+    name: "Target Definitive Merger Vote Link",
+    key: "TargetDefinitiveMergerVoteLink",
+    pro: true,
+  },
+  {
+    name: "Outside Date",
+    key: "OutsideDate",
+    pro: true,
+  },
+  {
+    name: "Closing Announcement Link",
+    key: "ClosingAnnouncementLink",
+    pro: true,
+  },
+  {
+    name: "Post-Merger SEC Filings Link",
+    key: "PostMergerSECFilingsLink",
+    pro: true,
+  },
+
+];
+
+export const RumorsTerminations = [
+  {
+    name: "Terminated Date",
+    key: "TerminatedDate",
+    pro: true,
+  },
+  {
+    name: "Terminated Source Link",
+    key: "TerminatedSourceLink",
+    pro: true,
+  },
+  {
+    name: "Merger Rumor Date",
+    key: "MergerRumorDate",
+    pro: true,
+  },
+  {
+    name: "Merger Rumor Publication",
+    key: "MergerRumorPublication",
+    pro: true,
+  },
+  {
+    name: "Merger Rumor Source",
+    key: "MergerRumorSource",
+    pro: true,
+  },
+  {
+    name: "Merger Talks Failed Date",
+    key: "MergerTalksFailedDate",
+    pro: true,
+  },
+  {
+    name: "Merger Talks Failed Publication",
+    key: "MergerTalksFailedPublication",
+    pro: true,
+  },
+  {
+    name: "Merger Talks Failed Source",
+    key: "MergerTalksFailedSource",
+    pro: true,
+  },
+]
+
+export const DeSPACScreener = [
+  {
+    name: "Company",
+    key: "company",
+    pro: false,
+  },
+  {
+    name: "Symbol",
+    key: "symbol",
+    pro: false,
+  },
+  {
+    name: "Listing Method",
+    key: "price",
+    pro: false,
+  },
+  {
+    name: "Listing Status",
+    key: "status",
+    pro: false,
+  },
+  {
+    name: "Exchange",
+    key: "daily",
+    pro: false,
+  },
+  {
+    name: "Market Cap",
+    key: "vol",
+    pro: false,
+  },
+  {
+    name: "Region",
+    key: "Region",
+    pro: true,
+  },
+  {
+    name: "Sector",
+    key: "Sector",
+    pro: true,
+  },
+  {
+    name: "Industry",
+    key: "Industry",
+    pro: true,
+  },
+  {
+    name: "HQ City, Country",
+    key: "HQCityCountry",
+    pro: true,
+  },
+  {
+    name: "Employees",
+    key: "Employees",
+    pro: true,
+  },
+  {
+    name: "IPO Status",
+    key: "IPOStatus",
+    pro: false,
+  },
+  {
+    name: "IPO Type",
+    key: "IPOType",
+    pro: false,
+  },
+  {
+    name: "IPO Price",
+    key: "IPOPrice",
+    pro: false,
+  },
+  {
+    name: "IPO Date",
+    key: "IPODate",
+    pro: false,
+  },
+  {
+    name: "IPO Proceeds",
+    key: "IPOProceeds",
+    pro: false,
+  },
+  {
+    name: "IPO Underwriters",
+    key: "IPOUnderwriters",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Date",
+    key: "ExpectedIPODate",
+    pro: false,
+  },
+  {
+    name: "ExpectedIPOShares",
+    key: "ExpectedIPOShares",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Price Range",
+    key: "ExpectedIPOPriceRange",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Valuation",
+    key: "ExpectedIPOValuation",
+    pro: false,
+  },
+  {
+    name: "IPO Market Cap",
+    key: "IPOMarketCap",
+    pro: true,
+  },
+  {
+    name: "IPO S-1 Registration Link",
+    key: "IPOS1RegistrationLink",
+    pro: true,
+  },
+  {
+    name: "IPO Filed Date",
+    key: "IPOFiledDate",
+    pro: true,
+  },
+  {
+    name: "Registration Domicile",
+    key: "RegistrationDomicile",
+    pro: true,
+  },
+  {
+    name: "S-1 Withdrawal Date",
+    key: "S1WithdrawalDate",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Date",
+    key: "IPORumorDate",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Publication",
+    key: "IPORumorPublication",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Source",
+    key: "IPORumorSource",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Date",
+    key: "IPOStallDate",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Publication",
+    key: "IPOStallPublication",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Source",
+    key: "IPOStallSource",
+    pro: true,
+  },
+  {
+    name: "Latest Price",
+    key: "LatestPrice",
+    pro: false,
+  },
+  {
+    name: "1-day Price Chg %",
+    key: "1dayPriceChg",
+    pro: false,
+  },
+  {
+    name: "Outstanding Shares",
+    key: "OutstandingShares",
+    pro: false,
+  },
+  {
+    name: "52-Week High",
+    key: "52WeekHigh",
+    pro: false,
+  },
+  {
+    name: "52-Week Low",
+    key: "52WeekLow",
+    pro: false,
+  },
+  {
+    name: "52-Week High Percent Change",
+    key: "52WeekHighPercentChange",
+    pro: false,
+  },
+  {
+    name: "52-Week Low Percent Change",
+    key: "52WeekLowPercentChange",
+    pro: false,
+  },
+  {
+    name: "Volume",
+    key: "Volume",
+    pro: false,
+  },
+  {
+    name: "Average 30 Day Volume",
+    key: "Average30DayVolume",
+    pro: false,
+  },
+  {
+    name: "YTD Percent Change",
+    key: "YTDPercentChange",
+    pro: false,
+  },
+  {
+    name: "Optionable",
+    key: "Optionable",
+    pro: false,
+  },
+  {
+    name: "1-week Percent Change ",
+    key: "1weekPercentChange ",
+    pro: true,
+  },
+  {
+    name: "30-day Change Percent",
+    key: "30dayChangePercent",
+    pro: true,
+  },
+  {
+    name: "1-month Percent Change",
+    key: "1monthPercentChange",
+    pro: true,
+  },
+  {
+    name: "3-month Percent Change",
+    key: "3monthPercentChange",
+    pro: true,
+  },
+  {
+    name: "1-year Percent Change ",
+    key: "1yearPercentChange ",
+    pro: true,
+  },
+ 
+];
+
