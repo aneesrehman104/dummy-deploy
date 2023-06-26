@@ -43,7 +43,7 @@ const headerArray = [
     key: "vol",
   },
 ];
-const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
+const MyTable = ({ data, currentPage, itemsPerPage, paginate,totalLength }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
@@ -119,7 +119,7 @@ const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
         <TableRow>
           <TablePagination
             colSpan={6} // Number of columns in the table
-            count={sortedData.length} // Total number of items
+            count={totalLength?.totalLength}// Total number of items
             rowsPerPage={itemsPerPage}
             page={currentPage - 1} // Page number starts from 0
             onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change

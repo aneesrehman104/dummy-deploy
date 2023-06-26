@@ -1,36 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-
+import { getApiWithoutAuth } from "@lib/ts/api";
+import { URLs } from "@/lib/ts/apiUrl";
+import { GraphDataInterface } from "@/lib/ts/interface";
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
 });
-function ChartTitle() {
-  return <div className={styles.ytdEventSummary}>2023 IPO Stats</div>;
-}
-function ChartBottomSide() {
-  return (
-    <div className={styles.frameParent}>
-      <div className={styles.container}>
-        <div>52</div>
-        <div>total ipos</div>
-      </div>
-      <div className={styles.container}>
-        <div>30</div>
-        <div>traditional ipo</div>
-      </div>
-      <div className={styles.container}>
-        <div>5</div>
-        <div>SPAC IPOS</div>
-      </div>
-    </div>
-  );
-}
 
 function EventSummary() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [graphData, setGraphData] = useState<GraphDataInterface>({
+    additional_dataset: {},
+    dataset: [],
+  });
   const options = {
     chart: {
       type: "line",
@@ -79,27 +65,46 @@ function EventSummary() {
     series: [
       {
         name: "Total",
-        data: [10, 150, 20, 10, 133, 188, 500, 10, 150, 20, 10, 188],
+        data: graphData?.dataset
+          ?.filter((item) => item.event === "IPO")
+          ?.map((item) => item.data),
         color: "#F19529",
       },
       {
         name: "Traditional",
-        data: [1, 50, 200, 150, 33, 88, 300, 1, 50, 200, 150, 300],
+        data: graphData?.dataset
+          ?.filter((item) => item.event === "SPAC")
+          ?.map((item) => item.data),
         color: "#7F98F3",
       },
       {
         name: "SPAC",
-        data: [1, 550, 100, 130, 33, 88, 600, 1, 50, 200, 150, 88],
+        data: graphData?.dataset
+          ?.filter((item) => item.event === "Merger")
+          ?.map((item) => item.data),
         color: "#9747FF",
       },
     ],
   };
+  const getStatsData = async () => {
+    const response = await getApiWithoutAuth(URLs.spacGraph);
+    if (response.status === 200) {
+      setGraphData(response.data);
+
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    getStatsData();
+  }, []);
 
   return (
     <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
-          <ChartTitle />
+          <div className={styles.ytdEventSummary}>2023 IPO Overview</div>
           <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
         </div>
       </div>
@@ -107,8 +112,36 @@ function EventSummary() {
         <div style={{ width: "100%" }}>
           <DynamicChart options={options} />
         </div>
+        {isLoading ? (
+          <>
+            <Skeleton variant="rounded" height={25} width={"100%"} />
+            <Skeleton variant="rounded" height={25} width={"100%"} />
+          </>
+        ) : (
+          <div className={styles.frameParent}>
+            <>
+              <div className={styles.container}>
+                <div> {graphData?.additional_dataset?.IPO}</div>
+                <div>total ipos</div>
+              </div>
+              <div className={styles.container}>
+                <div> {graphData?.additional_dataset?.Announced_Mergers}</div>
 
-        <ChartBottomSide />
+                <div>traditional ipo</div>
+              </div>
+              <div className={styles.container}>
+                <div> {graphData?.additional_dataset?.Closed_Mergers}</div>
+
+                <div>SPAC IPOS</div>
+              </div>
+              <div className={styles.container}>
+                <div> {graphData?.additional_dataset?.Liquidations}</div>
+
+                <div>direct listings</div>
+              </div>
+            </>
+          </div>
+        )}
       </div>
     </section>
   );

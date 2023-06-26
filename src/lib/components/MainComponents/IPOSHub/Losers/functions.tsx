@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./gainer.module.css";
 import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -11,12 +10,13 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
 import dynamic from "next/dynamic";
-import { GainerInterFace } from "@/lib/ts/interface";
 import Skeleton from '@mui/material/Skeleton';
+
 const DynamicChart = dynamic(() => import("./EventsChart"), {
   ssr: false,
   loading: () => <Skeleton  variant="rounded"  height={200}  />,
 });
+
 const headerArray = [
   {
     name: "Company",
@@ -43,7 +43,7 @@ const headerArray = [
     key: "vol",
   },
 ];
-const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
+const MyTable = ({ data, currentPage, itemsPerPage, paginate,totalLength }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
@@ -110,7 +110,7 @@ const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
               <DynamicChart data={item.last30D} />
             </TableCell>
             <TableCell>{item.price}</TableCell>
-            <TableCell style={{ color: "#E33126" }}>{item.daily}</TableCell>
+            <TableCell style={{ color: "#0AAC1A" }}>{item.daily}</TableCell>
             <TableCell>{item.vol}</TableCell>
           </TableRow>
         ))}
@@ -119,7 +119,7 @@ const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
         <TableRow>
           <TablePagination
             colSpan={6} // Number of columns in the table
-            count={sortedData.length} // Total number of items
+            count={totalLength?.totalLength}// Total number of items
             rowsPerPage={itemsPerPage}
             page={currentPage - 1} // Page number starts from 0
             onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
