@@ -2,10 +2,13 @@ import styles from "./iops.module.css";
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Skeleton from '@mui/material/Skeleton';
+import Skeleton from "@mui/material/Skeleton";
+import CompanyInfo from "./CompanyInfo/CompaniInfo";
+import News from "./News/News";
+import PressReleases from "./PressReleases/PressReleases";
 const DynamicChart = dynamic(() => import("./IOPSChart"), {
   ssr: false,
-  loading: () => <Skeleton  variant="rounded"  height={200}  />,
+  loading: () => <Skeleton variant="rounded" height={200} />,
 });
 
 const dataSet = [
@@ -50,7 +53,6 @@ const dataSet = [
     value: "Bill Gates",
   },
 ];
-
 
 function IOPS() {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -440,7 +442,6 @@ function IOPS() {
       <div className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
           <div className={styles.dashboardtitle}>microsoft [msft]</div>
-         
         </div>
       </div>
       <div className={styles.sectionsummarycontainer}>
@@ -470,78 +471,37 @@ function IOPS() {
             {" "}
             <DynamicChart options={options} />
           </div>
-          <div className={styles.frameParent}>
-            <div className={styles.frameGroup}>
-              <div className={styles.container}>
-                <div>XXXX</div>
-                <div>LAST TRADE</div>
-              </div>
-              <div className={styles.container}>
-                <div>XX</div>
-                <div>XXXXX</div>
-              </div>
+          <div className={styles.chartBottomSide}>
+            <div className={styles.titleText}>
+              <div>Announced</div>
+              <div className={styles.completedMergers}>deal status</div>
             </div>
             <div className={styles.indicator} />
-            <div className={styles.eventsummaryinfo}>
-              <div className={styles.text}>
-                Lorem ipsum dolor sit amet consectetur. Turpis pretium ut
-                elementum quisque parturie. Turpis pretium ut elementum quisque
-                parturie.
-              </div>
-              <div className={styles.titlebottom}>COMPARISON</div>
+
+            <div className={styles.titleText}>
+              <div>JAN 18, 2022</div>
+              <div className={styles.completedMergers}>announced date</div>
             </div>
-          </div>
-          <div className={styles.tableContainer}>
-            <h3 className={styles.tableTitle}>Large Table Title</h3>
-            <div className={styles.tableContainerInner}>
-              <div
-                style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}
-              >
-                <div
-                  onClick={() => setSelectedTab(0)}
-                  className={`${styles.headerCell} ${
-                    selectedTab === 0 && styles.selectedHeader
-                  }`}
-                >
-                  Profile
-                </div>
-                <div
-                  onClick={() => setSelectedTab(1)}
-                  className={`${styles.headerCell} ${
-                    selectedTab === 1 && styles.selectedHeader
-                  }`}
-                >
-                  IPOs
-                </div>
-                <div
-                  onClick={() => setSelectedTab(2)}
-                  className={`${styles.headerCell} ${
-                    selectedTab === 2 && styles.selectedHeader
-                  }`}
-                >
-                  Merger History
-                </div>
-              </div>
-              <div
-                style={{
-                  marginTop: 30,
-                  display: "flex",
-                  justifyContent: "space-between",
-                  gap: 20,
-                  flexWrap: "wrap",
-                }}
-              >
-                {dataSet.map((data) => (
-                  <div className={styles.cell} key={data.name}>
-                    <span>{data.name}</span>
-                    <span>{data.value}</span>
-                  </div>
-                ))}
-              </div>
+            <div className={styles.indicator} />
+            <div className={styles.titleText}>
+              <div>Acquisition: Public-Public</div>
+              <div className={styles.completedMergers}>deal type</div>
+            </div>
+            <div className={styles.indicator} />
+            <div className={styles.titleText}>
+              <div style={{ color: "#38C546" }}>32.65%</div>
+              <div className={styles.completedMergers}>target 1-YEAR CHG%</div>
+            </div>
+            <div className={styles.titleText}>
+              <div style={{ color: "#EC0F0F" }}>-5.22%</div>
+              <div className={styles.completedMergers}>target YTD CHG%</div>
             </div>
           </div>
         </div>
       </div>
+      <CompanyInfo />
+      <News />
+      <PressReleases />
     </>
   );
 }
