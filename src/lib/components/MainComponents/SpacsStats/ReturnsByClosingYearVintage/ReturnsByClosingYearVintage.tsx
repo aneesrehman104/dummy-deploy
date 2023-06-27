@@ -86,8 +86,7 @@ function ReturnsByClosingYearVintage() {
     ],
   };
   const getStatsData = async () => {
-    const response = await getApiWithoutAuth(URLs.spacGraph);
-    console.log('=======================res',response)
+    const response = await getApiWithoutAuth(URLs.spacsReturns);
     if (response.status === 200) {
       setGraphData(response.data);
 

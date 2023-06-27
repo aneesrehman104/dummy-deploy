@@ -10,6 +10,8 @@ import TablePagination from "@mui/material/TablePagination";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
+import proSvg from "../../../../../../public/proSvg.svg";
+
 import Image from "next/image";
 
 const headerArray = [
@@ -27,38 +29,73 @@ const headerArray = [
   },
   {
     name: "Today",
-    key: "today",
+    key: "daily",
   },
   {
     name: "Market Cap",
-    key: "marketCap",
-  }
+    key: "vol",
+  },
 ];
-const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
+const MyTable = ({
+  data,
+  itemsPerPage,
+  currentPage,
+  paginate,
+  totalLength,
+  setItemPerPage,
+  isUser,
+}: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
+  const [isSelectOpen, setIsSelectOpen] = useState(false); // Dropdown open state variable
 
   const handleSort = (column: string) => {
-      setSortColumn(column);
-      setSortDirection(
-        sortDirection === TABLETITLESECTION.asc
-          ? TABLETITLESECTION.desc
-          : TABLETITLESECTION.asc
-      );
-    
+    setSortColumn(column);
+    setSortDirection(
+      sortDirection === TABLETITLESECTION.asc
+        ? TABLETITLESECTION.desc
+        : TABLETITLESECTION.asc
+    );
   };
 
-  const sortedData = [...data].sort((a, b) => {
+  const sortedData = [...data]?.sort((a, b) => {
     if (sortColumn) {
       if (sortDirection === TABLETITLESECTION.asc) {
-        return a[sortColumn].localeCompare(b[sortColumn]);
+        if (
+          typeof a[sortColumn] === "number" &&
+          typeof b[sortColumn] === "number"
+        ) {
+          return a[sortColumn] - b[sortColumn];
+        }
+        return String(a[sortColumn]).localeCompare(String(b[sortColumn]));
       } else {
-        return b[sortColumn].localeCompare(a[sortColumn]);
+        if (
+          typeof a[sortColumn] === "number" &&
+          typeof b[sortColumn] === "number"
+        ) {
+          return b[sortColumn] - a[sortColumn];
+        }
+        return String(b[sortColumn]).localeCompare(String(a[sortColumn]));
       }
     } else {
       return 0;
     }
   });
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setItemPerPage(parseInt(event.target.value));
+    // setCurrentPage(currentPage);
+  };
+
+  const handleSelectOpen = () => {
+    setIsSelectOpen(true);
+  };
+
+  const handleSelectClose = () => {
+    setIsSelectOpen(false);
+  };
 
   return (
     <Table>
@@ -75,7 +112,7 @@ const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
                   }}
                 >
                   {sortDirection === TABLETITLESECTION.desc &&
-                  sortColumn === item.key? (
+                  sortColumn === item.key ? (
                     <ArrowUpwardIcon fontSize="inherit" />
                   ) : (
                     <ArrowDownwardIcon fontSize="inherit" />
@@ -93,35 +130,43 @@ const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
             <TableCell>
               <div className={styles.customTableCustomCell}>
                 <div className={styles.imageWrapper}>
-                  <Image
-                    src="/image.svg"
-                    alt="image"
-                    width={24}
-                    height={24}
-                  />
+                  <Image src="/image.svg" alt="image" width={24} height={24} />
                 </div>
                 <div className={styles.activision}>{item.company}</div>
               </div>
             </TableCell>
             <TableCell>{item.symbol}</TableCell>
             <TableCell>{item.price}</TableCell>
-            <TableCell style={{ color: "#0AAC1A" }}>{item.today}</TableCell>
-            <TableCell>{item.marketCap}</TableCell>
+            <TableCell>{item.daily}</TableCell>
+            <TableCell>{item.vol}</TableCell>
           </TableRow>
         ))}
       </TableBody>
       <tfoot>
-          <TableRow>
-            <TablePagination
-              colSpan={6} // Number of columns in the table
-              count={sortedData.length} // Total number of items
-              rowsPerPage={itemsPerPage}
-              page={currentPage - 1} // Page number starts from 0
-              onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
-              rowsPerPageOptions={[]} // Hide rows per page options
-            />
-          </TableRow>
-        </tfoot>
+        <TableRow>
+          
+        {/* <TableCell align="right"  >
+            <Image src={proSvg} alt="filterSvg" width={50} height={32} />
+          </TableCell> */}
+          <TablePagination
+            colSpan={6} // Number of columns in the table
+            count={totalLength?.totalLength} // Total number of items
+            rowsPerPage={itemsPerPage}
+            page={currentPage - 1} // Page number starts from 0
+            onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
+            rowsPerPageOptions={[5, 10, 25, 50]}
+            onRowsPerPageChange={handleChangeRowsPerPage} // Hide rows per page options
+            SelectProps={{
+              open: isUser && isSelectOpen, // Open the dropdown if paid and isSelectOpen is true
+              onOpen: handleSelectOpen,
+              onClose: handleSelectClose,
+            }}
+          />
+          {/* <TableCell>
+            <Image src={proSvg} alt="filterSvg" width={50} height={32} />
+          </TableCell> */}
+        </TableRow>
+      </tfoot>
     </Table>
   );
 };

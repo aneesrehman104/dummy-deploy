@@ -9,7 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 // import { FullCalendarComponet } from "./FullCalender";
 import dynamic from "next/dynamic";
 import Skeleton from "@mui/material/Skeleton";
-import { Extension, Mergers, IPOAndSplitDates } from "@/lib/ts/constants";
+
 const FullCalendarComponet = dynamic(() => import("./FullCalender"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
@@ -24,11 +24,11 @@ function SpacEventCalendar() {
     },
   });
 
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [grapevineGraveyardData, setGrapevineGraveyardData] = useState<any>();
-  const [itemsPerPage] = useState(4);
+  const [itemsPerPage] = useState(5);
   const [isGrid, setIsGrid] = useState(true);
 
   const tabData = [
@@ -37,9 +37,9 @@ function SpacEventCalendar() {
     { label: "IPO & Split Dates", index: 2 },
   ];
   const tabValues: { [key: number]: string } = {
-    0: "extension",
-    1: "merger",
-    2: "ipo",
+    0: "rumor",
+    1: "latest_failed",
+    2: "other",
   };
 
   const paginate = (pageNumber: number) => {
@@ -53,14 +53,8 @@ function SpacEventCalendar() {
 
   const getLatestClosed = async () => {
     setIsLoading(true);
-    // /api/spac/calendar?page=1&offset=4&type=extension' \
     const response = await getApiWithoutAuth(
-      `${URLs.spacsCalender}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-    );
-    console.log(
-      "========================res",
-      `${URLs.spacsCalender}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`,
-      response
+      `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=grapevine&subtype=${tabValues[selectedTab]}`
     );
     if (response.status === 200) {
       setGrapevineGraveyardData(response.data);
@@ -123,13 +117,6 @@ function SpacEventCalendar() {
                   currentPage={currentPage}
                   paginate={paginate}
                   totalLength={grapevineGraveyardData?.additional_dataset}
-                  headerArray={
-                    selectedTab === 0
-                      ? Extension
-                      : selectedTab === 1
-                      ? Mergers
-                      : IPOAndSplitDates
-                  }
                 />
               )}
             </div>

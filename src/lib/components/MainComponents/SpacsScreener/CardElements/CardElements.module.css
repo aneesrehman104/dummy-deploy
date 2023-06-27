@@ -57,7 +57,7 @@
   line-height: 135%;
   cursor: pointer;
 }
- .customTableCustomCell {
+.customTableCustomCell {
   flex-direction: row;
   align-items: center;
   gap: 15px;
@@ -102,11 +102,38 @@
   min-width: 58px;
   padding: 7px;
   min-height: 26px;
-  background: #0AAC1A;
+  background: #0aac1a;
   border-radius: 100px;
 }
-
-
+.filterMainDiv {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.46px;
+}
+.filterInnerDiv {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end
+}
+.filterGap {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.filterModalStyling{
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  /* width: 180px */
+}
 @media screen and (max-width: 900px) {
   .stockstablesection {
     padding: 10px 10px;
@@ -117,4 +144,25 @@
     height: 100%;
     padding: 15px;
   }
+  .filterMainDiv {
+    flex-direction: column;
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+  .filterInnerDiv {
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    gap: 10px;
+  }
+  /* .filterInnerDiv {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .filterGap{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  } */
 }

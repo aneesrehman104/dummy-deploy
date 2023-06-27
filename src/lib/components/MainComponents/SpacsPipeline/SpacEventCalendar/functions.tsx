@@ -12,38 +12,39 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
 import Image from "next/image";
 
-const headerArray = [
-  {
-    name: "Company",
-    key: "company",
-  },
-  {
-    name: "Event",
-    key: "event",
-  },
-  {
-    name: "Status",
-    key: "status",
-  },
-  {
-    name: "Est. Pricing Date",
-    key: "pricingDate",
-  },
-  {
-    name: "Price/range",
-    key: "priceRange",
-  },
-  {
-    name: "Proceeds/range",
-    key: "proceedsRange",
-  },
-];
+// const headerArray = [
+//   {
+//     name: "Company",
+//     key: "company",
+//   },
+//   {
+//     name: "Event",
+//     key: "event",
+//   },
+//   {
+//     name: "Status",
+//     key: "status",
+//   },
+//   {
+//     name: "Est. Pricing Date",
+//     key: "pricingDate",
+//   },
+//   {
+//     name: "Price/range",
+//     key: "priceRange",
+//   },
+//   {
+//     name: "Proceeds/range",
+//     key: "proceedsRange",
+//   },
+// ];
 const MyTable = ({
   data,
   itemsPerPage,
   currentPage,
   paginate,
   totalLength,
+  headerArray,
 }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
@@ -60,12 +61,18 @@ const MyTable = ({
   const sortedData = [...data]?.sort((a, b) => {
     if (sortColumn) {
       if (sortDirection === TABLETITLESECTION.asc) {
-        if (typeof a[sortColumn] === 'number' && typeof b[sortColumn] === 'number') {
+        if (
+          typeof a[sortColumn] === "number" &&
+          typeof b[sortColumn] === "number"
+        ) {
           return a[sortColumn] - b[sortColumn];
         }
         return String(a[sortColumn]).localeCompare(String(b[sortColumn]));
       } else {
-        if (typeof a[sortColumn] === 'number' && typeof b[sortColumn] === 'number') {
+        if (
+          typeof a[sortColumn] === "number" &&
+          typeof b[sortColumn] === "number"
+        ) {
           return b[sortColumn] - a[sortColumn];
         }
         return String(b[sortColumn]).localeCompare(String(a[sortColumn]));
@@ -79,7 +86,7 @@ const MyTable = ({
     <Table>
       <TableHead>
         <TableRow>
-          {headerArray.map((item) => {
+          {headerArray.map((item: any) => {
             return (
               <TableCell key={item.key} onClick={() => handleSort(item.key)}>
                 <div
@@ -105,26 +112,16 @@ const MyTable = ({
       <TableBody>
         {sortedData.map((item, index) => (
           <TableRow key={index}>
-             <TableCell>
-              <div className={styles.customTableCustomCell}>
-                <div className={styles.imageWrapper}>
-                  <Image src="/image.svg" alt="image" width={24} height={24} />
-                </div>
-                <div className={styles.activision}>{item.company}</div>
-              </div>
-            </TableCell>
-            <TableCell>{item.event}</TableCell>
-            <TableCell>{item.status}</TableCell>
-            <TableCell>{item.est_pricing_date}</TableCell>
-            <TableCell>{item.price}</TableCell>
-            <TableCell>{item.proceed}</TableCell>
+            {headerArray.map((headerItem: any) => (
+              <TableCell key={headerItem.key}>{item[headerItem.key]}</TableCell>
+            ))}
           </TableRow>
         ))}
       </TableBody>
       <tfoot>
         <TableRow>
           <TablePagination
-            colSpan={6} // Number of columns in the table
+            colSpan={7} // Number of columns in the table
             count={totalLength?.totalLength} // Total number of items
             rowsPerPage={itemsPerPage}
             page={currentPage - 1} // Page number starts from 0
