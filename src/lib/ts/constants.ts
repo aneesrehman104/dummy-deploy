@@ -2140,3 +2140,409 @@ export const IPOAndSplitDates = [
     pro: false,
   },
 ];
+
+export const IPOPricedScreeners = [
+  {
+    name: "Company",
+    key: "company",
+    pro: false,
+  },
+  {
+    name: "Symbol",
+    key: "symbol",
+    pro: false,
+  },
+  {
+    name: "Listing Method",
+    key: "listing_method",
+    pro: false,
+  },
+  {
+    name: "Listing Status",
+    key: "listing_status",
+    pro: false,
+  },
+  {
+    name: "Exchange",
+    key: "daily",
+    pro: false,
+  },
+  {
+    name: "Market Cap",
+    key: "marketCap",
+    pro: false,
+  },
+  {
+    name: "Region",
+    key: "Region",
+    pro: true,
+  },
+  {
+    name: "Sector",
+    key: "Sector",
+    pro: true,
+  },
+  {
+    name: "Industry",
+    key: "Industry",
+    pro: true,
+  },
+  {
+    name: "HQ City, Country",
+    key: "HQCityCountry",
+    pro: true,
+  },
+  {
+    name: "Employees",
+    key: "Employees",
+    pro: true,
+  },
+  {
+    name: "IPO Status",
+    key: "IPOStatus",
+    pro: false,
+  },
+  {
+    name: "IPO Type",
+    key: "IPOType",
+    pro: false,
+  },
+  {
+    name: "IPO Price",
+    key: "IPOPrice",
+    pro: false,
+  },
+  {
+    name: "IPO Date",
+    key: "IPODate",
+    pro: false,
+  },
+  {
+    name: "IPO Proceeds",
+    key: "IPOProceeds",
+    pro: false,
+  },
+  {
+    name: "IPO Underwriters",
+    key: "IPOUnderwriters",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Date",
+    key: "ExpectedIPODate",
+    pro: false,
+  },
+  {
+    name: "ExpectedIPOShares",
+    key: "ExpectedIPOShares",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Price Range",
+    key: "ExpectedIPOPriceRange",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Valuation",
+    key: "ExpectedIPOValuation",
+    pro: false,
+  },
+  {
+    name: "IPO Market Cap",
+    key: "IPOMarketCap",
+    pro: true,
+  },
+  {
+    name: "IPO S-1 Registration Link",
+    key: "IPOS1RegistrationLink",
+    pro: true,
+  },
+  {
+    name: "IPO Filed Date",
+    key: "IPOFiledDate",
+    pro: true,
+  },
+  {
+    name: "Registration Domicile",
+    key: "RegistrationDomicile",
+    pro: true,
+  },
+  {
+    name: "S-1 Withdrawal Date",
+    key: "S1WithdrawalDate",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Date",
+    key: "IPORumorDate",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Publication",
+    key: "IPORumorPublication",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Source",
+    key: "IPORumorSource",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Date",
+    key: "IPOStallDate",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Publication",
+    key: "IPOStallPublication",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Source",
+    key: "IPOStallSource",
+    pro: true,
+  },
+  {
+    name: "Latest Price",
+    key: "LatestPrice",
+    pro: false,
+  },
+  {
+    name: "1-day Price Chg %",
+    key: "1dayPriceChg",
+    pro: false,
+  },
+  {
+    name: "Outstanding Shares",
+    key: "OutstandingShares",
+    pro: false,
+  },
+  {
+    name: "52-Week High",
+    key: "52WeekHigh",
+    pro: false,
+  },
+  {
+    name: "52-Week Low",
+    key: "52WeekLow",
+    pro: false,
+  },
+  {
+    name: "52-Week High Percent Change",
+    key: "52WeekHighPercentChange",
+    pro: false,
+  },
+  {
+    name: "52-Week Low Percent Change",
+    key: "52WeekLowPercentChange",
+    pro: false,
+  },
+  {
+    name: "Volume",
+    key: "Volume",
+    pro: false,
+  },
+  {
+    name: "Average 30 Day Volume",
+    key: "Average30DayVolume",
+    pro: false,
+  },
+  {
+    name: "YTD Percent Change",
+    key: "YTDPercentChange",
+    pro: false,
+  },
+  {
+    name: "Optionable",
+    key: "Optionable",
+    pro: false,
+  },
+  {
+    name: "1-week Percent Change ",
+    key: "1weekPercentChange ",
+    pro: true,
+  },
+  {
+    name: "30-day Change Percent",
+    key: "30dayChangePercent",
+    pro: true,
+  },
+  {
+    name: "1-month Percent Change",
+    key: "1monthPercentChange",
+    pro: true,
+  },
+  {
+    name: "3-month Percent Change",
+    key: "3monthPercentChange",
+    pro: true,
+  },
+  {
+    name: "1-year Percent Change ",
+    key: "1yearPercentChange ",
+    pro: true,
+  },
+];
+
+export const IPOUpcommingScreeners = [
+  {
+    name: "Company",
+    key: "company",
+    pro: false,
+  },
+  {
+    name: "Symbol",
+    key: "symbol",
+    pro: false,
+  },
+  {
+    name: "Listing Method",
+    key: "listing_method",
+    pro: false,
+  },
+  {
+    name: "Listing Status",
+    key: "listing_status",
+    pro: false,
+  },
+  {
+    name: "Exchange",
+    key: "daily",
+    pro: false,
+  },
+  {
+    name: "Market Cap",
+    key: "marketCap",
+    pro: false,
+  },
+  {
+    name: "Region",
+    key: "Region",
+    pro: true,
+  },
+  {
+    name: "Sector",
+    key: "Sector",
+    pro: true,
+  },
+  {
+    name: "Industry",
+    key: "Industry",
+    pro: true,
+  },
+  {
+    name: "HQ City, Country",
+    key: "HQCityCountry",
+    pro: true,
+  },
+  {
+    name: "Employees",
+    key: "Employees",
+    pro: true,
+  },
+  {
+    name: "IPO Status",
+    key: "IPOStatus",
+    pro: false,
+  },
+  {
+    name: "IPO Type",
+    key: "IPOType",
+    pro: false,
+  },
+  {
+    name: "IPO Price",
+    key: "IPOPrice",
+    pro: false,
+  },
+  {
+    name: "IPO Date",
+    key: "IPODate",
+    pro: false,
+  },
+  {
+    name: "IPO Proceeds",
+    key: "IPOProceeds",
+    pro: false,
+  },
+  {
+    name: "IPO Underwriters",
+    key: "IPOUnderwriters",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Date",
+    key: "ExpectedIPODate",
+    pro: false,
+  },
+  {
+    name: "ExpectedIPOShares",
+    key: "ExpectedIPOShares",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Price Range",
+    key: "ExpectedIPOPriceRange",
+    pro: false,
+  },
+  {
+    name: "Expected IPO Valuation",
+    key: "ExpectedIPOValuation",
+    pro: false,
+  },
+  {
+    name: "IPO Market Cap",
+    key: "IPOMarketCap",
+    pro: true,
+  },
+  {
+    name: "IPO S-1 Registration Link",
+    key: "IPOS1RegistrationLink",
+    pro: true,
+  },
+  {
+    name: "IPO Filed Date",
+    key: "IPOFiledDate",
+    pro: true,
+  },
+  {
+    name: "Registration Domicile",
+    key: "RegistrationDomicile",
+    pro: true,
+  },
+  {
+    name: "S-1 Withdrawal Date",
+    key: "S1WithdrawalDate",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Date",
+    key: "IPORumorDate",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Publication",
+    key: "IPORumorPublication",
+    pro: true,
+  },
+  {
+    name: "IPO Rumor Source",
+    key: "IPORumorSource",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Date",
+    key: "IPOStallDate",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Publication",
+    key: "IPOStallPublication",
+    pro: true,
+  },
+  {
+    name: "IPO Stall Source",
+    key: "IPOStallSource",
+    pro: true,
+  },
+];

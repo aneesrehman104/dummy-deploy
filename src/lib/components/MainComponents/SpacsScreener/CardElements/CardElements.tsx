@@ -1915,8 +1915,9 @@ function CardElements() {
                             const selectedItem = CompanyProfile.find(
                               (item) => item.key === selectedKey
                             );
-                            return selectedItem ? selectedItem.name : "";
+                            return selectedItem ? selectedItem.name : null;
                           })
+                          .filter(Boolean) // Remove null values
                           .join(", ")
                       }
                       MenuProps={{
@@ -2303,8 +2304,9 @@ function CardElements() {
                             const selectedItem = CompanyProfile.find(
                               (item) => item.key === selectedKey
                             );
-                            return selectedItem ? selectedItem.name : "";
+                            return selectedItem ? selectedItem.name : null;
                           })
+                          .filter(Boolean) // Remove null values
                           .join(", ")
                       }
                       MenuProps={{

@@ -1,11 +1,12 @@
 "use client";
 import RootLayout from "../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
+import IPOScreener from "@/lib/components/MainComponents/IPOScreener";
 export default function IposPage() {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="ipos/screeners">
-        <div style={{ minHeight: "10vh" }}>ipos screeners</div>
+        <IPOScreener/>
       </AuthenticatedNavbar>
     </RootLayout>
   );
