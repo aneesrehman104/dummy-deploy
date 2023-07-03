@@ -29,7 +29,7 @@ function SpacEventCalendar() {
   const [isLoading, setIsLoading] = useState(true);
   const [grapevineGraveyardData, setGrapevineGraveyardData] = useState<any>();
   const [itemsPerPage] = useState(4);
-  const [isGrid, setIsGrid] = useState(true);
+  const [isGrid, setIsGrid] = useState(false);
 
   const tabData = [
     { label: "Extensions", index: 0 },
@@ -53,10 +53,13 @@ function SpacEventCalendar() {
 
   const getLatestClosed = async () => {
     setIsLoading(true);
-    // /api/spac/calendar?page=1&offset=4&type=extension' \
-    const response = await getApiWithoutAuth(
-      `${URLs.spacsCalender}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-    );
+    let response;
+    isGrid
+      ? (response = await getApiWithoutAuth(
+          `${URLs.spacsCalender}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
+        ))
+      : (response = await getApiWithoutAuth(`${URLs.spacsCalender}?type=all`));
+
     console.log(
       "========================res",
       `${URLs.spacsCalender}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`,

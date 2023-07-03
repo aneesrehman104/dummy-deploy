@@ -211,7 +211,7 @@ function CardElements() {
     getScreenerData();
   }, [selectedTab, currentPage, itemsPerPage]);
 
-  const handleTabClick = (key:any) => {
+  const handleTabClick = (key: any) => {
     setSelectedTab(key);
     setFilerCount(0);
     setPersonName([
@@ -1252,6 +1252,8 @@ function CardElements() {
                     >
                       {PreDealSpacScreener.map((item: any) => (
                         <MenuItem key={item.key} value={item.key}>
+                          {" "}
+                          disabled={isUser && item.pro}
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1310,7 +1312,11 @@ function CardElements() {
                       }}
                     >
                       {CompanyProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1362,7 +1368,11 @@ function CardElements() {
                       }}
                     >
                       {IPOProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1414,7 +1424,11 @@ function CardElements() {
                       }}
                     >
                       {Trading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1466,7 +1480,11 @@ function CardElements() {
                       }}
                     >
                       {SPACTrading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1518,7 +1536,11 @@ function CardElements() {
                       }}
                     >
                       {SPACProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1570,7 +1592,11 @@ function CardElements() {
                       }}
                     >
                       {TrustRedemptions.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1639,7 +1665,11 @@ function CardElements() {
                       }}
                     >
                       {AnnouncedSPACMergersScreener.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1699,7 +1729,11 @@ function CardElements() {
                       }}
                     >
                       {DealProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1720,7 +1754,7 @@ function CardElements() {
                   </FormControl>
                   <FormControl sx={{ m: 1, width: 300 }}>
                     <InputLabel id="demo-multiple-checkbox-label">
-                      Rumors / Terminations
+                      SPAC Target Profile
                     </InputLabel>
                     <Select
                       labelId="demo-multiple-checkbox-label"
@@ -1751,7 +1785,11 @@ function CardElements() {
                       }}
                     >
                       {SPACTargetProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1803,7 +1841,11 @@ function CardElements() {
                       }}
                     >
                       {RumorsTerminations.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1872,7 +1914,11 @@ function CardElements() {
                       }}
                     >
                       {PreDealSpacScreener.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1932,7 +1978,11 @@ function CardElements() {
                       }}
                     >
                       {CompanyProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -1984,7 +2034,11 @@ function CardElements() {
                       }}
                     >
                       {IPOProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -2036,7 +2090,11 @@ function CardElements() {
                       }}
                     >
                       {Trading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -2088,7 +2146,11 @@ function CardElements() {
                       }}
                     >
                       {SPACTrading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -2140,7 +2202,11 @@ function CardElements() {
                       }}
                     >
                       {SPACProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -2192,7 +2258,11 @@ function CardElements() {
                       }}
                     >
                       {TrustRedemptions.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -2261,7 +2331,11 @@ function CardElements() {
                       }}
                     >
                       {DeSPACScreener.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -2321,7 +2395,11 @@ function CardElements() {
                       }}
                     >
                       {CompanyProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -2373,7 +2451,11 @@ function CardElements() {
                       }}
                     >
                       {IPOProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -2425,7 +2507,11 @@ function CardElements() {
                       }}
                     >
                       {Trading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key

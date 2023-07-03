@@ -13,10 +13,10 @@ const SpacsPipeline = () => {
         </div>
       </header>
       <section>
-        <LatestAnnouncedSpacMergers />
-        <LatestClosedSpacMergers />
+        {/* <LatestAnnouncedSpacMergers />
+        <LatestClosedSpacMergers /> */}
         <SpacEventCalendar />
-        <GrapevineGraveyard />
+        {/* <GrapevineGraveyard /> */}
       </section>
     </main>
   );

@@ -614,7 +614,11 @@ function CardElements() {
                       }}
                     >
                       {IPOPricedScreeners.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -674,7 +678,11 @@ function CardElements() {
                       }}
                     >
                       {CompanyProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -726,7 +734,11 @@ function CardElements() {
                       }}
                     >
                       {IPOProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -778,7 +790,11 @@ function CardElements() {
                       }}
                     >
                       {Trading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -847,7 +863,11 @@ function CardElements() {
                       }}
                     >
                       {IPOUpcommingScreeners.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -907,7 +927,11 @@ function CardElements() {
                       }}
                     >
                       {CompanyProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key
@@ -959,7 +983,11 @@ function CardElements() {
                       }}
                     >
                       {IPOProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
                               (selectedItem) => selectedItem.key === item.key

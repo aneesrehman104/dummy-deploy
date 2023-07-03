@@ -2546,3 +2546,222 @@ export const IPOUpcommingScreeners = [
     pro: true,
   },
 ];
+
+
+export const ClosedMergersScreener = [
+  {
+    name: "Deal Name",
+    key: "DealName",
+    pro: false,
+  },
+  {
+    name: "Acquirer Company Name",
+    key: "AcquirerCompanyName",
+    pro: false,
+  },
+  {
+    name: "Acquirer Symbol",
+    key: "AcquirerSymbol",
+    pro: false,
+  },
+  {
+    name: "Acquirer Listing Status",
+    key: "AcquirerListingStatus",
+    pro: false,
+  },
+  {
+    name: "Target Company Name",
+    key: "TargetCompanyName",
+    pro: false,
+  },
+  {
+    name: "Target Symbol",
+    key: "TargetSymbol",
+    pro: false,
+  },
+  {
+    name: "Merger Announced Date",
+    key: "MergerAnnouncedDate",
+    pro: false,
+  },
+  {
+    name: "Deal Valuation",
+    key: "DealValuation",
+    pro: false,
+  },
+  {
+    name: "Price per Share",
+    key: "PriceperShare",
+    pro: false,
+  },
+  {
+    name: "Current Premium",
+    key: "CurrentPremium",
+    pro: false,
+  },
+  {
+    name: "PIPE Equity Proceeds",
+    key: "PIPEEquityProceeds",
+    pro: false,
+  },
+  {
+    name: "Announced PIPE Investors",
+    key: "AnnouncedPIPEInvestors",
+    pro: false,
+  },
+  {
+    name: "Target Merger Vote Date",
+    key: "TargetMergerVoteDate",
+    pro: false,
+  },
+  {
+    name: "Closing Date",
+    key: "ClosingDate",
+    pro: false,
+  },
+  {
+    name: "Merger Type",
+    key: "MergerType",
+    pro: true,
+  },
+  {
+    name: "Target Listing Status",
+    key: "TargetListingStatus",
+    pro: true,
+  },
+  {
+    name: "Merger Announcement Link",
+    key: "MergerAnnouncementLink",
+    pro: true,
+  },
+  {
+    name: "Investor Presentation Link",
+    key: "InvestorPresentationLink",
+    pro: true,
+  },
+  {
+    name: "BCA Link",
+    key: "BCALink",
+    pro: true,
+  },
+  {
+    name: "Deal Valuation Summary",
+    key: "DealValuationSummary",
+    pro: true,
+  },
+  {
+    name: "Premium at Deal Announcement",
+    key: "PremiumatDealAnnouncement",
+    pro: true,
+  },
+  {
+    name: "Funding Summary",
+    key: "FundingSummary",
+    pro: true,
+  },
+  {
+    name: "S-4 Link",
+    key: "S4Link",
+    pro: true,
+  },
+  {
+    name: "Expected Closing Date",
+    key: "ExpectedClosingDate",
+    pro: true,
+  },
+  {
+    name: "Target Prelim Merger Vote Proxy Link",
+    key: "TargetPrelimMergerVoteProxyLink",
+    pro: true,
+  },
+  {
+    name: "Target Definitive Merger Vote Link",
+    key: "TargetDefinitiveMergerVoteLink",
+    pro: true,
+  },
+  {
+    name: "Outside Date",
+    key: "OutsideDate",
+    pro: true,
+  },
+  {
+    name: "Closing Announcement Link",
+    key: "ClosingAnnouncementLink",
+    pro: true,
+  },
+  {
+    name: "Financial Historicals Slide from Investor Deck",
+    key: "FinancialHistoricalsSlidefromInvestorDeck",
+    pro: true,
+  },
+  {
+    name: "Latest Transaction Overview Slide",
+    key: "LatestTransactionOverviewSlide",
+    pro: true,
+  },
+  {
+    name: "Comparable Landscape Slide",
+    key: "ComparableLandscapeSlide",
+    pro: true,
+  },
+  {
+    name: "Operational Benchmarking Slide",
+    key: "OperationalBenchmarkingSlide",
+    pro: true,
+  },
+  {
+    name: "Competitive Valuation Benchmarking Slide ",
+    key: "CompetitiveValuationBenchmarkingSlide",
+    pro: true,
+  },
+  {
+    name: "Financial Projections Slide from Investor Deck",
+    key: "FinancialProjectionsSlidefromInvestorDeck",
+    pro: true,
+  },
+  {
+    name: "Post-Merger SEC Filings Link",
+    key: "PostMergerSECFilingsLink",
+    pro: true,
+  },
+  {
+    name: "Terminated Date",
+    key: "TerminatedDate",
+    pro: true,
+  },
+  {
+    name: "Terminated Source Link",
+    key: "TerminatedSourceLink",
+    pro: true,
+  },
+  {
+    name: "Merger Rumor Date",
+    key: "MergerRumorDate",
+    pro: true,
+  },
+  {
+    name: "Merger Rumor Publication",
+    key: "MergerRumorPublication",
+    pro: true,
+  },
+  {
+    name: "Merger Rumor Source",
+    key: "MergerRumorSource",
+    pro: true,
+  },
+  {
+    name: "Merger Talks Failed Date",
+    key: "MergerTalksFailedDate",
+    pro: true,
+  },
+  {
+    name: "Merger Talks Failed Publication",
+    key: "MergerTalksFailedPublication",
+    pro: true,
+  },
+  {
+    name: "Merger Talks Failed Source",
+    key: "MergerTalksFailedSource",
+    pro: true,
+  },
+];
