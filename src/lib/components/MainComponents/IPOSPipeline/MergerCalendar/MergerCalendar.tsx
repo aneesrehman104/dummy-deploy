@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./MergerCalendar.module.css";
+import { useState } from "react";
 import MyTable from "./functions";
-import Switch from "@mui/material/Switch";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 function MergerCalendar() {
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [itemsPerPage] = useState(5);
   const data = [
     {
       company: "Activision",
@@ -42,38 +42,47 @@ function MergerCalendar() {
     },
   ];
 
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>IPO Filings</div>
-      <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
-        <div
-          onClick={() => setSelectedTab(0)}
-          className={`${styles.headerCell} ${
-            selectedTab === 0 && styles.selectedHeader
-          }`}
-        >
-          Latest Filings
+      <div className={styles.tableTitle}>IPO Grapevine</div>
+      <div className={styles.tableContainerInner}>
+        <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
+          <div
+            onClick={() => setSelectedTab(0)}
+            className={`${styles.headerCell} ${
+              selectedTab === 0 && styles.selectedHeader
+            }`}
+          >
+            Latest Filings
+          </div>
+          <div
+            onClick={() => setSelectedTab(1)}
+            className={`${styles.headerCell} ${
+              selectedTab === 1 && styles.selectedHeader
+            }`}
+          >
+            Latest Amended Filings
+          </div>
+          <div
+            onClick={() => setSelectedTab(1)}
+            className={`${styles.headerCell} ${
+              selectedTab === 2 && styles.selectedHeader
+            }`}
+          >
+            Withdrawn
+          </div>
         </div>
-        <div
-          onClick={() => setSelectedTab(1)}
-          className={`${styles.headerCell} ${
-            selectedTab === 1 && styles.selectedHeader
-          }`}
-        >
-          Latest Amended Filings
-        </div>
-        <div
-          onClick={() => setSelectedTab(1)}
-          className={`${styles.headerCell} ${
-            selectedTab === 2 && styles.selectedHeader
-          }`}
-        >
-          Withdrawn
-        </div>
-      </div>
-      <div className={styles.companiestable}>
-        <div className={styles.tablecontent}>
-          <MyTable data={data} />
+        <div style={{ overflow: "auto" }}>
+          <MyTable
+            data={data}
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+            paginate={paginate}
+          />
         </div>
       </div>
     </section>

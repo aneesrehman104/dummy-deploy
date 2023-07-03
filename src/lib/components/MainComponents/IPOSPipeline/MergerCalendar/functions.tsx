@@ -1,14 +1,15 @@
 import React from "react";
+import styles from "./MergerCalendar.module.css";
 import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
+import TablePagination from "@mui/material/TablePagination";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
-import styles from "./MergerCalendar.module.css";
 import Image from "next/image";
 
 const headerArray = [
@@ -37,7 +38,7 @@ const headerArray = [
     key: "proceedsRange",
   },
 ];
-const MyTable = ({ data }: any) => {
+const MyTable = ({ data,itemsPerPage,currentPage,paginate }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
@@ -109,6 +110,18 @@ const MyTable = ({ data }: any) => {
           </TableRow>
         ))}
       </TableBody>
+      <tfoot>
+          <TableRow>
+            <TablePagination
+              colSpan={6} // Number of columns in the table
+              count={sortedData.length} // Total number of items
+              rowsPerPage={itemsPerPage}
+              page={currentPage - 1} // Page number starts from 0
+              onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
+              rowsPerPageOptions={[]} // Hide rows per page options
+            />
+          </TableRow>
+        </tfoot>
     </Table>
   );
 };

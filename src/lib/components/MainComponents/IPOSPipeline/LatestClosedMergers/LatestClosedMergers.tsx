@@ -68,9 +68,9 @@ function LatestClosedMergers() {
             Next Week
           </div>
           <div
-            onClick={() => setSelectedTab(1)}
+            onClick={() => setSelectedTab(2)}
             className={`${styles.headerCell} ${
-              selectedTab === 1 && styles.selectedHeader
+              selectedTab === 2 && styles.selectedHeader
             }`}
           >
             After Next Week
