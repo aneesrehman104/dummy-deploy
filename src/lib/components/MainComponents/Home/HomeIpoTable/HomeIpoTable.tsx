@@ -1,9 +1,7 @@
 import React from "react";
 import styles from "./HomeIpoTable.module.css";
-import { useState, useEffect } from "react";
-
 import { homeConstants } from "@/lib/ts/constants";
-import MyTable from "./functions";
+import { ListingTrackTable } from "@/lib/components/CommonComponents";
 function TableTitle() {
   return (
     <div className={styles.tableTitle}>{homeConstants.IPOPipeline.title}</div>
@@ -44,13 +42,45 @@ function HomeIpoTable() {
       proceedsRange: "$150M - $175M",
     },
   ];
+  const headerArray = [
+    {
+      name: "Company",
+      key: "company",
+      type: "strings",
+    },
+    {
+      name: "Event",
+      key: "event",
+      type: "strings",
+    },
+    {
+      name: "Status",
+      key: "status",
+      type: "strings",
+    },
+    {
+      name: "Est. Pricing Date",
+      key: "pricingDate",
+      type: "strings",
+    },
+    {
+      name: "Price/range",
+      key: "priceRange",
+      type: "strings",
+    },
+    {
+      name: "Proceeds/range",
+      key: "proceedsRange",
+      type: "strings",
+    },
+  ];
 
   return (
     <section className={styles.stockstablesection}>
       <TableTitle />
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
-          <MyTable data={data} />
+          <ListingTrackTable data={data} headerArray={headerArray} />
         </div>
       </div>
     </section>

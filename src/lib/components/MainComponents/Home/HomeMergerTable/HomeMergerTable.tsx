@@ -1,15 +1,16 @@
 import React from "react";
 import styles from "./HomeMergerTable.module.css";
 import { useState, useEffect } from "react";
-import {  homeConstants } from "@/lib/ts/constants";
-import MyTable from "./functions";
+import { homeConstants } from "@/lib/ts/constants";
+import { ListingTrackTable } from "@/lib/components/CommonComponents";
 
 function HomeMergerTableTitle() {
   return (
-    <div className={styles.tableTitle}>{homeConstants.MergersPipeline.title}</div>
-    );
+    <div className={styles.tableTitle}>
+      {homeConstants.MergersPipeline.title}
+    </div>
+  );
 }
-
 
 function HomeMergerTable() {
   const data = [
@@ -46,15 +47,45 @@ function HomeMergerTable() {
       proceedsRange: "$150M - $175M",
     },
   ];
+  const headerArray = [
+    {
+      name: "Company",
+      key: "company",
+      type: "string",
+    },
+    {
+      name: "Event",
+      key: "event",
+      type: "string",
+    },
+    {
+      name: "Status",
+      key: "status",
+      type: "string",
+    },
+    {
+      name: "Est. Pricing Date",
+      key: "pricingDate",
+      type: "string",
+    },
+    {
+      name: "Price/range",
+      key: "priceRange",
+      type: "string",
+    },
+    {
+      name: "Proceeds/range",
+      key: "proceedsRange",
+      type: "strings",
+    },
+  ];
 
-
- 
   return (
     <section className={styles.stockstablesection}>
-      <HomeMergerTableTitle/>
+      <HomeMergerTableTitle />
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
-          <MyTable data={data} />
+          <ListingTrackTable data={data} headerArray={headerArray} />
         </div>
       </div>
     </section>

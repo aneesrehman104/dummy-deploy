@@ -11,34 +11,8 @@ import {
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION, homeConstants } from "@/lib/ts/constants";
-import Image from "next/image";
-const headerArray = [
-  {
-    name: "Company",
-    key: "company",
-  },
-  {
-    name: "Event",
-    key: "event",
-  },
-  {
-    name: "Status",
-    key: "status",
-  },
-  {
-    name: "Est. Pricing Date",
-    key: "pricingDate",
-  },
-  {
-    name: "Price/range",
-    key: "priceRange",
-  },
-  {
-    name: "Proceeds/range",
-    key: "proceedsRange",
-  },
-];
-const MyTable = ({ data }: any) => {
+
+const ListingTrackTable = ({ data, headerArray }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
 
@@ -66,7 +40,7 @@ const MyTable = ({ data }: any) => {
     <Table>
       <TableHead>
         <TableRow>
-          {headerArray.map((item) => {
+          {headerArray.map((item: any) => {
             return (
               <TableCell key={item.key} onClick={() => handleSort(item.key)}>
                 <div
@@ -92,19 +66,9 @@ const MyTable = ({ data }: any) => {
       <TableBody>
         {sortedData.map((item, index) => (
           <TableRow key={index}>
-            <TableCell>
-              <div className={styles.customTableCustomCell}>
-                <div className={styles.imageWrapper}>
-                  <Image src="/image.svg" alt="image" width={24} height={24} />
-                </div>
-                <div className={styles.activision}>{item.company}</div>
-              </div>
-            </TableCell>
-            <TableCell>{item.event}</TableCell>
-            <TableCell>{item.status}</TableCell>
-            <TableCell>{item.pricingDate}</TableCell>
-            <TableCell>{item.priceRange}</TableCell>
-            <TableCell>{item.proceedsRange}</TableCell>
+            {headerArray.map((headerItem: any) => (
+              <TableCell key={headerItem.key}>{item[headerItem.key]}</TableCell>
+            ))}
           </TableRow>
         ))}
       </TableBody>
@@ -112,4 +76,4 @@ const MyTable = ({ data }: any) => {
   );
 };
 
-export default MyTable
+export default ListingTrackTable;
