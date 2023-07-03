@@ -60,13 +60,10 @@ function CardElements() {
 
   const [itemsPerPage, setItemPerPage] = useState(5);
   const [filters, setFilters] = useState({
-    LiquidationYear: null,
-    LiquidationStatus: null,
-    SPACProgressStatus: null,
-    VotesDeadlines: null,
+    MergerType: null,
+    ClosingYear: null,
     TargetSector: null,
     TargetRegion: null,
-    De_SPAC_Closing_Year: null,
   });
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -95,13 +92,10 @@ function CardElements() {
 
   const clearAll = () => {
     setFilters({
-      LiquidationYear: null,
-      LiquidationStatus: null,
-      SPACProgressStatus: null,
-      VotesDeadlines: null,
+      MergerType: null,
+      ClosingYear: null,
       TargetSector: null,
       TargetRegion: null,
-      De_SPAC_Closing_Year: null,
     });
     setOpenFilterModal(false);
     setFilerCount(0);
