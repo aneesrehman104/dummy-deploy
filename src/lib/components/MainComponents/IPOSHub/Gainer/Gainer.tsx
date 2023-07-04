@@ -22,7 +22,6 @@ function Gainer() {
         selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
       }&gainOrLoser=gain`
     );
-    console.log("==============data", response);
     if (response.status === 200) {
       setIPOSTradingGainerData(response.data);
       setIsLoading(false);

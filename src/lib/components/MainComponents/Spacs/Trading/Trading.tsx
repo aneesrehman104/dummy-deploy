@@ -65,7 +65,7 @@ function Trading() {
       }?page=${spacsTradingLoserDataCurrentPage}&offset=${itemsPerPage}&period=${
         tabValues[spacsTradingLoserDataSelectedTab]
       }&gainOrLoser=gain&activeOrDeSPAC=${
-        selectedTab === 0 ? "active" : "DeSPAC"
+        selectedTab === 0 ? "active" : "deSPAC"
       }`
     );
     if (response.status === 200) {
