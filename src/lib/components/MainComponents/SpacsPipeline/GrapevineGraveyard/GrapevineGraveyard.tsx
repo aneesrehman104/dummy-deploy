@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styles from "./GrapevineGraveyard.module.css";
-import MyTable from "./functions";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 function GrapevineGraveyard() {
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,38 +23,36 @@ function GrapevineGraveyard() {
     1: "latest_failed",
     2: "other",
   };
-  const data = [
+  const headerArray = [
     {
-      company: "Activision",
-      event: "IPO",
-      status: "Announced",
-      pricingDate: "Jan 2 ‘22",
-      priceRange: "$21/share",
-      proceedsRange: "$150M - $175M",
+      name: "Company",
+      key: "company",
+      type: "string",
     },
     {
-      company: "BBC",
-      event: "SPAC",
-      status: "Closed",
-      pricingDate: "Jun 2 ‘22",
-      priceRange: "$34/share2",
-      proceedsRange: "$150M - $175M",
+      name: "Event",
+      key: "event",
+      type: "string",
     },
     {
-      company: "CNN",
-      event: "Merger",
-      status: "Announced",
-      pricingDate: "May 2 ‘22",
-      priceRange: "$74/share",
-      proceedsRange: "$150M - $175M",
+      name: "Status",
+      key: "status",
+      type: "string",
     },
     {
-      company: "Fair Foods",
-      event: "IPO",
-      status: "Closed",
-      pricingDate: "Sept 2 ‘22",
-      priceRange: "$12/share2",
-      proceedsRange: "$150M - $175M",
+      name: "Est. Pricing Date",
+      key: "est_pricing_date",
+      type: "string",
+    },
+    {
+      name: "Price/range",
+      key: "price",
+      type: "string",
+    },
+    {
+      name: "Proceeds/range",
+      key: "proceed",
+      type: "string",
     },
   ];
 
@@ -80,7 +80,7 @@ function GrapevineGraveyard() {
 
   useEffect(() => {
     getLatestClosed();
-  }, [selectedTab,currentPage]);
+  }, [selectedTab, currentPage]);
 
   return (
     <section className={styles.stockstablesection}>
@@ -103,12 +103,14 @@ function GrapevineGraveyard() {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            <MyTable
+            <ListingTrackTable
+              headerArray={headerArray}
               data={grapevineGraveyardData?.dataset}
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               paginate={paginate}
               totalLength={grapevineGraveyardData?.additional_dataset}
+              showPagination
             />
           )}
         </div>
