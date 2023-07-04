@@ -27,9 +27,13 @@ const ListingTrackTable = ({
   paginate,
   totalLength,
   showPagination,
+  setItemPerPage,
+  isUser,
+  options,
 }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
+  const [isSelectOpen, setIsSelectOpen] = useState(false); // Dropdown open state variable
 
   const handleSort = (column: string) => {
     if (column !== "last30D") {
@@ -42,17 +46,45 @@ const ListingTrackTable = ({
     }
   };
 
-  const sortedData = [...data].sort((a, b) => {
+  const sortedData = [...data]?.sort((a, b) => {
     if (sortColumn) {
       if (sortDirection === TABLETITLESECTION.asc) {
-        return a[sortColumn].localeCompare(b[sortColumn]);
+        if (
+          typeof a[sortColumn] === "number" &&
+          typeof b[sortColumn] === "number"
+        ) {
+          return a[sortColumn] - b[sortColumn];
+        }
+        return String(a[sortColumn]).localeCompare(String(b[sortColumn]));
       } else {
-        return b[sortColumn].localeCompare(a[sortColumn]);
+        if (
+          typeof a[sortColumn] === "number" &&
+          typeof b[sortColumn] === "number"
+        ) {
+          return b[sortColumn] - a[sortColumn];
+        }
+        return String(b[sortColumn]).localeCompare(String(a[sortColumn]));
       }
     } else {
       return 0;
     }
   });
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setItemPerPage(parseInt(event.target.value));
+    // setCurrentPage(currentPage);
+  };
+
+  const handleSelectOpen = () => {
+    setIsSelectOpen(true);
+  };
+
+  const handleSelectClose = () => {
+    setIsSelectOpen(false);
+  };
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem);
@@ -111,14 +143,33 @@ const ListingTrackTable = ({
       {showPagination ? (
         <tfoot>
           <TableRow>
-            <TablePagination
-              colSpan={6} // Number of columns in the table
-              count={totalLength?.totalLength} // Total number of items
-              rowsPerPage={itemsPerPage}
-              page={currentPage - 1} // Page number starts from 0
-              onPageChange={(event: any, newPage: any) => paginate(newPage + 1)} // Event handler for page change
-              rowsPerPageOptions={[]} // Hide rows per page options
-            />
+            {options ? (
+              <TablePagination
+                colSpan={6} // Number of columns in the table
+                count={totalLength?.totalLength} // Total number of items
+                rowsPerPage={itemsPerPage}
+                page={currentPage - 1} // Page number starts from 0
+                onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
+                rowsPerPageOptions={[5, 10, 25, 50]}
+                onRowsPerPageChange={handleChangeRowsPerPage} // Hide rows per page options
+                SelectProps={{
+                  open: isUser && isSelectOpen, // Open the dropdown if paid and isSelectOpen is true
+                  onOpen: handleSelectOpen,
+                  onClose: handleSelectClose,
+                }}
+              />
+            ) : (
+              <TablePagination
+                colSpan={6} // Number of columns in the table
+                count={totalLength?.totalLength} // Total number of items
+                rowsPerPage={itemsPerPage}
+                page={currentPage - 1} // Page number starts from 0
+                onPageChange={(event: any, newPage: any) =>
+                  paginate(newPage + 1)
+                } // Event handler for page change
+                rowsPerPageOptions={[]} // Hide rows per page options
+              />
+            )}
           </TableRow>
         </tfoot>
       ) : null}
