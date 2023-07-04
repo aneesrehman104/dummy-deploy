@@ -46,32 +46,32 @@ function HomeIpoTable() {
     {
       name: "Company",
       key: "company",
-      type: "strings",
+      type: "string",
     },
     {
       name: "Event",
       key: "event",
-      type: "strings",
+      type: "string",
     },
     {
       name: "Status",
       key: "status",
-      type: "strings",
+      type: "string",
     },
     {
       name: "Est. Pricing Date",
       key: "pricingDate",
-      type: "strings",
+      type: "string",
     },
     {
       name: "Price/range",
       key: "priceRange",
-      type: "strings",
+      type: "string",
     },
     {
       name: "Proceeds/range",
       key: "proceedsRange",
-      type: "strings",
+      type: "string",
     },
   ];
 

@@ -76,7 +76,7 @@ function HomeMergerTable() {
     {
       name: "Proceeds/range",
       key: "proceedsRange",
-      type: "strings",
+      type: "string",
     },
   ];
 

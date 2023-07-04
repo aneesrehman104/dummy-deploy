@@ -3,8 +3,10 @@ import styles from "./gainer.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import MyTable from "./functions";
-import { SkeltonTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 
 function Gainer() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,11 +18,9 @@ function Gainer() {
   const getIPOSTradingGainerData = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(
-      `${
-        URLs.spacTrading
-      }?page=${currentPage}&offset=${itemsPerPage}&period=daily&gainOrLoser=gain&activeOrDeSPAC=${
-        selectedTab === 0 ? "active" : "DeSPAC"
-      }`
+      `${URLs.iposGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
+        selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
+      }&gainOrLoser=gain`
     );
     console.log("==============data", response);
     if (response.status === 200) {
@@ -48,6 +48,106 @@ function Gainer() {
     setSelectedTab(tabIndex);
     setCurrentPage(1);
   };
+
+  const headerArrayDaily = [
+    {
+      name: "Company",
+      key: "company",
+      type: "string",
+    },
+    {
+      name: "Symbol",
+      key: "symbol",
+      type: "string",
+    },
+    {
+      name: "Last 30D",
+      key: "last30D",
+      type: "graph",
+    },
+    {
+      name: "Price",
+      key: "price",
+      type: "string",
+    },
+    {
+      name: "Daily",
+      key: "daily",
+      type: "gainer",
+    },
+    {
+      name: "Vol",
+      key: "vol",
+      type: "string",
+    },
+  ];
+
+  const headerArrayWeekly = [
+    {
+      name: "Company",
+      key: "company",
+      type: "string",
+    },
+    {
+      name: "Symbol",
+      key: "symbol",
+      type: "string",
+    },
+    {
+      name: "Last 30D",
+      key: "last30D",
+      type: "graph",
+    },
+    {
+      name: "Price",
+      key: "price",
+      type: "string",
+    },
+    {
+      name: "Weekly",
+      key: "weekly",
+      type: "gainer",
+    },
+    {
+      name: "Vol",
+      key: "vol",
+      type: "string",
+    },
+  ];
+
+
+  const headerArraysinceIpo = [
+    {
+      name: "Company",
+      key: "company",
+      type: "string",
+    },
+    {
+      name: "Symbol",
+      key: "symbol",
+      type: "string",
+    },
+    {
+      name: "Last 30D",
+      key: "last30D",
+      type: "graph",
+    },
+    {
+      name: "Price",
+      key: "price",
+      type: "string",
+    },
+    {
+      name: "Since IPO",
+      key: "sinceIPO",
+      type: "gainer",
+    },
+    {
+      name: "Vol",
+      key: "vol",
+      type: "string",
+    },
+  ];
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Past Year IPO Gainers</div>
@@ -70,12 +170,16 @@ function Gainer() {
             <SkeltonTable />
           ) : (
             iPOSTradingGainerData && (
-              <MyTable
+              <ListingTrackTable
                 data={iPOSTradingGainerData?.dataset}
+                headerArray={
+                  selectedTab === 0 ? headerArrayDaily : selectedTab === 1 ? headerArrayWeekly : headerArraysinceIpo
+                }
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 paginate={paginate}
                 totalLength={iPOSTradingGainerData?.additional_dataset}
+                showPagination
               />
             )
           )}
