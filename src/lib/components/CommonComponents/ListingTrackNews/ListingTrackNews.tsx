@@ -22,7 +22,7 @@ function ListingTrackNews({ isLoading, dataArray }: any) {
           style={{ marginTop: 15 }}
         />
       ) : dataArray.length === 0 ? (
-        <div className={styles.title}>Don't have any News</div>
+        <div className={styles.title}>Don&apos;t have any News</div>
       ) : (
         dataArray.map((item: any, index: number) => {
           return (
