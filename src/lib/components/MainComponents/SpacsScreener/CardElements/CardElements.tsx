@@ -155,12 +155,17 @@ function CardElements() {
         (item: any) => item.key === selectedKey
       );
       return selectedItem
-        ? { name: selectedItem.name, key: selectedItem.key }
+        ? {
+            name: selectedItem.name,
+            key: selectedItem.key,
+            type: selectedItem.type,
+            pro: selectedItem.pro,
+          }
         : null;
     });
     const filteredItems = selectedItems.filter(
       (item: any) => item !== null
-    ) as Array<{ name: string; key: string }>;
+    ) as Array<{ name: string; key: string; type: string; pro: boolean }>;
     setPersonName(filteredItems);
   };
 
@@ -207,9 +212,13 @@ function CardElements() {
   const getScreenerData = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(
-      `${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
+      `${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${
+        tabValues[selectedTab]
+      }&columnIds=${personName.map((item: any) => item.key).join(", ")}`
     );
-    console.log("========================res", response);
+    console.log("========================res",`${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${
+      tabValues[selectedTab]
+    }&columnIds=${personName.map((item: any) => item.key).join(",")}`, response);
     if (response.status === 200) {
       setScreenerData(response.data);
       setIsLoading(false);
@@ -220,7 +229,7 @@ function CardElements() {
 
   useEffect(() => {
     getScreenerData();
-  }, [selectedTab, currentPage, itemsPerPage]);
+  }, [selectedTab, currentPage, itemsPerPage,personName]);
 
   const handleTabClick = (key: any) => {
     setSelectedTab(key);

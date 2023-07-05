@@ -3,10 +3,10 @@ import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 import { EventChartSpacs } from "@/lib/ts/interface";
 
-function EventCharts({options}: EventChartSpacs) {
+function ListingTrackGraph({options}: EventChartSpacs) {
   return (
     <HighchartsReact highcharts={Highcharts} options={options} />    
   );
 }
 
-export default EventCharts;
+export default ListingTrackGraph;
