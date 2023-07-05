@@ -6,7 +6,7 @@ import { ListingTrackNews } from "@/lib/components/CommonComponents";
 
 function News() {
   const [isLoading, setIsLoading] = useState(true);
-  const [newsData, setNewsData] = useState<any>(null);
+  const [newsData, setNewsData] = useState<any>({dataset:[]});
 
   const getNews = async () => {
     setIsLoading(true);
