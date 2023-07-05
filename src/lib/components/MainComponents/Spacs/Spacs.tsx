@@ -16,11 +16,11 @@ const Spacs = () => {
       </header>
       <section>
         <EventSummary />
-        {/* <SpacsMarketStats />
+        <SpacsMarketStats />
         <Trading />
         <Announced />
         <Closed />
-        <News /> */}
+        <News />
       </section>
     </main>
   );
