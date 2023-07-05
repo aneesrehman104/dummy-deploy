@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 
 import Skeleton from '@mui/material/Skeleton';
-const DynamicChart = dynamic(() => import("./EventsChart"), {
+const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/ListingTrackGraph"), {
   ssr: false,
   loading: () => <Skeleton  variant="rounded"  height={200}  />,
 });

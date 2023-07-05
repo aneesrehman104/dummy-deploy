@@ -1,10 +1,9 @@
 import React from "react";
 import styles from "./LatestClosedSpacMergers.module.css";
 import { useState, useEffect } from "react";
-import MyTable from "./functions";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable } from "@/lib/components/CommonComponents";
+import { SkeltonTable,ListingTrackTable } from "@/lib/components/CommonComponents";
 function LatestClosedSpacMergers() {
   const [latestClosed, setLatestClosed] = useState<any>(null);
   const [isLoadingClosed, setIsLoadingClosed] = useState(true);
@@ -29,6 +28,38 @@ function LatestClosedSpacMergers() {
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+  const headerArray = [
+    {
+      name: "Company",
+      key: "company",
+      type: "string",
+    },
+    {
+      name: "Event",
+      key: "event",
+      type: "string",
+    },
+    {
+      name: "Status",
+      key: "status",
+      type: "string",
+    },
+    {
+      name: "Est. Pricing Date",
+      key: "est_pricing_date",
+      type: "string",
+    },
+    {
+      name: "Price/range",
+      key: "price",
+      type: "string",
+    },
+    {
+      name: "Proceeds/range",
+      key: "proceed",
+      type: "string",
+    },
+  ];
   return (
     <section className={styles.stockstablesection}>
       <div
@@ -45,13 +76,16 @@ function LatestClosedSpacMergers() {
           {isLoadingClosed ? (
             <SkeltonTable />
           ) : (
-            <MyTable
-              data={latestClosed?.dataset}
-              totalLength={latestClosed?.additional_dataset}
-              itemsPerPage={itemsPerPage}
-              currentPage={currentPage}
-              paginate={paginate}
-            />
+           
+            <ListingTrackTable
+            headerArray={headerArray}
+            data={latestClosed?.dataset}
+            totalLength={latestClosed?.additional_dataset}
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+            paginate={paginate}
+            showPagination
+          />
           )}
         </div>
       </div>

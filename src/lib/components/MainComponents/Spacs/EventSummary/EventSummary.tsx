@@ -6,10 +6,13 @@ import Skeleton from "@mui/material/Skeleton";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
-const DynamicChart = dynamic(() => import("./EventsChart"), {
-  ssr: false,
-  loading: () => <Skeleton variant="rounded" height={200} />,
-});
+const DynamicChart = dynamic(
+  () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
+  {
+    ssr: false,
+    loading: () => <Skeleton variant="rounded" height={200} />,
+  }
+);
 
 function EventSummary() {
   const [isLoading, setIsLoading] = useState(true);

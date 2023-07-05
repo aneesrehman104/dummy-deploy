@@ -1,12 +1,12 @@
 "use client";
 import RootLayout from "../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
-import IOPSList from "@/lib/components/MainComponents/IOPSList";
+import IPOSList from "@/lib/components/MainComponents/IPOSList";
 export default function MergerHubPage() {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="ipos/list">
-        <IOPSList/>
+        <IPOSList/>
       </AuthenticatedNavbar>
     </RootLayout>
   );

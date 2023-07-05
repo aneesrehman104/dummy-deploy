@@ -46,7 +46,7 @@ function Trading() {
       }?page=${spacsTradingGainerDataCurrentPage}&offset=${itemsPerPage}&period=${
         tabValues[spacsTradingGainerDataSelectedTab]
       }&gainOrLoser=gain&activeOrDeSPAC=${
-        selectedTab === 0 ? "active" : "DeSPAC"
+        selectedTab === 0 ? "active" : "deSPAC"
       }`
     );
     if (response.status === 200) {
@@ -65,7 +65,7 @@ function Trading() {
       }?page=${spacsTradingLoserDataCurrentPage}&offset=${itemsPerPage}&period=${
         tabValues[spacsTradingLoserDataSelectedTab]
       }&gainOrLoser=gain&activeOrDeSPAC=${
-        selectedTab === 0 ? "active" : "DeSPAC"
+        selectedTab === 0 ? "active" : "deSPAC"
       }`
     );
     if (response.status === 200) {

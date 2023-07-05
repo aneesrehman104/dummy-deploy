@@ -8,5 +8,6 @@ export const URLs = {
   spacsReturns:'api/spac/graph',
   spacsScreeners:"api/spac/screener",
   spacsList:"api/spac/list",
-  spacsCalender:'api/spac/calendar'
+  spacsCalender:'api/spac/calendar',
+  iposGainer:'api/ipo/trading'
 };

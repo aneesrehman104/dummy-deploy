@@ -1,10 +1,12 @@
 import React from "react";
 import styles from "./Announced.module.css";
 import { useState, useEffect } from "react";
-import MyTable from "./functions";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 function Announced() {
   const [latestAnnounced, setLatestAnnounced] = useState<any>(null);
   const [isLoadingAnnounced, setIsLoadingAnnounced] = useState(true);
@@ -30,6 +32,38 @@ function Announced() {
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+  const headerArray = [
+    {
+      name: "Company",
+      key: "company",
+      type: "string",
+    },
+    {
+      name: "Event",
+      key: "event",
+      type: "string",
+    },
+    {
+      name: "Status",
+      key: "status",
+      type: "string",
+    },
+    {
+      name: "Est. Pricing Date",
+      key: "est_pricing_date",
+      type: "string",
+    },
+    {
+      name: "Price/range",
+      key: "price",
+      type: "string",
+    },
+    {
+      name: "Proceeds/range",
+      key: "proceed",
+      type: "string",
+    },
+  ];
   return (
     <section className={styles.stockstablesection}>
       <div
@@ -46,12 +80,14 @@ function Announced() {
           {isLoadingAnnounced ? (
             <SkeltonTable />
           ) : (
-            <MyTable
+            <ListingTrackTable
+              headerArray={headerArray}
               data={latestAnnounced?.dataset}
               totalLength={latestAnnounced?.additional_dataset}
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               paginate={paginate}
+              showPagination
             />
           )}
         </div>

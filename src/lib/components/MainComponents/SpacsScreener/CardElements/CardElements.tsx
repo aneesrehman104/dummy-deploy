@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CardElements.module.css";
-import MyTable from "./functions";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import searchIcon from "../../../../../../public/searchIcon.svg";
@@ -12,7 +11,10 @@ import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/proSvg.svg";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 import {
   TextField,
   InputAdornment,
@@ -24,7 +26,6 @@ import {
   Button,
   MenuItem,
 } from "@mui/material";
-import ListItemText from "@mui/material/ListItemText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import {
@@ -108,26 +109,36 @@ function CardElements() {
       key: 3,
     },
   ];
-  const [personName, setPersonName] = React.useState([
+  const [personName, setPersonName] = useState<any>([
     {
       name: "Company",
       key: "company",
+      type: "string",
+      pro: false,
     },
     {
       name: "Symbol",
       key: "symbol",
+      type: "string",
+      pro: false,
     },
     {
       name: "Listing Method",
       key: "listing_method",
+      type: "string",
+      pro: false,
     },
     {
       name: "Listing Status",
       key: "listing_status",
+      type: "string",
+      pro: false,
     },
     {
       name: "Market Cap",
       key: "marketCap",
+      type: "string",
+      pro: false,
     },
   ]);
 
@@ -141,15 +152,20 @@ function CardElements() {
       : [];
     const selectedItems = selectedKeys.map((selectedKey: string) => {
       const selectedItem = PreDealSpacScreener.find(
-        (item) => item.key === selectedKey
+        (item: any) => item.key === selectedKey
       );
       return selectedItem
-        ? { name: selectedItem.name, key: selectedItem.key }
+        ? {
+            name: selectedItem.name,
+            key: selectedItem.key,
+            type: selectedItem.type,
+            pro: selectedItem.pro,
+          }
         : null;
     });
     const filteredItems = selectedItems.filter(
       (item: any) => item !== null
-    ) as Array<{ name: string; key: string }>;
+    ) as Array<{ name: string; key: string; type: string; pro: boolean }>;
     setPersonName(filteredItems);
   };
 
@@ -196,9 +212,13 @@ function CardElements() {
   const getScreenerData = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(
-      `${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
+      `${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${
+        tabValues[selectedTab]
+      }&columnIds=${personName.map((item: any) => item.key).join(", ")}`
     );
-    console.log("========================res", response);
+    console.log("========================res",`${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${
+      tabValues[selectedTab]
+    }&columnIds=${personName.map((item: any) => item.key).join(",")}`, response);
     if (response.status === 200) {
       setScreenerData(response.data);
       setIsLoading(false);
@@ -209,31 +229,41 @@ function CardElements() {
 
   useEffect(() => {
     getScreenerData();
-  }, [selectedTab, currentPage, itemsPerPage]);
+  }, [selectedTab, currentPage, itemsPerPage,personName]);
 
-  const handleTabClick = (key:any) => {
+  const handleTabClick = (key: any) => {
     setSelectedTab(key);
     setFilerCount(0);
     setPersonName([
       {
         name: "Company",
         key: "company",
+        type: "string",
+        pro: false,
       },
       {
         name: "Symbol",
         key: "symbol",
+        type: "string",
+        pro: false,
       },
       {
-        name: "Price",
-        key: "price",
+        name: "Listing Method",
+        key: "listing_method",
+        type: "string",
+        pro: false,
       },
       {
-        name: "Today",
-        key: "daily",
+        name: "Listing Status",
+        key: "listing_status",
+        type: "string",
+        pro: false,
       },
       {
         name: "Market Cap",
-        key: "vol",
+        key: "marketCap",
+        type: "string",
+        pro: false,
       },
     ]);
   };
@@ -336,15 +366,27 @@ function CardElements() {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            <MyTable
+            // <MyTable
+            //   data={screenerData?.dataset}
+            //   itemsPerPage={itemsPerPage}
+            //   setItemPerPage={setItemPerPage}
+            //   currentPage={currentPage}
+            //   paginate={paginate}
+            //   totalLength={screenerData?.additional_dataset}
+            //   isUser={isUser}
+            //   headerArray={personName}
+            // />
+
+            <ListingTrackTable
               data={screenerData?.dataset}
-              itemsPerPage={itemsPerPage}
-              setItemPerPage={setItemPerPage}
+              headerArray={personName}
               currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
               paginate={paginate}
               totalLength={screenerData?.additional_dataset}
+              showPagination
+              setItemPerPage={setItemPerPage}
               isUser={isUser}
-              headerArray={personName}
             />
           )}
         </div>
@@ -1233,7 +1275,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = personName.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : "";
                           })
@@ -1252,9 +1294,12 @@ function CardElements() {
                     >
                       {PreDealSpacScreener.map((item: any) => (
                         <MenuItem key={item.key} value={item.key}>
+                          {" "}
+                          disabled={isUser && item.pro}
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1292,7 +1337,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = CompanyProfile.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : "";
                           })
@@ -1310,10 +1355,15 @@ function CardElements() {
                       }}
                     >
                       {CompanyProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1343,7 +1393,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = IPOProfile.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -1362,10 +1412,15 @@ function CardElements() {
                       }}
                     >
                       {IPOProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1395,7 +1450,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = Trading.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -1414,10 +1469,15 @@ function CardElements() {
                       }}
                     >
                       {Trading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1447,7 +1507,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = SPACTrading.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -1466,10 +1526,15 @@ function CardElements() {
                       }}
                     >
                       {SPACTrading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1499,7 +1564,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = SPACProfile.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -1518,10 +1583,15 @@ function CardElements() {
                       }}
                     >
                       {SPACProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1551,7 +1621,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = TrustRedemptions.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -1570,10 +1640,15 @@ function CardElements() {
                       }}
                     >
                       {TrustRedemptions.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1621,7 +1696,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = personName.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : "";
                           })
@@ -1639,10 +1714,15 @@ function CardElements() {
                       }}
                     >
                       {AnnouncedSPACMergersScreener.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1680,7 +1760,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = DealProfile.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -1699,10 +1779,15 @@ function CardElements() {
                       }}
                     >
                       {DealProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1720,7 +1805,7 @@ function CardElements() {
                   </FormControl>
                   <FormControl sx={{ m: 1, width: 300 }}>
                     <InputLabel id="demo-multiple-checkbox-label">
-                      Rumors / Terminations
+                      SPAC Target Profile
                     </InputLabel>
                     <Select
                       labelId="demo-multiple-checkbox-label"
@@ -1732,7 +1817,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = SPACTargetProfile.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -1751,10 +1836,15 @@ function CardElements() {
                       }}
                     >
                       {SPACTargetProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1784,7 +1874,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = RumorsTerminations.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -1803,10 +1893,15 @@ function CardElements() {
                       }}
                     >
                       {RumorsTerminations.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1854,7 +1949,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = personName.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : "";
                           })
@@ -1872,10 +1967,15 @@ function CardElements() {
                       }}
                     >
                       {PreDealSpacScreener.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1913,10 +2013,11 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = CompanyProfile.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
-                            return selectedItem ? selectedItem.name : "";
+                            return selectedItem ? selectedItem.name : null;
                           })
+                          .filter(Boolean) // Remove null values
                           .join(", ")
                       }
                       MenuProps={{
@@ -1931,10 +2032,15 @@ function CardElements() {
                       }}
                     >
                       {CompanyProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -1964,7 +2070,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = IPOProfile.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -1983,10 +2089,15 @@ function CardElements() {
                       }}
                     >
                       {IPOProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -2016,7 +2127,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = Trading.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -2035,10 +2146,15 @@ function CardElements() {
                       }}
                     >
                       {Trading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -2068,7 +2184,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = SPACTrading.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -2087,10 +2203,15 @@ function CardElements() {
                       }}
                     >
                       {SPACTrading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -2120,7 +2241,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = SPACProfile.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -2139,10 +2260,15 @@ function CardElements() {
                       }}
                     >
                       {SPACProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -2172,7 +2298,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = TrustRedemptions.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -2191,10 +2317,15 @@ function CardElements() {
                       }}
                     >
                       {TrustRedemptions.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -2242,7 +2373,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = personName.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : "";
                           })
@@ -2260,10 +2391,15 @@ function CardElements() {
                       }}
                     >
                       {DeSPACScreener.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -2301,10 +2437,11 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = CompanyProfile.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
-                            return selectedItem ? selectedItem.name : "";
+                            return selectedItem ? selectedItem.name : null;
                           })
+                          .filter(Boolean) // Remove null values
                           .join(", ")
                       }
                       MenuProps={{
@@ -2319,10 +2456,15 @@ function CardElements() {
                       }}
                     >
                       {CompanyProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -2352,7 +2494,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = IPOProfile.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -2371,10 +2513,15 @@ function CardElements() {
                       }}
                     >
                       {IPOProfile.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}
@@ -2404,7 +2551,7 @@ function CardElements() {
                         selected
                           .map((selectedKey: string) => {
                             const selectedItem = Trading.find(
-                              (item) => item.key === selectedKey
+                              (item: any) => item.key === selectedKey
                             );
                             return selectedItem ? selectedItem.name : null;
                           })
@@ -2423,10 +2570,15 @@ function CardElements() {
                       }}
                     >
                       {Trading.map((item: any) => (
-                        <MenuItem key={item.key} value={item.key}>
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={isUser && item.pro}
+                        >
                           <Checkbox
                             checked={personName.some(
-                              (selectedItem) => selectedItem.key === item.key
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
                             )}
                           />
                           {item.name}

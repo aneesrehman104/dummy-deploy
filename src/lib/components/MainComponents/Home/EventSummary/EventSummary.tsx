@@ -4,10 +4,13 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { homeConstants, weekName } from "@/lib/ts/constants";
 import Skeleton from "@mui/material/Skeleton";
-const DynamicChart = dynamic(() => import("./EventsChart"), {
-  ssr: false,
-  loading: () => <Skeleton variant="rounded" height={200} />,
-});
+const DynamicChart = dynamic(
+  () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
+  {
+    ssr: false,
+    loading: () => <Skeleton variant="rounded" height={200} />,
+  }
+);
 function ChartTitle() {
   return (
     <div className={styles.ytdEventSummary}>{homeConstants.chartTitle}</div>
