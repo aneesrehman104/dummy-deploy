@@ -1,88 +1,189 @@
-import React from "react";
+import React, { Fragment, useEffect } from "react";
 import styles from "./LatestClosedMergers.module.css";
 import { useState } from "react";
-import MyTable from "./functions";
-function LatestClosedMergers() {
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
+import { getApiWithoutAuth } from "@/lib/ts/api";
+import { URLs } from "@/lib/ts/apiUrl";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 
-  const [itemsPerPage] = useState(2);
-  const data = [
-    {
-      company: "Activision",
-      event: "IPO",
-      status: "Announced",
-      pricingDate: "Jan 2 ‘22",
-      priceRange: "$21/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "BBC",
-      event: "SPAC",
-      status: "Closed",
-      pricingDate: "Jun 2 ‘22",
-      priceRange: "$34/share2",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "CNN",
-      event: "Merger",
-      status: "Announced",
-      pricingDate: "May 2 ‘22",
-      priceRange: "$74/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "Fair Foods",
-      event: "IPO",
-      status: "Closed",
-      pricingDate: "Sept 2 ‘22",
-      priceRange: "$12/share2",
-      proceedsRange: "$150M - $175M",
-    },
-  ];
+function LatestClosedMergers() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedTab, setSelectedTab] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [LatestClosedMergersData, setLatestClosedMergersData] =
+    useState<any>({
+      dataset: [],
+      additional_dataset: { totalLength: 20 },
+    });
+  const [itemsPerPage] = useState(5);
+
+  const getLatestClosedMergersData = async () => {
+    setIsLoading(true);
+    const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
+    if (response.status === 200) {
+      setLatestClosedMergersData(response.data);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getLatestClosedMergersData();
+  }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
+  const tabData = [
+    { label: "Expected This Week", index: 0 },
+    { label: "Next Week", index: 1 },
+    { label: "After Next Week", index: 2 },
+  ];
+  const handleTabClick = (tabIndex: any) => {
+    setSelectedTab(tabIndex);
+    setCurrentPage(1);
+  };
+
+  const headerArrayExpectedThisWeek = [
+    {
+      name: "Company Name",
+      key: "CompanyName",
+      type: "string",
+    },
+    {
+      name: "Ticker",
+      key: "Ticker",
+      type: "string",
+    },
+    {
+      name: "Exchange",
+      key: "Exchange",
+      type: "string",
+    },
+    {
+      name: "Est. Pricing Date",
+      key: "EstPricingDate",
+      type: "string",
+    },
+    {
+      name: "Price Range",
+      key: "PriceRange",
+      type: "string",
+    },
+    {
+      name: "Offer Size (M)",
+      key: "OfferSize",
+      type: "string",
+    },
+  ];
+
+  const headerArrayNextWeek = [
+    {
+      name: "Company Name",
+      key: "CompanyName",
+      type: "string",
+    },
+    {
+      name: "Ticker",
+      key: "Ticker",
+      type: "string",
+    },
+    {
+      name: "Exchange",
+      key: "Exchange",
+      type: "string",
+    },
+    {
+      name: "Est. Pricing Date",
+      key: "EstPricingDate",
+      type: "string",
+    },
+    {
+      name: "Price Range",
+      key: "PriceRange",
+      type: "string",
+    },
+    {
+      name: "Offer Size (M)",
+      key: "OfferSize",
+      type: "string",
+    },
+  ];
+  const headerArrayAfterNextWeek = [
+    {
+      name: "Company Name",
+      key: "CompanyName",
+      type: "string",
+    },
+    {
+      name: "Ticker",
+      key: "Ticker",
+      type: "string",
+    },
+    {
+      name: "Exchange",
+      key: "Exchange",
+      type: "string",
+    },
+    {
+      name: "Est. Pricing Date",
+      key: "EstPricingDate",
+      type: "string",
+    },
+    {
+      name: "Price Range",
+      key: "PriceRange",
+      type: "string",
+    },
+    {
+      name: "Offer Size (M)",
+      key: "OfferSize",
+      type: "string",
+    },
+  ];
   return (
     <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>IPOS Calendar</div>
+      <div className={styles.tableTitle}>IPO Calendar</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
-          <div
-            onClick={() => setSelectedTab(0)}
-            className={`${styles.headerCell} ${
-              selectedTab === 0 && styles.selectedHeader
-            }`}
-          >
-            Expected This Week
-          </div>
-          <div
-            onClick={() => setSelectedTab(1)}
-            className={`${styles.headerCell} ${
-              selectedTab === 1 && styles.selectedHeader
-            }`}
-          >
-            Next Week
-          </div>
-          <div
-            onClick={() => setSelectedTab(2)}
-            className={`${styles.headerCell} ${
-              selectedTab === 2 && styles.selectedHeader
-            }`}
-          >
-            After Next Week
-          </div>
+          {tabData.map(({ label, index }) => (
+            <div
+              key={index}
+              onClick={() => handleTabClick(index)}
+              className={`${styles.headerCell} ${
+                selectedTab === index && styles.selectedHeader
+              }`}
+            >
+              {label}
+            </div>
+          ))}
         </div>
         <div style={{ overflow: "auto" }}>
-          <MyTable
-            data={data}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            paginate={paginate}
-          />
+          {isLoading ? (
+            <SkeltonTable />
+          ) : (
+            LatestClosedMergersData && (
+              <ListingTrackTable
+                data={LatestClosedMergersData?.dataset}
+                headerArray={
+                  selectedTab === 0
+                    ? headerArrayExpectedThisWeek
+                    : selectedTab === 1
+                    ? headerArrayNextWeek
+                    : headerArrayAfterNextWeek
+                }
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}
+                paginate={paginate}
+                totalLength={LatestClosedMergersData?.additional_dataset}
+                showPagination
+              />
+            )
+          )}
         </div>
       </div>
     </section>

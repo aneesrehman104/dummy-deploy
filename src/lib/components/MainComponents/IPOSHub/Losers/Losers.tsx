@@ -3,13 +3,19 @@ import styles from "./Losers.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable,ListingTrackTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 
 function Losers() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [iPOSTradingLosersData, setIPOSTradingLosersData] = useState<any>();
+  const [iPOSTradingLosersData, setIPOSTradingLosersData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [itemsPerPage] = useState(5);
 
   const getIPOSTradingLosersData = async () => {
@@ -110,7 +116,6 @@ function Losers() {
       type: "string",
     },
   ];
-
 
   const headerArraysinceIpo = [
     {

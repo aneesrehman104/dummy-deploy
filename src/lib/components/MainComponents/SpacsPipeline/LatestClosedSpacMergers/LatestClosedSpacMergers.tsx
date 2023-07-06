@@ -3,9 +3,15 @@ import styles from "./LatestClosedSpacMergers.module.css";
 import { useState, useEffect } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable,ListingTrackTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 function LatestClosedSpacMergers() {
-  const [latestClosed, setLatestClosed] = useState<any>(null);
+  const [latestClosed, setLatestClosed] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [isLoadingClosed, setIsLoadingClosed] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
@@ -30,33 +36,38 @@ function LatestClosedSpacMergers() {
   };
   const headerArray = [
     {
-      name: "Company",
-      key: "company",
+      name: "Target",
+      key: "target",
       type: "string",
     },
     {
-      name: "Event",
-      key: "event",
+      name: "Acquirer",
+      key: "Acquirer",
       type: "string",
     },
     {
-      name: "Status",
-      key: "status",
+      name: "Announced Date",
+      key: "AnnouncedDate",
       type: "string",
     },
     {
-      name: "Est. Pricing Date",
-      key: "est_pricing_date",
+      name: "Valuation",
+      key: "Valuation",
       type: "string",
     },
     {
-      name: "Price/range",
-      key: "price",
+      name: "DA Link",
+      key: "DALink",
       type: "string",
     },
     {
-      name: "Proceeds/range",
-      key: "proceed",
+      name: "InvestorPres",
+      key: "InvestorPres",
+      type: "string",
+    },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
       type: "string",
     },
   ];
@@ -69,23 +80,22 @@ function LatestClosedSpacMergers() {
           width: "100%",
         }}
       >
-        <div className={styles.tableTitle}>Latest Closed  SPAC Mergers</div>
+        <div className={styles.tableTitle}>Latest Closed SPAC Mergers</div>
       </div>
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
           {isLoadingClosed ? (
             <SkeltonTable />
           ) : (
-           
             <ListingTrackTable
-            headerArray={headerArray}
-            data={latestClosed?.dataset}
-            totalLength={latestClosed?.additional_dataset}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            paginate={paginate}
-            showPagination
-          />
+              headerArray={headerArray}
+              data={latestClosed?.dataset}
+              totalLength={latestClosed?.additional_dataset}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              paginate={paginate}
+              showPagination
+            />
           )}
         </div>
       </div>

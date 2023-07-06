@@ -16,7 +16,10 @@ function Trading() {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingLooser, setIsLoadingLooser] = useState(true);
 
-  const [spacsTradingGainerData, setSpacsTradingGainerData] = useState();
+  const [spacsTradingGainerData, setSpacsTradingGainerData] = useState({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [
     spacsTradingGainerDataSelectedTab,
     setSpacsTradingGainerDataSelectedTab,
@@ -26,7 +29,10 @@ function Trading() {
     setSpacsTradingGainerDataCurrentPage,
   ] = useState(1);
 
-  const [spacsTradingLoserData, setSpacsTradingLoserData] = useState();
+  const [spacsTradingLoserData, setSpacsTradingLoserData] = useState({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [
     spacsTradingLoserDataSelectedTab,
     setSpacsTradingLoserDataSelectedTab,

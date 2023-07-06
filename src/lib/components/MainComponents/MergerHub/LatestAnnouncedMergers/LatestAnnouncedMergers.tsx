@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./GrapevineGraveyard.module.css";
+import styles from "./LatestAnnouncedMergers.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
@@ -8,22 +8,22 @@ import {
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
 
-function GrapevineGraveyard() {
+function LatestAnnouncedMergers() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [GrapevineGraveyardData, setGrapevineGraveyardData] =
+  const [latestAnnouncedMergersData, setLatestAnnouncedMergersData] =
     useState<any>({
       dataset: [],
       additional_dataset: { totalLength: 20 },
     });
   const [itemsPerPage] = useState(5);
 
-  const getGrapevineGraveyardData = async () => {
+  const getLatestAnnouncedMergersData = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
     if (response.status === 200) {
-      setGrapevineGraveyardData(response.data);
+      setLatestAnnouncedMergersData(response.data);
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -31,7 +31,7 @@ function GrapevineGraveyard() {
   };
 
   useEffect(() => {
-    getGrapevineGraveyardData();
+    getLatestAnnouncedMergersData();
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
@@ -39,115 +39,120 @@ function GrapevineGraveyard() {
   };
 
   const tabData = [
-    { label: "Rumored IPOs", index: 0 },
-    { label: "Stalled IPOs", index: 1 },
-    { label: "Wishlist IPOs", index: 2 },
+    { label: "Mergers (ex. SPACs)", index: 0 },
+    { label: "SPAC Mergers", index: 1 },
+    { label: "All Mergers", index: 2 },
   ];
   const handleTabClick = (tabIndex: any) => {
     setSelectedTab(tabIndex);
     setCurrentPage(1);
   };
 
-  const headerArrayRumoredIPOs = [
+  const headerArrayMergers = [
     {
-      name: "Company Name",
-      key: "CompanyName",
+      name: "Target",
+      key: "target",
       type: "string",
     },
     {
-      name: "Rumored Date",
-      key: "RumoredDate",
+      name: "Acquirer",
+      key: "acquirer",
       type: "string",
     },
     {
-      name: "Rumored Market Cap (M)",
-      key: "RumoredMarketCap",
+      name: "Announced Date",
+      key: "AnnouncedDate",
       type: "string",
     },
     {
-      name: "Rumored IPO Offering Size (M)",
-      key: "RumoredIPOOfferingSize",
+      name: "Valuation",
+      key: "Valuation",
       type: "string",
     },
     {
-      name: "Rumor Source",
-      key: "RumorSource",
+      name: "Premium (at Deal)",
+      key: "Premium",
       type: "string",
     },
     {
-      name: "Rumor Link",
-      key: "RumorLink",
+      name: "Target Industry",
+      key: "TargetIndustry",
+      type: "string",
+    },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
       type: "string",
     },
   ];
 
-  const headerArrayStalledIPOs = [
+  const headerArraySPACMergers = [
     {
-      name: "Company Name",
-      key: "CompanyName",
+      name: "Target",
+      key: "target",
       type: "string",
     },
     {
-      name: "IPO Stalled Status",
-      key: "IPOStalledStatus",
+      name: "Acquirer",
+      key: "acquirer",
       type: "string",
     },
     {
-      name: "Stalled Date",
-      key: "StalledDate",
+      name: "Announced Date",
+      key: "AnnouncedDate",
       type: "string",
     },
     {
-      name: "Offering Size (M)",
-      key: "OfferingSize",
+      name: "Valuation",
+      key: "Valuation",
       type: "string",
     },
     {
-      name: "Proposed Price Range",
-      key: "ProposedPriceRange",
+      name: "DA Link",
+      key: "DALink",
       type: "string",
     },
     {
-      name: "Proposed Market Cap (M)",
-      key: "ProposedMarketCap",
+      name: "Investor Pres.",
+      key: "InvestorPres",
       type: "string",
     },
   ];
-  const headerArrayWishlistIPOs = [
+  const headerArrayAllMergers = [
     {
-      name: "Company Name",
-      key: "CompanyName",
+      name: "Target",
+      key: "target",
       type: "string",
     },
     {
-      name: "Wishlist Rank",
-      key: "WishlistRank",
+      name: "Acquirer",
+      key: "acquirer",
       type: "string",
     },
     {
-      name: "Industry",
-      key: "Industry",
+      name: "Announced Date",
+      key: "AnnouncedDate",
       type: "string",
     },
     {
-      name: "Last Private Valuation (M)",
-      key: "LastPrivateValuation",
+      name: "Deal Type",
+      key: "DealType",
       type: "string",
     },
     {
-      name: "Last Raise Date",
-      key: "LastRaiseDate",
+      name: "Valuation",
+      key: "Valuation",
       type: "string",
     },
     {
-      name: "Last Private Raise (M)",
-      key: "LastPrivateRaise",
+      name: "Premium (at Deal)",
+      key: "Premium",
       type: "string",
     },
   ];
   return (
     <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>IPO Grapevine</div>
+      <div className={styles.tableTitle}>Past Year IPO Gainers</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
           {tabData.map(({ label, index }) => (
@@ -166,20 +171,20 @@ function GrapevineGraveyard() {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            GrapevineGraveyardData && (
+            latestAnnouncedMergersData && (
               <ListingTrackTable
-                data={GrapevineGraveyardData?.dataset}
+                data={latestAnnouncedMergersData?.dataset}
                 headerArray={
                   selectedTab === 0
-                    ? headerArrayRumoredIPOs
+                    ? headerArrayMergers
                     : selectedTab === 1
-                    ? headerArrayStalledIPOs
-                    : headerArrayWishlistIPOs
+                    ? headerArraySPACMergers
+                    : headerArrayAllMergers
                 }
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 paginate={paginate}
-                totalLength={GrapevineGraveyardData?.additional_dataset}
+                totalLength={latestAnnouncedMergersData?.additional_dataset}
                 showPagination
               />
             )
@@ -190,4 +195,4 @@ function GrapevineGraveyard() {
   );
 }
 
-export default GrapevineGraveyard;
+export default LatestAnnouncedMergers;

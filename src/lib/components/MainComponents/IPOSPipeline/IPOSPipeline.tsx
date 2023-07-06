@@ -3,7 +3,7 @@ import React from "react";
 import GrapevineGraveyard from "./GrapevineGraveyard/GrapevineGraveyard";
 import LatestAnnouncedMergers from "./LatestAnnouncedMergers/LatestAnnouncedMergers";
 import LatestClosedMergers from "./LatestClosedMergers/LatestClosedMergers";
-import MergerCalendar from "./MergerCalendar/MergerCalendar";
+import IposFilling from "./IposFilling/IposFilling"
 const IPOSPipeline = () => {
   return (
     <main>
@@ -16,7 +16,7 @@ const IPOSPipeline = () => {
       <LatestAnnouncedMergers/>
       <LatestClosedMergers/>
       <GrapevineGraveyard/>
-      <MergerCalendar/>
+      <IposFilling/>
       </section>
     </main>
   );

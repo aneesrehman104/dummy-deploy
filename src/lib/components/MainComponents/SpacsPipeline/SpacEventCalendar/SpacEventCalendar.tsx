@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./SpacEventCalendar.module.css";
-import MyTable from "./functions";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable } from "@/lib/components/CommonComponents";
+import { SkeltonTable,ListingTrackTable } from "@/lib/components/CommonComponents";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { FullCalendarComponet } from "./FullCalender";
 import dynamic from "next/dynamic";
 import Skeleton from "@mui/material/Skeleton";
 import { Extension, Mergers, IPOAndSplitDates } from "@/lib/ts/constants";
@@ -27,9 +25,12 @@ function SpacEventCalendar() {
   const [selectedTab, setSelectedTab] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [grapevineGraveyardData, setGrapevineGraveyardData] = useState<any>();
+  const [grapevineGraveyardData, setGrapevineGraveyardData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [itemsPerPage] = useState(4);
-  const [isGrid, setIsGrid] = useState(false);
+  const [isGrid, setIsGrid] = useState(true);
 
   const tabData = [
     { label: "Extensions", index: 0 },
@@ -120,11 +121,12 @@ function SpacEventCalendar() {
               {isLoading ? (
                 <SkeltonTable />
               ) : (
-                <MyTable
+                <ListingTrackTable
                   data={grapevineGraveyardData?.dataset}
                   itemsPerPage={itemsPerPage}
                   currentPage={currentPage}
                   paginate={paginate}
+                  showPagination
                   totalLength={grapevineGraveyardData?.additional_dataset}
                   headerArray={
                     selectedTab === 0
