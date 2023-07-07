@@ -10,7 +10,10 @@ import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/proSvg.svg";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 import {
   TextField,
   InputAdornment,
@@ -50,11 +53,113 @@ function CardElements() {
       },
     },
   });
-  const [selectedTab, setSelectedTab] = useState(1);
+  const headerArrayClosedMergersList = [
+    {
+      name: "Target Company Name (Ticker)",
+      key: "TargetCompanyName",
+      type: "string",
+    },
+    {
+      name: "Acquirer Company Name (Ticker)",
+      key: "AcquirerCompanyName",
+      type: "string",
+    },
+    {
+      name: "Closing Date",
+      key: "ClosingDate",
+      type: "string",
+    },
+    {
+      name: "Merger Type",
+      key: "MergerType",
+      type: "string",
+    },
+    {
+      name: "Valuation",
+      key: "Valuation",
+      type: "string",
+    },
+    {
+      name: "Valuation Detail",
+      key: "ValuationDetail",
+      type: "string",
+    },
+    {
+      name: "Premium (at Deal)",
+      key: "Premium",
+      type: "string",
+    },
+    {
+      name: "Target Industry",
+      key: "TargetIndustry",
+      type: "string",
+    },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
+      type: "string",
+    },
+  ];
+  const headerArrayAnnouncedMergersList = [
+    {
+      name: "Target Company Name (Ticker)",
+      key: "TargetCompanyName",
+      type: "string",
+    },
+    {
+      name: "Acquirer Company Name (Ticker)",
+      key: "AcquirerCompanyName",
+      type: "string",
+    },
+    {
+      name: "Announced Date",
+      key: "AnnouncedDate",
+      type: "string",
+    },
+    {
+      name: "Merger Type",
+      key: "MergerType",
+      type: "string",
+    },
+    {
+      name: "Press Release",
+      key: "PressRelease",
+      type: "string",
+    },
+    {
+      name: "Investor Presentation",
+      key: "InvestorPresentation",
+      type: "string",
+    },
+    {
+      name: "Valuation",
+      key: "Valuation",
+      type: "string",
+    },
+    {
+      name: "Valuation Detail",
+      key: "ValuationDetail",
+      type: "string",
+    },
+    {
+      name: "Premium (at Deal)",
+      key: "Premium",
+      type: "string",
+    },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
+      type: "string",
+    },
+  ];
+  const [selectedTab, setSelectedTab] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [openFilterModal, setOpenFilterModal] = useState(false);
-  const [spacsListData, setSpacsListData] = useState<any>();
+  const [spacsListData, setSpacsListData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [isUser, setIsUser] = useState(false);
   const [filterCount, setFilerCount] = useState(0);
 
@@ -193,13 +298,19 @@ function CardElements() {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            <MyTable
+            <ListingTrackTable
               data={spacsListData?.dataset}
-              itemsPerPage={itemsPerPage}
-              setItemPerPage={setItemPerPage}
+              headerArray={
+                selectedTab === 0
+                  ? headerArrayClosedMergersList
+                  : headerArrayAnnouncedMergersList
+              }
               currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
               paginate={paginate}
               totalLength={spacsListData?.additional_dataset}
+              showPagination
+              setItemPerPage={setItemPerPage}
               isUser={isUser}
             />
           )}
@@ -213,7 +324,7 @@ function CardElements() {
         aria-describedby="keep-mounted-modal-description"
       >
         <>
-        <Box sx={style}>
+          <Box sx={style}>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Image
                 src={crossIconSvg}

@@ -10,7 +10,10 @@ import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/proSvg.svg";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 import {
   TextField,
   InputAdornment,
@@ -52,11 +55,359 @@ function CardElements() {
       },
     },
   });
+  const headerArrayAllActiveSPACsList = [
+    {
+      name: "Company Name",
+      key: "Company Name",
+      type: "string",
+    },
+    {
+      name: "Company Ticker",
+      key: "CompanyTicker",
+      type: "string",
+    },
+    {
+      name: "SPAC Progress Status",
+      key: "SPACProgressStatus",
+      type: "string",
+    },
+    {
+      name: "IPO Date",
+      key: "IPODate",
+      type: "string",
+    },
+    {
+      name: "Est. Trust Value (M)",
+      key: "EstTrustValue",
+      type: "string",
+    },
+    {
+      name: "Est. Public Shares (M)",
+      key: "EstPublicShares",
+      type: "string",
+    },
+    {
+      name: "Est. Deadline",
+      key: "EstDeadline",
+      type: "string",
+    },
+    {
+      name: "Progress to Deadline",
+      key: "ProgresstoDeadline",
+      type: "string",
+    },
+    {
+      name: "Price",
+      key: "Price",
+      type: "string",
+    },
+    {
+      name: "Price % Chg.",
+      key: "PriceChg",
+      type: "string",
+    },
+  ];
+  const headerArrayPreDealSPACsList = [
+    {
+      name: "Company Name",
+      key: "Company Name",
+      type: "string",
+    },
+    {
+      name: "Company Ticker",
+      key: "CompanyTicker",
+      type: "string",
+    },
+    {
+      name: "IPO Date",
+      key: "IPODate",
+      type: "string",
+    },
+    {
+      name: "Price",
+      key: "Price",
+      type: "string",
+    },
+    {
+      name: "Price % Chg.",
+      key: "PriceChg",
+      type: "string",
+    },
+    {
+      name: "Est. Public Shares (M)",
+      key: "EstPublicShares",
+      type: "string",
+    },
+    {
+      name: "Trust Value per Share",
+      key: "TrustValueperShare",
+      type: "string",
+    },
+    {
+      name: "Est. Trust Value",
+      key: "EstTrustValue",
+      type: "string",
+    },
+  ];
+  const headerArrayAnnouncedSPACMergersList = [
+    {
+      name: "Target Company Name (Ticker)",
+      key: "TargetCompanyName",
+      type: "string",
+    },
+    {
+      name: "Acquirer Company Name (Ticker)",
+      key: "AcquirerCompanyName",
+      type: "string",
+    },
+    {
+      name: "Announced Date",
+      key: "AnnouncedDate",
+      type: "string",
+    },
+    {
+      name: "Press Release",
+      key: "PressRelease",
+      type: "string",
+    },
+    {
+      name: "Investor Presentation",
+      key: "InvestorPresentation",
+      type: "string",
+    },
+    {
+      name: "Valuation",
+      key: "Valuation",
+      type: "string",
+    },
+    {
+      name: "Valuation Detail",
+      key: "ValuationDetail",
+      type: "string",
+    },
+    {
+      name: "PIPE",
+      key: "PIPE",
+      type: "string",
+    },
+    {
+      name: "Target Industry",
+      key: "TargetIndustry",
+      type: "string",
+    },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
+      type: "string",
+    },
+  ];
+
+  const headerArrayDeSPACsList = [
+    {
+      name: "Company Name",
+      key: "CompanyName",
+      type: "string",
+    },
+    {
+      name: "Company Ticker",
+      key: "CompanyTicker",
+      type: "string",
+    },
+    {
+      name: "SPAC Name (SPAC Ticker)",
+      key: "SPACName",
+      type: "string",
+    },
+    {
+      name: "De-SPAC Closing Date",
+      key: "DeSPACClosingDate",
+      type: "string",
+    },
+    {
+      name: "SPAC Shares Redeemed (%)",
+      key: "SPACSharesRedeemed",
+      type: "string",
+    },
+    {
+      name: "SPAC Shares Rem. Post-Close (M)",
+      key: "SPACSharesRemPostClose",
+      type: "string",
+    },
+    {
+      name: "Price",
+      key: "Price",
+      type: "string",
+    },
+    {
+      name: "Price % Chg.",
+      key: "PriceChg",
+      type: "string",
+    },
+    {
+      name: "Valuation at Deal",
+      key: "ValuationatDeal",
+      type: "string",
+    },
+    {
+      name: "Market Cap",
+      key: "MarketCap",
+      type: "string",
+    },
+    {
+      name: "Return from IPO",
+      key: "ReturnfromIPO",
+      type: "string",
+    },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
+      type: "string",
+    },
+  ];
+  const headerArraySPACTrustValuesList = [
+    {
+      name: "Company Name",
+      key: "CompanyName",
+      type: "string",
+    },
+    {
+      name: "Company Ticker",
+      key: "CompanyTicker",
+      type: "string",
+    },
+    {
+      name: "Trust P.S. at IPO",
+      key: "TrustPSatIPO",
+      type: "string",
+    },
+    {
+      name: "Trust per Share",
+      key: "TrustperShare",
+      type: "string",
+    },
+    {
+      name: "SPAC Shares Redeemed (%)",
+      key: "SPACSharesRedeemed",
+      type: "string",
+    },
+    {
+      name: "Trust Per Share Date",
+      key: "TrustPerShareDate",
+      type: "string",
+    },
+    {
+      name: "Trust per Share Source",
+      key: "TrustperShareSource",
+      type: "string",
+    },
+    {
+      name: "Price",
+      key: "Price",
+      type: "string",
+    },
+    {
+      name: "Trading Premium/Discount",
+      key: "TradingPremiumDiscount",
+      type: "string",
+    },
+    {
+      name: "Est. Shares (M)",
+      key: "EstShares",
+      type: "string",
+    },
+  ];
+  const headerArraySPACLiquidationsList = [
+    {
+      name: "Company Name",
+      key: "CompanyName",
+      type: "string",
+    },
+    {
+      name: "Company Ticker",
+      key: "CompanyTicker",
+      type: "string",
+    },
+    {
+      name: "Liquidation Status",
+      key: "LiquidationStatus",
+      type: "string",
+    },
+    {
+      name: "IPO Date",
+      key: "IPODate",
+      type: "string",
+    },
+    {
+      name: "Liquidation Date",
+      key: "LiquidationDate",
+      type: "string",
+    },
+    {
+      name: "Liquidation Price",
+      key: "LiquidationPrice",
+      type: "string",
+    },
+    {
+      name: "Trust Value (M)",
+      key: "TrustValue",
+      type: "string",
+    },
+  ];
+  const header20PerformingDeSPACsList = [
+    {
+      name: "Company Name",
+      key: "Company Name",
+      type: "string",
+    },
+    {
+      name: "Ticker",
+      key: "Ticker",
+      type: "string",
+    },
+    {
+      name: "De-SPAC Closing Date",
+      key: "DeSPACClosingDate",
+      type: "string",
+    },
+    {
+      name: "Price",
+      key: "Price",
+      type: "string",
+    },
+    {
+      name: "Price % Chg.",
+      key: "PriceChg",
+      type: "string",
+    },
+    {
+      name: "Valuation at Deal",
+      key: "ValuationatDeal",
+      type: "string",
+    },
+    {
+      name: "Market Cap",
+      key: "MarketCap",
+      type: "string",
+    },
+    {
+      name: "Return from IPO (SPAC IPO)",
+      key: "ReturnfromIPO",
+      type: "string",
+    },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
+      type: "string",
+    },
+  ];
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [openFilterModal, setOpenFilterModal] = useState(false);
-  const [spacsListData, setSpacsListData] = useState<any>();
+  const [spacsListData, setSpacsListData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [isUser, setIsUser] = useState(false);
   const [filterCount, setFilerCount] = useState(0);
 
@@ -271,17 +622,35 @@ function CardElements() {
             </div>
           </div>
         </div>
-        <div style={{ overflow: "auto" }}>
+        <div style={{ width:'100%',overflow: 'auto' }}>
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            <MyTable
+            <ListingTrackTable
               data={spacsListData?.dataset}
-              itemsPerPage={itemsPerPage}
-              setItemPerPage={setItemPerPage}
+              headerArray={
+                selectedTab === 0
+                  ? headerArrayAllActiveSPACsList
+                  : selectedTab === 1
+                  ? headerArrayPreDealSPACsList
+                  : selectedTab === 2
+                  ? headerArrayAnnouncedSPACMergersList
+                  : selectedTab === 3
+                  ? headerArrayDeSPACsList
+                  : selectedTab === 4
+                  ? header20PerformingDeSPACsList
+                  : selectedTab === 5
+                  ? header20PerformingDeSPACsList
+                  : selectedTab === 6
+                  ? headerArraySPACTrustValuesList
+                  : headerArraySPACLiquidationsList
+              }
               currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
               paginate={paginate}
               totalLength={spacsListData?.additional_dataset}
+              showPagination
+              setItemPerPage={setItemPerPage}
               isUser={isUser}
             />
           )}

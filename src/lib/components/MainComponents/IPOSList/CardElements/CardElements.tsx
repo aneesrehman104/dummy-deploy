@@ -10,7 +10,10 @@ import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/proSvg.svg";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 import {
   TextField,
   InputAdornment,
@@ -52,20 +55,247 @@ function CardElements() {
       },
     },
   });
+
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [openFilterModal, setOpenFilterModal] = useState(false);
-  const [spacsListData, setSpacsListData] = useState<any>();
+  const [spacsListData, setSpacsListData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [isUser, setIsUser] = useState(false);
   const [filterCount, setFilerCount] = useState(0);
 
   const [itemsPerPage, setItemPerPage] = useState(5);
   const [filters, setFilters] = useState({
-    IPOYear:null,
-    IPOType:null,
-    IPOStatus:null
+    IPOYear: null,
+    IPOType: null,
+    IPOStatus: null,
   });
+  const headerPricedIPOsList = [
+    {
+      name: "Company Name",
+      key: "Company Name",
+      type: "string",
+    },
+    {
+      name: "Ticker",
+      key: "Ticker",
+      type: "string",
+    },
+    {
+      name: "IPO Type",
+      key: "IPOType",
+      type: "string",
+    },
+    {
+      name: "Pricing Date",
+      key: "PricingDate",
+      type: "string",
+    },
+    {
+      name: "Price",
+      key: "Price",
+      type: "string",
+    },
+    {
+      name: "Offer Size (M)",
+      key: "OfferSize",
+      type: "string",
+    },
+    {
+      name: "Return from IPO",
+      key: "ReturnfromIPO",
+      type: "string",
+    },
+  ];
+  const headerUpcomingIPOsList = [
+    {
+      name: "Company Name",
+      key: "Company Name",
+      type: "string",
+    },
+    {
+      name: "Ticker",
+      key: "Ticker",
+      type: "string",
+    },
+    {
+      name: "IPO Type",
+      key: "IPOType",
+      type: "string",
+    },
+    {
+      name: "Exchange",
+      key: "Exchange",
+      type: "string",
+    },
+    {
+      name: "Est. Pricing Date",
+      key: "EstPricingDate",
+      type: "string",
+    },
+    {
+      name: "Price Range",
+      key: "PriceRange",
+      type: "string",
+    },
+    {
+      name: "Offer Size (M)",
+      key: "OfferSize",
+      type: "string",
+    },
+  ];
+
+  const headerIPOGrapevineList = [
+    {
+      name: "Company Name",
+      key: "Company Name",
+      type: "string",
+    },
+    {
+      name: "IPO Status",
+      key: "IPOStatus",
+      type: "string",
+    },
+    {
+      name: "Rumored Date",
+      key: "RumoredDate",
+      type: "string",
+    },
+    {
+      name: "Rumored IPO Offering Size (M)",
+      key: "RumoredIPOOfferingSize",
+      type: "string",
+    },
+    {
+      name: "Rumored Source",
+      key: "RumoredSource",
+      type: "string",
+    },
+    {
+      name: "Rumored Link",
+      key: "RumoredLink",
+      type: "string",
+    },
+    {
+      name: "Rumor Inactive Date",
+      key: "RumorInactiveDate",
+      type: "string",
+    },
+    {
+      name: "Rumor Inactive Link",
+      key: "RumorInactiveLink",
+      type: "string",
+    },
+    {
+      name: "Rumor Inactive Source",
+      key: "RumorInactiveSource",
+      type: "string",
+    },
+  ];
+
+  const header20PerformingIPOsList = [
+    {
+      name: "Company Name",
+      key: "Company Name",
+      type: "string",
+    },
+    {
+      name: "Ticker",
+      key: "Ticker",
+      type: "string",
+    },
+    {
+      name: "IPO Type",
+      key: "IPOType",
+      type: "string",
+    },
+    {
+      name: "Pricing Date",
+      key: "PricingDate",
+      type: "string",
+    },
+    {
+      name: "Price",
+      key: "Price",
+      type: "string",
+    },
+    {
+      name: "Market Cap at IPO",
+      key: "MarketCapatIPO",
+      type: "string",
+    },
+    {
+      name: "Market Cap",
+      key: "MarketCap",
+      type: "string",
+    },
+    {
+      name: "Rumor Inactive Link",
+      key: "RumorInactiveLink",
+      type: "string",
+    },
+    {
+      name: "Offer Size (M)",
+      key: "OfferSize",
+      type: "string",
+    },
+    {
+      name: "Return from IPO",
+      key: "ReturnfromIPO",
+      type: "string",
+    },
+  ];
+
+  const header20PerformingDeSPACsList = [
+    {
+      name: "Company Name",
+      key: "Company Name",
+      type: "string",
+    },
+    {
+      name: "Ticker",
+      key: "Ticker",
+      type: "string",
+    },
+    {
+      name: "De-SPAC Closing Date",
+      key: "DeSPACClosingDate",
+      type: "string",
+    },
+    {
+      name: "Price",
+      key: "Price",
+      type: "string",
+    },
+    {
+      name: "Price % Chg.",
+      key: "PriceChg",
+      type: "string",
+    },
+    {
+      name: "Valuation at Deal",
+      key: "ValuationatDeal",
+      type: "string",
+    },
+    {
+      name: "Market Cap",
+      key: "MarketCap",
+      type: "string",
+    },
+    {
+      name: "Return from IPO (SPAC IPO)",
+      key: "ReturnfromIPO",
+      type: "string",
+    },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
+      type: "string",
+    },
+  ];
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
@@ -93,9 +323,9 @@ function CardElements() {
 
   const clearAll = () => {
     setFilters({
-      IPOYear:null,
-      IPOType:null,
-      IPOStatus:null
+      IPOYear: null,
+      IPOType: null,
+      IPOStatus: null,
     });
     setOpenFilterModal(false);
     setFilerCount(0);
@@ -234,13 +464,25 @@ function CardElements() {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            <MyTable
+            <ListingTrackTable
               data={spacsListData?.dataset}
-              itemsPerPage={itemsPerPage}
-              setItemPerPage={setItemPerPage}
+              headerArray={
+                selectedTab === 0
+                  ? headerPricedIPOsList
+                  : selectedTab === 1
+                  ? headerUpcomingIPOsList
+                  : selectedTab === 2
+                  ? headerIPOGrapevineList
+                  : selectedTab === 3
+                  ? header20PerformingIPOsList
+                  : header20PerformingIPOsList
+              }
               currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
               paginate={paginate}
               totalLength={spacsListData?.additional_dataset}
+              showPagination
+              setItemPerPage={setItemPerPage}
               isUser={isUser}
             />
           )}
@@ -475,7 +717,7 @@ function CardElements() {
                     >
                       <MenuItem value={"Rumor Active"}>Rumor Active</MenuItem>
                       <MenuItem value={" Rumor Inactive"} disabled={!isUser}>
-                         Rumor Inactive
+                        Rumor Inactive
                         <Image
                           src={proSvg}
                           alt="filterSvg"
@@ -489,28 +731,28 @@ function CardElements() {
               </div>
             ) : selectedTab === 3 ? (
               <div
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-                flexWrap: "wrap",
-              }}
-            >
-              <div className={styles.filterModalStyling}>
-                Not have any filter
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div className={styles.filterModalStyling}>
+                  Not have any filter
+                </div>
               </div>
-            </div>
             ) : (
               <div
-              style={{
-                display: "flex",
-                justifyContent: "space-around",
-                flexWrap: "wrap",
-              }}
-            >
-              <div className={styles.filterModalStyling}>
-                Not have any filter
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div className={styles.filterModalStyling}>
+                  Not have any filter
+                </div>
               </div>
-            </div>
             )}
             <div
               style={{

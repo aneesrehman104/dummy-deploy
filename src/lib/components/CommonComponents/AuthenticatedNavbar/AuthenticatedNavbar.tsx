@@ -95,7 +95,7 @@ export default function AuthenticatedNavbar(props: Props) {
     setIsSearchModalOpen(false);
   };
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "-webkit-box" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
