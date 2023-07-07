@@ -6,7 +6,28 @@ import { URLs } from "@/lib/ts/apiUrl";
 import Skeleton from "@mui/material/Skeleton";
 function TwitterFeed() {
   const [isLoading, setIsLoading] = useState(true);
-  const [newsData, setNewsData] = useState<any>(null);
+  const [newsData, setNewsData] = useState<any>({ dataset: [
+    {
+      news: " Headline call out goes here, truncate at 54 charact..Headline call out goes here, truncate at 54 charact..",
+      sitename: "Site name",
+    },
+    {
+      news: " Headline call out goes here, truncate at 54 charact..",
+      sitename: "Site name",
+    },
+    {
+      news: " Headline call out goes here, truncate at 54 charact..",
+      sitename: "Site name",
+    },
+    {
+      news: " Headline call out goes here, truncate at 54 charact..",
+      sitename: "Site name",
+    },
+    {
+      news: " Headline call out goes here, truncate at 54 charact..",
+      sitename: "Site name",
+    },
+  ],});
 
   const getNews = async () => {
     setIsLoading(true);

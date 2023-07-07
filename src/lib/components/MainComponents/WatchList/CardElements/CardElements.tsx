@@ -1,109 +1,153 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./CardElements.module.css";
-import { useState } from "react";
-import MyTable from "./functions";
-function CardElements() {
-  const [selectedTab, setSelectedTab] = useState(1);
+import { getApiWithoutAuth } from "@/lib/ts/api";
+import { URLs } from "@/lib/ts/apiUrl";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
+function CardElements({ selectedTab }: any) {
   const [currentPage, setCurrentPage] = useState(1);
-
-  const [itemsPerPage] = useState(2);
-  const data = [
+  const [isLoading, setIsLoading] = useState(true);
+  const [tableData, setTableData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
+  const [itemsPerPage] = useState(5);
+  const tabValues: { [key: number]: string } = {
+    0: "ipo",
+    1: "merger",
+    2: "spac",
+  };
+  const headerArrayIPO = [
     {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
+      name: "Company",
+      key: "Company",
+      type: "string",
     },
     {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
+      name: "Ticker",
+      key: "Ticker",
+      type: "string",
     },
     {
-      company: "Activision3",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23T",
+      name: "IPO Status",
+      key: "IPOStatus",
+      type: "string",
     },
     {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
+      name: "IPO Date",
+      key: "IPODate",
+      type: "string",
     },
     {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
+      name: "Price",
+      key: "Price",
+      type: "string",
     },
     {
-      company: "Activision3",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23T",
-    },
-    {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
-    },
-    {
-      company: "Activision",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23B",
-    },
-    {
-      company: "Activision3",
-      symbol: "ACTIA",
-      price: "$21",
-      today: "+5.62%",
-      marketCap: "$723.23T",
+      name: "Daily Chg %",
+      key: "DailyChg",
+      type: "string",
     },
   ];
+  const headerArrayMergers = [
+    {
+      name: "Deal Name",
+      key: "Deal Name",
+      type: "string",
+    },
+    {
+      name: "Company / Ticker (Acquirer)",
+      key: "CompanyTicker",
+      type: "string",
+    },
+    {
+      name: "Merger Status",
+      key: "MergerStatus",
+      type: "string",
+    },
+    {
+      name: "Merger Type",
+      key: "MergerType",
+      type: "string",
+    },
+    {
+      name: "Target Price",
+      key: "TargetPrice",
+      type: "string",
+    },
+    {
+      name: "Target Daily Chg %",
+      key: "TargetDailyChg",
+      type: "string",
+    },
+    {
+      name: "Acquirer Price",
+      key: "AcquirerPrice",
+      type: "string",
+    },
+    {
+      name: "Acquirer Daily Chg %",
+      key: "AcquirerDailyChg",
+      type: "string",
+    },
+  ];
+  const headerArraySpac = [
+    {
+      name: "Company",
+      key: "Company",
+      type: "string",
+    },
+    {
+      name: "Ticker",
+      key: "Ticker",
+      type: "string",
+    },
+    {
+      name: "SPAC Progress Status with Merger Partner",
+      key: "SPACProgressStatuswithMergerPartner",
+      type: "string",
+    },
+    {
+      name: "Price",
+      key: "Price",
+      type: "string",
+    },
+    {
+      name: "Daily Chg %",
+      key: "DailyChg",
+      type: "string",
+    },
+    {
+      name: "Trust Value",
+      key: "TrustValue",
+      type: "string",
+    },
+  ];
+
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+  const getLatestClosed = async () => {
+    setIsLoading(true);
+    const response = await getApiWithoutAuth(
+      `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=grapevine&subtype=${tabValues[selectedTab]}`
+    );
+    if (response.status === 200) {
+      setTableData(response.data);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getLatestClosed();
+  }, [selectedTab, currentPage]);
 
   return (
-    <div className={styles.stockstablesection}>
-      <div className={styles.calenderTabs}>
-        <div
-          onClick={() => setSelectedTab(0)}
-          className={`${styles.headerCell} ${
-            selectedTab === 0 && styles.selectedHeader
-          }`}
-        >
-          IPO Watchlist
-        </div>
-        <div
-          onClick={() => setSelectedTab(1)}
-          className={`${styles.headerCell} ${
-            selectedTab === 1 && styles.selectedHeader
-          }`}
-        >
-          Merger Watchlist
-        </div>
-        <div
-          onClick={() => setSelectedTab(2)}
-          className={`${styles.headerCell} ${
-            selectedTab === 2 && styles.selectedHeader
-          }`}
-        >
-          SPAC Watchlist
-        </div>
-      </div>
+    <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>
         {selectedTab == 0
           ? "IPO Watchlist"
@@ -113,15 +157,28 @@ function CardElements() {
       </div>
       <div className={styles.tableContainerInner}>
         <div style={{ overflow: "auto" }}>
-          <MyTable
-            data={data}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            paginate={paginate}
-          />
+          {isLoading ? (
+            <SkeltonTable />
+          ) : (
+            <ListingTrackTable
+              headerArray={
+                selectedTab === 0
+                  ? headerArrayIPO
+                  : selectedTab === 1
+                  ? headerArrayMergers
+                  : headerArraySpac
+              }
+              data={tableData?.dataset}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              paginate={paginate}
+              totalLength={tableData?.additional_dataset}
+              showPagination
+            />
+          )}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

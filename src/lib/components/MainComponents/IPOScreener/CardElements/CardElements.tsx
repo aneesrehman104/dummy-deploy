@@ -12,7 +12,10 @@ import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/proSvg.svg";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 import {
   TextField,
   InputAdornment,
@@ -74,7 +77,10 @@ function CardElements() {
   const [isLoading, setIsLoading] = useState(true);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openColumnModal, setOpenColumnModal] = useState(false);
-  const [screenerData, setScreenerData] = useState<any>();
+  const [screenerData, setScreenerData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCount, setFilerCount] = useState(0);
@@ -318,15 +324,16 @@ function CardElements() {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            <MyTable
+            <ListingTrackTable
               data={screenerData?.dataset}
-              itemsPerPage={itemsPerPage}
-              setItemPerPage={setItemPerPage}
+              headerArray={personName}
               currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
               paginate={paginate}
               totalLength={screenerData?.additional_dataset}
+              showPagination
+              setItemPerPage={setItemPerPage}
               isUser={isUser}
-              headerArray={personName}
             />
           )}
         </div>
