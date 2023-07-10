@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CardElements.module.css";
-import MyTable from "./functions";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import searchIcon from "../../../../../../public/searchIcon.svg";
@@ -15,6 +14,7 @@ import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
   ListingTrackTable,
+  CommonfiButton,
 } from "@/lib/components/CommonComponents";
 import {
   TextField,
@@ -57,6 +57,17 @@ function CardElements() {
       },
     },
   });
+  const CssTextFieldBorder = styled(TextField)({
+    height: "40px",
+    border: "1px solid #dddee0",
+    background: "#dddee0",
+    borderRadius: "8px",
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        border: "none",
+      },
+    },
+  });
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -77,6 +88,11 @@ function CardElements() {
   const [isLoading, setIsLoading] = useState(true);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openColumnModal, setOpenColumnModal] = useState(false);
+  const [openModalSavedScreen, setOpenModalSavedScreen] = useState(false);
+  const [openModalCheckScreen, setOpenModalCheckScreen] = useState(false);
+  const [name, setName] = useState("");
+  const [userType, setUserType] = useState("plus");
+
   const [screenerData, setScreenerData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
@@ -89,7 +105,7 @@ function CardElements() {
     IPOType: null,
     IPOStatus: null,
   });
-  const [isUser, setIsUser] = useState(false);
+  const [isUser, setIsUser] = useState(true);
 
   const [itemsPerPage, setItemPerPage] = useState(5);
   const tabData = [
@@ -123,6 +139,11 @@ function CardElements() {
       name: "Market Cap",
       key: "marketCap",
     },
+  ]);
+  const [previousSaveScreen, setPreviousSaveScreen] = useState([
+    { name: "anees", id: 20 },
+    { name: "anees", id: 20 },
+    { name: "anees", id: 20 },
   ]);
 
   const handleChange = (
@@ -224,6 +245,20 @@ function CardElements() {
         key: "vol",
       },
     ]);
+    setFilters({
+      IPOYear: null,
+      IPOType: null,
+      IPOStatus: null,
+    });
+  };
+  const saveScreenApi = () => {
+    console.log(
+      "==============name",
+      name,
+      filters,
+      `${tabValues[selectedTab]}`
+    );
+    setOpenModalSavedScreen(false);
   };
   return (
     <section className={styles.stockstablesection}>
@@ -303,6 +338,35 @@ function CardElements() {
               }}
             >
               <Image src={proSvg} alt="filterSvg" width={50} height={26} />
+              <div
+                className={styles.filterGap}
+                onClick={() => setOpenModalCheckScreen(true)}
+                // onClick={() => setOpenModalSavedScreen(true)}
+              >
+                <Image
+                  src={saveScreenerSvg}
+                  alt="filterSvg"
+                  width={18}
+                  height={18}
+                />
+
+                <div>CHECK SCREENS</div>
+              </div>{" "}
+            </div>
+            {/* <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+                border: "2px solid red",
+              }}
+              // disabled={filterCount === 0 ? true : false}
+              onClick={
+                filterCount === 0
+                  ? () => {}
+                  : () => setOpenModalSavedScreen(true)
+              }
+            >
               <div className={styles.filterGap}>
                 <Image
                   src={saveScreenerSvg}
@@ -311,9 +375,9 @@ function CardElements() {
                   height={18}
                 />
 
-                <div>SAVED SCREENS</div>
+                <div>SAVED</div>
               </div>{" "}
-            </div>
+            </div> */}
             <div className={styles.filterGap}>
               <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
               <div>EXPORT</div>
@@ -594,6 +658,7 @@ function CardElements() {
                       Find Column
                     </InputLabel>
                     <Select
+                      label="Find Column"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -657,6 +722,7 @@ function CardElements() {
                       Company Profile
                     </InputLabel>
                     <Select
+                      label="Company Profile"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -713,6 +779,7 @@ function CardElements() {
                       IPO Profile
                     </InputLabel>
                     <Select
+                      label="IPO Profile"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -769,6 +836,7 @@ function CardElements() {
                       Trading
                     </InputLabel>
                     <Select
+                      label="Trading"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -843,6 +911,7 @@ function CardElements() {
                       Find Column
                     </InputLabel>
                     <Select
+                      label="Find Column"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -906,6 +975,7 @@ function CardElements() {
                       Company Profile
                     </InputLabel>
                     <Select
+                      label="Company Profile"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -962,6 +1032,7 @@ function CardElements() {
                       IPO Profile
                     </InputLabel>
                     <Select
+                      label="IPO Profile"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -1033,6 +1104,351 @@ function CardElements() {
                 Apply
               </Button>
             </div> */}
+          </Box>
+        </>
+      </Modal>
+
+      <Modal
+        keepMounted
+        open={openModalSavedScreen}
+        onClose={() => setOpenModalSavedScreen(false)}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <>
+          <Box sx={style}>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Image
+                src={crossIconSvg}
+                alt="filterSvg"
+                width={18}
+                height={18}
+                onClick={() => setOpenModalSavedScreen(false)}
+              />
+            </div>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                fullWidth
+                placeholder="Name the Screen"
+                id="fullWidth"
+                sx={{ width: "80%" }}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setName(event.target.value);
+                }}
+              />
+              <Button
+                onClick={() => saveScreenApi()}
+                variant="text"
+                color="success"
+                disabled={name === ""}
+              >
+                Saved
+              </Button>
+            </div>
+          </Box>
+        </>
+      </Modal>
+
+      <Modal
+        keepMounted
+        open={openModalCheckScreen}
+        onClose={() => setOpenModalCheckScreen(false)}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <>
+          <Box sx={style}>
+            <>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Image
+                  src={crossIconSvg}
+                  alt="filterSvg"
+                  width={18}
+                  height={18}
+                  onClick={() => setOpenModalCheckScreen(false)}
+                />
+              </div>
+              <div>Saved Screens</div>
+              {userType === "free" ? (
+                <div
+                  style={{
+                    fontSize: "12px",
+                  }}
+                >
+                  <div className={styles.filterGap} style={{ marginTop: 7 }}>
+                    <Image src={proSvg} alt="proSvg" width={50} height={32} />
+                    <div>
+                      Upgrade the one of our Premium plans to use this feacture.
+                    </div>
+                  </div>
+                  <div style={{ marginTop: 7 }}>
+                    To save a new screen, select your desired filters and then
+                    click 'Save This Screen' below.
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      marginTop: 7,
+                    }}
+                  >
+                    <CssTextFieldBorder
+                      fullWidth
+                      sx={{ width: "50%" }}
+                      placeholder="Name the Screen"
+                      size="small"
+                      hiddenLabel
+                    />
+                    <Button variant="text" color="success" disabled>
+                      Save
+                    </Button>
+                  </div>
+                  <div style={{ marginTop: 7 }}>
+                    Or select a previously saved screen:
+                  </div>
+
+                  <div style={{ marginTop: 7 }}>
+                    No Saved Screen Yet! Add one
+                  </div>
+                  <div className={styles.filterGap} style={{ marginTop: 7 }}>
+                    <Image
+                      src={selectedColumnSvg}
+                      alt="selectedColumnSvg"
+                      width={20}
+                      height={20}
+                    />
+                    <div>
+                      Only filters will be saved, any selected columns will not
+                      be saved.
+                    </div>
+                  </div>
+                </div>
+              ) : userType === "plus" ? (
+                <div
+                  style={{
+                    fontSize: "12px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      marginTop: 7,
+                    }}
+                  >
+                    <CssTextFieldBorder
+                      fullWidth
+                      sx={{ width: "50%" }}
+                      placeholder="Name the Screen"
+                      size="small"
+                      hiddenLabel
+                      value={name}
+                      disabled={previousSaveScreen.length > 2}
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>
+                      ) => {
+                        setName(event.target.value);
+                      }}
+                    />
+                    <Button
+                      variant="text"
+                      color="success"
+                      onClick={() => saveScreenApi()}
+                      disabled={previousSaveScreen.length > 2 && name === ""}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                  <div style={{ marginTop: 7 }}>
+                    To save a new screen, select your desired filters and then
+                    click 'Save This Screen' below.
+                  </div>
+                  {previousSaveScreen.length === 0 ? (
+                    <div style={{ marginTop: 7 }}>
+                      No Saved Screen Yet! Add one
+                    </div>
+                  ) : (
+                    previousSaveScreen.map((item: any, index: number) => {
+                      return (
+                        <div
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            marginTop: "7px",
+                            alignItems: "center",
+                          }}
+                        >
+                          <CssTextFieldBorder
+                            fullWidth
+                            sx={{ width: "50%" }}
+                            placeholder="Name the Screen"
+                            size="small"
+                            hiddenLabel
+                          />
+                          <Button
+                            variant="text"
+                            color="inherit"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Rename
+                          </Button>
+                          <Button
+                            variant="text"
+                            color="error"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Delete
+                          </Button>
+                          <Button
+                            variant="text"
+                            color="success"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Apply
+                          </Button>
+                        </div>
+                      );
+                    })
+                  )}
+
+                  <div className={styles.filterGap} style={{ marginTop: 7 }}>
+                    <Image
+                      src={selectedColumnSvg}
+                      alt="selectedColumnSvg"
+                      width={20}
+                      height={20}
+                    />
+                    <div>
+                      Only filters will be saved, any selected columns will not
+                      be saved.
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    fontSize: "12px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      marginTop: 7,
+                    }}
+                  >
+                    <CssTextFieldBorder
+                      fullWidth
+                      sx={{ width: "50%" }}
+                      placeholder="Name the Screen"
+                      size="small"
+                      hiddenLabel
+                    />
+                    <Button
+                      variant="text"
+                      color="success"
+                      onClick={() => saveScreenApi()}
+                      disabled={name === ""}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                  <div style={{ marginTop: 7 }}>
+                    To save a new screen, select your desired filters and then
+                    click 'Save This Screen' below.
+                  </div>
+                  {previousSaveScreen.length === 0 ? (
+                    <div style={{ marginTop: 7 }}>
+                      No Saved Screen Yet! Add one
+                    </div>
+                  ) : (
+                    previousSaveScreen.map((item: any, index: number) => {
+                      return (
+                        <div
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            marginTop: "7px",
+                            alignItems: "center",
+                          }}
+                        >
+                          <CssTextFieldBorder
+                            fullWidth
+                            sx={{ width: "50%" }}
+                            placeholder="Name the Screen"
+                            size="small"
+                            hiddenLabel
+                            value={name}
+                            onChange={(
+                              event: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                              setName(event.target.value);
+                            }}
+                          />
+                          <Button
+                            variant="text"
+                            color="inherit"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Rename
+                          </Button>
+                          <Button
+                            variant="text"
+                            color="error"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Delete
+                          </Button>
+                          <Button
+                            variant="text"
+                            color="success"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Apply
+                          </Button>
+                        </div>
+                      );
+                    })
+                  )}
+
+                  <div className={styles.filterGap} style={{ marginTop: 7 }}>
+                    <Image
+                      src={selectedColumnSvg}
+                      alt="selectedColumnSvg"
+                      width={20}
+                      height={20}
+                    />
+                    <div>
+                      Only filters will be saved, any selected columns will not
+                      be saved.
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           </Box>
         </>
       </Modal>
