@@ -106,8 +106,7 @@ function AggrecatedMiniTable() {
             </div>
           </div>
         </div>
-        <div className={styles.card1}>
-          <div className={styles.paper}>
+        <div className={styles.card}>
             <div className={styles.cardElements}>
               <div className={styles.ipos}>{`IPOs `}</div>
               <div className={styles.showSpacsParent}>
@@ -155,10 +154,8 @@ function AggrecatedMiniTable() {
                 </div>
               </div>
             </div>
-          </div>
         </div>
-        <div className={styles.card1}>
-          <div className={styles.paper}>
+        <div className={styles.card}>
             <div className={styles.cardcontent}>
               <div className={styles.ipos}>{`Mergers `}</div>
               <div className={styles.showSpacsParent}>
@@ -224,7 +221,6 @@ function AggrecatedMiniTable() {
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </section>

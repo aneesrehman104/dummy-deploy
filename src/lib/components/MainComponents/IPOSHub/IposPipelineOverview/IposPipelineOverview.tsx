@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./LatestClosedMergers.module.css";
+import styles from "./IposPipelineOverview.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
@@ -8,22 +8,25 @@ import {
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
 
-function LatestClosedMergers() {
+function IposPipelineOverview() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [LatestClosedMergersData, setLatestClosedMergersData] =
-    useState<any>({
-      dataset: [],
-      additional_dataset: { totalLength: 20 },
-    });
+  const [iPOSTradingIposPipelineOverviewData, setIPOSTradingIposPipelineOverviewData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [itemsPerPage] = useState(5);
 
-  const getLatestClosedMergersData = async () => {
+  const getIPOSTradingIposPipelineOverviewData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
+    const response = await getApiWithoutAuth(
+      `${URLs.iposGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
+        selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
+      }&gainOrLoser=gain`
+    );
     if (response.status === 200) {
-      setLatestClosedMergersData(response.data);
+      setIPOSTradingIposPipelineOverviewData(response.data);
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -31,7 +34,7 @@ function LatestClosedMergers() {
   };
 
   useEffect(() => {
-    getLatestClosedMergersData();
+    getIPOSTradingIposPipelineOverviewData();
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
@@ -39,16 +42,18 @@ function LatestClosedMergers() {
   };
 
   const tabData = [
-    { label: "Expected This Week", index: 0 },
-    { label: "Next Week", index: 1 },
-    { label: "After Next Week", index: 2 },
+    { label: "Upcoming IPOs", index: 0 },
+    { label: "Latest Priced", index: 1 },
+    { label: "Recently Filed", index: 2 },
+    { label: "Rumored", index: 3 },
+
   ];
   const handleTabClick = (tabIndex: any) => {
     setSelectedTab(tabIndex);
     setCurrentPage(1);
   };
 
-  const headerArrayExpectedThisWeek = [
+  const headerArrayUpcomingIPOs = [
     {
       name: "Company Name",
       key: "CompanyName",
@@ -57,6 +62,11 @@ function LatestClosedMergers() {
     {
       name: "Ticker",
       key: "Ticker",
+      type: "string",
+    },
+    {
+      name: "IPO Type",
+      key: "IPOType",
       type: "string",
     },
     {
@@ -78,10 +88,10 @@ function LatestClosedMergers() {
       name: "Offer Size (M)",
       key: "OfferSize",
       type: "string",
-    },
+    }
   ];
 
-  const headerArrayNextWeek = [
+  const headerArrayLatestPriced = [
     {
       name: "Company Name",
       key: "CompanyName",
@@ -93,27 +103,32 @@ function LatestClosedMergers() {
       type: "string",
     },
     {
-      name: "Exchange",
-      key: "Exchange",
+      name: "IPO Type",
+      key: "IPOType",
       type: "string",
     },
     {
-      name: "Est. Pricing Date",
-      key: "EstPricingDate",
+      name: "Price Date",
+      key: "PriceDate",
       type: "string",
     },
     {
-      name: "Price Range",
-      key: "PriceRange",
-      type: "string",
+      name:"Price",
+      key:"price",
+      type:"string"
     },
     {
       name: "Offer Size (M)",
       key: "OfferSize",
       type: "string",
     },
+    {
+      name:"Return from IPO",
+      key:"ReturnfromIPO",
+      type:"string"
+    }
   ];
-  const headerArrayAfterNextWeek = [
+  const headerArrayRecentlyFiled = [
     {
       name: "Company Name",
       key: "CompanyName",
@@ -125,29 +140,68 @@ function LatestClosedMergers() {
       type: "string",
     },
     {
+      name: "IPO Type",
+      key: "IPOType",
+      type: "string",
+    },
+    {
       name: "Exchange",
       key: "Exchange",
       type: "string",
     },
     {
-      name: "Est. Pricing Date",
-      key: "EstPricingDate",
+      name: "Filing Date",
+      key: "FilingDate",
       type: "string",
     },
     {
-      name: "Price Range",
-      key: "PriceRange",
+      name: "Proposed Price",
+      key: "ProposedPrice",
       type: "string",
     },
     {
       name: "Offer Size (M)",
       key: "OfferSize",
+      type: "string",
+    }
+  ];
+
+
+  const headerArrayRumored = [
+    {
+      name: "Company Name",
+      key: "CompanyName",
+      type: "string",
+    },
+    {
+      name: "Rumor Status",
+      key: "RumorStatus",
+      type: "string",
+    },
+    {
+      name: "Rumored Date",
+      key: "RumoredDate",
+      type: "string",
+    },
+    {
+      name: "Rumored Market Cap (M)",
+      key: "RumoredMarketCap",
+      type: "string",
+    },
+    {
+      name: "Rumored IPO Offering Size (M)",
+      key: "RumoredIPOOfferingSize",
+      type: "string",
+    },
+    {
+      name: "Rumor Source",
+      key: "RumorSource",
       type: "string",
     },
   ];
   return (
     <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>IPO Calendar</div>
+      <div className={styles.tableTitle}>IPO Pipeline Overview</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
           {tabData.map(({ label, index }) => (
@@ -166,20 +220,16 @@ function LatestClosedMergers() {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            LatestClosedMergersData && (
+            iPOSTradingIposPipelineOverviewData && (
               <ListingTrackTable
-                data={LatestClosedMergersData?.dataset}
+                data={iPOSTradingIposPipelineOverviewData?.dataset}
                 headerArray={
-                  selectedTab === 0
-                    ? headerArrayExpectedThisWeek
-                    : selectedTab === 1
-                    ? headerArrayNextWeek
-                    : headerArrayAfterNextWeek
+                  selectedTab === 0 ? headerArrayUpcomingIPOs : selectedTab === 1 ? headerArrayLatestPriced : selectedTab === 2 ? headerArrayRecentlyFiled: headerArrayRumored
                 }
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 paginate={paginate}
-                totalLength={LatestClosedMergersData?.additional_dataset}
+                totalLength={iPOSTradingIposPipelineOverviewData?.additional_dataset}
                 showPagination
               />
             )
@@ -190,4 +240,4 @@ function LatestClosedMergers() {
   );
 }
 
-export default LatestClosedMergers;
+export default IposPipelineOverview;

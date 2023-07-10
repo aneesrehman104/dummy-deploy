@@ -3,7 +3,7 @@ import React from "react";
 import EventSummary from "./EventSummary/EventSummary";
 import Gainer from "./Gainer/Gainer";
 import Losers from "./Losers/Losers";
-import Announced from "./Announced/Announced";
+import LatestAnnouncedMergers from "./LatestAnnouncedMergers/LatestAnnouncedMergers";
 import Closed from "./Closed/Closed";
 import News from "./News/News";
 import MergerMarketStats from "./MergerMarketStats/MergerMarketStats";
@@ -18,7 +18,7 @@ const MergerHub = () => {
       <section>
         <EventSummary />
         <MergerMarketStats />
-        <Announced />
+        <LatestAnnouncedMergers />
         <Closed />
         <Gainer />
         <Losers />

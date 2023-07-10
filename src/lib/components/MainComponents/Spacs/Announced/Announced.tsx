@@ -5,10 +5,13 @@ import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
-  ListingTrackTable,
+  ListingTrackTable,  
 } from "@/lib/components/CommonComponents";
 function Announced() {
-  const [latestAnnounced, setLatestAnnounced] = useState<any>(null);
+  const [latestAnnounced, setLatestAnnounced] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [isLoadingAnnounced, setIsLoadingAnnounced] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
@@ -34,33 +37,38 @@ function Announced() {
   };
   const headerArray = [
     {
-      name: "Company",
-      key: "company",
+      name: "Target",
+      key: "target",
       type: "string",
     },
     {
-      name: "Event",
-      key: "event",
+      name: "Acquirer",
+      key: "Acquirer",
       type: "string",
     },
     {
-      name: "Status",
-      key: "status",
+      name: "Announced Date",
+      key: "AnnouncedDate",
       type: "string",
     },
     {
-      name: "Est. Pricing Date",
-      key: "est_pricing_date",
+      name: "Valuation",
+      key: "Valuation",
       type: "string",
     },
     {
-      name: "Price/range",
-      key: "price",
+      name: "DA Link",
+      key: "DALink",
       type: "string",
     },
     {
-      name: "Proceeds/range",
-      key: "proceed",
+      name: "InvestorPres",
+      key: "InvestorPres",
+      type: "string",
+    },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
       type: "string",
     },
   ];
@@ -73,7 +81,7 @@ function Announced() {
           width: "100%",
         }}
       >
-        <div className={styles.tableTitle}>Latest Announced SPAC Deals</div>
+        <div className={styles.tableTitle}>Latest Announced SPAC Mergers</div>
       </div>
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>

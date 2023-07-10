@@ -12,7 +12,10 @@ function Gainer() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [iPOSTradingGainerData, setIPOSTradingGainerData] = useState<any>();
+  const [iPOSTradingGainerData, setIPOSTradingGainerData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [itemsPerPage] = useState(5);
 
   const getIPOSTradingGainerData = async () => {

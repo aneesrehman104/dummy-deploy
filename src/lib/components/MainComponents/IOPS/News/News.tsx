@@ -5,7 +5,17 @@ import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackNews } from "@/lib/components/CommonComponents";
 function News() {
   const [isLoading, setIsLoading] = useState(true);
-  const [newsData, setNewsData] = useState<any>({dataset:[]});
+  const [newsData, setNewsData] = useState<any>({
+    dataset: [
+      {
+        username: "abc",
+        date: "27-5-2023",
+        news_title: "This is True",
+        newsDetail: "get from pakistan",
+        newsTag: "facebook",
+      },
+    ],
+  });
 
   const getNews = async () => {
     setIsLoading(true);

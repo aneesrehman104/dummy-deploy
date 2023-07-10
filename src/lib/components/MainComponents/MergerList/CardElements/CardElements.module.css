@@ -1,5 +1,5 @@
 .stockstablesection {
-  align-self: stretch;
+  /* align-self: stretch; */
   display: flex;
   flex-direction: column;
   align-items: flex-start;

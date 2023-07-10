@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./HomeIpoTable.module.css";
 import { useState, useEffect } from "react";
 import {
   Table,
@@ -89,91 +88,91 @@ const ListingTrackTable = ({
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem);
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          {headerArray.map((item: any) => {
-            return (
-              <TableCell key={item.key} onClick={() => handleSort(item.key)}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    fontWeight: 600,
-                  }}
-                >
-                  {sortDirection === TABLETITLESECTION.desc &&
-                  sortColumn === item.key ? (
-                    <ArrowUpwardIcon fontSize="inherit" />
-                  ) : (
-                    <ArrowDownwardIcon fontSize="inherit" />
-                  )}
-                  {item.name}
-                </div>
-              </TableCell>
-            );
-          })}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {sortedData.map((item, index) => (
-          <TableRow key={index}>
-            {headerArray.map((headerItem: any) =>
-              headerItem.type === "string" ? (
-                <TableCell key={headerItem.key}>
-                  {item[headerItem.key]}
-                </TableCell>
-              ) : headerItem.type === "gainer" ? (
-                <TableCell style={{ color: "#0AAC1A" }}>
-                  {item[headerItem.key]}
-                </TableCell>
-              ) : headerItem.type === "loser" ? (
-                <TableCell style={{ color: "#E33126" }}>
-                  {item[headerItem.key]}
-                </TableCell>
-              ) : (
-                <TableCell>
-                  <DynamicChart data={item[headerItem.key]} />
-                </TableCell>
-              )
-            )}
-          </TableRow>
-        ))}
-      </TableBody>
-      {showPagination ? (
-        <tfoot>
+      <Table style={{width: '100%'}}>
+        <TableHead style={{width:'100%'}}>
           <TableRow>
-            {options ? (
-              <TablePagination
-                colSpan={6} // Number of columns in the table
-                count={totalLength?.totalLength} // Total number of items
-                rowsPerPage={itemsPerPage}
-                page={currentPage - 1} // Page number starts from 0
-                onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
-                rowsPerPageOptions={[5, 10, 25, 50]}
-                onRowsPerPageChange={handleChangeRowsPerPage} // Hide rows per page options
-                SelectProps={{
-                  open: isUser && isSelectOpen, // Open the dropdown if paid and isSelectOpen is true
-                  onOpen: handleSelectOpen,
-                  onClose: handleSelectClose,
-                }}
-              />
-            ) : (
-              <TablePagination
-                colSpan={6} // Number of columns in the table
-                count={totalLength?.totalLength} // Total number of items
-                rowsPerPage={itemsPerPage}
-                page={currentPage - 1} // Page number starts from 0
-                onPageChange={(event: any, newPage: any) =>
-                  paginate(newPage + 1)
-                } // Event handler for page change
-                rowsPerPageOptions={[]} // Hide rows per page options
-              />
-            )}
+            {headerArray.map((item: any) => {
+              return (
+                <TableCell key={item.key} onClick={() => handleSort(item.key)}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {sortDirection === TABLETITLESECTION.desc &&
+                    sortColumn === item.key ? (
+                      <ArrowUpwardIcon fontSize="inherit" />
+                    ) : (
+                      <ArrowDownwardIcon fontSize="inherit" />
+                    )}
+                    {item.name}
+                  </div>
+                </TableCell>
+              );
+            })}
           </TableRow>
-        </tfoot>
-      ) : null}
-    </Table>
+        </TableHead>
+        <TableBody>
+          {sortedData.map((item, index) => (
+            <TableRow key={index}>
+              {headerArray.map((headerItem: any) =>
+                headerItem.type === "string" ? (
+                  <TableCell key={headerItem.key}>
+                    {item[headerItem.key]}
+                  </TableCell>
+                ) : headerItem.type === "gainer" ? (
+                  <TableCell style={{ color: "#0AAC1A" }}>
+                    {item[headerItem.key]}
+                  </TableCell>
+                ) : headerItem.type === "loser" ? (
+                  <TableCell style={{ color: "#E33126" }}>
+                    {item[headerItem.key]}
+                  </TableCell>
+                ) : (
+                  <TableCell>
+                    <DynamicChart data={item[headerItem.key]} />
+                  </TableCell>
+                )
+              )}
+            </TableRow>
+          ))}
+        </TableBody>
+        {showPagination ? (
+          <tfoot>
+            <TableRow>
+              {options ? (
+                <TablePagination
+                  // colSpan={6} // Number of columns in the table
+                  count={totalLength?.totalLength} // Total number of items
+                  rowsPerPage={itemsPerPage}
+                  page={currentPage - 1} // Page number starts from 0
+                  onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
+                  rowsPerPageOptions={[5, 10, 25, 50]}
+                  onRowsPerPageChange={handleChangeRowsPerPage} // Hide rows per page options
+                  SelectProps={{
+                    open: isUser && isSelectOpen, // Open the dropdown if paid and isSelectOpen is true
+                    onOpen: handleSelectOpen,
+                    onClose: handleSelectClose,
+                  }}
+                />
+              ) : (
+                <TablePagination
+                  // colSpan={6} // Number of columns in the table
+                  count={totalLength?.totalLength} // Total number of items
+                  rowsPerPage={itemsPerPage}
+                  page={currentPage - 1} // Page number starts from 0
+                  onPageChange={(event: any, newPage: any) =>
+                    paginate(newPage + 1)
+                  } // Event handler for page change
+                  rowsPerPageOptions={[]} // Hide rows per page options
+                />
+              )}
+            </TableRow>
+          </tfoot>
+        ) : null}
+      </Table>
   );
 };
 

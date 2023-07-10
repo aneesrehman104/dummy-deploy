@@ -1,44 +1,130 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./GrapevineGraveyard.module.css";
-import { useState } from "react";
-import MyTable from "./functions";
+import { getApiWithoutAuth } from "@/lib/ts/api";
+import { URLs } from "@/lib/ts/apiUrl";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 function GrapevineGraveyard() {
   const [selectedTab, setSelectedTab] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [grapevineGraveyardData, setGrapevineGraveyardData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
+  const [itemsPerPage] = useState(5);
 
-  const [itemsPerPage] = useState(2);
-  const data = [
+  const tabData = [
+    { label: "Rumored Mergers", index: 0 },
+    { label: "Terminated Mergers", index: 1 },
+    { label: "Talks Failed", index: 2 },
+  ];
+  const tabValues: { [key: number]: string } = {
+    0: "rumor",
+    1: "latest_failed",
+    2: "other",
+  };
+  const headerArrayRumoredMergers = [
     {
-      company: "Activision",
-      event: "IPO",
-      status: "Announced",
-      pricingDate: "Jan 2 ‘22",
-      priceRange: "$21/share",
-      proceedsRange: "$150M - $175M",
+      name: "Target",
+      key: "Target",
+      type: "string",
     },
     {
-      company: "BBC",
-      event: "SPAC",
-      status: "Closed",
-      pricingDate: "Jun 2 ‘22",
-      priceRange: "$34/share2",
-      proceedsRange: "$150M - $175M",
+      name: "Acquirer",
+      key: "Acquirer",
+      type: "string",
     },
     {
-      company: "CNN",
-      event: "Merger",
-      status: "Announced",
-      pricingDate: "May 2 ‘22",
-      priceRange: "$74/share",
-      proceedsRange: "$150M - $175M",
+      name: "Rumored Date",
+      key: "RumoredDate",
+      type: "string",
     },
     {
-      company: "Fair Foods",
-      event: "IPO",
-      status: "Closed",
-      pricingDate: "Sept 2 ‘22",
-      priceRange: "$12/share2",
-      proceedsRange: "$150M - $175M",
+      name: "Rumored Valuation",
+      key: "RumoredValuation",
+      type: "string",
+    },
+    {
+      name: "Rumor Source",
+      key: "RumorSource",
+      type: "string",
+    },
+    {
+      name: "Rumor Link",
+      key: "RumorLink",
+      type: "string",
+    },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
+      type: "string",
+    },
+  ];
+  const headerArrayTerminatedMergers = [
+    {
+      name: "Target",
+      key: "Target",
+      type: "string",
+    },
+    {
+      name: "Acquirer",
+      key: "Acquirer",
+      type: "string",
+    },
+    {
+      name: "Terminated Date",
+      key: "TerminatedDate",
+      type: "string",
+    },
+    {
+      name: "Rumored Valuation",
+      key: "RumoredValuation",
+      type: "string",
+    },
+    {
+      name: "Terminated Link",
+      key: "TerminatedLink",
+      type: "string",
+    },
+    {
+      name: "Terminated Reason",
+      key: "TerminatedReason",
+      type: "string",
+    },
+  ];
+  const headerArrayTalksFailed = [
+    {
+      name: "Target",
+      key: "Target",
+      type: "string",
+    },
+    {
+      name: "Acquirer",
+      key: "Acquirer",
+      type: "string",
+    },
+    {
+      name: "Talks Failed Date",
+      key: "TalksFailedDate",
+      type: "string",
+    },
+    {
+      name: "Valuation",
+      key: "Valuation",
+      type: "string",
+    },
+    {
+      name: "Talks Failed Source",
+      key: "TalksFailedSource",
+      type: "string",
+    },
+    {
+      name: "Talks Failed Link",
+      key: "TalksFailedLink",
+      type: "string",
     },
   ];
 
@@ -46,43 +132,65 @@ function GrapevineGraveyard() {
     setCurrentPage(pageNumber);
   };
 
+  const handleTabClick = (tabIndex: any) => {
+    setSelectedTab(tabIndex);
+    setCurrentPage(1);
+  };
+
+  const getLatestClosed = async () => {
+    setIsLoading(true);
+    const response = await getApiWithoutAuth(
+      `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=grapevine&subtype=${tabValues[selectedTab]}`
+    );
+    if (response.status === 200) {
+      setGrapevineGraveyardData(response.data);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getLatestClosed();
+  }, [selectedTab, currentPage]);
+
   return (
     <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}> Merger Grapevine & Graveyard</div>
+      <div className={styles.tableTitle}>SPAC Merger Grapevine & Graveyard</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
-          <div
-            onClick={() => setSelectedTab(0)}
-            className={`${styles.headerCell} ${
-              selectedTab === 0 && styles.selectedHeader
-            }`}
-          >
-            Rumored Mergers
-          </div>
-          <div
-            onClick={() => setSelectedTab(1)}
-            className={`${styles.headerCell} ${
-              selectedTab === 1 && styles.selectedHeader
-            }`}
-          >
-            Latest Failed Mergers
-          </div>
-          <div
-            onClick={() => setSelectedTab(1)}
-            className={`${styles.headerCell} ${
-              selectedTab === 2 && styles.selectedHeader
-            }`}
-          >
-            XXX
-          </div>
+          {tabData.map(({ label, index }) => (
+            <div
+              key={index}
+              onClick={() => handleTabClick(index)}
+              className={`${styles.headerCell} ${
+                selectedTab === index && styles.selectedHeader
+              }`}
+            >
+              {label}
+            </div>
+          ))}
         </div>
         <div style={{ overflow: "auto" }}>
-          <MyTable
-            data={data}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            paginate={paginate}
-          />
+          {isLoading ? (
+            <SkeltonTable />
+          ) : (
+            <ListingTrackTable
+              headerArray={
+                selectedTab === 0
+                  ? headerArrayRumoredMergers
+                  : selectedTab === 1
+                  ? headerArrayTerminatedMergers
+                  : headerArrayTalksFailed
+              }
+              data={grapevineGraveyardData?.dataset}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              paginate={paginate}
+              totalLength={grapevineGraveyardData?.additional_dataset}
+              showPagination
+            />
+          )}
         </div>
       </div>
     </section>
