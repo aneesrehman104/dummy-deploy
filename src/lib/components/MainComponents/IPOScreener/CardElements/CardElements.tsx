@@ -59,9 +59,10 @@ function CardElements() {
   });
   const CssTextFieldBorder = styled(TextField)({
     height: "40px",
+    marginTop:"10px",
     border: "1px solid #dddee0",
     background: "#dddee0",
-    borderRadius: "8px",
+    borderRadius: "40px",
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
         border: "none",
@@ -78,6 +79,7 @@ function CardElements() {
     border: "2px solid #000",
     boxShadow: 24,
     p: 1,
+    paddingLeft:"30px"
   };
   const tabValues: { [key: number]: string } = {
     // 0: "priced",
@@ -91,7 +93,7 @@ function CardElements() {
   const [openModalSavedScreen, setOpenModalSavedScreen] = useState(false);
   const [openModalCheckScreen, setOpenModalCheckScreen] = useState(false);
   const [name, setName] = useState("");
-  const [userType, setUserType] = useState("plus");
+  const [userType, setUserType] = useState("free");
 
   const [screenerData, setScreenerData] = useState<any>({
     dataset: [],
@@ -350,7 +352,7 @@ function CardElements() {
                   height={18}
                 />
 
-                <div>CHECK SCREENS</div>
+                <div>SAVED SCREENS</div>
               </div>{" "}
             </div>
             {/* <div
@@ -1434,7 +1436,7 @@ function CardElements() {
                     })
                   )}
 
-                  <div className={styles.filterGap} style={{ marginTop: 7 }}>
+                  <div className={styles.filterGap} style={{ marginTop: 10 }}>
                     <Image
                       src={selectedColumnSvg}
                       alt="selectedColumnSvg"
