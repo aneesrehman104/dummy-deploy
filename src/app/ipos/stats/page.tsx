@@ -2,7 +2,7 @@
 import RootLayout from "../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import IPOSStats from "@/lib/components/MainComponents/IPOSStats";
-export default function IposPage() {
+export default function IPOSStatsPage() {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="ipos/stats">
