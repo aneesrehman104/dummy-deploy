@@ -6,6 +6,28 @@ import Skeleton from "@mui/material/Skeleton";
 import CompanyInfo from "./CompanyInfo/CompaniInfo";
 import News from "./News/News";
 import PressReleases from "./PressReleases/PressReleases";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import {
+  useMember,
+  useMemberstack,
+  MemberstackProvider,
+} from "@memberstack/react";
+
+// import { makeStyles } from '@mui/styles';
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Menu,
+  MenuItem,
+} from "@mui/material";
+
+// const useStyles = makeStyles((theme) => ({
+//   dropdownButton: {
+//     marginBottom: theme.spacing(1),
+//   },
+// }));
+
 const DynamicChart = dynamic(() => import("./IOPSChart"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
@@ -55,7 +77,6 @@ const dataSet = [
 ];
 
 function IOPS() {
-  const [selectedTab, setSelectedTab] = useState(1);
   const options = {
     chartOptions: {
       chart: {
@@ -436,7 +457,31 @@ function IOPS() {
       ],
     },
   };
+  // const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
+  const handleDropdownOpen = (event: any) => {
+
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleDropdownClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleOptionSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    const isChecked = event.target.checked;
+
+    if (isChecked) {
+      setSelectedOptions((prevOptions) => [...prevOptions, value]);
+    } else {
+      setSelectedOptions((prevOptions) =>
+        prevOptions.filter((option) => option !== value)
+      );
+    }
+  };
   return (
     <>
       <div className={styles.dashboardheader}>
@@ -445,7 +490,79 @@ function IOPS() {
         </div>
       </div>
       <div className={styles.sectionsummarycontainer}>
-        <div className={styles.sectiondatasummary}></div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <div>
+            <div className={styles.ytdEventSummary}>
+              Acquirer: Microsoft (MSFT)
+            </div>
+            <div className={styles.ytdEventSummary}>
+              $230.88{" "}
+              <span style={{ fontSize: 18, fontWeight: 500, color: "red" }}>
+                (-2.33%)
+              </span>
+            </div>
+
+            <div className={styles.ytdEventSummary}>
+              at CLOSE: JUNE 8, 2023 3:58PM EST · NASDAQ
+            </div>
+          </div>
+          <div style={{ display: "flex" }}>
+            <div>
+              <div>Listing Status:</div>
+              <div>IPO Priced</div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "end",
+              }}
+            >
+              <div onClick={(e) => handleDropdownOpen(e)}>
+                <AddCircleIcon />
+              </div>
+
+              <div>Add to WatchList</div>
+              <Menu
+                id="dropdown-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleDropdownClose}
+              >
+                <MenuItem>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={selectedOptions.includes("IPOs")}
+                        onChange={handleOptionSelect}
+                        value="IPOs"
+                      />
+                    }
+                    label="IPOs"
+                  />
+                </MenuItem>
+                <MenuItem>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={selectedOptions.includes("SPACs")}
+                        onChange={handleOptionSelect}
+                        value="SPACs"
+                      />
+                    }
+                    label="SPACs"
+                  />
+                </MenuItem>
+              </Menu>
+            </div>
+          </div>
+        </div>
         <div className={styles.chartcontainer}>
           <div style={{ display: "flex", marginLeft: 20 }}>
             <img alt="" src="/icongoogle.svg" />
@@ -466,7 +583,6 @@ function IOPS() {
               </div>
             </div>
           </div>
-
           <div style={{ width: "100%" }}>
             {" "}
             <DynamicChart options={options} />

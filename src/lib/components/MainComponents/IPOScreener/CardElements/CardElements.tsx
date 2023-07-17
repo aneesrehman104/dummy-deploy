@@ -59,7 +59,7 @@ function CardElements() {
   });
   const CssTextFieldBorder = styled(TextField)({
     height: "40px",
-    marginTop:"10px",
+    marginTop: "10px",
     border: "1px solid #dddee0",
     background: "#dddee0",
     borderRadius: "40px",
@@ -79,7 +79,7 @@ function CardElements() {
     border: "2px solid #000",
     boxShadow: 24,
     p: 1,
-    paddingLeft:"30px"
+    paddingLeft: "30px",
   };
   const tabValues: { [key: number]: string } = {
     // 0: "priced",
@@ -99,7 +99,7 @@ function CardElements() {
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [selectedTab, setSelectedTab] = useState(1);
+  const [selectedTab, setSelectedTab] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCount, setFilerCount] = useState(0);
   const [filters, setFilters] = useState({
@@ -120,7 +120,7 @@ function CardElements() {
       key: 1,
     },
   ];
-  const [personName, setPersonName] = React.useState([
+  const [personName, setPersonName] = useState([
     {
       name: "Company",
       key: "company",
@@ -142,6 +142,11 @@ function CardElements() {
       key: "marketCap",
     },
   ]);
+
+  const [filterArray, setFilterArray] = useState<{
+    IPOYEAR?: any[];
+    IPOType?: any[];
+  }>({});
   const [previousSaveScreen, setPreviousSaveScreen] = useState([
     { name: "anees", id: 20 },
     { name: "anees", id: 20 },
@@ -171,8 +176,8 @@ function CardElements() {
   };
 
   useEffect(() => {
-    console.log("====================personName", personName);
-  }, [personName]);
+    console.log("====================filterArray", filterArray);
+  }, [filterArray]);
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -262,6 +267,56 @@ function CardElements() {
     );
     setOpenModalSavedScreen(false);
   };
+
+  const IPOYearsOptions = [
+    { key: "2023", name: "2023", pro: false },
+    { key: "2022", name: "2022", pro: false },
+    { key: "2021", name: "2021", pro: false },
+    { key: "2020", name: "2020", pro: true },
+    { key: "2019", name: "2019", pro: true },
+  ];
+
+  // const handleChangeFilter = (event: any) => {
+  //   const selectedValues = event.target.value;
+  //   const updatedFilterArray = selectedValues.map((selectedValue: string) =>
+  //     IPOYears.find((item) => item.key === selectedValue)
+  //   );
+
+  //   setFilterArray(updatedFilterArray);
+  //   console.log(updatedFilterArray);
+  // };
+
+  const handleChangeFilter = (
+    key: string,
+    event: SelectChangeEvent<string[]>,
+    selectedArray: any
+  ) => {
+    const selectedValues = event.target.value as string[];
+
+    const updatedFilterArray = {
+      ...filterArray,
+      [key]: selectedValues.map((selectedValue: string) =>
+        selectedArray.find((item: any) => item.key === selectedValue)
+      ),
+    };
+
+    console.log(
+      "===============================",
+      key,
+      selectedValues,
+      selectedArray,
+      updatedFilterArray
+    );
+
+    setFilterArray(updatedFilterArray);
+  };
+
+  const IPOTypeOptions = [
+    { key: "Traditional", name: "Traditional", pro: true },
+    { key: "SPAC", name: "SPAC", pro: true },
+    { key: "Direct Listing", name: "Direct Listing", pro: true },
+  ];
+
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
@@ -429,7 +484,75 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    IPO Year
+                  </InputLabel>
+                  <Select
+                    label="IPO Year"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOYEAR
+                        ? filterArray?.IPOYEAR.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOYEAR", event, IPOYearsOptions)
+                    }
+                    renderValue={(selected) =>
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOYearsOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOYearsOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={isUser && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOYEAR &&
+                            filterArray.IPOYEAR.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                {/* <div className={styles.filterModalStyling}>
                   {filters?.IPOYear ? (
                     <Image
                       src={crossIconSvg}
@@ -473,9 +596,9 @@ function CardElements() {
                       </MenuItem>
                     </Select>
                   </FormControl>
-                </div>
+                </div> */}
 
-                <div className={styles.filterModalStyling}>
+                {/* <div className={styles.filterModalStyling}>
                   {filters?.IPOType ? (
                     <Image
                       src={crossIconSvg}
@@ -513,7 +636,79 @@ function CardElements() {
                       style={{ marginTop: 10 }}
                     />
                   </div>
-                </div>
+                </div> */}
+
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel
+                    id="demo-multiple-c
+                  heckbox-label"
+                  >
+                    IPO Type
+                  </InputLabel>
+                  <Select
+                    label="IPO Type"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOType
+                        ? filterArray?.IPOType.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOType", event, IPOTypeOptions)
+                    }
+                    renderValue={(selected) =>
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOTypeOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOTypeOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={isUser && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOType &&
+                            filterArray.IPOType.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             ) : (
               <div
