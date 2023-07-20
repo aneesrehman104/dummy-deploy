@@ -1,9 +1,15 @@
 import React from "react";
-
+export interface MemberData {
+  auth: {
+    email: string;
+  };
+}
 export const memberstack_config = {
-    publicKey: ""
+  publicKey: "",
 };
 
-export const MemberInformationContext = React.createContext<{ user: object, memberstack: object }>({user: {}, memberstack: {}})
-
-export const MemberContext = React.createContext({})
+export const MemberInformationContext = React.createContext<{
+  user: { member?: MemberData | null };
+  memberstack: object;
+}>({ user: { member: null }, memberstack: {} });
+export const MemberContext = React.createContext({});

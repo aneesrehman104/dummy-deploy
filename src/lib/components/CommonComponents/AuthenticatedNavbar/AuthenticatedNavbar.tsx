@@ -20,7 +20,8 @@ import {
   TextField,
   InputAdornment,
   Dialog,
-  DialogTitle,
+  Menu,
+  MenuItem,
   DialogContent,
 } from "@mui/material";
 import "./AuthenticatedNavbar.css";
@@ -31,20 +32,48 @@ import { Props, SidebarState } from "@/lib/ts/interface";
 import { sidebarItem, navBarText } from "@/lib/ts/constants";
 import CloseIcon from "@mui/icons-material/Close";
 import { toggleItem } from "./functions";
+import { MemberInformationContext } from "@/lib/components/context";
+import { useContext } from "react";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Tooltip from "@mui/material/Tooltip";
+import Home from "@mui/icons-material/Home";
+import Logout from "@mui/icons-material/Logout";
+import Avatar from "@mui/material/Avatar";
+import { useMemberstack } from "@memberstack/react";
+import { useMemberstackModal } from "@memberstack/react";
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 const drawerWidth = 240;
 
 export default function AuthenticatedNavbar(props: Props) {
+  const { logout } = useMemberstack();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { user } = useContext(MemberInformationContext);
+  console.log("====================a", user);
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down(900));
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("Home");
   const [isOpen, setIsOpen] = useState<SidebarState>({});
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const { openModal, hideModal } = useMemberstackModal();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
+  const handleLogout = () => {
+    logout();
+  };
+  const handleCheckout = async () => {
+    router.push("/plans");
+  };
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const CssTextField = styled(TextField)({
     width: "375px",
@@ -167,10 +196,114 @@ export default function AuthenticatedNavbar(props: Props) {
                 </div>
               )}
             </div>
-            <div className="textStyle cursorPointer">
-              <span>{navBarText.signUp}</span> /{" "}
-              <span>{navBarText.signIn}</span>
-            </div>
+
+            {user?.member !== null ? (
+              <div className="textStyle cursorPointer">
+                <React.Fragment>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    <Tooltip title="Account settings">
+                      <IconButton
+                        onClick={handleClick}
+                        size="small"
+                        sx={{ ml: 2 }}
+                        aria-controls={open ? "account-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                      >
+                        <Avatar sx={{ width: 32, height: 32 }}>
+                          {user?.member?.auth?.email[0].toUpperCase()}
+                        </Avatar>
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                  <Menu
+                    anchorEl={anchorEl}
+                    id="account-menu"
+                    open={open}
+                    onClose={handleClose}
+                    onClick={handleClose}
+                    PaperProps={{
+                      elevation: 0,
+                      sx: {
+                        overflow: "visible",
+                        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                        mt: 1.5,
+                        "& .MuiAvatar-root": {
+                          width: 32,
+                          height: 32,
+                          ml: -0.5,
+                          mr: 1,
+                        },
+                        "&:before": {
+                          content: '""',
+                          display: "block",
+                          position: "absolute",
+                          top: 0,
+                          right: 14,
+                          width: 10,
+                          height: 10,
+                          bgcolor: "background.paper",
+                          transform: "translateY(-50%) rotate(45deg)",
+                          zIndex: 0,
+                        },
+                      },
+                    }}
+                    transformOrigin={{ horizontal: "right", vertical: "top" }}
+                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                  >
+                    <MenuItem onClick={handleClose}>
+                      {user?.member?.auth?.email}
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={handleClose}>
+                      <ListItemIcon>
+                        <Home fontSize="medium" />
+                      </ListItemIcon>
+                      Home
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={handleClose}>
+                      <Avatar /> Profile
+                    </MenuItem>
+                    <Divider />
+
+                    <MenuItem onClick={handleCheckout}>
+                      <Avatar />
+                      Plans
+                    </MenuItem>
+                    <Divider />
+                    <MenuItem onClick={handleLogout}>
+                      <ListItemIcon>
+                        <Logout fontSize="small" />
+                      </ListItemIcon>
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </React.Fragment>
+              </div>
+            ) : (
+              <div
+                className="textStyle cursorPointer"
+                onClick={() =>
+                  openModal({
+                    type: "SIGNUP",
+                  }).then(({ data, type }) => {
+                    console.log("data", data);
+                    console.log("type: ", type);
+                    hideModal();
+                  })
+                }
+              >
+                <span>{navBarText.signUp}</span> /{" "}
+                <span>{navBarText.signIn}</span>
+              </div>
+            )}
           </div>
         </div>
       </AppBar>
