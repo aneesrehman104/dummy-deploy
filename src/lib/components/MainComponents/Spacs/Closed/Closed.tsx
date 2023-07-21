@@ -43,32 +43,32 @@ function Closed() {
     },
     {
       name: "Acquirer",
-      key: "Acquirer",
+      key: "acquirer",
       type: "string",
     },
     {
-      name: "Announced Date",
-      key: "AnnouncedDate",
+      name: "Closed Date",
+      key: "closedDate",
       type: "string",
     },
     {
       name: "Valuation",
-      key: "Valuation",
+      key: "valuation",
       type: "string",
     },
     {
       name: "DA Link",
-      key: "DALink",
+      key: "dALink",
       type: "string",
     },
     {
       name: "InvestorPres",
-      key: "InvestorPres",
+      key: "investorPres",
       type: "string",
     },
     {
       name: "View Deal Page",
-      key: "ViewDealPage",
+      key: "viewDealPage",
       type: "string",
     },
   ];

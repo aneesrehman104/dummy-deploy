@@ -3,6 +3,7 @@ export interface MemberData {
   auth: {
     email: string;
   };
+  stripeCustomerId?: string;
 }
 export const memberstack_config = {
   publicKey: "",

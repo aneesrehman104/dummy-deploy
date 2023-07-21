@@ -51,7 +51,7 @@ export default function AuthenticatedNavbar(props: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { user } = useContext(MemberInformationContext);
-  console.log("====================a", user);
+  console.log("====================a",router, user);
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down(900));
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -64,6 +64,8 @@ export default function AuthenticatedNavbar(props: Props) {
 
   const handleLogout = () => {
     logout();
+   window.location.reload();
+    // router.push(pathname)
   };
   const handleCheckout = async () => {
     router.push("/plans");
@@ -296,6 +298,7 @@ export default function AuthenticatedNavbar(props: Props) {
                   }).then(({ data, type }) => {
                     console.log("data", data);
                     console.log("type: ", type);
+                   window.location.reload();
                     hideModal();
                   })
                 }

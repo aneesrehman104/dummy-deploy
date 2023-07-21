@@ -10,7 +10,9 @@ import exportSvg from "../../../../../../public/exportSvg.svg";
 import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/proSvg.svg";
 import { getApiWithoutAuth } from "@/lib/ts/api";
+import { useContext } from "react";
 import { URLs } from "@/lib/ts/apiUrl";
+import { MemberInformationContext } from "@/lib/components/context";
 import {
   SkeltonTable,
   ListingTrackTable,
@@ -42,7 +44,13 @@ import {
   SPACTargetProfile,
   DeSPACScreener,
 } from "@/lib/ts/constants";
+
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
 function CardElements() {
+  const { user } = useContext(MemberInformationContext);
+  const router = useRouter();
+
   const CssTextField = styled(TextField)({
     width: "368px",
     height: "40px",
@@ -103,8 +111,6 @@ function CardElements() {
     SPACProgressStatus?: any[];
     De_SPAC_Closing_Year?: any[];
   }>({});
-
-  const [isUser, setIsUser] = useState(true);
 
   const [itemsPerPage, setItemPerPage] = useState(5);
   const tabData = [
@@ -186,8 +192,8 @@ function CardElements() {
   };
 
   useEffect(() => {
-    console.log("====================personName", personName);
-  }, [personName]);
+    console.log("====================user", user);
+  }, [user]);
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -443,7 +449,17 @@ function CardElements() {
                 alignItems: "flex-end",
               }}
             >
-              <Image src={proSvg} alt="filterSvg" width={50} height={26} />
+              {user?.member?.stripeCustomerId ? null : (
+                <Image
+                  src={proSvg}
+                  alt="filterSvg"
+                  width={50}
+                  height={26}
+                  onClick={() => {
+                    router.push('/plans');
+                  }}
+                />
+              )}
               <div className={styles.filterGap}>
                 <Image
                   src={saveScreenerSvg}
@@ -474,7 +490,7 @@ function CardElements() {
               totalLength={screenerData?.additional_dataset}
               showPagination
               setItemPerPage={setItemPerPage}
-              isUser={isUser}
+              isUser={user?.member?.stripeCustomerId}
             />
           )}
         </div>
@@ -554,7 +570,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -567,7 +583,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -624,7 +640,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -637,7 +653,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -700,7 +716,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -713,7 +729,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -774,7 +790,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -787,7 +803,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -844,7 +860,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -857,7 +873,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -925,7 +941,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -938,7 +954,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -999,7 +1015,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -1012,7 +1028,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -1069,7 +1085,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -1082,7 +1098,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -1153,7 +1169,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -1166,7 +1182,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -1222,7 +1238,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -1235,7 +1251,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -1297,7 +1313,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -1310,7 +1326,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -1370,7 +1386,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -1383,7 +1399,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -1439,7 +1455,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -1452,7 +1468,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -1520,7 +1536,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -1533,7 +1549,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -1594,7 +1610,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -1607,7 +1623,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -1621,7 +1637,7 @@ function CardElements() {
                 </FormControl>
                 <FormControl sx={{ m: 1, width: 300 }}>
                   <InputLabel id="demo-multiple-checkbox-label">
-                     De-SPAC Closing Year
+                    De-SPAC Closing Year
                   </InputLabel>
                   <Select
                     label=" De-SPAC Closing Year"
@@ -1630,11 +1646,17 @@ function CardElements() {
                     multiple
                     value={
                       filterArray?.De_SPAC_Closing_Year
-                        ? filterArray?.De_SPAC_Closing_Year.map((item: any) => item.key)
+                        ? filterArray?.De_SPAC_Closing_Year.map(
+                            (item: any) => item.key
+                          )
                         : []
                     }
                     onChange={(event) =>
-                      handleChangeFilter("De_SPAC_Closing_Year", event, IPOYearsOptions)
+                      handleChangeFilter(
+                        "De_SPAC_Closing_Year",
+                        event,
+                        IPOYearsOptions
+                      )
                     }
                     renderValue={(selected) =>
                       `${selected.length} filters selected: ` +
@@ -1663,7 +1685,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                        disabled={isUser && item.pro}
+                        disabled={!user?.member?.stripeCustomerId  && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -1676,7 +1698,7 @@ function CardElements() {
                         />
 
                         {item.name}
-                        {item.pro ? (
+                        {!user?.member?.stripeCustomerId && item.pro ? (
                           <Image
                             src={proSvg}
                             alt="filterSvg"
@@ -1777,7 +1799,7 @@ function CardElements() {
                       {PreDealSpacScreener.map((item: any) => (
                         <MenuItem key={item.key} value={item.key}>
                           {" "}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                           <Checkbox
                             checked={personName.some(
                               (selectedItem: any) =>
@@ -1785,7 +1807,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -1840,7 +1862,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1849,7 +1871,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -1897,7 +1919,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1906,7 +1928,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -1954,7 +1976,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1963,7 +1985,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2011,7 +2033,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2020,7 +2042,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2068,7 +2090,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2077,7 +2099,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2125,7 +2147,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2134,7 +2156,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2199,7 +2221,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2208,7 +2230,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2264,7 +2286,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2273,7 +2295,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2321,7 +2343,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2330,7 +2352,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2378,7 +2400,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2387,7 +2409,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2452,7 +2474,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2461,7 +2483,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2517,7 +2539,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2526,7 +2548,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2574,7 +2596,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2583,7 +2605,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2631,7 +2653,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2640,7 +2662,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2688,7 +2710,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2697,7 +2719,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2745,7 +2767,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2754,7 +2776,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2802,7 +2824,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2811,7 +2833,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2876,7 +2898,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2885,7 +2907,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2941,7 +2963,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -2950,7 +2972,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -2998,7 +3020,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -3007,7 +3029,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -3055,7 +3077,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId  && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -3064,7 +3086,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
