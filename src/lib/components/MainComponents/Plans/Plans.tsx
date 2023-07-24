@@ -9,10 +9,12 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 function Plans() {
   const checkout = useCheckout();
   const router = useRouter();
-
+  // const { pathname, query } = router
+// console.log('=================query',pathname,query)
+  // const { fromDropdown } = router?.query;
   const handleCheckout = async (id: any) => {
     checkout({
-      successUrl: "http://localhost:3000/ipos",
+      successUrl: "http://localhost:3000/checkout",
       priceId: id,
       cancelUrl: "http://localhost:3000/ipos",
     });
@@ -29,13 +31,16 @@ function Plans() {
       }}
     >
       <div>
-        <div>
-          <ArrowBackIcon
-            onClick={() => {
-              router.back();
-            }}
-          />
-        </div>
+        {/* {!query?.fromDropdown ? ( */}
+          <div>
+            <ArrowBackIcon
+              onClick={() => {
+                router.back();
+              }}
+            />
+          </div>
+         {/* ) : null} */}
+
         <div
           style={{
             width: "100%",
@@ -87,7 +92,7 @@ function Plans() {
               <CommonfiButton
                 variant="contained"
                 className="buttonStylePlans paddingTop"
-                title="SIGN-UP"
+                title="CONTINUE"
                 onClick={() => handleCheckout("prc_commonfi-11dh0xk5")}
               />
             </div>

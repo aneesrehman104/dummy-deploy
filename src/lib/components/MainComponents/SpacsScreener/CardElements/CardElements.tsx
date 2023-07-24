@@ -89,27 +89,27 @@ function CardElements() {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCount, setFilerCount] = useState(0);
   const [filters, setFilters] = useState({
-    IPOYear: null,
-    VotesDeadlines: null,
-    SPAC_Profile: null,
+    ipoYear: null,
+    mergerVoteSet: null,
+    spacProfile: null,
     Trading: null,
-    TargetSector: null,
-    TargetRegion: null,
+    targetSector: null,
+    targetRegion: null,
     Activity: null,
-    SPACProgressStatus: null,
-    De_SPAC_Closing_Year: null,
+    spacProgressStatus: null,
+    deSpacClosed: null,
   });
 
   const [filterArray, setFilterArray] = useState<{
-    IPOYEAR?: any[];
-    VotesDeadlines?: any[];
-    SPAC_Profile?: any[];
+    ipoYear?: any[];
+    mergerVoteSet?: any[];
+    spacProfile?: any[];
     Trading?: any[];
-    TargetSector?: any[];
-    TargetRegion?: any[];
+    targetSector?: any[];
+    targetRegion?: any[];
     Activity?: any[];
-    SPACProgressStatus?: any[];
-    De_SPAC_Closing_Year?: any[];
+    spacProgressStatus?: any[];
+    deSpacClosed?: any[];
   }>({});
 
   const [itemsPerPage, setItemPerPage] = useState(5);
@@ -204,15 +204,15 @@ function CardElements() {
   };
   const clearAll = () => {
     setFilters({
-      IPOYear: null,
-      VotesDeadlines: null,
-      SPAC_Profile: null,
+      ipoYear: null,
+      mergerVoteSet: null,
+      spacProfile: null,
       Trading: null,
-      TargetSector: null,
-      TargetRegion: null,
+      targetSector: null,
+      targetRegion: null,
       Activity: null,
-      SPACProgressStatus: null,
-      De_SPAC_Closing_Year: null,
+      spacProgressStatus: null,
+      deSpacClosed: null,
     });
     setOpenFilterModal(false);
     setFilerCount(0);
@@ -530,15 +530,15 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.SPACProgressStatus
-                        ? filterArray?.SPACProgressStatus.map(
+                      filterArray?.spacProgressStatus
+                        ? filterArray?.spacProgressStatus.map(
                             (item: any) => item.key
                           )
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "SPACProgressStatus",
+                        "spacProgressStatus",
                         event,
                         SPACProgressStatusOptions
                       )
@@ -574,8 +574,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.SPACProgressStatus &&
-                            filterArray.SPACProgressStatus.some(
+                            filterArray.spacProgressStatus &&
+                            filterArray.spacProgressStatus.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -606,12 +606,12 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.IPOYEAR
-                        ? filterArray?.IPOYEAR.map((item: any) => item.key)
+                      filterArray?.ipoYear
+                        ? filterArray?.ipoYear.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
-                      handleChangeFilter("IPOYEAR", event, IPOYearsOptions)
+                      handleChangeFilter("ipoYear", event, IPOYearsOptions)
                     }
                     renderValue={(selected) =>
                       `${selected.length} filters selected: ` +
@@ -644,8 +644,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.IPOYEAR &&
-                            filterArray.IPOYEAR.some(
+                            filterArray.ipoYear &&
+                            filterArray.ipoYear.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -676,15 +676,15 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.VotesDeadlines
-                        ? filterArray?.VotesDeadlines.map(
+                      filterArray?.mergerVoteSet
+                        ? filterArray?.mergerVoteSet.map(
                             (item: any) => item.key
                           )
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "VotesDeadlines",
+                        "mergerVoteSet",
                         event,
                         VotesDeadlinesOptions
                       )
@@ -720,8 +720,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.VotesDeadlines &&
-                            filterArray.VotesDeadlines.some(
+                            filterArray.mergerVoteSet &&
+                            filterArray.mergerVoteSet.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -752,13 +752,13 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.SPAC_Profile
-                        ? filterArray?.SPAC_Profile.map((item: any) => item.key)
+                      filterArray?.spacProfile
+                        ? filterArray?.spacProfile.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "SPAC_Profile",
+                        "spacProfile",
                         event,
                         SPACProfileOptions
                       )
@@ -794,8 +794,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.SPAC_Profile &&
-                            filterArray.SPAC_Profile.some(
+                            filterArray.spacProfile &&
+                            filterArray.spacProfile.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -903,13 +903,13 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.TargetSector
-                        ? filterArray?.TargetSector.map((item: any) => item.key)
+                      filterArray?.targetSector
+                        ? filterArray?.targetSector.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "TargetSector",
+                        "targetSector",
                         event,
                         TargetSectorOptions
                       )
@@ -945,8 +945,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.TargetSector &&
-                            filterArray.TargetSector.some(
+                            filterArray.targetSector &&
+                            filterArray.targetSector.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -977,13 +977,13 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.TargetRegion
-                        ? filterArray?.TargetRegion.map((item: any) => item.key)
+                      filterArray?.targetRegion
+                        ? filterArray?.targetRegion.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "TargetRegion",
+                        "targetRegion",
                         event,
                         TargetRegionOptions
                       )
@@ -1019,8 +1019,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.TargetRegion &&
-                            filterArray.TargetRegion.some(
+                            filterArray.targetRegion &&
+                            filterArray.targetRegion.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -1129,15 +1129,15 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.SPACProgressStatus
-                        ? filterArray?.SPACProgressStatus.map(
+                      filterArray?.spacProgressStatus
+                        ? filterArray?.spacProgressStatus.map(
                             (item: any) => item.key
                           )
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "SPACProgressStatus",
+                        "spacProgressStatus",
                         event,
                         SPACProgressStatusOptions
                       )
@@ -1173,8 +1173,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.SPACProgressStatus &&
-                            filterArray.SPACProgressStatus.some(
+                            filterArray.spacProgressStatus &&
+                            filterArray.spacProgressStatus.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -1204,12 +1204,12 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.IPOYEAR
-                        ? filterArray?.IPOYEAR.map((item: any) => item.key)
+                      filterArray?.ipoYear
+                        ? filterArray?.ipoYear.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
-                      handleChangeFilter("IPOYEAR", event, IPOYearsOptions)
+                      handleChangeFilter("ipoYear", event, IPOYearsOptions)
                     }
                     renderValue={(selected) =>
                       `${selected.length} filters selected: ` +
@@ -1242,8 +1242,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.IPOYEAR &&
-                            filterArray.IPOYEAR.some(
+                            filterArray.ipoYear &&
+                            filterArray.ipoYear.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -1273,15 +1273,15 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.VotesDeadlines
-                        ? filterArray?.VotesDeadlines.map(
+                      filterArray?.mergerVoteSet
+                        ? filterArray?.mergerVoteSet.map(
                             (item: any) => item.key
                           )
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "VotesDeadlines",
+                        "mergerVoteSet",
                         event,
                         VotesDeadlinesOptions
                       )
@@ -1317,8 +1317,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.VotesDeadlines &&
-                            filterArray.VotesDeadlines.some(
+                            filterArray.mergerVoteSet &&
+                            filterArray.mergerVoteSet.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -1348,13 +1348,13 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.SPAC_Profile
-                        ? filterArray?.SPAC_Profile.map((item: any) => item.key)
+                      filterArray?.spacProfile
+                        ? filterArray?.spacProfile.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "SPAC_Profile",
+                        "spacProfile",
                         event,
                         SPACProfileOptions
                       )
@@ -1390,8 +1390,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.SPAC_Profile &&
-                            filterArray.SPAC_Profile.some(
+                            filterArray.spacProfile &&
+                            filterArray.spacProfile.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -1498,13 +1498,13 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.TargetSector
-                        ? filterArray?.TargetSector.map((item: any) => item.key)
+                      filterArray?.targetSector
+                        ? filterArray?.targetSector.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "TargetSector",
+                        "targetSector",
                         event,
                         TargetSectorOptions
                       )
@@ -1540,8 +1540,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.TargetSector &&
-                            filterArray.TargetSector.some(
+                            filterArray.targetSector &&
+                            filterArray.targetSector.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -1572,13 +1572,13 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.TargetRegion
-                        ? filterArray?.TargetRegion.map((item: any) => item.key)
+                      filterArray?.targetRegion
+                        ? filterArray?.targetRegion.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "TargetRegion",
+                        "targetRegion",
                         event,
                         TargetRegionOptions
                       )
@@ -1614,8 +1614,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.TargetRegion &&
-                            filterArray.TargetRegion.some(
+                            filterArray.targetRegion &&
+                            filterArray.targetRegion.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -1645,15 +1645,15 @@ function CardElements() {
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.De_SPAC_Closing_Year
-                        ? filterArray?.De_SPAC_Closing_Year.map(
+                      filterArray?.deSpacClosed
+                        ? filterArray?.deSpacClosed.map(
                             (item: any) => item.key
                           )
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "De_SPAC_Closing_Year",
+                        "deSpacClosed",
                         event,
                         IPOYearsOptions
                       )
@@ -1689,8 +1689,8 @@ function CardElements() {
                       >
                         <Checkbox
                           checked={
-                            filterArray.De_SPAC_Closing_Year &&
-                            filterArray.De_SPAC_Closing_Year.some(
+                            filterArray.deSpacClosed &&
+                            filterArray.deSpacClosed.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )

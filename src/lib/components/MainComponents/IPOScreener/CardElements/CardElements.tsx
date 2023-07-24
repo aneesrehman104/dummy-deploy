@@ -1378,7 +1378,7 @@ function CardElements() {
                   </div>
                   <div style={{ marginTop: 7 }}>
                     To save a new screen, select your desired filters and then
-                    click 'Save This Screen' below.
+                    click &apos;Save This Screen&apos; below.
                   </div>
                   <div
                     style={{
@@ -1458,7 +1458,7 @@ function CardElements() {
                   </div>
                   <div style={{ marginTop: 7 }}>
                     To save a new screen, select your desired filters and then
-                    click 'Save This Screen' below.
+                    click &apos;Save This Screen&apos; below.
                   </div>
                   {previousSaveScreen.length === 0 ? (
                     <div style={{ marginTop: 7 }}>
@@ -1474,6 +1474,7 @@ function CardElements() {
                             marginTop: "7px",
                             alignItems: "center",
                           }}
+                          key={item.id}
                         >
                           <CssTextFieldBorder
                             fullWidth
@@ -1559,7 +1560,7 @@ function CardElements() {
                   </div>
                   <div style={{ marginTop: 7 }}>
                     To save a new screen, select your desired filters and then
-                    click 'Save This Screen' below.
+                    click &apos;Save This Screen&apos; below.
                   </div>
                   {previousSaveScreen.length === 0 ? (
                     <div style={{ marginTop: 7 }}>
@@ -1575,6 +1576,7 @@ function CardElements() {
                             marginTop: "7px",
                             alignItems: "center",
                           }}
+                          key={item.id}
                         >
                           <CssTextFieldBorder
                             fullWidth

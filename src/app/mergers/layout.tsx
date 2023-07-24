@@ -8,36 +8,35 @@ import Fallback from "../fallback/page";
 import { MemberInformationContext } from "@/lib/components/context";
 
 export default function RootLayout({
-  children,
   unauthenticated,
+  children,
 }: {
-  children: React.ReactNode;
   unauthenticated?: React.ReactNode;
+  children: React.ReactNode;
 }) {
   return (
     <MemberstackProvider
       config={{
-        publicKey: "pk_sb_e1babdb2327aaadd2e43",
+        publicKey: `${process.env.NEXT_PUBLIC_MEMBERSTACK_KEY}`,
         appId: undefined,
         sessionDurationDays: undefined,
         useCookies: undefined,
         domain: undefined,
       }}
     >
-      <MemberstackWrapper
-        children={children}
-        unauthenticated={unauthenticated}
-      />
+      <MemberstackWrapper unauthenticated={unauthenticated}>
+        {children}
+      </MemberstackWrapper>
     </MemberstackProvider>
   );
 }
 
 function MemberstackWrapper({
-  children,
   unauthenticated,
+  children,
 }: {
-  children: React.ReactNode;
   unauthenticated?: React.ReactNode;
+  children: React.ReactNode;
 }) {
   const user = useMember();
   const memberstack = useMemberstack();
