@@ -39,17 +39,16 @@ import Tooltip from "@mui/material/Tooltip";
 import Home from "@mui/icons-material/Home";
 import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
-// import { useMemberstack } from "@memberstack/react";
-// import { useMemberstackModal } from "@memberstack/react";
+import { useMemberstack } from "@memberstack/react";
+import { useMemberstackModal } from "@memberstack/react";
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 const drawerWidth = 240;
 
 export default function AuthenticatedNavbar(props: Props) {
-  // const { logout } = useMemberstack();
+  const { logout } = useMemberstack();
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { user } = useContext(MemberInformationContext);
   console.log("====================a", router, user);
   const theme = useTheme();
@@ -58,13 +57,14 @@ export default function AuthenticatedNavbar(props: Props) {
   const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("Home");
   const [isOpen, setIsOpen] = useState<SidebarState>({});
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  // const { openModal, hideModal } = useMemberstackModal();
+  const { openModal, hideModal } = useMemberstackModal();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const handleLogout2 = () => {
-    props.handleLogout();
-    //  window.location.reload();
+  const handleLogout2 = async () => {
+    await logout();
+    // router.refresh();
+    window.location.reload();
   };
   const handleCheckout = async () => {
     router.push("/plans");
@@ -297,24 +297,21 @@ export default function AuthenticatedNavbar(props: Props) {
               <div
                 className="textStyle cursorPointer"
                 onClick={() =>
-                  props
-                    .openModal({
+                  openModal({
                       type: "SIGNUP",
                     })
                     .then(({ data, type }: any) => {
                       console.log("data", data);
                       console.log("type: ", type);
                       if (type === "LOGIN") {
-                        props.hideModal();
-                        router.refresh();
-                        // window.location.reload();
+                        hideModal();
+                        // router.refresh();
+                        window.location.reload();
                       } else if (type === "CLOSED") {
-                        props.hideModal();
+                        hideModal();
                       } else {
                         router.push("/plans");
                       }
-                      //  window.location.reload();
-                      // props.hideModal();
                     })
                 }
               >
