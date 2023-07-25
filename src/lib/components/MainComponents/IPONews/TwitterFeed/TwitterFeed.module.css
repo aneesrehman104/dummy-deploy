@@ -26,6 +26,7 @@
   padding: 9px 20px;
   align-items: flex-start;
   justify-content: flex-start;
+  cursor:pointer
 }
 .headlineCallOut,
 .siteName {
@@ -62,6 +63,7 @@
   overflow: hidden;
   padding: 6px 8px;
   align-items: flex-start;
+  cursor:pointer
 }
 .tablerow {
   align-self: stretch;

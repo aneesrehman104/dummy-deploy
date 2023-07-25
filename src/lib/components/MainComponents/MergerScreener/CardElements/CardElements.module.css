@@ -121,12 +121,15 @@
   width: 50%;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end
+  align-items: flex-end;
+  gap: 10px;
+
 }
 .filterGap {
   display: flex;
   align-items: center;
   gap: 5px;
+  cursor:pointer;
 }
 .filterModalStyling{
   display: flex;
@@ -134,7 +137,7 @@
   margin: 10px;
   /* width: 180px */
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1100px) {
   .stockstablesection {
     padding: 10px 10px;
     gap: 16px;

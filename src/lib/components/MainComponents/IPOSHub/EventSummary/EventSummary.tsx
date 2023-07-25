@@ -105,7 +105,7 @@ function EventSummary() {
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
           <div className={styles.ytdEventSummary}>2023 IPO Overview</div>
-          <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
+          <Image src="/vector2.svg" alt="/vector2" width={12} height={12} style={{cursor:'pointer'}} />
         </div>
       </div>
       <div className={styles.chartcontainer}>

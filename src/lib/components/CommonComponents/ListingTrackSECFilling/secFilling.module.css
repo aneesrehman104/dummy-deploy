@@ -83,6 +83,7 @@
   padding: 9px 20px;
   align-items: flex-start;
   justify-content: flex-start;
+  cursor:pointer;
 }
 .vectorIcon {
   position: relative;
@@ -113,6 +114,7 @@
   overflow: hidden;
   padding: 6px 8px;
   align-items: flex-start;
+  cursor:pointer;
 }
 
 @media screen and (max-width: 1200px) {

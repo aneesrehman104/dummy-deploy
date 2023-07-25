@@ -101,7 +101,7 @@ function Trading() {
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Trading</div>
       <div className={styles.tableContainerInner}>
-        <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
+        <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" ,cursor:'pointer'}}>
           <div
             onClick={() => setSelectedTab(0)}
             className={`${styles.headerCell} ${

@@ -1,20 +1,20 @@
 .footerMainDiv {
   background: #263c6f;
-  min-height: 599px;
+  min-height: 575px;
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
 .footerSecondDiv {
-  min-height: 599px;
+  min-height: 575px;
   width: 95%;
   display: flex;
   justify-content: space-around;
   flex-direction: column;
 }
 .paddingTop {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 .titleStyle {
   font-family: Barlow;
@@ -103,6 +103,7 @@
 }
 .flexDiv {
   display: flex;
+  margin-top: 20px;
 }
 .stayInTheKnowMainDiv {
   width: 35%;
@@ -111,7 +112,7 @@
   width: 13%;
   display: flex;
   justify-content: center;
-  height: 255;
+  height: 290px;
 }
 .unlockFeatureMainDiv {
   width: 52%;

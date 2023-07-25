@@ -17,6 +17,8 @@
 .ytdSummary {
   align-items: center;
   gap: 8px;
+  cursor:pointer;
+
 }
 .sectiondatasummary {
   align-self: stretch;

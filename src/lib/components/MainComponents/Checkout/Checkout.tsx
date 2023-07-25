@@ -1,12 +1,9 @@
 import React from "react";
 import "./checkout.css";
-import { useState, useEffect } from "react";
 import { CommonfiButton } from "../../CommonComponents";
-import { useMemberstack, useCheckout } from "@memberstack/react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import footerLogo from "../../../../../public/footerLogo.svg"
+import footerLogo from "../../../../../public/footerLogo.svg";
 
 function Checkout() {
   const router = useRouter();
@@ -22,11 +19,10 @@ function Checkout() {
         minHeight: "100vh",
       }}
     >
-
       <div>
-      <div style={{ marginBottom:50 }}>
-        <Image src={footerLogo} alt="footerImage" width={200} height={50} />
-      </div>
+        <div style={{ marginBottom: 50 }}>
+          <Image src={footerLogo} alt="footerImage" width={200} height={50} />
+        </div>
         <div
           style={{
             width: "100%",

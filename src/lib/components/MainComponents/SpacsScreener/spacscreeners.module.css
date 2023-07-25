@@ -326,7 +326,7 @@
   padding: 0 16px 16px;
 }
 .card {
-  flex: 1;
+  /* flex: 1; */
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),

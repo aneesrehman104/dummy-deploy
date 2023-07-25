@@ -158,7 +158,7 @@ export default function AuthenticatedNavbar(props: Props) {
                   alt="footerImage"
                   width={148}
                   height={21}
-                  style={{ marginRight: 20 }}
+                  style={{ marginRight: 20, cursor:'pointer' }}
                 />
               ) : null}
               {!isMediumScreen ? (
@@ -173,6 +173,7 @@ export default function AuthenticatedNavbar(props: Props) {
                           alt="searchIcon"
                           width={18}
                           height={18}
+                          style={{cursor:'pointer'}}
                         />
                       </InputAdornment>
                     ),
@@ -198,6 +199,7 @@ export default function AuthenticatedNavbar(props: Props) {
                     alt="searchIcon"
                     width={18}
                     height={18}
+                    style={{cursor:'pointer'}}
                   />
                 </div>
               )}
@@ -562,6 +564,7 @@ export default function AuthenticatedNavbar(props: Props) {
                     alt="searchIcon"
                     width={18}
                     height={18}
+                    style={{cursor:'pointer'}}
                   />
                 </InputAdornment>
               ),

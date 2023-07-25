@@ -102,6 +102,7 @@ const ListingTrackTable = ({
                     display: "flex",
                     alignItems: "center",
                     fontWeight: 600,
+                    cursor:'pointer'
                   }}
                 >
                   {sortDirection === TABLETITLESECTION.desc &&

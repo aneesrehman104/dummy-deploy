@@ -320,6 +320,7 @@ function CardElements() {
                       alt="searchIcon"
                       width={18}
                       height={18}
+                      style={{cursor:'pointer'}}
                     />
                   </InputAdornment>
                 ),

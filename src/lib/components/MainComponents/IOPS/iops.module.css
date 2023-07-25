@@ -281,12 +281,12 @@
   /* border: 2px solid purple; */
   border-bottom: 1.5px solid #d2ecf9;
   padding: 10px 0px;
-  width: 25%;
+  width: 30%;
   display: flex;
   justify-content: space-between;
-  font-family: "Barlow";
-  font-style: normal;
-  font-weight: 400;
+  font-family: Barlow;
+  font-style:normal;
+  font-weight: 500;
   font-size: 14px;
   line-height: 135%;
 }

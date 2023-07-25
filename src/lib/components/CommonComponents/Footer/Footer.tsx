@@ -23,6 +23,16 @@ const Footer = () => {
       "& fieldset": {
         border: "none",
       },
+      "& input": {
+        color: "#ffffff", // Sets the input text color to white
+      },
+      "&::placeholder": {
+        color: "#ffffff", // Sets the placeholder color to white
+      },
+      "&::-moz-placeholder": {
+        color: "#ffffff",
+        opacity: 1,
+      },
     },
   });
   const PORTALS = [
@@ -71,6 +81,17 @@ const Footer = () => {
                 </div>
               </div>
               <CommonfiButton
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#263c6f",
+                    color: "white",
+                  },
+                  "&:active": {
+                    boxShadow: "none",
+                    backgroundColor: "#263c6f",
+                    color: "red",
+                  },
+                }}
                 variant="contained"
                 className="buttonStyle paddingTop"
                 title="SUBSCRIBE"
@@ -86,14 +107,17 @@ const Footer = () => {
                   alt="lightVector"
                   width={9}
                   height={18}
+                  style={{
+                    marginRight: 10,
+                  }}
                 />
-                &nbsp; {FOOTER.unlockPremiumFeatures}
+                {FOOTER.unlockPremiumFeatures}
               </div>
               <div className="textStyle paddingTop">
                 {FOOTER.detailPremiumFeature}
-                <li>{FOOTER.pointOne} </li>
-                <li> {FOOTER.pointTwo} </li>
-                <li> {FOOTER.pointThree} </li>
+                <li style={{ marginTop: 7 }}>{FOOTER.pointOne} </li>
+                <li style={{ marginTop: 7 }}> {FOOTER.pointTwo} </li>
+                <li style={{ marginTop: 7 }}> {FOOTER.pointThree} </li>
                 <div className="paddingTop"> {FOOTER.pricing}</div>
               </div>
               <CommonfiButton
@@ -101,7 +125,8 @@ const Footer = () => {
                 sx={{
                   "&:hover": {
                     backgroundColor: "#263c6f",
-                    color: "#0aac85",
+
+                    color: "white",
                   },
                   "&:active": {
                     boxShadow: "none",
@@ -164,6 +189,7 @@ const Footer = () => {
                   alt="footerImage"
                   width={233}
                   height={40}
+                  style={{ cursor: "pointer" }}
                 />
               </div>
               <div className="textStyle">{FOOTER.copyRights}</div>

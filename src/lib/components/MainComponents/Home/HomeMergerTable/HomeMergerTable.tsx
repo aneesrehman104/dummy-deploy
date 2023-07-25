@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./HomeMergerTable.module.css";
-import { useState, useEffect } from "react";
 import { homeConstants } from "@/lib/ts/constants";
 import { ListingTrackTable } from "@/lib/components/CommonComponents";
 
