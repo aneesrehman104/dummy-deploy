@@ -6,8 +6,29 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+
+import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
+import Image from "next/image";
+
+const style = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 function CardElements({ selectedTab }: any) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [removeRow, setRemoveRow] = useState(null);
+  const [showRemoveModal, setShowRemoveModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState<any>({
     dataset: [],
@@ -145,7 +166,9 @@ function CardElements({ selectedTab }: any) {
   useEffect(() => {
     getLatestClosed();
   }, [selectedTab, currentPage]);
-
+  useEffect(() => {
+    if (removeRow !== null) setShowRemoveModal(true);
+  }, [removeRow]);
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>
@@ -168,6 +191,8 @@ function CardElements({ selectedTab }: any) {
                   ? headerArrayMergers
                   : headerArraySpac
               }
+              isRemoveAble
+              setRemoveRow={setRemoveRow}
               data={tableData?.dataset}
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
@@ -178,6 +203,57 @@ function CardElements({ selectedTab }: any) {
           )}
         </div>
       </div>
+      <Modal
+        open={showRemoveModal}
+        onClose={() => {
+          setShowRemoveModal(false);
+          setRemoveRow(null);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Image
+                src={crossIconSvg}
+                alt="filterSvg"
+                width={18}
+                height={18}
+                onClick={() => {
+                  setShowRemoveModal(false);
+                  setRemoveRow(null);
+                }}
+              />
+            </div>
+            <div>Open Modal</div>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <div
+                style={{
+                  width: 150,
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Button
+                  variant="text"
+                  color="error"
+                  onClick={() => {
+                    setShowRemoveModal(false);
+                    setRemoveRow(null);
+                  }}
+                >
+                  No
+                </Button>
+
+                <Button variant="text" color="success">
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </>
+        </Box>
+      </Modal>
     </section>
   );
 }

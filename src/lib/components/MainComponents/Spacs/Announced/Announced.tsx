@@ -21,6 +21,7 @@ function Announced() {
     const response = await getApiWithoutAuth(
       `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=latest_announced`
     );
+    console.log('======================res',response)
     if (response.status === 200) {
       setLatestAnnounced(response.data);
       setIsLoadingAnnounced(false);
@@ -43,32 +44,32 @@ function Announced() {
     },
     {
       name: "Acquirer",
-      key: "Acquirer",
+      key: "acquirer",
       type: "string",
     },
     {
       name: "Announced Date",
-      key: "AnnouncedDate",
+      key: "announcedDate",
       type: "string",
     },
     {
       name: "Valuation",
-      key: "Valuation",
+      key: "valuation",
       type: "string",
     },
     {
       name: "DA Link",
-      key: "DALink",
+      key: "dALink",
       type: "string",
     },
     {
       name: "InvestorPres",
-      key: "InvestorPres",
+      key: "investorPres",
       type: "string",
     },
     {
       name: "View Deal Page",
-      key: "ViewDealPage",
+      key: "viewDealPage",
       type: "string",
     },
   ];

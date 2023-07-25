@@ -22,12 +22,16 @@ import {
   Box,
   FormControl,
   InputLabel,
-  Select,
   Button,
   MenuItem,
 } from "@mui/material";
-
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Checkbox from "@mui/material/Checkbox";
+import { useContext } from "react";
+import { MemberInformationContext } from "@/lib/components/context";
 function CardElements() {
+  const { user } = useContext(MemberInformationContext);
+
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -408,7 +412,6 @@ function CardElements() {
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [isUser, setIsUser] = useState(false);
   const [filterCount, setFilerCount] = useState(0);
 
   const [itemsPerPage, setItemPerPage] = useState(5);
@@ -421,6 +424,16 @@ function CardElements() {
     TargetRegion: null,
     De_SPAC_Closing_Year: null,
   });
+
+  const [filterArray, setFilterArray] = useState<{
+    LiquidationYear?: any[];
+    LiquidationStatus?: any[];
+    SPACProgressStatus?: any[];
+    VotesDeadlines?: any[];
+    TargetSector?: any[];
+    TargetRegion?: any[];
+    De_SPAC_Closing_Year?: any[];
+  }>({});
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
@@ -473,6 +486,77 @@ function CardElements() {
     setFilerCount(count);
     setOpenFilterModal(false);
   };
+
+  const handleChangeFilter = (
+    key: string,
+    event: SelectChangeEvent<string[]>,
+    selectedArray: any
+  ) => {
+    const selectedValues = event.target.value as string[];
+
+    const updatedFilterArray = {
+      ...filterArray,
+      [key]: selectedValues.map((selectedValue: string) =>
+        selectedArray.find((item: any) => item.key === selectedValue)
+      ),
+    };
+
+    console.log(
+      "===============================",
+      key,
+      selectedValues,
+      selectedArray,
+      updatedFilterArray
+    );
+
+    setFilterArray(updatedFilterArray);
+  };
+  const SPACProgressStatusOptions = [
+    { key: "Searching", name: "Searching", pro: false },
+    { key: "Announced", name: "Announced", pro: false },
+    { key: "Liquidating", name: "Liquidating", pro: false },
+  ];
+  const IPOYearsOptions = [
+    { key: "2023", name: "2023", pro: false },
+    { key: "2022", name: "2022", pro: false },
+    { key: "2021", name: "2021", pro: false },
+    { key: "2020", name: "2020", pro: true },
+    { key: "2019", name: "2019", pro: true },
+  ];
+  const LiquidationYearOptions = [
+    { key: "2023", name: "2023", pro: true },
+    { key: "2022", name: "2022", pro: true },
+    { key: "2021", name: "2021", pro: true },
+    { key: "2020", name: "2020", pro: true },
+    { key: "2019", name: "2019", pro: true },
+  ];
+
+  const VotesDeadlinesOptions = [
+    { key: "Approaching Deadline", name: "Approaching Deadline", pro: true },
+    { key: "Merger Vote Set", name: "Merger Vote Set", pro: true },
+    { key: "Extension Vote Set", name: "Extension Vote Set", pro: true },
+  ];
+
+  const LiquidationStatusOptions = [
+    { key: "Liquidated", name: "Liquidated", pro: true },
+    { key: "Liquidating", name: "Liquidating", pro: true },
+  ];
+
+  const TargetSectorOptions = [
+    { key: "Tech", name: "Tech", pro: false },
+    { key: "Energy", name: "Energy", pro: true },
+    { key: "Financials", name: "Financials", pro: true },
+    { key: "Communications", name: "Communications", pro: true },
+    { key: "Materials", name: "Materials", pro: true },
+  ];
+  const TargetRegionOptions = [
+    { key: "U.S. & Canada", name: "U.S. & Canada", pro: false },
+    { key: "Latin America", name: "Latin America", pro: true },
+    { key: " Asia & Oceania", name: " Asia & Oceania", pro: true },
+    { key: "Africa", name: "Africa", pro: true },
+    { key: "Europe", name: "Europe", pro: true },
+  ];
+
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
@@ -622,7 +706,7 @@ function CardElements() {
             </div>
           </div>
         </div>
-        <div style={{ width:'100%',overflow: 'auto' }}>
+        <div style={{ width: "100%", overflow: "auto" }}>
           {isLoading ? (
             <SkeltonTable />
           ) : (
@@ -651,7 +735,7 @@ function CardElements() {
               totalLength={spacsListData?.additional_dataset}
               showPagination
               setItemPerPage={setItemPerPage}
-              isUser={isUser}
+              isUser={user?.member?.stripeCustomerId}
             />
           )}
         </div>
@@ -681,80 +765,156 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
-                  {filters?.SPACProgressStatus ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, SPACProgressStatus: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      SPACProgressStatus
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="SPACProgressStatus"
-                      value={filters?.SPACProgressStatus}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Searching"}>Searching</MenuItem>
-                      <MenuItem value={"Announced"}>Announced</MenuItem>
-                      <MenuItem value={"Liquidating"}>Liquidating</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.VotesDeadlines ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, VotesDeadlines: null })
-                      }
-                    />
-                  ) : null}
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl sx={{ m: 2, minWidth: 180 }}>
-                      <InputLabel htmlFor="demo-dialog-native">
-                        Votes / Deadlines
-                      </InputLabel>
-                      <Select
-                        disabled={!isUser}
-                        placeholder="Select"
-                        name="VotesDeadlines"
-                        value={filters?.VotesDeadlines}
-                        onChange={(e) => saveValue(e)}
-                        variant="standard"
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    SPAC Progress Status
+                  </InputLabel>
+                  <Select
+                    label="SPAC Progress Status"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.SPACProgressStatus
+                        ? filterArray?.SPACProgressStatus.map(
+                            (item: any) => item.key
+                          )
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "SPACProgressStatus",
+                        event,
+                        SPACProgressStatusOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = SPACProgressStatusOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {SPACProgressStatusOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
-                        <MenuItem value={"Approaching Deadline"}>
-                          Approaching Deadline
-                        </MenuItem>
-                        <MenuItem value={"Merger Vote Set"}>
-                          Merger Vote Set
-                        </MenuItem>
-                        <MenuItem value={"Extension Vote Set"}>
-                          Extension Vote Set
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                      style={{ marginTop: 10 }}
-                    />
-                  </div>
-                </div>
+                        <Checkbox
+                          checked={
+                            filterArray.SPACProgressStatus &&
+                            filterArray.SPACProgressStatus.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Votes / Deadlines
+                  </InputLabel>
+                  <Select
+                    label="Votes / Deadlines"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.VotesDeadlines
+                        ? filterArray?.VotesDeadlines.map(
+                            (item: any) => item.key
+                          )
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "VotesDeadlines",
+                        event,
+                        VotesDeadlinesOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = VotesDeadlinesOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {VotesDeadlinesOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.VotesDeadlines &&
+                            filterArray.VotesDeadlines.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             ) : selectedTab === 1 ? (
               <div
@@ -763,48 +923,81 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
-                  {filters?.VotesDeadlines ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, VotesDeadlines: null })
-                      }
-                    />
-                  ) : null}
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl sx={{ m: 2, minWidth: 180 }}>
-                      <InputLabel htmlFor="demo-dialog-native">
-                        Votes / Deadlines
-                      </InputLabel>
-                      <Select
-                        disabled={!isUser}
-                        placeholder="Select"
-                        name="VotesDeadlines"
-                        value={filters?.VotesDeadlines}
-                        onChange={(e) => saveValue(e)}
-                        variant="standard"
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Votes / Deadlines
+                  </InputLabel>
+                  <Select
+                    label="Votes / Deadlines"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.VotesDeadlines
+                        ? filterArray?.VotesDeadlines.map(
+                            (item: any) => item.key
+                          )
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "VotesDeadlines",
+                        event,
+                        VotesDeadlinesOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = VotesDeadlinesOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {VotesDeadlinesOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
-                        <MenuItem value={"Approaching Deadline"}>
-                          Approaching Deadline
-                        </MenuItem>
-                        <MenuItem value={"Extension Vote Set"}>
-                          Extension Vote Set
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                      style={{ marginTop: 10 }}
-                    />
-                  </div>
-                </div>
+                        <Checkbox
+                          checked={
+                            filterArray.VotesDeadlines &&
+                            filterArray.VotesDeadlines.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             ) : selectedTab === 2 ? (
               <div
@@ -814,179 +1007,228 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
-                  {filters?.TargetSector ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, TargetSector: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Target Sector
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="TargetSector"
-                      value={filters?.TargetSector}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Tech"}>Tech</MenuItem>
-                      <MenuItem value={"Energy"} disabled={!isUser}>
-                        Energy{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Target Sector
+                  </InputLabel>
+                  <Select
+                    label="Target Sector"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.TargetSector
+                        ? filterArray?.TargetSector.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "TargetSector",
+                        event,
+                        TargetSectorOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = TargetSectorOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {TargetSectorOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.TargetSector &&
+                            filterArray.TargetSector.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                      <MenuItem value={"Financials"} disabled={!isUser}>
-                        Financials{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                    ))}
+                  </Select>
+                </FormControl>
+
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Target Region
+                  </InputLabel>
+                  <Select
+                    label="Target Region"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.TargetRegion
+                        ? filterArray?.TargetRegion.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "TargetRegion",
+                        event,
+                        TargetRegionOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = TargetRegionOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {TargetRegionOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.TargetRegion &&
+                            filterArray.TargetRegion.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                      <MenuItem value={"Communications"} disabled={!isUser}>
-                        Communications
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    De-SPAC Closing Year
+                  </InputLabel>
+                  <Select
+                    label=" De-SPAC Closing Year"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.De_SPAC_Closing_Year
+                        ? filterArray?.De_SPAC_Closing_Year.map(
+                            (item: any) => item.key
+                          )
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "De_SPAC_Closing_Year",
+                        event,
+                        IPOYearsOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOYearsOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOYearsOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.De_SPAC_Closing_Year &&
+                            filterArray.De_SPAC_Closing_Year.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                      <MenuItem value={"Materials"} disabled={!isUser}>
-                        Materials
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.TargetRegion ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, TargetRegion: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Target Region
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="TargetRegion"
-                      value={filters?.TargetRegion}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"U.S. & Canada"}>U.S. & Canada</MenuItem>
-                      <MenuItem value={"Latin America"} disabled={!isUser}>
-                        Latin America
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={" Asia & Oceania"} disabled={!isUser}>
-                        Asia & Oceania
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"Africa"} disabled={!isUser}>
-                        Africa
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"Europe"} disabled={!isUser}>
-                        Europe
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.De_SPAC_Closing_Year ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, De_SPAC_Closing_Year: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      De-SPAC Closing Year
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="De_SPAC_Closing_Year"
-                      value={filters?.De_SPAC_Closing_Year}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"2023"}>2023</MenuItem>
-                      <MenuItem value={"2022"}>2022</MenuItem>
-                      <MenuItem value={"2021"}>2021</MenuItem>
-                      <MenuItem value={"2020"} disabled={!isUser}>
-                        2020
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"2019"} disabled={!isUser}>
-                        2019
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             ) : selectedTab === 3 ? (
               <div
@@ -996,179 +1238,228 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
-                  {filters?.TargetSector ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, TargetSector: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Target Sector
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="TargetSector"
-                      value={filters?.TargetSector}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Tech"}>Tech</MenuItem>
-                      <MenuItem value={"Energy"} disabled={!isUser}>
-                        Energy{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Target Sector
+                  </InputLabel>
+                  <Select
+                    label="Target Sector"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.TargetSector
+                        ? filterArray?.TargetSector.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "TargetSector",
+                        event,
+                        TargetSectorOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = TargetSectorOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {TargetSectorOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.TargetSector &&
+                            filterArray.TargetSector.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                      <MenuItem value={"Financials"} disabled={!isUser}>
-                        Financials{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                    ))}
+                  </Select>
+                </FormControl>
+
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Target Region
+                  </InputLabel>
+                  <Select
+                    label="Target Region"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.TargetRegion
+                        ? filterArray?.TargetRegion.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "TargetRegion",
+                        event,
+                        TargetRegionOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = TargetRegionOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {TargetRegionOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.TargetRegion &&
+                            filterArray.TargetRegion.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                      <MenuItem value={"Communications"} disabled={!isUser}>
-                        Communications
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    De-SPAC Closing Year
+                  </InputLabel>
+                  <Select
+                    label=" De-SPAC Closing Year"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.De_SPAC_Closing_Year
+                        ? filterArray?.De_SPAC_Closing_Year.map(
+                            (item: any) => item.key
+                          )
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "De_SPAC_Closing_Year",
+                        event,
+                        IPOYearsOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOYearsOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOYearsOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.De_SPAC_Closing_Year &&
+                            filterArray.De_SPAC_Closing_Year.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                      <MenuItem value={"Materials"} disabled={!isUser}>
-                        Materials
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.TargetRegion ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, TargetRegion: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Target Region
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="TargetRegion"
-                      value={filters?.TargetRegion}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"U.S. & Canada"}>U.S. & Canada</MenuItem>
-                      <MenuItem value={"Latin America"} disabled={!isUser}>
-                        Latin America
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={" Asia & Oceania"} disabled={!isUser}>
-                        Asia & Oceania
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"Africa"} disabled={!isUser}>
-                        Africa
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"Europe"} disabled={!isUser}>
-                        Europe
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.De_SPAC_Closing_Year ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, De_SPAC_Closing_Year: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      De-SPAC Closing Year
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="De_SPAC_Closing_Year"
-                      value={filters?.De_SPAC_Closing_Year}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"2023"}>2023</MenuItem>
-                      <MenuItem value={"2022"}>2022</MenuItem>
-                      <MenuItem value={"2021"}>2021</MenuItem>
-                      <MenuItem value={"2020"} disabled={!isUser}>
-                        2020
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"2019"} disabled={!isUser}>
-                        2019
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             ) : selectedTab === 4 ? (
               <div
@@ -1202,80 +1493,156 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
-                  {filters?.SPACProgressStatus ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, SPACProgressStatus: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      SPACProgressStatus
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="SPACProgressStatus"
-                      value={filters?.SPACProgressStatus}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Searching"}>Searching</MenuItem>
-                      <MenuItem value={"Announced"}>Announced</MenuItem>
-                      <MenuItem value={"Liquidating"}>Liquidating</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.VotesDeadlines ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, VotesDeadlines: null })
-                      }
-                    />
-                  ) : null}
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl sx={{ m: 2, minWidth: 180 }}>
-                      <InputLabel htmlFor="demo-dialog-native">
-                        Votes / Deadlines
-                      </InputLabel>
-                      <Select
-                        disabled={!isUser}
-                        placeholder="Select"
-                        name="VotesDeadlines"
-                        value={filters?.VotesDeadlines}
-                        onChange={(e) => saveValue(e)}
-                        variant="standard"
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    SPAC Progress Status
+                  </InputLabel>
+                  <Select
+                    label="SPAC Progress Status"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.SPACProgressStatus
+                        ? filterArray?.SPACProgressStatus.map(
+                            (item: any) => item.key
+                          )
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "SPACProgressStatus",
+                        event,
+                        SPACProgressStatusOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = SPACProgressStatusOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {SPACProgressStatusOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
-                        <MenuItem value={"Approaching Deadline"}>
-                          Approaching Deadline
-                        </MenuItem>
-                        <MenuItem value={"Merger Vote Set"}>
-                          Merger Vote Set
-                        </MenuItem>
-                        <MenuItem value={"Extension Vote Set"}>
-                          Extension Vote Set
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                      style={{ marginTop: 10 }}
-                    />
-                  </div>
-                </div>
+                        <Checkbox
+                          checked={
+                            filterArray.SPACProgressStatus &&
+                            filterArray.SPACProgressStatus.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Votes / Deadlines
+                  </InputLabel>
+                  <Select
+                    label="Votes / Deadlines"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.VotesDeadlines
+                        ? filterArray?.VotesDeadlines.map(
+                            (item: any) => item.key
+                          )
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "VotesDeadlines",
+                        event,
+                        VotesDeadlinesOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = VotesDeadlinesOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {VotesDeadlinesOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.VotesDeadlines &&
+                            filterArray.VotesDeadlines.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             ) : (
               <div
@@ -1284,85 +1651,156 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
-                  {filters?.LiquidationStatus ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, LiquidationStatus: null })
-                      }
-                    />
-                  ) : null}
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl sx={{ m: 2, minWidth: 180 }}>
-                      <InputLabel htmlFor="demo-dialog-native">
-                        Liquidation Status
-                      </InputLabel>
-                      <Select
-                        disabled={!isUser}
-                        placeholder="Select"
-                        name="LiquidationStatus"
-                        value={filters?.LiquidationStatus}
-                        onChange={(e) => saveValue(e)}
-                        variant="standard"
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Liquidation Status
+                  </InputLabel>
+                  <Select
+                    label="Liquidation Status"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.LiquidationStatus
+                        ? filterArray?.LiquidationStatus.map(
+                            (item: any) => item.key
+                          )
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "LiquidationStatus",
+                        event,
+                        LiquidationStatusOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = LiquidationStatusOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {LiquidationStatusOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
-                        <MenuItem value={"Liquidated"}>Liquidated</MenuItem>
-                        <MenuItem value={"Liquidating"}>Liquidating</MenuItem>
-                      </Select>
-                    </FormControl>
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                      style={{ marginTop: 10 }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.LiquidationYear ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, LiquidationYear: null })
-                      }
-                    />
-                  ) : null}
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl sx={{ m: 2, minWidth: 180 }}>
-                      <InputLabel htmlFor="demo-dialog-native">
-                        Liquidation Year
-                      </InputLabel>
-                      <Select
-                        disabled={!isUser}
-                        placeholder="Select"
-                        name="LiquidationYear"
-                        value={filters?.LiquidationYear}
-                        onChange={(e) => saveValue(e)}
-                        variant="standard"
+                        <Checkbox
+                          checked={
+                            filterArray.LiquidationStatus &&
+                            filterArray.LiquidationStatus.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Liquidation Year
+                  </InputLabel>
+                  <Select
+                    label="Liquidation Year"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.LiquidationYear
+                        ? filterArray?.LiquidationYear.map(
+                            (item: any) => item.key
+                          )
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "LiquidationYear",
+                        event,
+                        LiquidationYearOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = LiquidationYearOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {LiquidationYearOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
-                        <MenuItem value={"2023"}>2023</MenuItem>
-                        <MenuItem value={"2022"}>2022</MenuItem>
-                        <MenuItem value={"2021"}>2021</MenuItem>
-                        <MenuItem value={"2020"}>2020</MenuItem>
-                        <MenuItem value={"2019"}>2019</MenuItem>
-                      </Select>
-                    </FormControl>
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                      style={{ marginTop: 10 }}
-                    />
-                  </div>
-                </div>
+                        <Checkbox
+                          checked={
+                            filterArray.LiquidationYear &&
+                            filterArray.LiquidationYear.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             )}
             <div

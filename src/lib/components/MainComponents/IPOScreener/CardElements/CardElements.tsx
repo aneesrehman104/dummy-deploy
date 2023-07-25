@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CardElements.module.css";
-import MyTable from "./functions";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import searchIcon from "../../../../../../public/searchIcon.svg";
@@ -15,6 +14,7 @@ import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
   ListingTrackTable,
+  CommonfiButton,
 } from "@/lib/components/CommonComponents";
 import {
   TextField,
@@ -46,11 +46,30 @@ import {
   IPOPricedScreeners,
   IPOUpcommingScreeners,
 } from "@/lib/ts/constants";
+import { useContext } from "react";
+import { MemberInformationContext } from "@/lib/components/context";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
 function CardElements() {
+  const { user } = useContext(MemberInformationContext);
+  const router = useRouter();
+
   const CssTextField = styled(TextField)({
     width: "368px",
     height: "40px",
     borderBottom: "1px solid rgba(0, 0, 0, 0.42)",
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        border: "none",
+      },
+    },
+  });
+  const CssTextFieldBorder = styled(TextField)({
+    height: "40px",
+    marginTop: "10px",
+    border: "1px solid #dddee0",
+    background: "#dddee0",
+    borderRadius: "40px",
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
         border: "none",
@@ -67,6 +86,7 @@ function CardElements() {
     border: "2px solid #000",
     boxShadow: 24,
     p: 1,
+    paddingLeft: "30px",
   };
   const tabValues: { [key: number]: string } = {
     // 0: "priced",
@@ -77,19 +97,23 @@ function CardElements() {
   const [isLoading, setIsLoading] = useState(true);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openColumnModal, setOpenColumnModal] = useState(false);
+  const [openModalSavedScreen, setOpenModalSavedScreen] = useState(false);
+  const [openModalCheckScreen, setOpenModalCheckScreen] = useState(false);
+  const [name, setName] = useState("");
+  const [userType, setUserType] = useState("free");
+
   const [screenerData, setScreenerData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [selectedTab, setSelectedTab] = useState(1);
+  const [selectedTab, setSelectedTab] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCount, setFilerCount] = useState(0);
-  const [filters, setFilters] = useState({
-    IPOYear: null,
-    IPOType: null,
-    IPOStatus: null,
-  });
-  const [isUser, setIsUser] = useState(false);
+  // const [filters, setFilters] = useState({
+  //   IPOYear: null,
+  //   IPOType: null,
+  //   IPOStatus: null,
+  // });
 
   const [itemsPerPage, setItemPerPage] = useState(5);
   const tabData = [
@@ -102,7 +126,7 @@ function CardElements() {
       key: 1,
     },
   ];
-  const [personName, setPersonName] = React.useState([
+  const [personName, setPersonName] = useState([
     {
       name: "Company",
       key: "company",
@@ -123,6 +147,17 @@ function CardElements() {
       name: "Market Cap",
       key: "marketCap",
     },
+  ]);
+
+  const [filterArray, setFilterArray] = useState<{
+    IPOYEAR?: any[] ;
+    IPOType?: any[];
+    IPOStatus?: any[];
+  }>({});
+  const [previousSaveScreen, setPreviousSaveScreen] = useState([
+    { name: "anees", id: 20 },
+    { name: "anees", id: 20 },
+    { name: "anees", id: 20 },
   ]);
 
   const handleChange = (
@@ -148,35 +183,32 @@ function CardElements() {
   };
 
   useEffect(() => {
-    console.log("====================personName", personName);
-  }, [personName]);
+    console.log("====================filterArray", filterArray);
+  }, [filterArray]);
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-  const saveValue = (e: any) => {
-    const { name, value } = e.target;
-    setFilters({ ...filters, [name]: value });
-  };
+
   const clearAll = () => {
-    setFilters({
-      IPOYear: null,
-      IPOType: null,
-      IPOStatus: null,
-    });
+    // setFilterArray({
+    //   IPOYear: [],
+    //   IPOType: [],
+    //   IPOStatus: [],
+    // });
     setOpenFilterModal(false);
     setFilerCount(0);
   };
   const applyFilters = () => {
-    console.log("====================filters", filters);
+    // console.log("====================filters", filters);
 
     let count = 0;
 
-    for (const key in filters) {
-      if (filters[key as keyof typeof filters] !== null) {
-        count++;
-      }
-    }
+    // for (const key in filters) {
+    //   if (filters[key as keyof typeof filters] !== null) {
+    //     count++;
+    //   }
+    // }
     setFilerCount(count);
     setOpenFilterModal(false);
   };
@@ -224,7 +256,68 @@ function CardElements() {
         key: "vol",
       },
     ]);
+    // setFilterArray({
+    //   IPOYear: null,
+    //   IPOType: null,
+    //   IPOStatus: null,
+    // });
   };
+  const saveScreenApi = () => {
+    // console.log(
+    //   "==============name",
+    //   name,
+    //   filters,
+    //   `${tabValues[selectedTab]}`
+    // );
+    setOpenModalSavedScreen(false);
+  };
+
+  const handleChangeFilter = (
+    key: string,
+    event: SelectChangeEvent<string[]>,
+    selectedArray: any
+  ) => {
+    const selectedValues = event.target.value as string[];
+
+    const updatedFilterArray = {
+      ...filterArray,
+      [key]: selectedValues.map((selectedValue: string) =>
+        selectedArray.find((item: any) => item.key === selectedValue)
+      ),
+    };
+
+    console.log(
+      "===============================",
+      key,
+      selectedValues,
+      selectedArray,
+      updatedFilterArray
+    );
+
+    setFilterArray(updatedFilterArray);
+  };
+
+  const IPOYearsOptions = [
+    { key: "2023", name: "2023", pro: false },
+    { key: "2022", name: "2022", pro: false },
+    { key: "2021", name: "2021", pro: false },
+    { key: "2020", name: "2020", pro: true },
+    { key: "2019", name: "2019", pro: true },
+  ];
+
+  const IPOTypeOptions = [
+    { key: "Traditional", name: "Traditional", pro: true },
+    { key: "SPAC", name: "SPAC", pro: true },
+    { key: "Direct Listing", name: "Direct Listing", pro: true },
+  ];
+
+  const IPOStatusOptions = [
+    { key: "Expected", name: "Expected", pro: false },
+    { key: "Filed", name: "Filed", pro: false },
+    { key: "Withdrawn", name: "Withdrawn", pro: false },
+    { key: "Filed Amended", name: "Filed Amended", pro: true },
+  ];
+
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
@@ -302,8 +395,22 @@ function CardElements() {
                 alignItems: "flex-end",
               }}
             >
-              <Image src={proSvg} alt="filterSvg" width={50} height={26} />
-              <div className={styles.filterGap}>
+              {user?.member?.stripeCustomerId ? null : (
+                <Image
+                  src={proSvg}
+                  alt="filterSvg"
+                  width={50}
+                  height={26}
+                  onClick={() => {
+                    router.push('/plans');
+                  }}
+                />
+              )}
+              <div
+                className={styles.filterGap}
+                onClick={() => setOpenModalCheckScreen(true)}
+                // onClick={() => setOpenModalSavedScreen(true)}
+              >
                 <Image
                   src={saveScreenerSvg}
                   alt="filterSvg"
@@ -314,6 +421,31 @@ function CardElements() {
                 <div>SAVED SCREENS</div>
               </div>{" "}
             </div>
+            {/* <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+                border: "2px solid red",
+              }}
+              // disabled={filterCount === 0 ? true : false}
+              onClick={
+                filterCount === 0
+                  ? () => {}
+                  : () => setOpenModalSavedScreen(true)
+              }
+            >
+              <div className={styles.filterGap}>
+                <Image
+                  src={saveScreenerSvg}
+                  alt="filterSvg"
+                  width={18}
+                  height={18}
+                />
+
+                <div>SAVED</div>
+              </div>{" "}
+            </div> */}
             <div className={styles.filterGap}>
               <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
               <div>EXPORT</div>
@@ -333,7 +465,7 @@ function CardElements() {
               totalLength={screenerData?.additional_dataset}
               showPagination
               setItemPerPage={setItemPerPage}
-              isUser={isUser}
+              isUser={user?.member?.stripeCustomerId}
             />
           )}
         </div>
@@ -363,91 +495,147 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
-                  {filters?.IPOYear ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() => setFilters({ ...filters, IPOYear: null })}
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      IPO Year
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="IPOYear"
-                      value={filters?.IPOYear}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"2023"}>2023</MenuItem>
-                      <MenuItem value={"2022"}>2022</MenuItem>
-                      <MenuItem value={"2021"}>2021</MenuItem>
-                      <MenuItem value={"2020"} disabled={!isUser}>
-                        2020
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"2019"} disabled={!isUser}>
-                        2019
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-
-                <div className={styles.filterModalStyling}>
-                  {filters?.IPOType ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() => setFilters({ ...filters, IPOType: null })}
-                    />
-                  ) : null}
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl sx={{ m: 2, minWidth: 180 }}>
-                      <InputLabel htmlFor="demo-dialog-native">
-                        IPO Type
-                      </InputLabel>
-                      <Select
-                        disabled={!isUser}
-                        placeholder="Select"
-                        name="IPOType"
-                        value={filters?.IPOType}
-                        onChange={(e) => saveValue(e)}
-                        variant="standard"
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    IPO Year
+                  </InputLabel>
+                  <Select
+                    label="IPO Year"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOYEAR
+                        ? filterArray?.IPOYEAR.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOYEAR", event, IPOYearsOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOYearsOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOYearsOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                         disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
-                        <MenuItem value={"Traditional"}>Traditional</MenuItem>
-                        <MenuItem value={"SPAC"}>SPAC</MenuItem>
-                        <MenuItem value={"Direct Listing"}>
-                          Direct Listing
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                      style={{ marginTop: 10 }}
-                    />
-                  </div>
-                </div>
+                        <Checkbox
+                          checked={
+                            filterArray.IPOYEAR &&
+                            filterArray.IPOYEAR.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel
+                    id="demo-multiple-c
+                  heckbox-label"
+                  >
+                    IPO Type
+                  </InputLabel>
+                  <Select
+                    label="IPO Type"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOType
+                        ? filterArray?.IPOType.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOType", event, IPOTypeOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOTypeOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOTypeOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                         disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOType &&
+                            filterArray.IPOType.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             ) : (
               <div
@@ -456,84 +644,147 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
-                  {filters?.IPOStatus ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, IPOStatus: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      IPO Status
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="IPOStatus"
-                      value={filters?.IPOStatus}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Expected"}>Expected</MenuItem>
-                      <MenuItem value={"Filed"}>Filed</MenuItem>
-                      <MenuItem value={"Withdrawn"}>Withdrawn</MenuItem>
-                      <MenuItem value={"Filed Amended"} disabled={!isUser}>
-                        Filed Amended
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-
-                <div className={styles.filterModalStyling}>
-                  {filters?.IPOType ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() => setFilters({ ...filters, IPOType: null })}
-                    />
-                  ) : null}
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl sx={{ m: 2, minWidth: 180 }}>
-                      <InputLabel htmlFor="demo-dialog-native">
-                        IPO Type
-                      </InputLabel>
-                      <Select
-                        disabled={!isUser}
-                        placeholder="Select"
-                        name="IPOType"
-                        value={filters?.IPOType}
-                        onChange={(e) => saveValue(e)}
-                        variant="standard"
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    IPO Status
+                  </InputLabel>
+                  <Select
+                    label="IPO Status"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOStatus
+                        ? filterArray?.IPOStatus.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOStatus", event, IPOStatusOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOStatusOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOStatusOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                         disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
-                        <MenuItem value={"Traditional"}>Traditional</MenuItem>
-                        <MenuItem value={"SPAC"}>SPAC</MenuItem>
-                        <MenuItem value={"Direct Listing"}>
-                          Direct Listing
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                      style={{ marginTop: 10 }}
-                    />
-                  </div>
-                </div>
+                        <Checkbox
+                          checked={
+                            filterArray.IPOStatus &&
+                            filterArray.IPOStatus.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel
+                    id="demo-multiple-c
+                  heckbox-label"
+                  >
+                    IPO Type
+                  </InputLabel>
+                  <Select
+                    label="IPO Type"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOType
+                        ? filterArray?.IPOType.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOType", event, IPOTypeOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOTypeOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOTypeOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                         disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOType &&
+                            filterArray.IPOType.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             )}
             <div
@@ -594,6 +845,7 @@ function CardElements() {
                       Find Column
                     </InputLabel>
                     <Select
+                      label="Find Column"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -624,7 +876,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                           disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -632,7 +884,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -657,6 +909,7 @@ function CardElements() {
                       Company Profile
                     </InputLabel>
                     <Select
+                      label="Company Profile"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -688,7 +941,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                           disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -696,7 +949,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -713,6 +966,7 @@ function CardElements() {
                       IPO Profile
                     </InputLabel>
                     <Select
+                      label="IPO Profile"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -744,7 +998,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                           disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -752,7 +1006,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -769,6 +1023,7 @@ function CardElements() {
                       Trading
                     </InputLabel>
                     <Select
+                      label="Trading"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -800,7 +1055,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                           disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -808,7 +1063,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -843,6 +1098,7 @@ function CardElements() {
                       Find Column
                     </InputLabel>
                     <Select
+                      label="Find Column"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -873,7 +1129,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                           disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -881,7 +1137,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -906,6 +1162,7 @@ function CardElements() {
                       Company Profile
                     </InputLabel>
                     <Select
+                      label="Company Profile"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -937,7 +1194,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                           disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -945,7 +1202,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -962,6 +1219,7 @@ function CardElements() {
                       IPO Profile
                     </InputLabel>
                     <Select
+                      label="IPO Profile"
                       labelId="demo-multiple-checkbox-label"
                       id="demo-multiple-checkbox"
                       multiple
@@ -993,7 +1251,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                           disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1001,7 +1259,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -1033,6 +1291,353 @@ function CardElements() {
                 Apply
               </Button>
             </div> */}
+          </Box>
+        </>
+      </Modal>
+
+      <Modal
+        keepMounted
+        open={openModalSavedScreen}
+        onClose={() => setOpenModalSavedScreen(false)}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <>
+          <Box sx={style}>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Image
+                src={crossIconSvg}
+                alt="filterSvg"
+                width={18}
+                height={18}
+                onClick={() => setOpenModalSavedScreen(false)}
+              />
+            </div>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <TextField
+                fullWidth
+                placeholder="Name the Screen"
+                id="fullWidth"
+                sx={{ width: "80%" }}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setName(event.target.value);
+                }}
+              />
+              <Button
+                onClick={() => saveScreenApi()}
+                variant="text"
+                color="success"
+                disabled={name === ""}
+              >
+                Saved
+              </Button>
+            </div>
+          </Box>
+        </>
+      </Modal>
+
+      <Modal
+        keepMounted
+        open={openModalCheckScreen}
+        onClose={() => setOpenModalCheckScreen(false)}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <>
+          <Box sx={style}>
+            <>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Image
+                  src={crossIconSvg}
+                  alt="filterSvg"
+                  width={18}
+                  height={18}
+                  onClick={() => setOpenModalCheckScreen(false)}
+                />
+              </div>
+              <div>Saved Screens</div>
+              {userType === "free" ? (
+                <div
+                  style={{
+                    fontSize: "12px",
+                  }}
+                >
+                  <div className={styles.filterGap} style={{ marginTop: 7 }}>
+                    <Image src={proSvg} alt="proSvg" width={50} height={32} />
+                    <div>
+                      Upgrade the one of our Premium plans to use this feacture.
+                    </div>
+                  </div>
+                  <div style={{ marginTop: 7 }}>
+                    To save a new screen, select your desired filters and then
+                    click &apos;Save This Screen&apos; below.
+                  </div>
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      marginTop: 7,
+                    }}
+                  >
+                    <CssTextFieldBorder
+                      fullWidth
+                      sx={{ width: "50%" }}
+                      placeholder="Name the Screen"
+                      size="small"
+                      hiddenLabel
+                    />
+                    <Button variant="text" color="success" disabled>
+                      Save
+                    </Button>
+                  </div>
+                  <div style={{ marginTop: 7 }}>
+                    Or select a previously saved screen:
+                  </div>
+
+                  <div style={{ marginTop: 7 }}>
+                    No Saved Screen Yet! Add one
+                  </div>
+                  <div className={styles.filterGap} style={{ marginTop: 7 }}>
+                    <Image
+                      src={selectedColumnSvg}
+                      alt="selectedColumnSvg"
+                      width={20}
+                      height={20}
+                    />
+                    <div>
+                      Only filters will be saved, any selected columns will not
+                      be saved.
+                    </div>
+                  </div>
+                </div>
+              ) : userType === "plus" ? (
+                <div
+                  style={{
+                    fontSize: "12px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      marginTop: 7,
+                    }}
+                  >
+                    <CssTextFieldBorder
+                      fullWidth
+                      sx={{ width: "50%" }}
+                      placeholder="Name the Screen"
+                      size="small"
+                      hiddenLabel
+                      value={name}
+                      disabled={previousSaveScreen.length > 2}
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>
+                      ) => {
+                        setName(event.target.value);
+                      }}
+                    />
+                    <Button
+                      variant="text"
+                      color="success"
+                      onClick={() => saveScreenApi()}
+                      disabled={previousSaveScreen.length > 2 && name === ""}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                  <div style={{ marginTop: 7 }}>
+                    To save a new screen, select your desired filters and then
+                    click &apos;Save This Screen&apos; below.
+                  </div>
+                  {previousSaveScreen.length === 0 ? (
+                    <div style={{ marginTop: 7 }}>
+                      No Saved Screen Yet! Add one
+                    </div>
+                  ) : (
+                    previousSaveScreen.map((item: any, index: number) => {
+                      return (
+                        <div
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            marginTop: "7px",
+                            alignItems: "center",
+                          }}
+                          key={item.id}
+                        >
+                          <CssTextFieldBorder
+                            fullWidth
+                            sx={{ width: "50%" }}
+                            placeholder="Name the Screen"
+                            size="small"
+                            hiddenLabel
+                          />
+                          <Button
+                            variant="text"
+                            color="inherit"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Rename
+                          </Button>
+                          <Button
+                            variant="text"
+                            color="error"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Delete
+                          </Button>
+                          <Button
+                            variant="text"
+                            color="success"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Apply
+                          </Button>
+                        </div>
+                      );
+                    })
+                  )}
+
+                  <div className={styles.filterGap} style={{ marginTop: 7 }}>
+                    <Image
+                      src={selectedColumnSvg}
+                      alt="selectedColumnSvg"
+                      width={20}
+                      height={20}
+                    />
+                    <div>
+                      Only filters will be saved, any selected columns will not
+                      be saved.
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    fontSize: "12px",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      marginTop: 7,
+                    }}
+                  >
+                    <CssTextFieldBorder
+                      fullWidth
+                      sx={{ width: "50%" }}
+                      placeholder="Name the Screen"
+                      size="small"
+                      hiddenLabel
+                    />
+                    <Button
+                      variant="text"
+                      color="success"
+                      onClick={() => saveScreenApi()}
+                      disabled={name === ""}
+                    >
+                      Save
+                    </Button>
+                  </div>
+                  <div style={{ marginTop: 7 }}>
+                    To save a new screen, select your desired filters and then
+                    click &apos;Save This Screen&apos; below.
+                  </div>
+                  {previousSaveScreen.length === 0 ? (
+                    <div style={{ marginTop: 7 }}>
+                      No Saved Screen Yet! Add one
+                    </div>
+                  ) : (
+                    previousSaveScreen.map((item: any, index: number) => {
+                      return (
+                        <div
+                          style={{
+                            width: "100%",
+                            display: "flex",
+                            marginTop: "7px",
+                            alignItems: "center",
+                          }}
+                          key={item.id}
+                        >
+                          <CssTextFieldBorder
+                            fullWidth
+                            sx={{ width: "50%" }}
+                            placeholder="Name the Screen"
+                            size="small"
+                            hiddenLabel
+                            value={name}
+                            onChange={(
+                              event: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                              setName(event.target.value);
+                            }}
+                          />
+                          <Button
+                            variant="text"
+                            color="inherit"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Rename
+                          </Button>
+                          <Button
+                            variant="text"
+                            color="error"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Delete
+                          </Button>
+                          <Button
+                            variant="text"
+                            color="success"
+                            onClick={() => {
+                              console.log("===========", index);
+                            }}
+                          >
+                            Apply
+                          </Button>
+                        </div>
+                      );
+                    })
+                  )}
+
+                  <div className={styles.filterGap} style={{ marginTop: 10 }}>
+                    <Image
+                      src={selectedColumnSvg}
+                      alt="selectedColumnSvg"
+                      width={20}
+                      height={20}
+                    />
+                    <div>
+                      Only filters will be saved, any selected columns will not
+                      be saved.
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
           </Box>
         </>
       </Modal>

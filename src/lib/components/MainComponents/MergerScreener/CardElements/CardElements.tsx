@@ -30,12 +30,17 @@ import {
 import ListItemText from "@mui/material/ListItemText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useContext } from "react";
+import { MemberInformationContext } from "@/lib/components/context";
 import {
   ClosedMergersScreener,
   DealProfile,
   RumorsTerminations,
 } from "@/lib/ts/constants";
 function CardElements() {
+  const { user } = useContext(MemberInformationContext);
+  const router = useRouter();
   const CssTextField = styled(TextField)({
     width: "368px",
     height: "40px",
@@ -77,6 +82,13 @@ function CardElements() {
     TargetRegion: null,
     ClosingYear: null,
   });
+
+  const [filterArray, setFilterArray] = useState<{
+    MergerType?: any[];
+    TargetSector?: any[];
+    TargetRegion?: any[];
+    ClosingYear?: any[];
+  }>({});
   const [isUser, setIsUser] = useState(false);
 
   const [itemsPerPage, setItemPerPage] = useState(5);
@@ -215,6 +227,61 @@ function CardElements() {
       },
     ]);
   };
+  const handleChangeFilter = (
+    key: string,
+    event: SelectChangeEvent<string[]>,
+    selectedArray: any
+  ) => {
+    const selectedValues = event.target.value as string[];
+
+    const updatedFilterArray = {
+      ...filterArray,
+      [key]: selectedValues.map((selectedValue: string) =>
+        selectedArray.find((item: any) => item.key === selectedValue)
+      ),
+    };
+
+    console.log(
+      "===============================",
+      key,
+      selectedValues,
+      selectedArray,
+      updatedFilterArray
+    );
+
+    setFilterArray(updatedFilterArray);
+  };
+
+  const MergerTypeOptions = [
+    { key: "SPAC", name: "SPAC", pro: false },
+    { key: "Strategic", name: "Strategic", pro: true },
+    { key: "PE", name: "PE", pro: true },
+    { key: "Non-SPAC", name: "Non-SPAC", pro: true },
+  ];
+
+  const TargetSectorOptions = [
+    { key: "Tech", name: "Tech", pro: false },
+    { key: "Energy", name: "Energy", pro: true },
+    { key: "Financials", name: "Financials", pro: true },
+    { key: "Communications", name: "Communications", pro: true },
+    { key: "Materials", name: "Materials", pro: true },
+  ];
+
+  const IPOYearsOptions = [
+    { key: "2023", name: "2023", pro: false },
+    { key: "2022", name: "2022", pro: false },
+    { key: "2021", name: "2021", pro: false },
+    { key: "2020", name: "2020", pro: true },
+    { key: "2019", name: "2019", pro: true },
+  ];
+
+  const TargetRegionOptions = [
+    { key: "U.S. & Canada", name: "U.S. & Canada", pro: false },
+    { key: "Latin America", name: "Latin America", pro: true },
+    { key: " Asia & Oceania", name: " Asia & Oceania", pro: true },
+    { key: "Africa", name: "Africa", pro: true },
+    { key: "Europe", name: "Europe", pro: true },
+  ];
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
@@ -292,7 +359,17 @@ function CardElements() {
                 alignItems: "flex-end",
               }}
             >
-              <Image src={proSvg} alt="filterSvg" width={50} height={26} />
+             {user?.member?.stripeCustomerId ? null : (
+                <Image
+                  src={proSvg}
+                  alt="filterSvg"
+                  width={50}
+                  height={26}
+                  onClick={() => {
+                    router.push('/plans');
+                  }}
+                />
+              )}
               <div className={styles.filterGap}>
                 <Image
                   src={saveScreenerSvg}
@@ -353,236 +430,290 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
-                  {filters?.MergerType ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, MergerType: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Merger Type
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="MergerType"
-                      value={filters?.MergerType}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"SPAC"}>SPAC </MenuItem>
-                      <MenuItem value={"Strategic"} disabled={isUser}>
-                        Strategic{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Merger Type
+                  </InputLabel>
+                  <Select
+                    label=" Merger Type"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.MergerType
+                        ? filterArray?.MergerType.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("MergerType", event, MergerTypeOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = MergerTypeOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {MergerTypeOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.MergerType &&
+                            filterArray.MergerType.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
-                      </MenuItem>
-                      <MenuItem value={"PE"} disabled={isUser}>
-                        PE{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
 
-                      <MenuItem value={"Non-SPAC"} disabled={isUser}>
-                        Non-SPAC
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Target Sector
+                  </InputLabel>
+                  <Select
+                    label="Target Sector"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.TargetSector
+                        ? filterArray?.TargetSector.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "TargetSector",
+                        event,
+                        TargetSectorOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = TargetSectorOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {TargetSectorOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.TargetSector &&
+                            filterArray.TargetSector.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
 
-                <div className={styles.filterModalStyling}>
-                  {filters?.TargetSector ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, TargetSector: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Target Sector
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="TargetSector"
-                      value={filters?.TargetSector}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Tech"}>Tech</MenuItem>
-                      <MenuItem value={"Energy"} disabled={isUser}>
-                        Energy{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                      <MenuItem value={"Financials"} disabled={isUser}>
-                        Financials{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Target Region
+                  </InputLabel>
+                  <Select
+                    label="Target Region"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.TargetRegion
+                        ? filterArray?.TargetRegion.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "TargetRegion",
+                        event,
+                        TargetRegionOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = TargetRegionOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {TargetRegionOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.TargetRegion &&
+                            filterArray.TargetRegion.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
-                      </MenuItem>
-                      <MenuItem value={"Communications"} disabled={isUser}>
-                        Communications
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"Materials"} disabled={isUser}>
-                        Materials
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.TargetRegion ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, TargetRegion: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      TargetRegion
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="TargetRegion"
-                      value={filters?.TargetRegion}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"U.S. & Canada"}>U.S. & Canada</MenuItem>
-                      <MenuItem value={"Latin America"} disabled={isUser}>
-                        Latin America
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={" Asia & Oceania"} disabled={isUser}>
-                        Asia & Oceania
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"Africa"} disabled={isUser}>
-                        Africa
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"Europe"} disabled={isUser}>
-                        Europe
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
 
-                <div className={styles.filterModalStyling}>
-                  {filters?.ClosingYear ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, ClosingYear: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Closing Year
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="ClosingYear"
-                      value={filters?.ClosingYear}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"2023"}>2023</MenuItem>
-                      <MenuItem value={"2022"}>2022</MenuItem>
-                      <MenuItem value={"2021"}>2021</MenuItem>
-                      <MenuItem value={"2020"} disabled={isUser}>
-                        2020
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                      <MenuItem value={"2019"} disabled={isUser}>
-                        2019
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Closing Year
+                  </InputLabel>
+                  <Select
+                    label="Closing Year"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.ClosingYear
+                        ? filterArray?.ClosingYear.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("ClosingYear", event, IPOYearsOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOYearsOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOYearsOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.ClosingYear &&
+                            filterArray.ClosingYear.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             ) : (
               <div
@@ -591,188 +722,221 @@ function CardElements() {
                   flexWrap: "wrap",
                 }}
               >
-                <div className={styles.filterModalStyling}>
-                  {filters?.MergerType ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, MergerType: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Merger Type
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="MergerType"
-                      value={filters?.MergerType}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"SPAC"}>SPAC </MenuItem>
-                      <MenuItem value={"Strategic"} disabled={isUser}>
-                        Strategic{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Merger Type
+                  </InputLabel>
+                  <Select
+                    label=" Merger Type"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.MergerType
+                        ? filterArray?.MergerType.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("MergerType", event, MergerTypeOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = MergerTypeOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {MergerTypeOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.MergerType &&
+                            filterArray.MergerType.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
-                      </MenuItem>
-                      <MenuItem value={"PE"} disabled={isUser}>
-                        PE{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
 
-                      <MenuItem value={"Non-SPAC"} disabled={isUser}>
-                        Non-SPAC
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Target Sector
+                  </InputLabel>
+                  <Select
+                    label="Target Sector"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.TargetSector
+                        ? filterArray?.TargetSector.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "TargetSector",
+                        event,
+                        TargetSectorOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = TargetSectorOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {TargetSectorOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.TargetSector &&
+                            filterArray.TargetSector.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
 
-                <div className={styles.filterModalStyling}>
-                  {filters?.TargetSector ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, TargetSector: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      Target Sector
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="TargetSector"
-                      value={filters?.TargetSector}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"Tech"}>Tech</MenuItem>
-                      <MenuItem value={"Energy"} disabled={isUser}>
-                        Energy{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                      <MenuItem value={"Financials"} disabled={isUser}>
-                        Financials{" "}
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    Target Region
+                  </InputLabel>
+                  <Select
+                    label="Target Region"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.TargetRegion
+                        ? filterArray?.TargetRegion.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "TargetRegion",
+                        event,
+                        TargetRegionOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = TargetRegionOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {TargetRegionOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.TargetRegion &&
+                            filterArray.TargetRegion.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
                         />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
                       </MenuItem>
-                      <MenuItem value={"Communications"} disabled={isUser}>
-                        Communications
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"Materials"} disabled={isUser}>
-                        Materials
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className={styles.filterModalStyling}>
-                  {filters?.TargetRegion ? (
-                    <Image
-                      src={crossIconSvg}
-                      alt="filterSvg"
-                      width={18}
-                      height={18}
-                      onClick={() =>
-                        setFilters({ ...filters, TargetRegion: null })
-                      }
-                    />
-                  ) : null}
-                  <FormControl sx={{ m: 2, minWidth: 180 }}>
-                    <InputLabel htmlFor="demo-dialog-native">
-                      TargetRegion
-                    </InputLabel>
-                    <Select
-                      placeholder="Select"
-                      name="TargetRegion"
-                      value={filters?.TargetRegion}
-                      onChange={(e) => saveValue(e)}
-                      variant="standard"
-                    >
-                      <MenuItem value={"U.S. & Canada"}>U.S. & Canada</MenuItem>
-                      <MenuItem value={"Latin America"} disabled={isUser}>
-                        Latin America
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={" Asia & Oceania"} disabled={isUser}>
-                        Asia & Oceania
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"Africa"} disabled={isUser}>
-                        Africa
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                      <MenuItem value={"Europe"} disabled={isUser}>
-                        Europe
-                        <Image
-                          src={proSvg}
-                          alt="filterSvg"
-                          width={50}
-                          height={32}
-                        />
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
+                    ))}
+                  </Select>
+                </FormControl>
               </div>
             )}
             <div
@@ -863,7 +1027,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -871,7 +1035,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -927,7 +1091,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -935,7 +1099,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -984,7 +1148,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -992,7 +1156,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -1057,7 +1221,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1065,7 +1229,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -1121,7 +1285,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1130,7 +1294,7 @@ function CardElements() {
                           />
 
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"
@@ -1179,7 +1343,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                          disabled={isUser && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1187,7 +1351,7 @@ function CardElements() {
                             )}
                           />
                           {item.name}
-                          {item.pro ? (
+                          {!user?.member?.stripeCustomerId && item.pro ? (
                             <Image
                               src={proSvg}
                               alt="filterSvg"

@@ -1,22 +1,50 @@
-import "./globals.css";
-import React from "react";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata = {
-  title: "Listing Track",
-  description: "Listing Track",
-};
+"use client";
+import {
+  useMember,
+  useMemberstack,
+  MemberstackProvider,
+} from "@memberstack/react";
+import { MemberInformationContext } from "@/lib/components/context";
 
 export default function RootLayout({
+  unauthenticated,
   children,
 }: {
+  unauthenticated?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
+    <MemberstackProvider
+      config={{
+        publicKey: `${process.env.NEXT_PUBLIC_MEMBERSTACK_KEY}`,
+        appId: undefined,
+        sessionDurationDays: undefined,
+        useCookies: undefined,
+        domain: undefined,
+      }}
+    >
+      <MemberstackWrapper unauthenticated={unauthenticated}>
+        {children}
+      </MemberstackWrapper>
+    </MemberstackProvider>
+  );
+}
+
+function MemberstackWrapper({
+  unauthenticated,
+  children,
+}: {
+  unauthenticated?: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  const user = useMember();
+  const memberstack = useMemberstack();
+
+  return (
+    <MemberInformationContext.Provider value={{ user, memberstack }}>
+      <html lang="en">
+        <body>{user ? children : unauthenticated}</body>
+      </html>
+    </MemberInformationContext.Provider>
   );
 }
