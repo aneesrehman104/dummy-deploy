@@ -7,30 +7,10 @@ import CompanyInfo from "./CompanyInfo/CompaniInfo";
 import News from "./News/News";
 import PressReleases from "./PressReleases/PressReleases";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import {
-  useMember,
-  useMemberstack,
-  MemberstackProtected,
-  useCheckout,
-  SignInModal,
-  useMemberstackModal,
-} from "@memberstack/react";
+import { useMemberstackModal } from "@memberstack/react";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
-// import { makeStyles } from '@mui/styles';
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Menu,
-  MenuItem,
-} from "@mui/material";
-
-// const useStyles = makeStyles((theme) => ({
-//   dropdownButton: {
-//     marginBottom: theme.spacing(1),
-//   },
-// }));
+import { Checkbox, FormControlLabel, Menu, MenuItem } from "@mui/material";
 
 const DynamicChart = dynamic(() => import("./IOPSChart"), {
   ssr: false,
@@ -82,8 +62,7 @@ const dataSet = [
 
 function IOPS() {
   const { openModal, hideModal } = useMemberstackModal();
-  const checkout = useCheckout();
-  const { user, memberstack } = useContext(MemberInformationContext);
+  const { user } = useContext(MemberInformationContext);
 
   const options = {
     chartOptions: {
@@ -130,6 +109,7 @@ function IOPS() {
         selected: 5,
         zoomText: "",
         enabled: true,
+        inputEnabled: false,
       },
       navigator: {
         enabled: false,
@@ -465,12 +445,10 @@ function IOPS() {
       ],
     },
   };
-  // const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   const handleDropdownOpen = (event: any) => {
-    // handleCheckout();
     setAnchorEl(event.currentTarget);
   };
 
@@ -490,168 +468,158 @@ function IOPS() {
       );
     }
   };
-  const handleCheckout = async () => {
-    checkout({
-      successUrl: "https://yourwebsite.com/success",
-      priceId: "",
-      cancelUrl: "https://yourwebsite.com/cancel",
-    });
-  };
+
   return (
     <>
+      <div className={styles.dashboardheader}>
+        <div className={styles.titleandsearchcontainer}>
+          <div className={styles.dashboardtitle}>microsoft [msft]</div>
+        </div>
+      </div>
+      <div className={styles.sectionsummarycontainer}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <div>
+            <div className={styles.ytdEventSummary}>
+              Acquirer: Microsoft (MSFT)
+            </div>
+            <div className={styles.ytdEventSummary}>
+              $230.88{" "}
+              <span style={{ fontSize: 18, fontWeight: 500, color: "red" }}>
+                (-2.33%)
+              </span>
+            </div>
 
-        <div className={styles.dashboardheader}>
-          <div className={styles.titleandsearchcontainer}>
-            <div className={styles.dashboardtitle}>microsoft [msft]</div>
+            <div className={styles.ytdEventSummary}>
+              at CLOSE: JUNE 8, 2023 3:58PM EST · NASDAQ
+            </div>
+          </div>
+          <div style={{ display: "flex" }}>
+            <div>
+              <div>Listing Status:</div>
+              <div>IPO Priced</div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "end",
+              }}
+              onClick={
+                user.member !== null
+                  ? (e) => handleDropdownOpen(e)
+                  : () =>
+                      openModal({
+                        type: "SIGNUP",
+                      })
+                        .then((res) => {
+                          console.log("data", res);
+                          hideModal();
+                        })
+                        .catch((error) => {
+                          console.log("An error occurred:", error);
+                        })
+              }
+            >
+              <div style={{ cursor: "pointer" }}>
+                <AddCircleIcon />
+              </div>
+
+              <div>Add to WatchList</div>
+              <Menu
+                id="dropdown-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleDropdownClose}
+              >
+                <MenuItem>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={selectedOptions.includes("IPOs")}
+                        onChange={handleOptionSelect}
+                        value="IPOs"
+                      />
+                    }
+                    label="IPOs"
+                  />
+                </MenuItem>
+                <MenuItem>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={selectedOptions.includes("SPACs")}
+                        onChange={handleOptionSelect}
+                        value="SPACs"
+                      />
+                    }
+                    label="SPACs"
+                  />
+                </MenuItem>
+              </Menu>
+            </div>
           </div>
         </div>
-        <div className={styles.sectionsummarycontainer}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            <div>
+        <div className={styles.chartcontainer}>
+          <div style={{ display: "flex", marginLeft: 20 }}>
+            <img alt="" src="/icongoogle.svg" style={{ width: 60 }} />
+            <div style={{ marginLeft: 10 }}>
+              <div className={styles.ytdEventSummary}>Microsoft Corp.</div>
               <div className={styles.ytdEventSummary}>
-                Acquirer: Microsoft (MSFT)
-              </div>
-              <div className={styles.ytdEventSummary}>
-                $230.88{" "}
+                263.63 <span style={{ fontSize: 12, color: "black" }}>USD</span>{" "}
                 <span style={{ fontSize: 18, fontWeight: 500, color: "red" }}>
-                  (-2.33%)
+                  -3.11
+                </span>{" "}
+                <span style={{ fontSize: 18, fontWeight: 500, color: "red" }}>
+                  -1.17%
+                </span>
+                <span style={{ fontSize: 18, fontWeight: 500, color: "red" }}>
+                  {" "}
+                  Today
                 </span>
               </div>
-
-              <div className={styles.ytdEventSummary}>
-                at CLOSE: JUNE 8, 2023 3:58PM EST · NASDAQ
-              </div>
-            </div>
-            <div style={{ display: "flex" }}>
-              <div>
-                <div>Listing Status:</div>
-                <div>IPO Priced</div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "end",
-                }}
-                onClick={
-                  user.member !== null
-                    ? (e) => handleDropdownOpen(e)
-                    : () =>
-                        openModal({
-                          type: "SIGNUP",
-                        })
-                          .then((res) => {
-                            console.log("data", res);
-                            // console.log("type: ", type);
-                            hideModal();
-                          })
-                          .catch((error) => {
-                            console.log("An error occurred:", error);
-                          })
-                }
-              >
-                <div>
-                  <AddCircleIcon />
-                </div>
-
-                <div>Add to WatchList</div>
-                <Menu
-                  id="dropdown-menu"
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleDropdownClose}
-                >
-                  <MenuItem>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={selectedOptions.includes("IPOs")}
-                          onChange={handleOptionSelect}
-                          value="IPOs"
-                        />
-                      }
-                      label="IPOs"
-                    />
-                  </MenuItem>
-                  <MenuItem>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={selectedOptions.includes("SPACs")}
-                          onChange={handleOptionSelect}
-                          value="SPACs"
-                        />
-                      }
-                      label="SPACs"
-                    />
-                  </MenuItem>
-                </Menu>
-              </div>
             </div>
           </div>
-          <div className={styles.chartcontainer}>
-            <div style={{ display: "flex", marginLeft: 20 }}>
-              <img alt="" src="/icongoogle.svg" />
-              <div style={{ marginLeft: 10 }}>
-                <div className={styles.ytdEventSummary}>Microsoft Corp.</div>
-                <div className={styles.ytdEventSummary}>
-                  263.63 <sub style={{ fontSize: 12, color: "black" }}>USD</sub>{" "}
-                  <span style={{ fontSize: 18, fontWeight: 500, color: "red" }}>
-                    -3.11
-                  </span>{" "}
-                  <span style={{ fontSize: 18, fontWeight: 500, color: "red" }}>
-                    -1.17%
-                  </span>
-                  <span style={{ fontSize: 18, fontWeight: 500, color: "red" }}>
-                    {" "}
-                    Today
-                  </span>
-                </div>
-              </div>
+          <div style={{ width: "100%" }}>
+            {" "}
+            <DynamicChart options={options} />
+          </div>
+          <div className={styles.chartBottomSide}>
+            <div className={styles.titleText}>
+              <div>Announced</div>
+              <div className={styles.completedMergers}>deal status</div>
             </div>
-            <div style={{ width: "100%" }}>
-              {" "}
-              <DynamicChart options={options} />
-            </div>
-            <div className={styles.chartBottomSide}>
-              <div className={styles.titleText}>
-                <div>Announced</div>
-                <div className={styles.completedMergers}>deal status</div>
-              </div>
-              <div className={styles.indicator} />
+            <div className={styles.indicator} />
 
-              <div className={styles.titleText}>
-                <div>JAN 18, 2022</div>
-                <div className={styles.completedMergers}>announced date</div>
-              </div>
-              <div className={styles.indicator} />
-              <div className={styles.titleText}>
-                <div>Acquisition: Public-Public</div>
-                <div className={styles.completedMergers}>deal type</div>
-              </div>
-              <div className={styles.indicator} />
-              <div className={styles.titleText}>
-                <div style={{ color: "#38C546" }}>32.65%</div>
-                <div className={styles.completedMergers}>
-                  target 1-YEAR CHG%
-                </div>
-              </div>
-              <div className={styles.titleText}>
-                <div style={{ color: "#EC0F0F" }}>-5.22%</div>
-                <div className={styles.completedMergers}>target YTD CHG%</div>
-              </div>
+            <div className={styles.titleText}>
+              <div>JAN 18, 2022</div>
+              <div className={styles.completedMergers}>announced date</div>
+            </div>
+            <div className={styles.indicator} />
+            <div className={styles.titleText}>
+              <div>Acquisition: Public-Public</div>
+              <div className={styles.completedMergers}>deal type</div>
+            </div>
+            <div className={styles.indicator} />
+            <div className={styles.titleText}>
+              <div style={{ color: "#38C546" }}>32.65%</div>
+              <div className={styles.completedMergers}>target 1-YEAR CHG%</div>
+            </div>
+            <div className={styles.titleText}>
+              <div style={{ color: "#EC0F0F" }}>-5.22%</div>
+              <div className={styles.completedMergers}>target YTD CHG%</div>
             </div>
           </div>
         </div>
-        <CompanyInfo />
-        <News />
-        <PressReleases />
+      </div>
+      <CompanyInfo />
+      <News />
+      <PressReleases />
     </>
   );
 }

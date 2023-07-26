@@ -6,7 +6,6 @@ import { URLs } from "@/lib/ts/apiUrl";
 import { SkeltonTable } from "@/lib/components/CommonComponents";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { FullCalendarComponet } from "./FullCalender";
 import dynamic from "next/dynamic";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -56,7 +55,7 @@ function SpacEventCalendar() {
     const response = await getApiWithoutAuth(
       `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=grapevine&subtype=${tabValues[selectedTab]}`
     );
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setGrapevineGraveyardData(response.data);
       setIsLoading(false);
     } else {

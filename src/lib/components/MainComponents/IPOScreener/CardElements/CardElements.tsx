@@ -89,8 +89,6 @@ function CardElements() {
     paddingLeft: "30px",
   };
   const tabValues: { [key: number]: string } = {
-    // 0: "priced",
-    // 1: "upcoming",
     0: "pre_deal",
     1: "pre_deal",
   };
@@ -109,12 +107,6 @@ function CardElements() {
   const [selectedTab, setSelectedTab] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCount, setFilerCount] = useState(0);
-  // const [filters, setFilters] = useState({
-  //   IPOYear: null,
-  //   IPOType: null,
-  //   IPOStatus: null,
-  // });
-
   const [itemsPerPage, setItemPerPage] = useState(5);
   const tabData = [
     {
@@ -191,24 +183,13 @@ function CardElements() {
   };
 
   const clearAll = () => {
-    // setFilterArray({
-    //   IPOYear: [],
-    //   IPOType: [],
-    //   IPOStatus: [],
-    // });
     setOpenFilterModal(false);
     setFilerCount(0);
   };
   const applyFilters = () => {
-    // console.log("====================filters", filters);
 
     let count = 0;
 
-    // for (const key in filters) {
-    //   if (filters[key as keyof typeof filters] !== null) {
-    //     count++;
-    //   }
-    // }
     setFilerCount(count);
     setOpenFilterModal(false);
   };
@@ -219,7 +200,7 @@ function CardElements() {
       `${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
     );
     console.log("========================res", response);
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setScreenerData(response.data);
       setIsLoading(false);
     } else {
@@ -263,12 +244,6 @@ function CardElements() {
     // });
   };
   const saveScreenApi = () => {
-    // console.log(
-    //   "==============name",
-    //   name,
-    //   filters,
-    //   `${tabValues[selectedTab]}`
-    // );
     setOpenModalSavedScreen(false);
   };
 
@@ -356,6 +331,7 @@ function CardElements() {
                       alt="searchIcon"
                       width={18}
                       height={18}
+                      style={{cursor:'pointer'}}
                     />
                   </InputAdornment>
                 ),
@@ -409,7 +385,6 @@ function CardElements() {
               <div
                 className={styles.filterGap}
                 onClick={() => setOpenModalCheckScreen(true)}
-                // onClick={() => setOpenModalSavedScreen(true)}
               >
                 <Image
                   src={saveScreenerSvg}
@@ -421,31 +396,6 @@ function CardElements() {
                 <div>SAVED SCREENS</div>
               </div>{" "}
             </div>
-            {/* <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-end",
-                border: "2px solid red",
-              }}
-              // disabled={filterCount === 0 ? true : false}
-              onClick={
-                filterCount === 0
-                  ? () => {}
-                  : () => setOpenModalSavedScreen(true)
-              }
-            >
-              <div className={styles.filterGap}>
-                <Image
-                  src={saveScreenerSvg}
-                  alt="filterSvg"
-                  width={18}
-                  height={18}
-                />
-
-                <div>SAVED</div>
-              </div>{" "}
-            </div> */}
             <div className={styles.filterGap}>
               <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
               <div>EXPORT</div>

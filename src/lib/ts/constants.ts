@@ -134,12 +134,6 @@ export const sidebarItem = [
         id: "spacs/screeners",
         breadcrumb: "Home > SPACs > SCREENERS",
       },
-      // {
-      //   name: "SPAC CALENDAR",
-      //   pathname: "/spacs/calendar",
-      //   id: "spacs/calendar",
-      //   breadcrumb: "Home > SPACs > SPAC CALENDAR",
-      // },
       {
         name: "LIST",
         pathname: "/spacs/list",

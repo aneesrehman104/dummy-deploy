@@ -34,27 +34,27 @@ function PressReleases() {
     dataset: [
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
     ],
@@ -62,7 +62,7 @@ function PressReleases() {
   const getNews = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(`${URLs.spacNews}?type=press`);
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setReleasesNewsData(response.data);
       setIsLoading(false);
     } else {
@@ -73,7 +73,7 @@ function PressReleases() {
   const getNewsSEC = async () => {
     setIsLoadingSec(true);
     const response = await getApiWithoutAuth(`${URLs.spacNews}?type=sec`);
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setSecNewsData(response.data);
       setIsLoadingSec(false);
     } else {
@@ -89,13 +89,13 @@ function PressReleases() {
   return (
     <section className={styles.headlineslistcontainer}>
       <div className={styles.sectionlistnewscontainerParent}>
-      <ListingTrackSECFilling
+        <ListingTrackSECFilling
           isLoading={isLoading}
           dataArray={releasesnewsData?.dataset}
           title={"Press Releases"}
         />
         <ListingTrackSECFilling
-        isFilling
+          isFilling
           isLoading={isLoadingSec}
           dataArray={secnewsData?.dataset}
           title={"IPO SEC Feed"}

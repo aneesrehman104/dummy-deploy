@@ -103,6 +103,7 @@ function Company() {
         selected: 5,
         zoomText: "",
         enabled: true,
+        inputEnabled:false,
       },
       navigator: {
         enabled: false,
@@ -490,6 +491,7 @@ function Company() {
         selected: 5,
         zoomText: "",
         enabled: true,
+        inputEnabled:false,
       },
       navigator: {
         enabled: false,
@@ -852,11 +854,11 @@ function Company() {
           </div>
           <div className={styles.chartcontainer}>
             <div style={{ display: "flex", marginLeft: 20 }}>
-              <img alt="" src="/icongoogle.svg" />
+            <img alt="" src="/icongoogle.svg" style={{ width: 60 }} />
               <div style={{ marginLeft: 10 }}>
                 <div className={styles.ytdEventSummary}>Microsoft Corp.</div>
                 <div className={styles.ytdEventSummary}>
-                  263.63 <sub style={{ fontSize: 12, color: "black" }}>USD</sub>{" "}
+                  263.63 <span style={{ fontSize: 12, color: "black" }}>USD</span>{" "}
                 </div>
                 <div>
                   <span style={{ fontSize: 18, fontWeight: 500, color: "red" }}>
@@ -895,11 +897,11 @@ function Company() {
           </div>
           <div className={styles.chartcontainer}>
             <div style={{ display: "flex", marginLeft: 20 }}>
-              <img alt="" src="/icongoogle.svg" />
+            <img alt="" src="/icongoogle.svg" style={{ width: 60 }} />
               <div style={{ marginLeft: 10 }}>
                 <div className={styles.ytdEventSummary}>Microsoft Corp.</div>
                 <div className={styles.ytdEventSummary}>
-                  263.63 <sub style={{ fontSize: 12, color: "black" }}>USD</sub>{" "}
+                  263.63 <span style={{ fontSize: 12, color: "black" }}>USD</span>{" "}
                 </div>
                 <div>
                   <span

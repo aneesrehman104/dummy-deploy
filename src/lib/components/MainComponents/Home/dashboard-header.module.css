@@ -68,13 +68,13 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  font-size: 22px;
+  font-size: 24px;
   color: #263c6f;
 }
 .dashboardheader {
   height: 56px;
   flex-direction: column;
-  padding: 0 40px;
+  padding: 0 35px;
   box-sizing: border-box;
   align-items: flex-start;
   gap: 8px;
@@ -326,12 +326,14 @@
   padding: 0 16px 16px;
 }
 .card {
-  flex: 1;
+  /* flex: 1; */
   border-radius: 4px;
+  min-height: 400px;
   background-color: #fff;
   box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
     0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
-  overflow: hidden;
+  width: 307px;
+
 }
 .ipos {
   flex: 1;
@@ -522,13 +524,15 @@
 }
 .cardscontainer {
   flex-direction: row;
-  gap: 36px;
+  gap: 16px;
   font-size: 13px;
   color: #1991ac;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .minitables {
   flex-direction: column;
-  padding: 0 40px;
+  padding: 0 35px;
   gap: 23px;
 }
 .vectorWrapper {
@@ -539,6 +543,7 @@
   padding: 9px 20px;
   align-items: flex-start;
   justify-content: flex-start;
+  cursor:pointer
 }
 .headlineCallOut,
 .siteName {
@@ -579,6 +584,7 @@
   overflow: hidden;
   padding: 6px 8px;
   align-items: flex-start;
+  cursor:pointer;
 }
 .tablerow {
   align-self: stretch;
@@ -969,13 +975,8 @@
   font-family: Barlow;
 }
 @media screen and (max-width: 900px) {
-  .card,
-  .card1 {
-    flex: unset;
-    align-self: stretch;
-  }
-  .cardscontainer {
-    flex-direction: column;
+  .card{
+    width: 400px;
   }
   .sectionlistnewscontainer {
     flex: unset;

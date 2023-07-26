@@ -1,17 +1,13 @@
 import React from "react";
 import "./plans.css";
-import { useState, useEffect } from "react";
 import { CommonfiButton } from "../../CommonComponents";
-import { useMemberstack, useCheckout } from "@memberstack/react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import {  useCheckout } from "@memberstack/react";
+import { useRouter } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function Plans() {
   const checkout = useCheckout();
   const router = useRouter();
-  // const { pathname, query } = router
-// console.log('=================query',pathname,query)
-  // const { fromDropdown } = router?.query;
   const handleCheckout = async (id: any) => {
     checkout({
       successUrl: "http://localhost:3000/checkout",
@@ -31,7 +27,6 @@ function Plans() {
       }}
     >
       <div>
-        {/* {!query?.fromDropdown ? ( */}
           <div>
             <ArrowBackIcon
               onClick={() => {
@@ -39,8 +34,6 @@ function Plans() {
               }}
             />
           </div>
-         {/* ) : null} */}
-
         <div
           style={{
             width: "100%",

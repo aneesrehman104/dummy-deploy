@@ -30,7 +30,7 @@ const ListingTrackTable = ({
   isUser,
   options,
   isRemoveAble,
-  setRemoveRow
+  setRemoveRow,
 }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
@@ -75,7 +75,6 @@ const ListingTrackTable = ({
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setItemPerPage(parseInt(event.target.value));
-    // setCurrentPage(currentPage);
   };
 
   const handleSelectOpen = () => {
@@ -102,6 +101,8 @@ const ListingTrackTable = ({
                     display: "flex",
                     alignItems: "center",
                     fontWeight: 600,
+                    cursor: "pointer",
+                    minWidth: 135,
                   }}
                 >
                   {sortDirection === TABLETITLESECTION.desc &&
@@ -159,7 +160,6 @@ const ListingTrackTable = ({
           <TableRow>
             {options ? (
               <TablePagination
-                // colSpan={6} // Number of columns in the table
                 count={totalLength?.totalLength} // Total number of items
                 rowsPerPage={itemsPerPage}
                 page={currentPage - 1} // Page number starts from 0
@@ -174,7 +174,6 @@ const ListingTrackTable = ({
               />
             ) : (
               <TablePagination
-                // colSpan={6} // Number of columns in the table
                 count={totalLength?.totalLength} // Total number of items
                 rowsPerPage={itemsPerPage}
                 page={currentPage - 1} // Page number starts from 0

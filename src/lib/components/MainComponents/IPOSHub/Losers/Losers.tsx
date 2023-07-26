@@ -25,7 +25,7 @@ function Losers() {
         selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
       }&gainOrLoser=loser`
     );
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setIPOSTradingLosersData(response.data);
       setIsLoading(false);
     } else {

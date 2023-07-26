@@ -88,7 +88,7 @@ function EventSummary() {
   };
   const getStatsData = async () => {
     const response = await getApiWithoutAuth(URLs.spacGraph);
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setGraphData(response.data);
 
       setIsLoading(false);
@@ -105,7 +105,7 @@ function EventSummary() {
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
           <div className={styles.ytdEventSummary}>2023 SPACs Stats</div>
-          <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
+          <Image src="/vector2.svg" alt="/vector2" width={12} height={12} style={{cursor:'pointer'}} />
         </div>
       </div>
       <div className={styles.chartcontainer}>

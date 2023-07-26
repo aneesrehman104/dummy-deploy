@@ -23,7 +23,7 @@ function Losers() {
         selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
       }&gainOrLoser=loser`
     );
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setMergersLoseData(response.data);
       setIsLoading(false);
     } else {
@@ -147,9 +147,6 @@ function Losers() {
       type: "string",
     },
   ];
-  // useEffect(() => {
-  //   setCurrentPage(1); // Reset page to 1 when sorting or changing data
-  // }, [sortColumn, sortDirection, data]);
 
   return (
     <section className={styles.stockstablesection}>

@@ -22,7 +22,7 @@ function IposFilling() {
   const getIposFillingData = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setIposFillingData(response.data);
       setIsLoading(false);
     } else {

@@ -55,7 +55,7 @@ function Trading() {
         selectedTab === 0 ? "active" : "deSPAC"
       }`
     );
-    if (response.status === 200) {
+   if (response.status === 200 && response.data !== null) {
       setSpacsTradingGainerData(response.data);
       setIsLoading(false);
     } else {
@@ -74,7 +74,7 @@ function Trading() {
         selectedTab === 0 ? "active" : "deSPAC"
       }`
     );
-    if (response.status === 200) {
+   if (response.status === 200 && response.data !== null) {
       setSpacsTradingLoserData(response.data);
       setIsLoadingLooser(false);
     } else {
@@ -101,7 +101,7 @@ function Trading() {
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Trading</div>
       <div className={styles.tableContainerInner}>
-        <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
+        <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" ,cursor:'pointer'}}>
           <div
             onClick={() => setSelectedTab(0)}
             className={`${styles.headerCell} ${

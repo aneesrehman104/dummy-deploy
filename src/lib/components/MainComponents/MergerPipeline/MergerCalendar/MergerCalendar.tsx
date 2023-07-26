@@ -76,7 +76,7 @@ function MergerCalendar() {
     isGrid
       ? (response = await getApiWithoutAuth(`${URLs.spacsCalender}`))
       : (response = await getApiWithoutAuth(`${URLs.spacsCalender}?type=all`));
-    if (response.status === 200) {
+      if (response.status === 200 && response.data !== null) {
       setGrapevineGraveyardData(response.data);
       setIsLoading(false);
     } else {

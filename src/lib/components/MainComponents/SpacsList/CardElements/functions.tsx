@@ -145,9 +145,6 @@ const MyTable = ({
       <tfoot>
         <TableRow>
           
-        {/* <TableCell align="right"  >
-            <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-          </TableCell> */}
           <TablePagination
             colSpan={6} // Number of columns in the table
             count={totalLength?.totalLength} // Total number of items
@@ -162,9 +159,6 @@ const MyTable = ({
               onClose: handleSelectClose,
             }}
           />
-          {/* <TableCell>
-            <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-          </TableCell> */}
         </TableRow>
       </tfoot>
     </Table>

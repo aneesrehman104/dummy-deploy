@@ -88,7 +88,7 @@ function ReturnsByTargetIndustry() {
   const getStatsData = async () => {
     const response = await getApiWithoutAuth(URLs.spacsReturns);
     console.log('===============res',response)
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setGraphData(response.data);
 
       setIsLoading(false);

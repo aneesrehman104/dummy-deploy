@@ -25,7 +25,7 @@ function IposPipelineOverview() {
         selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
       }&gainOrLoser=gain`
     );
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setIPOSTradingIposPipelineOverviewData(response.data);
       setIsLoading(false);
     } else {

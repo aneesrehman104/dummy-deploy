@@ -62,7 +62,7 @@ function PressReleases() {
   const getNews = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(`${URLs.spacNews}?type=press`);
-    if (response.status === 200) {
+   if (response.status === 200 && response.data !== null) {
       setReleasesNewsData(response.data);
       setIsLoading(false);
     } else {
@@ -73,7 +73,7 @@ function PressReleases() {
   const getNewsSEC = async () => {
     setIsLoadingSec(true);
     const response = await getApiWithoutAuth(`${URLs.spacNews}?type=sec`);
-    if (response.status === 200) {
+   if (response.status === 200 && response.data !== null) {
       setSecNewsData(response.data);
       setIsLoadingSec(false);
     } else {

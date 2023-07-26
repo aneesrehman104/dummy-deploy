@@ -142,7 +142,7 @@ function GrapevineGraveyard() {
     const response = await getApiWithoutAuth(
       `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=grapevine&subtype=${tabValues[selectedTab]}`
     );
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setGrapevineGraveyardData(response.data);
       setIsLoading(false);
     } else {
