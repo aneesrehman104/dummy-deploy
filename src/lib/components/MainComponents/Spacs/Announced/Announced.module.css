@@ -467,7 +467,7 @@
   }
   .minitables {
     flex-direction: column;
-    padding: 0 40px;
+    padding: 0 35px;
     gap: 23px;
   }
   .vectorIcon {

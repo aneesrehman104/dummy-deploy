@@ -103,6 +103,7 @@ function Company() {
         selected: 5,
         zoomText: "",
         enabled: true,
+        inputEnabled:false,
       },
       navigator: {
         enabled: false,
@@ -490,6 +491,7 @@ function Company() {
         selected: 5,
         zoomText: "",
         enabled: true,
+        inputEnabled:false,
       },
       navigator: {
         enabled: false,

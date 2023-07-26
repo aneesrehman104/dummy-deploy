@@ -74,7 +74,7 @@
 .dashboardheader {
   height: 56px;
   flex-direction: column;
-  padding: 0 40px;
+  padding: 0 35px;
   box-sizing: border-box;
   align-items: flex-start;
   gap: 8px;
@@ -528,7 +528,7 @@
 }
 .minitables {
   flex-direction: column;
-  padding: 0 40px;
+  padding: 0 35px;
   gap: 23px;
 }
 .vectorWrapper {

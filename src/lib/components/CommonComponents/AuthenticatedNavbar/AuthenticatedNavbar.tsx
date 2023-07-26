@@ -39,8 +39,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Home from "@mui/icons-material/Home";
 import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
-import { useMemberstack } from "@memberstack/react";
-import { useMemberstackModal } from "@memberstack/react";
+import { useMemberstackModal,useMemberstack } from "@memberstack/react";
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 const drawerWidth = 240;

@@ -30,7 +30,7 @@ const ListingTrackTable = ({
   isUser,
   options,
   isRemoveAble,
-  setRemoveRow
+  setRemoveRow,
 }: any) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortDirection, setSortDirection] = useState("asc");
@@ -102,7 +102,8 @@ const ListingTrackTable = ({
                     display: "flex",
                     alignItems: "center",
                     fontWeight: 600,
-                    cursor:'pointer'
+                    cursor: "pointer",
+                    minWidth: 135,
                   }}
                 >
                   {sortDirection === TABLETITLESECTION.desc &&
