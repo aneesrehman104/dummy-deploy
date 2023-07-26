@@ -4,11 +4,6 @@ import { Inter } from "next/font/google";
 import { MemberstackProvider } from "@memberstack/react";
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata = {
-//   title: "Listing Track",
-//   description: "Listing Track",
-// };
-
 export default function RootLayout({
   children,
 }: {

@@ -7,30 +7,10 @@ import CompanyInfo from "./CompanyInfo/CompaniInfo";
 import News from "./News/News";
 import PressReleases from "./PressReleases/PressReleases";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import {
-  useMember,
-  useMemberstack,
-  MemberstackProtected,
-  useCheckout,
-  SignInModal,
-  useMemberstackModal,
-} from "@memberstack/react";
+import { useMemberstackModal } from "@memberstack/react";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
-// import { makeStyles } from '@mui/styles';
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Menu,
-  MenuItem,
-} from "@mui/material";
-
-// const useStyles = makeStyles((theme) => ({
-//   dropdownButton: {
-//     marginBottom: theme.spacing(1),
-//   },
-// }));
+import { Checkbox, FormControlLabel, Menu, MenuItem } from "@mui/material";
 
 const DynamicChart = dynamic(() => import("./IOPSChart"), {
   ssr: false,
@@ -82,8 +62,7 @@ const dataSet = [
 
 function IOPS() {
   const { openModal, hideModal } = useMemberstackModal();
-  const checkout = useCheckout();
-  const { user, memberstack } = useContext(MemberInformationContext);
+  const { user } = useContext(MemberInformationContext);
 
   const options = {
     chartOptions: {
@@ -130,7 +109,7 @@ function IOPS() {
         selected: 5,
         zoomText: "",
         enabled: true,
-        inputEnabled:false,
+        inputEnabled: false,
       },
       navigator: {
         enabled: false,
@@ -466,12 +445,10 @@ function IOPS() {
       ],
     },
   };
-  // const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
   const handleDropdownOpen = (event: any) => {
-    // handleCheckout();
     setAnchorEl(event.currentTarget);
   };
 
@@ -491,13 +468,7 @@ function IOPS() {
       );
     }
   };
-  const handleCheckout = async () => {
-    checkout({
-      successUrl: "https://yourwebsite.com/success",
-      priceId: "",
-      cancelUrl: "https://yourwebsite.com/cancel",
-    });
-  };
+
   return (
     <>
       <div className={styles.dashboardheader}>
@@ -548,7 +519,6 @@ function IOPS() {
                       })
                         .then((res) => {
                           console.log("data", res);
-                          // console.log("type: ", type);
                           hideModal();
                         })
                         .catch((error) => {
@@ -556,7 +526,7 @@ function IOPS() {
                         })
               }
             >
-              <div style={{cursor:'pointer'}}>
+              <div style={{ cursor: "pointer" }}>
                 <AddCircleIcon />
               </div>
 

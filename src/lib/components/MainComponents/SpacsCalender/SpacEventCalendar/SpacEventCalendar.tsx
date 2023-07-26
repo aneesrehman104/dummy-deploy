@@ -6,7 +6,6 @@ import { URLs } from "@/lib/ts/apiUrl";
 import { SkeltonTable } from "@/lib/components/CommonComponents";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import { FullCalendarComponet } from "./FullCalender";
 import dynamic from "next/dynamic";
 import Skeleton from "@mui/material/Skeleton";
 

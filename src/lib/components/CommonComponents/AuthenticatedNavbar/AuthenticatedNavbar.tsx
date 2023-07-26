@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import footerLogo from "../../../../../public/footerLogo.svg";
 import currntTabIcon from "../../../../../public/currntTabIcon.svg";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Footer from "../Footer";
 import Image from "next/image";
 import {
@@ -39,7 +39,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Home from "@mui/icons-material/Home";
 import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
-import { useMemberstackModal,useMemberstack } from "@memberstack/react";
+import { useMemberstackModal, useMemberstack } from "@memberstack/react";
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 const drawerWidth = 240;
@@ -62,16 +62,10 @@ export default function AuthenticatedNavbar(props: Props) {
 
   const handleLogout2 = async () => {
     await logout();
-    // router.refresh();
     window.location.reload();
   };
   const handleCheckout = async () => {
     router.push("/plans");
-    // router.push({
-    //   pathname: "/plans",
-    //   query: { fromDropdown: "true" },
-    // });
-    // router.push("/plans", { query: { fromDropdown: false } });
   };
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -157,7 +151,7 @@ export default function AuthenticatedNavbar(props: Props) {
                   alt="footerImage"
                   width={148}
                   height={21}
-                  style={{ marginRight: 20, cursor:'pointer' }}
+                  style={{ marginRight: 20, cursor: "pointer" }}
                 />
               ) : null}
               {!isMediumScreen ? (
@@ -172,7 +166,7 @@ export default function AuthenticatedNavbar(props: Props) {
                           alt="searchIcon"
                           width={18}
                           height={18}
-                          style={{cursor:'pointer'}}
+                          style={{ cursor: "pointer" }}
                         />
                       </InputAdornment>
                     ),
@@ -198,7 +192,7 @@ export default function AuthenticatedNavbar(props: Props) {
                     alt="searchIcon"
                     width={18}
                     height={18}
-                    style={{cursor:'pointer'}}
+                    style={{ cursor: "pointer" }}
                   />
                 </div>
               )}
@@ -299,21 +293,19 @@ export default function AuthenticatedNavbar(props: Props) {
                 className="textStyle cursorPointer"
                 onClick={() =>
                   openModal({
-                      type: "SIGNUP",
-                    })
-                    .then(({ data, type }: any) => {
-                      console.log("data", data);
-                      console.log("type: ", type);
-                      if (type === "LOGIN") {
-                        hideModal();
-                        // router.refresh();
-                        window.location.reload();
-                      } else if (type === "CLOSED") {
-                        hideModal();
-                      } else {
-                        router.push("/plans");
-                      }
-                    })
+                    type: "SIGNUP",
+                  }).then(({ data, type }: any) => {
+                    console.log("data", data);
+                    console.log("type: ", type);
+                    if (type === "LOGIN") {
+                      hideModal();
+                      window.location.reload();
+                    } else if (type === "CLOSED") {
+                      hideModal();
+                    } else {
+                      router.push("/plans");
+                    }
+                  })
                 }
               >
                 <span>{navBarText.signUp}</span> /{" "}
@@ -518,8 +510,6 @@ export default function AuthenticatedNavbar(props: Props) {
       <Dialog
         open={isSearchModalOpen}
         onClose={handleCloseModal}
-        // maxWidth="xl"
-        // fullWidth
         PaperProps={{
           style: {
             height: "100%",
@@ -563,7 +553,7 @@ export default function AuthenticatedNavbar(props: Props) {
                     alt="searchIcon"
                     width={18}
                     height={18}
-                    style={{cursor:'pointer'}}
+                    style={{ cursor: "pointer" }}
                   />
                 </InputAdornment>
               ),

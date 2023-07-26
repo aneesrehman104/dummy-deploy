@@ -57,11 +57,6 @@ function Losers() {
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-
-  // useEffect(() => {
-  //   setCurrentPage(1); // Reset page to 1 when sorting or changing data
-  // }, [sortColumn, sortDirection, data]);
-
   return (
     <div className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Watchlist Losers</div>

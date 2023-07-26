@@ -75,7 +75,6 @@ const ListingTrackTable = ({
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setItemPerPage(parseInt(event.target.value));
-    // setCurrentPage(currentPage);
   };
 
   const handleSelectOpen = () => {
@@ -161,7 +160,6 @@ const ListingTrackTable = ({
           <TableRow>
             {options ? (
               <TablePagination
-                // colSpan={6} // Number of columns in the table
                 count={totalLength?.totalLength} // Total number of items
                 rowsPerPage={itemsPerPage}
                 page={currentPage - 1} // Page number starts from 0
@@ -176,7 +174,6 @@ const ListingTrackTable = ({
               />
             ) : (
               <TablePagination
-                // colSpan={6} // Number of columns in the table
                 count={totalLength?.totalLength} // Total number of items
                 rowsPerPage={itemsPerPage}
                 page={currentPage - 1} // Page number starts from 0

@@ -147,10 +147,6 @@ function Losers() {
       type: "string",
     },
   ];
-  // useEffect(() => {
-  //   setCurrentPage(1); // Reset page to 1 when sorting or changing data
-  // }, [sortColumn, sortDirection, data]);
-
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Losers: Past Year Closed Mergers</div>
