@@ -1,0 +1,59 @@
+.cursorPointer {
+  cursor: pointer;
+}
+.headerMainDiv {
+  background: #263c6f;
+  height: 52px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.headerInnerDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 52px;
+  width: 95%;
+}
+
+.currentTabStyle {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 800 !important;
+  font-size: 16px !important;
+  line-height: 19px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+  color: #263c6f;
+}
+
+.tabStyle {
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  line-height: 19px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase;
+  color: #20608b;
+}
+.dashboardheader {
+  height: 20px;
+  flex-direction: column;
+  padding: 0 35px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  font-size: 12.5px;
+  color: #434343;
+  font-weight: 500;
+  font-family: Barlow;
+}
+
+.link {
+  position: relative;
+  letter-spacing: 0.01em;
+  line-height: 127%;
+  /* font-size: 11px; */
+}
