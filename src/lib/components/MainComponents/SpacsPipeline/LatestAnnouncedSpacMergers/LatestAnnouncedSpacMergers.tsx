@@ -21,7 +21,7 @@ function LatestAnnouncedSpacMergers() {
     const response = await getApiWithoutAuth(
       `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=latest_announced`
     );
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setLatestAnnounced(response.data);
       setIsLoadingAnnounced(false);
     } else {

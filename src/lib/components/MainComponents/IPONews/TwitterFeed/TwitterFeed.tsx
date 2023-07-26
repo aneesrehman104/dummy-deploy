@@ -6,33 +6,35 @@ import { URLs } from "@/lib/ts/apiUrl";
 import Skeleton from "@mui/material/Skeleton";
 function TwitterFeed() {
   const [isLoading, setIsLoading] = useState(true);
-  const [newsData, setNewsData] = useState<any>({ dataset: [
-    {
-      news: " Headline call out goes here, truncate at 54 charact..Headline call out goes here, truncate at 54 charact..",
-      sitename: "Site name",
-    },
-    {
-      news: " Headline call out goes here, truncate at 54 charact..",
-      sitename: "Site name",
-    },
-    {
-      news: " Headline call out goes here, truncate at 54 charact..",
-      sitename: "Site name",
-    },
-    {
-      news: " Headline call out goes here, truncate at 54 charact..",
-      sitename: "Site name",
-    },
-    {
-      news: " Headline call out goes here, truncate at 54 charact..",
-      sitename: "Site name",
-    },
-  ],});
+  const [newsData, setNewsData] = useState<any>({
+    dataset: [
+      {
+        news: " Headline call out goes here, truncate at 54 charact..Headline call out goes here, truncate at 54 charact..",
+        sitename: "Site name",
+      },
+      {
+        news: " Headline call out goes here, truncate at 54 charact..",
+        sitename: "Site name",
+      },
+      {
+        news: " Headline call out goes here, truncate at 54 charact..",
+        sitename: "Site name",
+      },
+      {
+        news: " Headline call out goes here, truncate at 54 charact..",
+        sitename: "Site name",
+      },
+      {
+        news: " Headline call out goes here, truncate at 54 charact..",
+        sitename: "Site name",
+      },
+    ],
+  });
 
   const getNews = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(`${URLs.spacNews}?type=twitter`);
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setNewsData(response.data);
       setIsLoading(false);
     } else {

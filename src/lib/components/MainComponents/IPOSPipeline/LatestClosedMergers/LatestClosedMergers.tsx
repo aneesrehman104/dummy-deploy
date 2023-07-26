@@ -22,7 +22,7 @@ function LatestClosedMergers() {
   const getLatestClosedMergersData = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setLatestClosedMergersData(response.data);
       setIsLoading(false);
     } else {

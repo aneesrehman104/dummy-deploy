@@ -21,7 +21,7 @@ function SpacsMarketStats() {
   const getStats = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(`${URLs.spacsStats}`);
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setStatsData(response.data);
       setIsLoading(false);
     } else {

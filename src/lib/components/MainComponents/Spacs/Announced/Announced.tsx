@@ -5,7 +5,7 @@ import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
-  ListingTrackTable,  
+  ListingTrackTable,
 } from "@/lib/components/CommonComponents";
 function Announced() {
   const [latestAnnounced, setLatestAnnounced] = useState<any>({
@@ -21,8 +21,7 @@ function Announced() {
     const response = await getApiWithoutAuth(
       `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=latest_announced`
     );
-    console.log('======================res',response)
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setLatestAnnounced(response.data);
       setIsLoadingAnnounced(false);
     } else {

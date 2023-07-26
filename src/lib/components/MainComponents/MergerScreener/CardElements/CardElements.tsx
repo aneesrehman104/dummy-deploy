@@ -189,7 +189,7 @@ function CardElements() {
       `${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
     );
     console.log("========================res", response);
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setScreenerData(response.data);
       setIsLoading(false);
     } else {

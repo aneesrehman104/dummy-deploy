@@ -313,7 +313,7 @@ function CardElements() {
     const response = await getApiWithoutAuth(
       `${URLs.spacsList}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
     );
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setSpacsListData(response.data);
       setIsLoading(false);
     } else {

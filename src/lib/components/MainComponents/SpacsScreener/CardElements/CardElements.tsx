@@ -245,7 +245,7 @@ function CardElements() {
       }&columnIds=${personName.map((item: any) => item.key).join(",")}`,
       response
     );
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setScreenerData(response.data);
       setIsLoading(false);
     } else {

@@ -2,6 +2,7 @@
   flex: 1;
   position: relative;
   font-weight: 600;
+  cursor:pointer;
 }
 .vectorIcon {
   position: relative;
@@ -17,7 +18,6 @@
 .ytdSummary {
   align-items: center;
   gap: 8px;
-  cursor:pointer;
 }
 .sectiondatasummary {
   align-self: stretch;
@@ -101,28 +101,15 @@
   font-size: 16px;
   font-family: Barlow;
 }
-.container,
-.frameGroup {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
 .container {
-  width: 77px;
-  height: 45px;
-  flex-direction: column;
+  font-size: 18px;
   gap: 1px;
-}
-.frameGroup {
-  width: 216px;
-  flex-direction: row;
-  gap: 25px;
 }
 .indicator {
   position: relative;
   background-color: rgba(0, 0, 0, 0.24);
-  width: 2px;
-  /* height: 57px; */
+  width: 1.11px;
+  height: 57px;
 }
 .text {
   align-self: stretch;
@@ -147,19 +134,23 @@
   font-family: Barlow;
 }
 .chartcontainer,
-.frameParent,
 .sectionsummarycontainer {
   align-self: stretch;
   display: flex;
   justify-content: flex-start;
 }
 .frameParent {
+  display: flex;
+  width: 100%;
   border-top: 1px solid #dfd4d4;
   flex-direction: row;
   padding: 10px 26px;
-  align-items: flex-end;
-  gap: 26px;
+  gap: 40px;
+  align-items: center;
+  height: 120px;
+  font-size: 20px;
 }
+
 .chartBottomSide {
   border-top: 1px solid #dfd4d4;
   padding: 10px 26px;
@@ -205,16 +196,11 @@
 }
 @media screen and (max-width: 900px) {
   .sectionsummarycontainer {
-    padding: 0 10px;
+    padding: 20px 10px;
   }
   .frameParent {
-    flex-direction: column;
-    border-top: 1px solid #dfd4d4;
-    border-bottom: 1px solid #dfd4d4;
-    padding: 10px 26px;
-    gap: 0;
-    align-items: center;
-    height: 249px;
+    height: 100%;
+    flex-wrap: wrap;
     font-size: 20px;
   }
   .indicator {

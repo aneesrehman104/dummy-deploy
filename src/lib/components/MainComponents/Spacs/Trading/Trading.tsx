@@ -55,7 +55,7 @@ function Trading() {
         selectedTab === 0 ? "active" : "deSPAC"
       }`
     );
-    if (response.status === 200) {
+   if (response.status === 200 && response.data !== null) {
       setSpacsTradingGainerData(response.data);
       setIsLoading(false);
     } else {
@@ -74,7 +74,7 @@ function Trading() {
         selectedTab === 0 ? "active" : "deSPAC"
       }`
     );
-    if (response.status === 200) {
+   if (response.status === 200 && response.data !== null) {
       setSpacsTradingLoserData(response.data);
       setIsLoadingLooser(false);
     } else {

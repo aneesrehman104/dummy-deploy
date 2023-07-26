@@ -5,7 +5,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  font-size: 22px;
+  font-size: 24px;
   color: #263c6f;
 }
 .dashboardheader {
@@ -16,7 +16,7 @@
   align-items: flex-start;
   gap: 8px;
   text-align: left;
-  font-size: 11px;
+  font-size: 12.5px;
   color: #434343;
   font-family: Barlow;
 }

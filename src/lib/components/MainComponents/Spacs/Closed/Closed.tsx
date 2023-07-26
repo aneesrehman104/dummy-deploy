@@ -21,7 +21,7 @@ function Closed() {
     const response = await getApiWithoutAuth(
       `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=latest_closed`
     );
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setLatestClosed(response.data);
       setIsLoadingClosed(false);
     } else {

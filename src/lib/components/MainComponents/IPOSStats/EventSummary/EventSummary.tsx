@@ -88,7 +88,7 @@ function EventSummary() {
   };
   const getStatsData = async () => {
     const response = await getApiWithoutAuth(URLs.spacGraph);
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setGraphData(response.data);
 
       setIsLoading(false);

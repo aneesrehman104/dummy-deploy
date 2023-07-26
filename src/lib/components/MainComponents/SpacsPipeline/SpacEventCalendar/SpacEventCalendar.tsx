@@ -66,7 +66,7 @@ function SpacEventCalendar() {
       `${URLs.spacsCalender}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`,
       response
     );
-    if (response.status === 200) {
+    if (response.status === 200 && response.data !== null) {
       setGrapevineGraveyardData(response.data);
       setIsLoading(false);
     } else {
