@@ -3,7 +3,6 @@
   display: flex;
   justify-content: flex-start;
   margin-top: 20px;
-
 }
 .minitables {
   align-items: flex-start;
@@ -31,7 +30,7 @@
   background-color: #fff;
   box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
     0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
-  width: 370px;
+  width: 380px;
 }
 .cardheader {
   border-radius: 4px;

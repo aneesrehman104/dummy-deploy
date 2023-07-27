@@ -83,9 +83,6 @@
   color: #434343;
   font-family: Barlow;
 }
-
-
-
 .tableTitle {
   position: relative;
   font-weight: 600;
@@ -111,6 +108,7 @@
   letter-spacing: 0.01em;
   line-height: 135%;
   font-weight: 600;
+  margin-top: 10px;
 }
 .tablehead {
   width: 230px;
@@ -207,14 +205,7 @@
   letter-spacing: 0.01em;
   line-height: 135%;
   display: inline-block;
-  height: 25px;
   flex-shrink: 0;
-}
-.cardheader,
-.cardrowheader {
-  align-self: stretch;
-  display: flex;
-  box-sizing: border-box;
 }
 .cardheader {
   border-radius: 4px;
@@ -228,9 +219,7 @@
   color: #000;
 }
 .cardrowheader {
-  height: 40.67px;
   flex-direction: row;
-  padding: 16px 0;
   align-items: center;
   justify-content: flex-start;
 }
@@ -238,6 +227,7 @@
   align-self: stretch;
   position: relative;
   line-height: 103%;
+  margin-top: 10px;
 }
 .ytdWithSpacs {
   font-weight: 500;
@@ -249,48 +239,34 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-family: Barlow;
+  width: 100px;
 }
-.group,
-.parent {
-  flex-direction: column;
-  gap: 1px;
-}
-.parent {
-  flex: 1;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
+
 .group {
   align-self: stretch;
 }
-.cardrowinfo,
-.frameParent,
-.frameWrapper,
-.group {
+.frameParent {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-.frameWrapper {
-  flex: 1;
-  flex-direction: column;
-}
-.cardrowinfo,
-.frameParent {
-  align-self: stretch;
-}
-.frameParent {
-  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
   font-size: 24px;
   color: #000;
   font-family: "Barlow Condensed";
+  margin-top: 10px;
+  display: flex;
 }
 .cardrowinfo {
   border-bottom: 1px solid #e8e2e2;
   flex-direction: column;
-  padding: 0 16px 21px;
-  gap: 11px;
+  padding: 9px 15px;
+  gap: 10px;
+}
+.cardrowheader {
+  height: 40.67px;
+  padding: 16px 0;
+  letter-spacing: 0.01em;
+  line-height: 135%;
+  font-weight: 600;
 }
 .liveMergers {
   margin: 0;
@@ -314,7 +290,6 @@
   line-height: 135%;
   font-weight: 600;
 }
-.card,
 .cardrowinfo2 {
   align-self: stretch;
   display: flex;
@@ -326,14 +301,12 @@
   padding: 0 16px 16px;
 }
 .card {
-  /* flex: 1; */
   border-radius: 4px;
   min-height: 400px;
   background-color: #fff;
   box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
     0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
-  width: 307px;
-
+  width: 380px;
 }
 .ipos {
   flex: 1;
@@ -503,7 +476,6 @@
   align-items: center;
 }
 .cardcontent,
-.cardscontainer,
 .minitables {
   align-self: stretch;
   display: flex;
@@ -518,17 +490,15 @@
   font-size: 16px;
   color: #000;
 }
-.cardscontainer,
 .minitables {
   align-items: flex-start;
 }
 .cardscontainer {
-  flex-direction: row;
+  display: flex;
   gap: 16px;
   font-size: 13px;
   color: #1991ac;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 .minitables {
   flex-direction: column;
@@ -976,7 +946,7 @@
 }
 @media screen and (max-width: 900px) {
   .card{
-    width: 400px;
+    width: 100%;
   }
   .sectionlistnewscontainer {
     flex: unset;

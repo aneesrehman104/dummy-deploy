@@ -113,12 +113,12 @@ function MergerMarketStats() {
                 return (
                   <div className={styles.cardrowinfo} key={innerData.title}>
                     <div className={styles.cardrowheader}>
-                      {innerData.title}
+                      <div className={styles.head}>{innerData.title}</div>
                     </div>
                     <div className={styles.frameParent}>
                       {innerData.data.map((value) => {
                         return (
-                          <div className={styles.parent} key={value.change}>
+                          <div key={value.change}>
                             <div className={styles.div}>{value.value}</div>
                             <div className={styles.ytdWithSpacsContainer}>
                               {value.change}
