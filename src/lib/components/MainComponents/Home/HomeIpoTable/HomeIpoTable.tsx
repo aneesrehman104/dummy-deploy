@@ -1,14 +1,21 @@
-import React from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import styles from "./HomeIpoTable.module.css";
 import { homeConstants } from "@/lib/ts/constants";
-import { ListingTrackTable } from "@/lib/components/CommonComponents";
+import { getApiWithoutAuth } from "@/lib/ts/api";
+import { URLs } from "@/lib/ts/apiUrl";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
+
 function TableTitle() {
   return (
     <div className={styles.tableTitle}>{homeConstants.IPOPipeline.title}</div>
   );
 }
 function HomeIpoTable() {
-  const data = [
+  const [isLoading, setIsLoading] = useState(true);
+  const [iPOPipelineData, setIPOPipelineData] = useState([
     {
       company: "Activision",
       event: "IPO",
@@ -41,7 +48,8 @@ function HomeIpoTable() {
       priceRange: "$12/share2",
       proceedsRange: "$150M - $175M",
     },
-  ];
+  ]);
+
   const headerArray = [
     {
       name: "Company",
@@ -75,12 +83,34 @@ function HomeIpoTable() {
     },
   ];
 
+  const getIPOPipelineData = async () => {
+    setIsLoading(true);
+    const response = await getApiWithoutAuth("ipo");
+    if (response.status === 200 && response.data !== null) {
+      setIPOPipelineData(response.data);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getIPOPipelineData();
+  }, []);
+
   return (
     <section className={styles.stockstablesection}>
       <TableTitle />
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
-          <ListingTrackTable data={data} headerArray={headerArray} />
+          {isLoading ? (
+            <SkeltonTable />
+          ) : (
+            <ListingTrackTable
+              data={iPOPipelineData}
+              headerArray={headerArray}
+            />
+          )}
         </div>
       </div>
     </section>

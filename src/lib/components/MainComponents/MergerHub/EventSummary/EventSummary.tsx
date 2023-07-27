@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-
-const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/ListingTrackGraph"), {
-  ssr: false,
-  loading: () => <Skeleton variant="rounded" height={200} />,
-});
+import { getApiWithoutAuth } from "@lib/ts/api";
+import { URLs } from "@/lib/ts/apiUrl";
+import { GraphDataInterface } from "@/lib/ts/interface";
+const DynamicChart = dynamic(
+  () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
+  {
+    ssr: false,
+    loading: () => <Skeleton variant="rounded" height={200} />,
+  }
+);
 
 function EventSummary() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [graphData, setGraphData] = useState<GraphDataInterface>({
+    additional_dataset: {},
+    dataset: [],
+  });
   const options = {
     chart: {
       type: "line",
@@ -57,22 +67,41 @@ function EventSummary() {
     },
     series: [
       {
-        name: "Announced",
-        data: [10, 150, 20, 10, 133, 188, 500, 10, 150, 20, 10, 188],
+        name: "IPOS",
+        data: graphData?.dataset
+          ?.filter((item) => item.event === "IPO")
+          ?.map((item) => item.data),
         color: "#F19529",
       },
       {
-        name: "Closed",
-        data: [1, 50, 200, 150, 33, 88, 300, 1, 50, 200, 150, 300],
+        name: "SPACS",
+        data: graphData?.dataset
+          ?.filter((item) => item.event === "SPAC")
+          ?.map((item) => item.data),
         color: "#7F98F3",
       },
       {
-        name: "Terminated",
-        data: [1, 550, 100, 130, 33, 88, 600, 1, 50, 200, 150, 88],
+        name: "MERGERS",
+        data: graphData?.dataset
+          ?.filter((item) => item.event === "Merger")
+          ?.map((item) => item.data),
         color: "#9747FF",
       },
     ],
   };
+  const getStatsData = async () => {
+    const response = await getApiWithoutAuth(URLs.spacGraph);
+    if (response.status === 200 && response.data !== null) {
+      setGraphData(response.data);
+
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    getStatsData();
+  }, []);
 
   return (
     <section className={styles.sectionsummarycontainer}>
@@ -86,20 +115,31 @@ function EventSummary() {
         <div style={{ width: "100%" }}>
           <DynamicChart options={options} />
         </div>
-        <div className={styles.frameParent}>
-          <div className={styles.container}>
-            <div>52</div>
-            <div>ANNOUNCED MERGERS</div>
+        {isLoading ? (
+          <>
+            <Skeleton variant="rounded" height={25} width={"100%"} />
+            <Skeleton variant="rounded" height={25} width={"100%"} />
+          </>
+        ) : (
+          <div className={styles.frameParent}>
+            <>
+              <div className={styles.frameParent}>
+                <div className={styles.container}>
+                  <div>52</div>
+                  <div>ANNOUNCED MERGERS</div>
+                </div>
+                <div className={styles.container}>
+                  <div>30</div>
+                  <div>CLOSED MERGERS</div>
+                </div>
+                <div className={styles.container}>
+                  <div>5</div>
+                  <div>TERMINATED MERGERS</div>
+                </div>
+              </div>
+            </>
           </div>
-          <div className={styles.container}>
-            <div>30</div>
-            <div>CLOSED MERGERS</div>
-          </div>
-          <div className={styles.container}>
-            <div>5</div>
-            <div>TERMINATED MERGERS</div>
-          </div>
-        </div>
+        )}
       </div>
     </section>
   );
