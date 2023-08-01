@@ -27,13 +27,13 @@ function Plans() {
       }}
     >
       <div>
-          <div>
+          {/* <div>
             <ArrowBackIcon
               onClick={() => {
                 router.back();
               }}
             />
-          </div>
+          </div> */}
         <div
           style={{
             width: "100%",
