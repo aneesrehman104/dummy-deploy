@@ -11,7 +11,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className} style={{ width: "100%" }}>
         <MemberstackProvider
           config={{
             publicKey: `${process.env.NEXT_PUBLIC_MEMBERSTACK_KEY}`,

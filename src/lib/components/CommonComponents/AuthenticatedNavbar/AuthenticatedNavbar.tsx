@@ -446,14 +446,6 @@ export default function AuthenticatedNavbar(props: Props) {
                   <Divider />
                 </Fragment>
               ))}
-              With the above changes, the motion.div components will apply a
-              smooth animation when the components appear, disappear, or change
-              in any way (e.g., when clicked). The transition prop determines
-              the animation duration and can be adjusted as per your preference.
-              Remember to adjust the animation properties and transitions
-              according to your desired effects and make sure to adjust other
-              CSS styles as needed to make the animation work seamlessly with
-              your existing layout.
             </List>
           </Box>
         </Drawer>

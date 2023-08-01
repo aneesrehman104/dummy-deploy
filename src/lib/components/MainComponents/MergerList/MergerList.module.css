@@ -1022,4 +1022,15 @@
   .headlineslistcontainer {
     padding: 10px 10px 10px;
   }
+  .titleandsearchcontainer{
+    flex-direction: column;
+  }
+  .dashboardheader{
+    flex-direction: column;
+    height: 120px;
+
+  }
+  .moreData{
+    align-items: center;
+  }
 }
