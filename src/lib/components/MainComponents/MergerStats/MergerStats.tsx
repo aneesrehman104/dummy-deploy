@@ -1,7 +1,7 @@
 import styles from "./MergerStats.module.css";
 import React from "react";
 import EventSummary from "./EventSummary/EventSummary";
-import MarketStats from "./MarketStats/MarketStats";
+import MergerMarketStats from "./MergerMarketStats/MergerMarketStats";
 const MergerStats = () => {
   return (
     <main>
@@ -12,9 +12,9 @@ const MergerStats = () => {
       </header>
       <section>
       <EventSummary />
-      <MarketStats/>
+      <MergerMarketStats/>
       <EventSummary />
-      <MarketStats/>
+      <MergerMarketStats/>
       </section>
     </main>
   );

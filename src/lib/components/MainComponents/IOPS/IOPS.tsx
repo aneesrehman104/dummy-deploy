@@ -477,13 +477,7 @@ function IOPS() {
         </div>
       </div>
       <div className={styles.sectionsummarycontainer}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            width: "100%",
-          }}
-        >
+        <div className={styles.spaceBetween}>
           <div>
             <div className={styles.ytdEventSummary}>
               Acquirer: Microsoft (MSFT)
@@ -499,7 +493,7 @@ function IOPS() {
               at CLOSE: JUNE 8, 2023 3:58PM EST · NASDAQ
             </div>
           </div>
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", marginTop: 10 }}>
             <div>
               <div>Listing Status:</div>
               <div>IPO Priced</div>

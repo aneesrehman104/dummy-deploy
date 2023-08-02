@@ -20,6 +20,11 @@
   color: #434343;
   font-family: Barlow;
 }
+.spaceBetween {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 
 .selectedValueStyle {
   color: black;
@@ -285,7 +290,7 @@
   display: flex;
   justify-content: space-between;
   font-family: Barlow;
-  font-style:normal;
+  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 135%;
@@ -337,7 +342,7 @@
     height: 249px;
     font-size: 20px;
   }
-  .indicator{
+  .indicator {
     display: none;
   }
   .chartBottomSide {
@@ -356,5 +361,8 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 135%;
+  }
+  .spaceBetween {
+    flex-direction: column;
   }
 }

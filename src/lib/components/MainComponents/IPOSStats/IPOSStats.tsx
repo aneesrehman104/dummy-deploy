@@ -1,7 +1,7 @@
 import styles from "./IPOSStats.module.css";
 import React from "react";
 import EventSummary from "./EventSummary/EventSummary";
-import MarketStats from "./MarketStats/MarketStats";
+import MergerMarketStats from "./MergerMarketStats/MergerMarketStats";
 import ReturnsByTargetIndustry from "./ReturnsByTargetIndustry/ReturnsByTargetIndustry";
 import ReturnsByClosingYearVintage from "./ReturnsByClosingYearVintage/ReturnsByClosingYearVintage";
 const IPOSStats = () => {
@@ -14,7 +14,7 @@ const IPOSStats = () => {
       </header>
       <section>
         <EventSummary />
-        <MarketStats />
+        <MergerMarketStats />
         {/* <ReturnsByTargetIndustry /> */}
         <ReturnsByClosingYearVintage />
       </section>

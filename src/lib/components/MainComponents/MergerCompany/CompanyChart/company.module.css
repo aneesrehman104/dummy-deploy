@@ -9,7 +9,7 @@
   color: #263c6f;
 }
 .dashboardheader {
-  height: 56px;
+  /* height: 56px; */
   flex-direction: column;
   padding: 0 35px;
   box-sizing: border-box;

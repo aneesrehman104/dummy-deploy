@@ -1,11 +1,9 @@
-
-
 import React from "react";
-import styles from "./MarketStats.module.css";
+import styles from "./MergerMarketStats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { homeConstants } from "@/lib/ts/constants";
-function MarketStats() {
+function MergerMarketStats() {
   const theme = createTheme({
     palette: {
       primary: {
@@ -115,12 +113,12 @@ function MarketStats() {
                 return (
                   <div className={styles.cardrowinfo} key={innerData.title}>
                     <div className={styles.cardrowheader}>
-                      {innerData.title}
+                      <div className={styles.head}>{innerData.title}</div>
                     </div>
                     <div className={styles.frameParent}>
                       {innerData.data.map((value) => {
                         return (
-                          <div className={styles.parent} key={value.change}>
+                          <div key={value.change}>
                             <div className={styles.div}>{value.value}</div>
                             <div className={styles.ytdWithSpacsContainer}>
                               {value.change}
@@ -140,4 +138,4 @@ function MarketStats() {
   );
 }
 
-export default MarketStats;
+export default MergerMarketStats;

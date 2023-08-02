@@ -9,7 +9,7 @@
   color: #263c6f;
 }
 .dashboardheader {
-  height: 56px;
+  /* height: 56px; */
   flex-direction: column;
   padding: 0 35px;
   box-sizing: border-box;
@@ -356,5 +356,9 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 135%;
+  }
+  .tableContainer {
+    width: 100%;
+    padding: 10px 10px;
   }
 }

@@ -20,207 +20,191 @@ function AggrecatedMiniTable() {
       <div className={styles.cardscontainer}>
         <div className={styles.card}>
           <div className={styles.cardheader}>
-            <div className={styles.listingtrack}>{homeConstants.AggrecatedMiniTable.ListingTrack}</div>
+            <div className={styles.listingtrack}>
+              {homeConstants.AggrecatedMiniTable.ListingTrack}
+            </div>
           </div>
           <div className={styles.cardrowinfo}>
             <div className={styles.cardrowheader}>
-              <div className={styles.head}>{homeConstants.AggrecatedMiniTable.IPOs}</div>
+              <div className={styles.head}>
+                {homeConstants.AggrecatedMiniTable.IPOs}
+              </div>
             </div>
             <div className={styles.frameParent}>
-              <div className={styles.parent}>
+              <div>
                 <div className={styles.div}>50</div>
                 <div className={styles.ytdWithSpacsContainer}>
-                  <span className={styles.ytdWithSpacs}>YTD with spacs</span>
+                  YTD with spacs
                 </div>
               </div>
-              <div className={styles.frameWrapper}>
-                <div className={styles.group}>
-                  <div className={styles.div}>25</div>
-                  <div className={styles.ytdWithSpacsContainer}>
-                    <span className={styles.ytdWithSpacs}>YTD SANS spacs</span>
-                  </div>
+              <div>
+                <div className={styles.div}>25</div>
+                <div className={styles.ytdWithSpacsContainer}>
+                  YTD SANS spacs
                 </div>
               </div>
             </div>
           </div>
           <div className={styles.cardrowinfo}>
             <div className={styles.cardrowheader}>
-              <div className={styles.head}>{homeConstants.AggrecatedMiniTable.MERGERs}</div>
+              <div className={styles.head}>
+                {homeConstants.AggrecatedMiniTable.MERGERs}
+              </div>
             </div>
             <div className={styles.frameParent}>
-              <div className={styles.parent}>
+              <div>
                 <div className={styles.div}>350</div>
                 <div className={styles.ytdWithSpacsContainer}>
-                  <p className={styles.liveMergers}>
-                    <span className={styles.ytdWithSpacs}>Live mergers</span>
-                  </p>
-                  <p className={styles.liveMergers}>
-                    <span className={styles.ytdWithSpacs}>
-                      <span className={styles.withSpacs2}>with spacs</span>
-                    </span>
-                  </p>
+                  Live mergers with spacs
                 </div>
               </div>
-              <div className={styles.avgReturnParent}>
+              <div>
                 <div className={styles.div}>100</div>
                 <div className={styles.ytdWithSpacsContainer}>
-                  <p className={styles.liveMergers}>
-                    <span className={styles.ytdWithSpacs}>Live mergers</span>
-                  </p>
-                  <p className={styles.liveMergers}>
-                    <span className={styles.ytdWithSpacs}>
-                      <span className={styles.withSpacs2}>SANS spacs</span>
-                    </span>
-                  </p>
+                  Live mergers SANS spacs
                 </div>
               </div>
-              <div className={styles.avgReturnParent}>
+              <div>
                 <div className={styles.div}>25</div>
-                <div className={styles.completedMergers}>
-                  <p className={styles.liveMergers}>completed</p>
-                  <p className={styles.liveMergers}>mergers</p>
+                <div className={styles.ytdWithSpacsContainer}>
+                  completed mergers
                 </div>
               </div>
             </div>
           </div>
-          <div className={styles.cardrowinfo2}>
+          <div className={styles.cardrowinfo}>
             <div className={styles.cardrowheader}>
-              <div className={styles.head8}>{homeConstants.AggrecatedMiniTable.SPACs}</div>
+              <div className={styles.head}>
+                {homeConstants.AggrecatedMiniTable.SPACs}
+              </div>
             </div>
             <div className={styles.frameParent}>
-              <div className={styles.parent}>
+              <div>
                 <div className={styles.div}>651</div>
-                <div className={styles.completedMergers}>Total active</div>
+                <div className={styles.ytdWithSpacsContainer}>Total active</div>
               </div>
-              <div className={styles.parent}>
+              <div>
                 <div className={styles.div}>330</div>
-                <div className={styles.completedMergers}>Searching</div>
+                <div className={styles.ytdWithSpacsContainer}>Searching</div>
               </div>
-              <div className={styles.parent}>
+              <div>
                 <div className={styles.div}>185</div>
-                <div className={styles.completedMergers}>
-                  <p className={styles.liveMergers}>Live</p>
-                  <p className={styles.liveMergers}>mergers</p>
+                <div className={styles.ytdWithSpacsContainer}>live mergers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.card}>
+          <div className={styles.cardheader}>
+            <div className={styles.listingtrack}>IPOs</div>
+          </div>
+          <div className={styles.cardrowinfo}>
+            <div className={styles.cardrowheader}>
+              <div className={styles.head}>
+                {homeConstants.AggrecatedMiniTable.IPOSWITHSPACS}
+              </div>
+            </div>
+            <div className={styles.frameParent}>
+              <div>
+                <div className={styles.div}>200</div>
+                <div className={styles.ytdWithSpacsContainer}>YTD</div>
+              </div>
+              <div>
+                <div className={styles.div}>50%</div>
+                <div className={styles.ytdWithSpacsContainer}>AVG. RETURN</div>
+              </div>
+              <div>
+                <div className={styles.div}>44%</div>
+                <div className={styles.ytdWithSpacsContainer}>
+                  MEDIAN RETURN
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.cardrowinfo}>
+            <div className={styles.cardrowheader}>
+              <div className={styles.head}>IPOS SANS SPACS</div>
+            </div>
+            <div className={styles.frameParent}>
+              <div>
+                <div className={styles.div}>350</div>
+                <div className={styles.ytdWithSpacsContainer}>YTD</div>
+              </div>
+              <div>
+                <div className={styles.div}>50%</div>
+                <div className={styles.ytdWithSpacsContainer}>AVG. RETURN</div>
+              </div>
+              <div>
+                <div className={styles.div}>44%</div>
+                <div className={styles.ytdWithSpacsContainer}>
+                  MEDIAN RETURN
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className={styles.card}>
-            <div className={styles.cardElements}>
-              <div className={styles.ipos}>{`IPOs `}</div>
-              <div className={styles.showSpacsParent}>
-                <div className={styles.showSpacs}>{homeConstants.AggrecatedMiniTable.ShowSPACs}</div>
-                <ThemeProvider theme={theme}>
-                  <Switch defaultChecked color="primary" />
-                </ThemeProvider>
-              </div>
+          <div className={styles.cardheader}>
+            <div className={styles.listingtrack}>Mergers</div>
+          </div>
+          <div className={styles.cardrowinfo}>
+            <div className={styles.cardrowheader}>
+              <div className={styles.head}>MERGERS WITH SPACS</div>
             </div>
-            <div className={styles.cardrowinfo}>
-              <div className={styles.cardrowheader}>
-                <div className={styles.head}>{homeConstants.AggrecatedMiniTable.IPOSWITHSPACS}</div>
+            <div className={styles.frameParent}>
+              <div>
+                <div className={styles.div}>500</div>
+                <div className={styles.ytdWithSpacsContainer}>
+                  LIVE MERGERS YTD
+                </div>
               </div>
-              <div className={styles.frameParent1}>
-                <div className={styles.parent6}>
-                  <div className={styles.div}>200</div>
-                  <div className={styles.completedMergers}>YTD</div>
-                </div>
-                <div className={styles.avgReturnParent}>
-                  <div className={styles.avgReturn}>AVG. RETURN</div>
-                  <div className={styles.div9}>50%</div>
-                </div>
-                <div className={styles.medianReturnParent}>
-                  <div className={styles.avgReturn}>MEDIAN RETURN</div>
-                  <div className={styles.div9}>44%</div>
+              <div>
+                <div className={styles.div}>50%</div>
+                <div className={styles.ytdWithSpacsContainer}>AVG. PREMIUM</div>
+              </div>
+              <div>
+                <div className={styles.div}>50%</div>
+                <div className={styles.ytdWithSpacsContainer}>
+                  MEDIAN PREMIUM
                 </div>
               </div>
             </div>
-            <div className={styles.cardrowinfo}>
-              <div className={styles.cardrowheader}>
-                <div className={styles.head}>{homeConstants.AggrecatedMiniTable.IPOSSANSSPACS}</div>
+          </div>
+          <div className={styles.cardrowinfo}>
+            <div className={styles.cardrowheader}>
+              <div className={styles.head}>MERGERS SANS SPACS</div>
+            </div>
+            <div className={styles.frameParent}>
+              <div>
+                <div className={styles.div}>500</div>
+                <div className={styles.ytdWithSpacsContainer}>
+                  LIVE MERGERS YTD
+                </div>
               </div>
-              <div className={styles.frameParent}>
-                <div className={styles.parent}>
-                  <div className={styles.div}>XXX</div>
-                  <div className={styles.completedMergers}>YTD</div>
+              <div>
+                <div className={styles.div}>50%</div>
+                <div className={styles.ytdWithSpacsContainer}>AVG. PREMIUM</div>
+              </div>
+              <div>
+                <div className={styles.div}>50%</div>
+                <div className={styles.ytdWithSpacsContainer}>
+                  MEDIAN PREMIUM
                 </div>
-                <div className={styles.parent}>
-                  <div className={styles.div}>XX%</div>
-                  <div className={styles.completedMergers}>AVG. RETURN</div>
+              </div>
+              <div>
+                <div className={styles.div}>50%</div>
+                <div className={styles.ytdWithSpacsContainer}>
+                  MEDIAN PREMIUM
                 </div>
-                <div className={styles.parent}>
-                  <div className={styles.div}>XX%</div>
-                  <div className={styles.completedMergers}>MEDIAN RETURN</div>
+              </div>
+              <div>
+                <div className={styles.div}>50%</div>
+                <div className={styles.ytdWithSpacsContainer}>
+                  MEDIAN PREMIUM
                 </div>
               </div>
             </div>
-        </div>
-        <div className={styles.card}>
-            <div className={styles.cardcontent}>
-              <div className={styles.ipos}>{`Mergers `}</div>
-              <div className={styles.showSpacsParent}>
-                <div className={styles.showSpacs}>{homeConstants.AggrecatedMiniTable.ShowSPACs}</div>
-                <ThemeProvider theme={theme}>
-                  <Switch defaultChecked color="primary" />
-                </ThemeProvider>
-              </div>
-            </div>
-            <div className={styles.cardrowinfo}>
-              <div className={styles.cardrowheader}>
-                <div className={styles.head8}>{homeConstants.AggrecatedMiniTable.MERGERSWITHSPACS}</div>
-              </div>
-              <div className={styles.frameParent}>
-                <div className={styles.parent}>
-                  <div className={styles.div}>200</div>
-                  <div className={styles.completedMergers}>
-                    <p className={styles.liveMergers}>LIVE MERGERS</p>
-                    <p className={styles.liveMergers}>YTD</p>
-                  </div>
-                </div>
-                <div className={styles.parent}>
-                  <div className={styles.div}>50%</div>
-                  <div className={styles.completedMergers}>
-                    <p className={styles.liveMergers}>AVG.</p>
-                    <p className={styles.liveMergers}>PREMIUM</p>
-                  </div>
-                </div>
-                <div className={styles.parent}>
-                  <div className={styles.div}>44%</div>
-                  <div className={styles.completedMergers}>
-                    <p className={styles.liveMergers}>MEDIAN</p>
-                    <p className={styles.liveMergers}>PREMIUM</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className={styles.cardrowinfo}>
-              <div className={styles.cardrowheader}>
-                <div className={styles.head8}>{homeConstants.AggrecatedMiniTable.MERGERSSANSSPACS} </div>
-              </div>
-              <div className={styles.frameParent}>
-                <div className={styles.parent}>
-                  <div className={styles.div}>XXX</div>
-                  <div className={styles.completedMergers}>
-                    <p className={styles.liveMergers}>LIVE MERGERS</p>
-                    <p className={styles.liveMergers}>YTD</p>
-                  </div>
-                </div>
-                <div className={styles.parent}>
-                  <div className={styles.div}>XX%</div>
-                  <div className={styles.completedMergers}>
-                    <p className={styles.liveMergers}>AVG.</p>
-                    <p className={styles.liveMergers}>PREMIUM</p>
-                  </div>
-                </div>
-                <div className={styles.parent}>
-                  <div className={styles.div}>XX%</div>
-                  <div className={styles.completedMergers}>
-                    <p className={styles.liveMergers}>MEDIAN</p>
-                    <p className={styles.liveMergers}>PREMIUM</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          </div>
         </div>
       </div>
     </section>

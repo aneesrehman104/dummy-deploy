@@ -24,6 +24,8 @@ import {
   MenuItem,
   DialogContent,
 } from "@mui/material";
+import { setCookie } from "cookies-next";
+import { motion } from "framer-motion";
 import "./AuthenticatedNavbar.css";
 import dynamic from "next/dynamic";
 import searchIcon from "../../../../../public/searchIcon.svg";
@@ -62,6 +64,7 @@ export default function AuthenticatedNavbar(props: Props) {
 
   const handleLogout2 = async () => {
     await logout();
+    setCookie("accessToken", null);
     window.location.reload();
   };
   const handleCheckout = async () => {
@@ -258,33 +261,53 @@ export default function AuthenticatedNavbar(props: Props) {
                     transformOrigin={{ horizontal: "right", vertical: "top" }}
                     anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                   >
-                    <MenuItem onClick={handleClose}>
-                      {user?.member?.auth?.email}
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem onClick={handleClose}>
-                      <ListItemIcon>
-                        <Home fontSize="medium" />
-                      </ListItemIcon>
-                      Home
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem onClick={handleClose}>
-                      <Avatar /> Profile
-                    </MenuItem>
-                    <Divider />
+                    <motion.div
+                      whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                    >
+                      <MenuItem onClick={handleClose}>
+                        {user?.member?.auth?.email}
+                      </MenuItem>
+                      <Divider />
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                    >
+                      <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                          <Home fontSize="medium" />
+                        </ListItemIcon>
+                        Home
+                      </MenuItem>
+                      <Divider />
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                    >
+                      <MenuItem onClick={handleClose}>
+                        <Avatar /> Profile
+                      </MenuItem>
+                      <Divider />
+                    </motion.div>
 
-                    <MenuItem onClick={handleCheckout}>
-                      <Avatar />
-                      Plans
-                    </MenuItem>
-                    <Divider />
-                    <MenuItem onClick={handleLogout2}>
-                      <ListItemIcon>
-                        <Logout fontSize="small" />
-                      </ListItemIcon>
-                      Logout
-                    </MenuItem>
+                    <motion.div
+                      whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                    >
+                      <MenuItem onClick={handleCheckout}>
+                        <Avatar />
+                        Plans
+                      </MenuItem>
+                      <Divider />
+                    </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                    >
+                      <MenuItem onClick={handleLogout2}>
+                        <ListItemIcon>
+                          <Logout fontSize="small" />
+                        </ListItemIcon>
+                        Logout
+                      </MenuItem>
+                    </motion.div>
                   </Menu>
                 </React.Fragment>
               </div>
@@ -298,11 +321,13 @@ export default function AuthenticatedNavbar(props: Props) {
                     console.log("data", data);
                     console.log("type: ", type);
                     if (type === "LOGIN") {
+                      setCookie("accessToken", data.tokens.accessToken);
                       hideModal();
                       window.location.reload();
                     } else if (type === "CLOSED") {
                       hideModal();
                     } else {
+                      setCookie("accessToken", data.tokens.accessToken);
                       router.push("/plans");
                     }
                   })
@@ -334,70 +359,87 @@ export default function AuthenticatedNavbar(props: Props) {
             <List>
               {sidebarItem.map((item, index) => (
                 <Fragment key={item.id}>
-                  <ListItem>
-                    <ListItemButton
-                      onClick={() => {
-                        console.log("====================click");
-                        if (item.items) {
-                          if (pathname === item.pathname) {
-                            toggleItem(item.id, setIsOpen);
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                  >
+                    <ListItem>
+                      <ListItemButton
+                        onClick={() => {
+                          console.log("====================click");
+                          if (item.items) {
+                            if (pathname === item.pathname) {
+                              toggleItem(item.id, setIsOpen);
+                            } else {
+                              router.push(item.pathname);
+                            }
                           } else {
+                            setCurrentBreadcrumb(item.breadcrumb);
                             router.push(item.pathname);
                           }
-                        } else {
-                          setCurrentBreadcrumb(item.breadcrumb);
-                          router.push(item.pathname);
-                        }
-                      }}
-                    >
-                      <div
-                        className={
-                          isOpen[item.id] || item.id === props.selected_id
-                            ? "currentTabStyle"
-                            : "tabStyle"
-                        }
+                        }}
                       >
-                        {isOpen[item.id] ? (
-                          <Image
-                            src={currntTabIcon}
-                            alt="footerImage"
-                            style={{ transform: "rotate(90deg)" }}
-                            width={8}
-                            height={12}
-                          />
-                        ) : (
-                          <Image
-                            src={currntTabIcon}
-                            alt="footerImage"
-                            width={8}
-                            height={12}
-                          />
-                        )}
-                        &nbsp; &nbsp;{item.name}
-                      </div>
-                    </ListItemButton>
-                  </ListItem>
+                        <motion.div
+                          whileHover={{ scale: 1.05 }} // Scale up effect on hover
+                          className={
+                            isOpen[item.id] || item.id === props.selected_id
+                              ? "currentTabStyle"
+                              : "tabStyle"
+                          }
+                        >
+                          {isOpen[item.id] ? (
+                            <Image
+                              src={currntTabIcon}
+                              alt="footerImage"
+                              style={{ transform: "rotate(90deg)" }}
+                              width={8}
+                              height={12}
+                            />
+                          ) : (
+                            <Image
+                              src={currntTabIcon}
+                              alt="footerImage"
+                              width={8}
+                              height={12}
+                            />
+                          )}
+                          &nbsp; &nbsp;{item.name}
+                        </motion.div>
+                      </ListItemButton>
+                    </ListItem>
+                  </motion.div>
                   {item.items && isOpen[item.id] ? (
                     <List>
                       {item.items.map((subItem) => (
-                        <ListItem key={subItem.id}>
-                          <ListItemButton
-                            onClick={() => {
-                              setCurrentBreadcrumb(subItem.breadcrumb);
-                              router.push(subItem.pathname);
-                            }}
-                          >
-                            <div
-                              className={
-                                subItem.pathname === pathname
-                                  ? "currentTabStyle"
-                                  : "tabStyle"
-                              }
+                        <motion.div
+                          key={subItem.id}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <ListItem key={subItem.id}>
+                            <ListItemButton
+                              onClick={() => {
+                                setCurrentBreadcrumb(subItem.breadcrumb);
+                                router.push(subItem.pathname);
+                              }}
                             >
-                              {subItem.name}
-                            </div>
-                          </ListItemButton>
-                        </ListItem>
+                              <motion.div
+                                whileHover={{ scale: 1.05 }} // Scale up effect on hover
+                                className={
+                                  subItem.pathname === pathname
+                                    ? "currentTabStyle"
+                                    : "tabStyle"
+                                }
+                              >
+                                {subItem.name}
+                              </motion.div>
+                            </ListItemButton>
+                          </ListItem>
+                        </motion.div>
                       ))}
                     </List>
                   ) : null}
@@ -425,52 +467,67 @@ export default function AuthenticatedNavbar(props: Props) {
             <List>
               {sidebarItem.map((item, index) => (
                 <Fragment key={item.id}>
-                  <ListItem>
-                    <ListItemButton
-                      onClick={() => {
-                        console.log("====================click");
-                        if (item.items) {
-                          if (pathname === item.pathname) {
-                            toggleItem(item.id, setIsOpen);
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                  >
+                    <ListItem>
+                      <ListItemButton
+                        onClick={() => {
+                          console.log("====================click");
+                          if (item.items) {
+                            if (pathname === item.pathname) {
+                              toggleItem(item.id, setIsOpen);
+                            } else {
+                              router.push(item.pathname);
+                            }
                           } else {
+                            setCurrentBreadcrumb(item.breadcrumb);
                             router.push(item.pathname);
                           }
-                        } else {
-                          setCurrentBreadcrumb(item.breadcrumb);
-                          router.push(item.pathname);
-                        }
-                      }}
-                    >
-                      <div
-                        className={
-                          isOpen[item.id] || item.id === props.selected_id
-                            ? "currentTabStyle"
-                            : "tabStyle"
-                        }
+                        }}
                       >
-                        {isOpen[item.id] ? (
-                          <Image
-                            src={currntTabIcon}
-                            alt="footerImage"
-                            style={{ transform: "rotate(90deg)" }}
-                            width={8}
-                            height={12}
-                          />
-                        ) : (
-                          <Image
-                            src={currntTabIcon}
-                            alt="footerImage"
-                            width={8}
-                            height={12}
-                          />
-                        )}
-                        &nbsp; &nbsp;{item.name}
-                      </div>
-                    </ListItemButton>
-                  </ListItem>
+                        <motion.div
+                          whileHover={{ scale: 1.05 }} // Scale up effect on hover
+                          className={
+                            isOpen[item.id] || item.id === props.selected_id
+                              ? "currentTabStyle"
+                              : "tabStyle"
+                          }
+                        >
+                          {isOpen[item.id] ? (
+                            <Image
+                              src={currntTabIcon}
+                              alt="footerImage"
+                              style={{ transform: "rotate(90deg)" }}
+                              width={8}
+                              height={12}
+                            />
+                          ) : (
+                            <Image
+                              src={currntTabIcon}
+                              alt="footerImage"
+                              width={8}
+                              height={12}
+                            />
+                          )}
+                          &nbsp; &nbsp;{item.name}
+                        </motion.div>
+                      </ListItemButton>
+                    </ListItem>
+                  </motion.div>
                   {item.items && isOpen[item.id] ? (
                     <List>
                       {item.items.map((subItem) => (
+                         <motion.div
+                         key={subItem.id}
+                         initial={{ opacity: 0, y: -10 }}
+                         animate={{ opacity: 1, y: 0 }}
+                         exit={{ opacity: 0, y: -10 }}
+                         transition={{ duration: 0.3, delay: index * 0.1 }}
+                       >
                         <ListItem key={subItem.id}>
                           <ListItemButton
                             onClick={() => {
@@ -478,17 +535,20 @@ export default function AuthenticatedNavbar(props: Props) {
                               router.push(subItem.pathname);
                             }}
                           >
-                            <div
-                              className={
-                                subItem.pathname === pathname
-                                  ? "currentTabStyle"
-                                  : "tabStyle"
-                              }
-                            >
+                             <motion.div
+                                whileHover={{ scale: 1.05 }} // Scale up effect on hover
+                                className={
+                                  subItem.pathname === pathname
+                                    ? "currentTabStyle"
+                                    : "tabStyle"
+                                }
+                              >
+                              
                               {subItem.name}
-                            </div>
+                            </motion.div>
                           </ListItemButton>
                         </ListItem>
+                        </motion.div>
                       ))}
                     </List>
                   ) : null}

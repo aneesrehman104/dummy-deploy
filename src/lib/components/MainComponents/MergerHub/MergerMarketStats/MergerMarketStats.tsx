@@ -14,10 +14,10 @@ function MergerMarketStats() {
   const dataArray = [
     {
       heading: "Overview",
-      showSpac: false,
+      showSpac: true,
       innerHadding: [
         {
-          title: "Announced",
+          title: "IPOs",
 
           data: [
             { value: "50", change: "YTD" },
@@ -26,79 +26,66 @@ function MergerMarketStats() {
           ],
         },
         {
-          title: "Closed",
+          title: "UPCOMING",
           data: [
-            { value: "50", change: "YTD" },
-            { value: "99", change: "prev year" },
-            { value: "-50%", change: "yearly Chg % " },
+            { value: "350", change: "FILED" },
+            { value: "5", change: "SCHEDULED" },
           ],
         },
         {
-          title: "Terminated",
+          title: "WITHDRAWN",
+          data: [{ value: "651", change: "YTD" }],
+        },
+      ],
+    },
+    {
+      heading: "Pricings YTD",
+      showSpac: true,
+      innerHadding: [
+        {
+          title: "VALUATIONS",
           data: [
-            { value: "50", change: "YTD" },
-            { value: "99", change: "prev year" },
-            { value: "-50%", change: "yearly Chg % " },
+            { value: "200", change: "OVER $1B" },
+            { value: "$500M", change: "AVG. MKT CAP" },
+            { value: "$250M", change: "MEDIAN MKT CAP" },
+          ],
+        },
+        {
+          title: "PROCEEDS",
+          data: [
+            { value: "12", change: "OVER $500M" },
+            { value: "$10M", change: "AVG. PROCEEDS" },
+            { value: "$250M", change: "MEDIAN PROCEEDS" },
+          ],
+        },
+        {
+          title: "UNDERWRITERS",
+          data: [
+            { value: "12(5%)", change: "GOLDMAN" },
+            { value: "6(2.5%)", change: "CREDIT SUISSE" },
+            { value: "2(1%)", change: "EF HUTTON" },
           ],
         },
       ],
     },
     {
-      heading: "Live Merger",
+      heading: "Average Returns ",
       showSpac: true,
       innerHadding: [
         {
-          title: "Premiums",
+          title: "From IPO Price",
           data: [
-            { value: "200%", change: "at a premium Above 25%" },
+            { value: "50%", change: "above ipo price" },
             { value: "50%", change: "AVG. PREMIUM" },
             { value: "44%", change: "MEDIAN PREMIUM" },
           ],
         },
         {
-          title: "Returns",
+          title: "Day of IPO",
           data: [
-            { value: "50%", change: "above offer price" },
-            { value: "99%", change: "AVG. RETURN" },
-            { value: "50%", change: "MEDIAN PREMIUM" },
-          ],
-        },
-        {
-          title: "Valuations",
-          data: [
-            { value: "50%", change: "above '$1B'" },
-            { value: "$50M", change: "AVG. Mkt Cap" },
-            { value: "50%", change: "MEDIAN PREMIUM" },
-          ],
-        },
-      ],
-    },
-    {
-      heading: "Closed Merger",
-      showSpac: true,
-      innerHadding: [
-        {
-          title: "Premiums",
-          data: [
-            { value: "200%", change: "at a premium Above 25%" },
-            { value: "50%", change: "AVG. PREMIUM" },
-            { value: "44%", change: "MEDIAN PREMIUM" },
-          ],
-        },
-        {
-          title: "Returns",
-          data: [
-            { value: "50%", change: "above offer price" },
-            { value: "99%", change: "AVG. RETURN" },
-            { value: "50%", change: "MEDIAN PREMIUM" },
-          ],
-        },
-        {
-          title: "Valuations",
-          data: [
-            { value: "50%", change: "above '$1B'" },
-            { value: "$50M", change: "AVG. Mkt Cap" },
-            { value: "50%", change: "MEDIAN PREMIUM" },
+            { value: "50%", change: "closed above" },
+            { value: "50%", change: "AVG. return at close" },
+            { value: "22%", change: "MEDIAN return at close" },
           ],
         },
       ],
@@ -106,7 +93,7 @@ function MergerMarketStats() {
   ];
   return (
     <section className={styles.minitables}>
-      <div className={styles.aggregatedMiniTables}>Merger Market Stats</div>
+      <div className={styles.aggregatedMiniTables}>IPO Market Stats</div>
       <div className={styles.cardscontainer}>
         {dataArray.map((item) => {
           return (
@@ -126,12 +113,12 @@ function MergerMarketStats() {
                 return (
                   <div className={styles.cardrowinfo} key={innerData.title}>
                     <div className={styles.cardrowheader}>
-                      {innerData.title}
+                      <div className={styles.head}>{innerData.title}</div>
                     </div>
                     <div className={styles.frameParent}>
                       {innerData.data.map((value) => {
                         return (
-                          <div className={styles.parent} key={value.change}>
+                          <div key={value.change}>
                             <div className={styles.div}>{value.value}</div>
                             <div className={styles.ytdWithSpacsContainer}>
                               {value.change}
