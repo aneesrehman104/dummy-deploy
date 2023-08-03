@@ -7,7 +7,7 @@ import searchIcon from "../../../../../../public/searchIcon.svg";
 import filterSvg from "../../../../../../public/filterSvg.svg";
 import exportSvg from "../../../../../../public/exportSvg.svg";
 import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
-import proSvg from "../../../../../../public/proSvg.svg";
+import proSvg from "../../../../../../public/ProSvg.svg";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";

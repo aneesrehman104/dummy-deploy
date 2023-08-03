@@ -10,7 +10,7 @@ import TablePagination from "@mui/material/TablePagination";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
-import proSvg from "../../../../../../public/proSvg.svg";
+import proSvg from "../../../../../../public/ProSvg.svg";
 
 import Image from "next/image";
 
