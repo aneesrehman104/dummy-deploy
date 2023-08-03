@@ -1028,9 +1028,17 @@
   .dashboardheader{
     flex-direction: column;
     height: 120px;
+    padding: 0 10px;
 
   }
   .moreData{
     align-items: center;
+  }
+}
+
+
+@media screen and (min-width: 901px) and  (max-width: 1090px){
+  .card{
+    width: 100%;
   }
 }

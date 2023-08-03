@@ -365,4 +365,10 @@
   .spaceBetween {
     flex-direction: column;
   }
+  .tableContainer {
+    padding: 10px 10px;
+  }
+  .dashboardheader {
+    padding: 0 10px;
+  }
 }

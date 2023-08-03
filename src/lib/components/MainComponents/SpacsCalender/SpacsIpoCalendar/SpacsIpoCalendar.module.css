@@ -995,3 +995,8 @@
     }
   }
   
+  @media screen and (min-width: 901px) and  (max-width: 1090px){
+    .card{
+      width: 100%;
+    }
+  }

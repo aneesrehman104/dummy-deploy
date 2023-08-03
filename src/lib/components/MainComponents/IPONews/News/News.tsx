@@ -15,6 +15,27 @@ function News() {
         newsDetail: "get from pakistan",
         newsTag: "facebook",
       },
+      {
+        username: "abc",
+        date: "27-5-2023",
+        news_title: "This is True",
+        newsDetail: "get from pakistan",
+        newsTag: "facebook",
+      },
+      {
+        username: "abc",
+        date: "27-5-2023",
+        news_title: "This is True",
+        newsDetail: "get from pakistan",
+        newsTag: "facebook",
+      },
+      {
+        username: "abc",
+        date: "27-5-2023",
+        news_title: "This is True",
+        newsDetail: "get from pakistan",
+        newsTag: "facebook",
+      },
     ],
   });
 

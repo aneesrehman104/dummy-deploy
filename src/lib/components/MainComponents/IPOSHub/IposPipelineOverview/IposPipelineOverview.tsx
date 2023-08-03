@@ -12,7 +12,10 @@ function IposPipelineOverview() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [iPOSTradingIposPipelineOverviewData, setIPOSTradingIposPipelineOverviewData] = useState<any>({
+  const [
+    iPOSTradingIposPipelineOverviewData,
+    setIPOSTradingIposPipelineOverviewData,
+  ] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
@@ -35,6 +38,7 @@ function IposPipelineOverview() {
 
   useEffect(() => {
     getIPOSTradingIposPipelineOverviewData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
@@ -46,7 +50,6 @@ function IposPipelineOverview() {
     { label: "Latest Priced", index: 1 },
     { label: "Recently Filed", index: 2 },
     { label: "Rumored", index: 3 },
-
   ];
   const handleTabClick = (tabIndex: any) => {
     setSelectedTab(tabIndex);
@@ -88,7 +91,7 @@ function IposPipelineOverview() {
       name: "Offer Size (M)",
       key: "OfferSize",
       type: "string",
-    }
+    },
   ];
 
   const headerArrayLatestPriced = [
@@ -113,9 +116,9 @@ function IposPipelineOverview() {
       type: "string",
     },
     {
-      name:"Price",
-      key:"price",
-      type:"string"
+      name: "Price",
+      key: "price",
+      type: "string",
     },
     {
       name: "Offer Size (M)",
@@ -123,10 +126,10 @@ function IposPipelineOverview() {
       type: "string",
     },
     {
-      name:"Return from IPO",
-      key:"ReturnfromIPO",
-      type:"string"
-    }
+      name: "Return from IPO",
+      key: "ReturnfromIPO",
+      type: "string",
+    },
   ];
   const headerArrayRecentlyFiled = [
     {
@@ -163,9 +166,8 @@ function IposPipelineOverview() {
       name: "Offer Size (M)",
       key: "OfferSize",
       type: "string",
-    }
+    },
   ];
-
 
   const headerArrayRumored = [
     {
@@ -224,12 +226,20 @@ function IposPipelineOverview() {
               <ListingTrackTable
                 data={iPOSTradingIposPipelineOverviewData?.dataset}
                 headerArray={
-                  selectedTab === 0 ? headerArrayUpcomingIPOs : selectedTab === 1 ? headerArrayLatestPriced : selectedTab === 2 ? headerArrayRecentlyFiled: headerArrayRumored
+                  selectedTab === 0
+                    ? headerArrayUpcomingIPOs
+                    : selectedTab === 1
+                    ? headerArrayLatestPriced
+                    : selectedTab === 2
+                    ? headerArrayRecentlyFiled
+                    : headerArrayRumored
                 }
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 paginate={paginate}
-                totalLength={iPOSTradingIposPipelineOverviewData?.additional_dataset}
+                totalLength={
+                  iPOSTradingIposPipelineOverviewData?.additional_dataset
+                }
                 showPagination
               />
             )

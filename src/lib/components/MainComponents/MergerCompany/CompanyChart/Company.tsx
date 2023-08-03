@@ -103,7 +103,7 @@ function Company() {
         selected: 5,
         zoomText: "",
         enabled: true,
-        inputEnabled:false,
+        inputEnabled: false,
       },
       navigator: {
         enabled: false,
@@ -440,7 +440,6 @@ function Company() {
     },
   };
 
-
   const options2 = {
     chartOptions: {
       chart: {
@@ -491,7 +490,7 @@ function Company() {
         selected: 5,
         zoomText: "",
         enabled: true,
-        inputEnabled:false,
+        inputEnabled: false,
       },
       navigator: {
         enabled: false,
@@ -854,11 +853,17 @@ function Company() {
           </div>
           <div className={styles.chartcontainer}>
             <div style={{ display: "flex", marginLeft: 20 }}>
-            <img alt="" src="/icongoogle.svg" style={{ width: 60 }} />
+              <Image
+                src={"/icongoogle.svg"}
+                alt="icongoogle"
+                width={60}
+                height={60}
+              />
               <div style={{ marginLeft: 10 }}>
                 <div className={styles.ytdEventSummary}>Microsoft Corp.</div>
                 <div className={styles.ytdEventSummary}>
-                  263.63 <span style={{ fontSize: 12, color: "black" }}>USD</span>{" "}
+                  263.63{" "}
+                  <span style={{ fontSize: 12, color: "black" }}>USD</span>{" "}
                 </div>
                 <div>
                   <span style={{ fontSize: 18, fontWeight: 500, color: "red" }}>
@@ -897,11 +902,17 @@ function Company() {
           </div>
           <div className={styles.chartcontainer}>
             <div style={{ display: "flex", marginLeft: 20 }}>
-            <img alt="" src="/icongoogle.svg" style={{ width: 60 }} />
+              <Image
+                src={"/icongoogle.svg"}
+                alt="icongoogle"
+                width={60}
+                height={60}
+              />
               <div style={{ marginLeft: 10 }}>
                 <div className={styles.ytdEventSummary}>Microsoft Corp.</div>
                 <div className={styles.ytdEventSummary}>
-                  263.63 <span style={{ fontSize: 12, color: "black" }}>USD</span>{" "}
+                  263.63{" "}
+                  <span style={{ fontSize: 12, color: "black" }}>USD</span>{" "}
                 </div>
                 <div>
                   <span

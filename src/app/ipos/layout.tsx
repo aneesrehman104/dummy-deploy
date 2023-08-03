@@ -6,7 +6,12 @@ import {
 } from "@memberstack/react";
 import Fallback from "../fallback/page";
 import { MemberInformationContext } from "@/lib/components/context";
-
+import Head from "next/head"; // Import the Head component
+import { Metadata } from "next";
+const metadata: Metadata = {
+  title: "IPOS",
+  description: "IPOS",
+};
 export default function RootLayout({
   unauthenticated,
   children,
@@ -25,6 +30,8 @@ export default function RootLayout({
       }}
     >
       <MemberstackWrapper unauthenticated={unauthenticated}>
+        {/* <title>IPOS</title>
+        <meta name="description" content="IPOS" /> */}
         {children}
       </MemberstackWrapper>
     </MemberstackProvider>

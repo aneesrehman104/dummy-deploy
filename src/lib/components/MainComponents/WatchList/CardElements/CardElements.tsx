@@ -165,6 +165,7 @@ function CardElements({ selectedTab }: any) {
 
   useEffect(() => {
     getLatestClosed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
   useEffect(() => {
     if (removeRow !== null) setShowRemoveModal(true);

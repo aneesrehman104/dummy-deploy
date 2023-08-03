@@ -323,6 +323,7 @@ function CardElements() {
 
   useEffect(() => {
     getSpacsList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage, itemsPerPage]);
   const saveValue = (e: any) => {
     const { name, value } = e.target;

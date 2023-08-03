@@ -16,6 +16,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <title>CHECKOUT</title>
+        <meta name="description" content="CHECKOUT" />
       <body className={inter.className} style={{ width: "100%" }}>
         <MemberstackProvider
           config={{

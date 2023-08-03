@@ -35,6 +35,7 @@ function Losers() {
 
   useEffect(() => {
     getIPOSTradingLosersData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {

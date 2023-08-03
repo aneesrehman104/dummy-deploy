@@ -25,6 +25,8 @@ export default function RootLayout({
       }}
     >
       <MemberstackWrapper unauthenticated={unauthenticated}>
+        <title>Home</title>
+        <meta name="description" content="Home" />
         {children}
       </MemberstackWrapper>
     </MemberstackProvider>

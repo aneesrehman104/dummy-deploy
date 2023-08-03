@@ -76,6 +76,7 @@ function SpacEventCalendar() {
 
   useEffect(() => {
     getLatestClosed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   return (
