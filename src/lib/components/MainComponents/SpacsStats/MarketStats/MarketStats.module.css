@@ -481,7 +481,7 @@
   font-size: 13px;
   color: #1991ac;
   flex-wrap: wrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 .minitables {
   flex-direction: column;
@@ -888,7 +888,10 @@
 }
 @media screen and (max-width: 900px) {
   .card{
-    width: 400px;
+    width: 100%;
+  }
+  .cardscontainer {
+    flex-direction: column;
   }
   .headlineslistcontainer {
     padding: 10px 10px 10px;
@@ -896,5 +899,10 @@
   .minitables {
     padding: 0 10px;
     gap: 16px;
+  }
+}
+@media screen and (min-width: 901px) and  (max-width: 1090px){
+  .card{
+    width: 100%;
   }
 }
