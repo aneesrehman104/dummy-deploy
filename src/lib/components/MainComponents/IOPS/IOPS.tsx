@@ -561,7 +561,12 @@ function IOPS() {
         </div>
         <div className={styles.chartcontainer}>
           <div style={{ display: "flex", marginLeft: 20 }}>
-            <img alt="" src="/icongoogle.svg" style={{ width: 60 }} />
+            <Image
+              src={"/icongoogle.svg"}
+              alt="icongoogle"
+              width={60}
+              height={60}
+            />
             <div style={{ marginLeft: 10 }}>
               <div className={styles.ytdEventSummary}>Microsoft Corp.</div>
               <div className={styles.ytdEventSummary}>

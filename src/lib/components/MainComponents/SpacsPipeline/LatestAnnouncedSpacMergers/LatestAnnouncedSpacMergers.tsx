@@ -31,6 +31,7 @@ function LatestAnnouncedSpacMergers() {
 
   useEffect(() => {
     getLatestAnnounced();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);

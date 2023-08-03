@@ -255,6 +255,7 @@ function CardElements() {
 
   useEffect(() => {
     getScreenerData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage, itemsPerPage, personName]);
 
   const handleTabClick = (key: any) => {

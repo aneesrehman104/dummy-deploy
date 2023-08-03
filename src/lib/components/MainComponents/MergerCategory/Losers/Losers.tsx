@@ -33,6 +33,7 @@ function Losers() {
 
   useEffect(() => {
     getMergersTradingLosersData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {

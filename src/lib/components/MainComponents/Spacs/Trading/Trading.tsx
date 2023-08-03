@@ -84,6 +84,7 @@ function Trading() {
 
   useEffect(() => {
     getSpacsTradingGainerData();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     spacsTradingGainerDataSelectedTab,
     spacsTradingGainerDataCurrentPage,
@@ -92,6 +93,7 @@ function Trading() {
 
   useEffect(() => {
     getSpacsTradingLoserData();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     spacsTradingLoserDataSelectedTab,
     spacsTradingLoserDataCurrentPage,

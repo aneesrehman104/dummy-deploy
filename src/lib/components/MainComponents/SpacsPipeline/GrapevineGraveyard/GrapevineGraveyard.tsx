@@ -152,6 +152,7 @@ function GrapevineGraveyard() {
 
   useEffect(() => {
     getLatestClosed();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   return (
