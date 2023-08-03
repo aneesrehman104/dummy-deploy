@@ -1029,6 +1029,9 @@
     flex-direction: column;
     height: 120px;
 
+        padding: 0 10px;
+      
+    
   }
   .moreData{
     align-items: center;

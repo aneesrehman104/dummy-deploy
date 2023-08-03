@@ -142,6 +142,8 @@ const Footer = () => {
           </div>
           <hr className="horizontalStyling" />
           <div className="footerLastDiv paddingTop">
+          <div className="marginMobile">
+
             <div className="footerLastRowStyle">
               <div className="titleStyle">{FOOTER.portals}</div>
               {PORTALS.map((item) => {
@@ -154,6 +156,9 @@ const Footer = () => {
                 );
               })}
             </div>
+            </div>
+            <div className="marginMobile">
+
             <div className="footerLastRowStyle">
               <div className="titleStyle">{FOOTER.support} </div>
               {SUPPORT.map((item) => {
@@ -165,6 +170,7 @@ const Footer = () => {
                   </div>
                 );
               })}
+            </div>
             </div>
 
             <div className="marginMobile">

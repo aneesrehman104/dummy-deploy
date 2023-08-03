@@ -62,4 +62,7 @@
   .selectedHeader {
     width: 200px;
   }
+  .dashboardheader {
+    padding: 0 10px;
+  }
 }

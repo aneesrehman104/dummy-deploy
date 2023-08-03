@@ -158,4 +158,8 @@
   .indicator {
     display: none;
   }
+    .dashboardheader {
+      padding: 0 10px;
+    }
+  
 }

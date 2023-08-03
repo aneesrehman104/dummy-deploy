@@ -36,3 +36,9 @@
   text-transform: uppercase;
   font-weight: 500;
 }
+
+@media screen and (max-width: 900px) {
+  .dashboardheader {
+    padding: 0 10px;
+  }
+}

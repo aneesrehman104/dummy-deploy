@@ -1022,21 +1022,22 @@
   .headlineslistcontainer {
     padding: 10px 10px 10px;
   }
-  .titleandsearchcontainer{
+  .titleandsearchcontainer {
     flex-direction: column;
   }
-  .dashboardheader{
+  .dashboardheader {
     flex-direction: column;
     height: 120px;
 
+    padding: 0 10px;
   }
-  .moreData{
+  .moreData {
     align-items: center;
   }
 }
 
-@media screen and (min-width: 901px) and  (max-width: 1090px){
-  .card{
+@media screen and (min-width: 901px) and (max-width: 1090px) {
+  .card {
     width: 100%;
   }
 }

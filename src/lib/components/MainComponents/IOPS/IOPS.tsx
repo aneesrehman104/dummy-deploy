@@ -494,7 +494,14 @@ function IOPS() {
             </div>
           </div>
           <div style={{ display: "flex", marginTop: 10 }}>
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                height: 55,
+                justifyContent: "space-between",
+              }}
+            >
               <div>Listing Status:</div>
               <div>IPO Priced</div>
             </div>

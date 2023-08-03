@@ -900,6 +900,10 @@
     padding: 0 10px;
     gap: 16px;
   }
+    .dashboardheader {
+      padding: 0 10px;
+    }
+  
 }
 @media screen and (min-width: 901px) and  (max-width: 1090px){
   .card{

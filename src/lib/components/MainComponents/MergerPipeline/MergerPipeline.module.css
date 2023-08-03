@@ -1010,6 +1010,10 @@
   .headlineslistcontainer {
     padding: 10px 10px 10px;
   }
+    .dashboardheader {
+      padding: 0 10px;
+    }
+  
 }
 
 @media screen and (min-width: 901px) and  (max-width: 1090px){

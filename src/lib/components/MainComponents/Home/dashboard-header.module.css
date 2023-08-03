@@ -985,6 +985,9 @@
     padding: 0 10px;
     gap: 16px;
   }
+  .dashboardheader {
+    padding: 0 10px;
+  }
 }
 
 
