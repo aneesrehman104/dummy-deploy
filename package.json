@@ -7,9 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "",
-    "prestart": "npm run build",
-    "package": "7z a -r publish.zip . -x!.git -x!node_modules -x!.next -x!.github -x!__tests__"
+    "test": "",    
+    "package": "7z a -r publish.zip . -x!.git* -x!node_modules* -x!.next/cache -x!__tests__"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
