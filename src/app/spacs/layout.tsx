@@ -25,6 +25,8 @@ export default function RootLayout({
       }}
     >
       <MemberstackWrapper unauthenticated={unauthenticated}>
+      <title>SPACS HUB</title>
+        <meta name="description" content="SPACS HUB" />
         {children}
       </MemberstackWrapper>
     </MemberstackProvider>

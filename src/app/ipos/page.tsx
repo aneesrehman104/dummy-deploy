@@ -9,6 +9,8 @@ export default function IposPage() {
   const { user, memberstack } = useContext(MemberInformationContext);
   return (
     <RootLayout>
+      <title>IPOS</title>
+        <meta name="description" content="IPOS" />
       <AuthenticatedNavbar selected_id="ipos">
         <IOPS />
       </AuthenticatedNavbar>
