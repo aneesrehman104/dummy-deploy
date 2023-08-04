@@ -12,16 +12,21 @@ function LatestClosedMergers() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [LatestClosedMergersData, setLatestClosedMergersData] =
-    useState<any>({
-      dataset: [],
-      additional_dataset: { totalLength: 20 },
-    });
+  const [LatestClosedMergersData, setLatestClosedMergersData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [itemsPerPage] = useState(5);
-
+  const tabValues: { [key: number]: string } = {
+    0: "thisWeek",
+    1: "nextWeek",
+    2: "afterNextWeek",
+  };
   const getLatestClosedMergersData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
+    const response = await getApiWithoutAuth(
+      `${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
+    );
     if (response.status === 200 && response.data !== null) {
       setLatestClosedMergersData(response.data);
       setIsLoading(false);
@@ -51,97 +56,97 @@ function LatestClosedMergers() {
   const headerArrayExpectedThisWeek = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "company",
       type: "string",
     },
     {
       name: "Ticker",
-      key: "Ticker",
+      key: "ticker",
       type: "string",
     },
     {
       name: "Exchange",
-      key: "Exchange",
+      key: "exchange",
       type: "string",
     },
     {
       name: "Est. Pricing Date",
-      key: "EstPricingDate",
+      key: "extPriceDate",
       type: "string",
     },
     {
       name: "Price Range",
-      key: "PriceRange",
+      key: "extPriceRange",
       type: "string",
     },
     {
       name: "Offer Size (M)",
       key: "OfferSize",
-      type: "string",
+      type: "offeringSize",
     },
   ];
 
   const headerArrayNextWeek = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "company",
       type: "string",
     },
     {
       name: "Ticker",
-      key: "Ticker",
+      key: "ticket",
       type: "string",
     },
     {
       name: "Exchange",
-      key: "Exchange",
+      key: "exchange",
       type: "string",
     },
     {
       name: "Est. Pricing Date",
-      key: "EstPricingDate",
+      key: "extPriceDate",
       type: "string",
     },
     {
       name: "Price Range",
-      key: "PriceRange",
+      key: "extPriceRange",
       type: "string",
     },
     {
       name: "Offer Size (M)",
-      key: "OfferSize",
+      key: "offeringSize",
       type: "string",
     },
   ];
   const headerArrayAfterNextWeek = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "company",
       type: "string",
     },
     {
       name: "Ticker",
-      key: "Ticker",
+      key: "ticket",
       type: "string",
     },
     {
       name: "Exchange",
-      key: "Exchange",
+      key: "exchange",
       type: "string",
     },
     {
       name: "Est. Pricing Date",
-      key: "EstPricingDate",
+      key: "extPriceDate",
       type: "string",
     },
     {
       name: "Price Range",
-      key: "PriceRange",
+      key: "extPriceRange",
       type: "string",
     },
     {
       name: "Offer Size (M)",
-      key: "OfferSize",
+      key: "offeringSize",
       type: "string",
     },
   ];

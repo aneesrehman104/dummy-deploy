@@ -20,7 +20,7 @@ function LatestAnnouncedMergers() {
 
   const getLatestAnnouncedMergersData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
+    const response = await getApiWithoutAuth(`${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=latest`);
     if (response.status === 200 && response.data !== null) {
       setLatestAnnouncedMergersData(response.data);
       setIsLoading(false);
@@ -36,54 +36,47 @@ function LatestAnnouncedMergers() {
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-
-  const tabData = [
-    { label: "Rumored IPOs", index: 0 },
-    { label: "SPAC Mergers", index: 1 },
-    { label: "All Mergers", index: 2 },
-  ];
-
   const headerArray = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "Ticker",
-      key: "Ticker",
+      key: "ticker",
       type: "string",
     },
     {
       name: "IPO Type",
-      key: "IPOType",
+      key: "ipoType",
       type: "string",
     },
     {
       name: "Pricing Date",
-      key: "PricingDate",
+      key: "ipoDate",
       type: "string",
     },
     {
       name: "Price",
-      key: "Price",
+      key: "latestPrice",
       type: "string",
     },
     {
       name: "Offer Size (M)",
-      key: "OfferSize",
+      key: "offeringSize",
       type: "string",
     },
     {
       name: "Return from IPO",
-      key: "ReturnfromIPO",
+      key: "returnFromIpo",
       type: "string",
     },
   ];
 
   return (
     <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>Latest Announced Mergers</div>
+      <div className={styles.tableTitle}>Latest Announced IPOs</div>
       <div className={styles.tableContainerInner}>
         <div style={{ overflow: "auto" }}>
           {isLoading ? (

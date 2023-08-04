@@ -90,7 +90,7 @@ function EventSummary() {
     ],
   };
   const getStatsData = async () => {
-    const response = await getApiWithoutAuth(URLs.spacGraph);
+    const response = await getApiWithoutAuth(URLs.mergerGraph);
     if (response.status === 200 && response.data !== null) {
       setGraphData(response.data);
 

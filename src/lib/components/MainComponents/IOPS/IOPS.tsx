@@ -7,6 +7,7 @@ import CompanyInfo from "./CompanyInfo/CompaniInfo";
 import News from "./News/News";
 import PressReleases from "./PressReleases/PressReleases";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useMemberstackModal } from "@memberstack/react";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
@@ -492,78 +493,83 @@ function IOPS() {
             <div className={styles.ytdEventSummary}>
               at CLOSE: JUNE 8, 2023 3:58PM EST · NASDAQ
             </div>
-          </div>
-          <div style={{ display: "flex", marginTop: 10 }}>
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
-                height: 55,
+                // height: 55,
                 justifyContent: "space-between",
+                marginTop: 10,
               }}
             >
-              <div>Listing Status:</div>
+              <div className={styles.ytdEventSummary}>Listing Status:</div>
               <div>IPO Priced</div>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "end",
-              }}
-              onClick={
-                user.member !== null
-                  ? (e) => handleDropdownOpen(e)
-                  : () =>
-                      openModal({
-                        type: "SIGNUP",
-                      })
-                        .then((res) => {
-                          console.log("data", res);
-                          hideModal();
+          </div>
+          <div style={{ display: "flex", marginTop: 10 }}>
+            {user?.member !== null ? (
+              <CheckCircleIcon />
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "end",
+                }}
+                onClick={
+                  user?.member !== null
+                    ? (e) => handleDropdownOpen(e)
+                    : () =>
+                        openModal({
+                          type: "SIGNUP",
                         })
-                        .catch((error) => {
-                          console.log("An error occurred:", error);
-                        })
-              }
-            >
-              <div style={{ cursor: "pointer" }}>
-                <AddCircleIcon />
-              </div>
-
-              <div>Add to WatchList</div>
-              <Menu
-                id="dropdown-menu"
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleDropdownClose}
+                          .then((res) => {
+                            console.log("data", res);
+                            hideModal();
+                          })
+                          .catch((error) => {
+                            console.log("An error occurred:", error);
+                          })
+                }
               >
-                <MenuItem>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={selectedOptions.includes("IPOs")}
-                        onChange={handleOptionSelect}
-                        value="IPOs"
-                      />
-                    }
-                    label="IPOs"
-                  />
-                </MenuItem>
-                <MenuItem>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={selectedOptions.includes("SPACs")}
-                        onChange={handleOptionSelect}
-                        value="SPACs"
-                      />
-                    }
-                    label="SPACs"
-                  />
-                </MenuItem>
-              </Menu>
-            </div>
+                <div style={{ cursor: "pointer" }}>
+                  <AddCircleIcon />
+                </div>
+
+                <div>Add to WatchList</div>
+                <Menu
+                  id="dropdown-menu"
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleDropdownClose}
+                >
+                  <MenuItem>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={selectedOptions.includes("IPOs")}
+                          onChange={handleOptionSelect}
+                          value="IPOs"
+                        />
+                      }
+                      label="IPOs"
+                    />
+                  </MenuItem>
+                  <MenuItem>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={selectedOptions.includes("SPACs")}
+                          onChange={handleOptionSelect}
+                          value="SPACs"
+                        />
+                      }
+                      label="SPACs"
+                    />
+                  </MenuItem>
+                </Menu>
+              </div>
+            )}
           </div>
         </div>
         <div className={styles.chartcontainer}>

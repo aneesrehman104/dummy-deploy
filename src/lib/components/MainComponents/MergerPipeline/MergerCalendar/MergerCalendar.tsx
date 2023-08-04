@@ -40,32 +40,32 @@ function MergerCalendar() {
   const headermergerTable = [
     {
       name: "Deal Name",
-      key: "DealName",
+      key: "dealName",
       type: "string",
     },
     {
       name: "Announced Date",
-      key: "AnnouncedDate",
+      key: "announcedDate",
       type: "string",
     },
     {
       name: "S-4 Filing Date",
-      key: "FilingDate",
+      key: "s4FillingDate",
       type: "string",
     },
     {
       name: "Acquirer Vote Date",
-      key: "AcquirerVoteDate",
+      key: "acquirerVoteDate",
       type: "string",
     },
     {
       name: "Target Vote Date",
-      key: "TargetVoteDate",
+      key: "targetVoteDate",
       type: "string",
     },
     {
       name: "Expected Closing Date",
-      key: "ExpectedClosingDate",
+      key: "expectedClosingDate",
       type: "string",
     },
   ];
@@ -74,8 +74,8 @@ function MergerCalendar() {
     setIsLoading(true);
     let response;
     isGrid
-      ? (response = await getApiWithoutAuth(`${URLs.spacsCalender}`))
-      : (response = await getApiWithoutAuth(`${URLs.spacsCalender}?type=all`));
+      ? (response = await getApiWithoutAuth(`${URLs.mergerCalender}`))
+      : (response = await getApiWithoutAuth(`${URLs.mergerCalender}?type=all`));
       if (response.status === 200 && response.data !== null) {
       setGrapevineGraveyardData(response.data);
       setIsLoading(false);

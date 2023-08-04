@@ -13,10 +13,10 @@ const MergerPipeline = () => {
         </div>
       </header>
       <section>
-      <LatestAnnouncedMergers/>
-      <LatestClosedMergers/>
-      <GrapevineGraveyard/>
-      <MergerCalendar/>
+        <LatestAnnouncedMergers />
+        <LatestClosedMergers />
+        <GrapevineGraveyard />
+        <MergerCalendar />
       </section>
     </main>
   );

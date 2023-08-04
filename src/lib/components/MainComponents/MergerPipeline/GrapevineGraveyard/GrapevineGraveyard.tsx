@@ -23,107 +23,107 @@ function GrapevineGraveyard() {
   ];
   const tabValues: { [key: number]: string } = {
     0: "rumor",
-    1: "latest_failed",
-    2: "other",
+    1: "terminate",
+    2: "talkFail",
   };
   const headerArrayRumoredMergers = [
     {
       name: "Target",
-      key: "Target",
+      key: "targetCompanyName",
       type: "string",
     },
     {
       name: "Acquirer",
-      key: "Acquirer",
+      key: "acquirerCompanyName",
       type: "string",
     },
     {
       name: "Rumored Date",
-      key: "RumoredDate",
+      key: "rumorDate",
       type: "string",
     },
     {
       name: "Rumored Valuation",
-      key: "RumoredValuation",
+      key: "valuation",
       type: "string",
     },
     {
-      name: "Rumor Source",
-      key: "RumorSource",
+      name: "Rumor Publication",
+      key: "rumorPublication",
       type: "string",
     },
     {
-      name: "Rumor Link",
-      key: "RumorLink",
+      name: "Rumor SourceLink",
+      key: "rumorSourceLink",
       type: "string",
     },
     {
       name: "View Deal Page",
-      key: "ViewDealPage",
+      key: "id",
       type: "string",
     },
   ];
   const headerArrayTerminatedMergers = [
     {
       name: "Target",
-      key: "Target",
+      key: "targetCompanyName",
       type: "string",
     },
     {
       name: "Acquirer",
-      key: "Acquirer",
+      key: "acquirerCompanyName",
       type: "string",
     },
     {
       name: "Terminated Date",
-      key: "TerminatedDate",
+      key: "terminateDate",
       type: "string",
     },
     {
       name: "Rumored Valuation",
-      key: "RumoredValuation",
+      key: "valuation",
       type: "string",
     },
     {
       name: "Terminated Link",
-      key: "TerminatedLink",
+      key: "terminateLink",
       type: "string",
     },
     {
       name: "Terminated Reason",
-      key: "TerminatedReason",
+      key: "terminateReason",
       type: "string",
     },
   ];
   const headerArrayTalksFailed = [
     {
       name: "Target",
-      key: "Target",
+      key: "targetCompanyName",
       type: "string",
     },
     {
       name: "Acquirer",
-      key: "Acquirer",
+      key: "acquirerCompanyName",
       type: "string",
     },
     {
       name: "Talks Failed Date",
-      key: "TalksFailedDate",
+      key: "talkFailDate",
       type: "string",
     },
     {
       name: "Valuation",
-      key: "Valuation",
+      key: "valuation",
       type: "string",
     },
     {
-      name: "Talks Failed Source",
-      key: "TalksFailedSource",
+      name: "Talks Failed Publication",
+      key: "talkFailPublication",
       type: "string",
     },
     {
-      name: "Talks Failed Link",
-      key: "TalksFailedLink",
+      name: "Talks Failed Souce Link",
+      key: "talkFailSourceLink",
       type: "string",
     },
   ];
@@ -140,7 +140,7 @@ function GrapevineGraveyard() {
   const getLatestClosed = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(
-      `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=grapevine&subtype=${tabValues[selectedTab]}`
+      `${URLs.mergerPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=grapevine&subtype=${tabValues[selectedTab]}`
     );
     if (response.status === 200 && response.data !== null) {
       setGrapevineGraveyardData(response.data);

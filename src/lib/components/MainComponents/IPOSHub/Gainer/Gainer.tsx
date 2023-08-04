@@ -79,7 +79,7 @@ function Gainer() {
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];
@@ -112,7 +112,7 @@ function Gainer() {
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];
@@ -146,7 +146,7 @@ function Gainer() {
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];

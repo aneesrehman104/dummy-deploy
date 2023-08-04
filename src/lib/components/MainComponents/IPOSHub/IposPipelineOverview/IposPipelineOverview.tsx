@@ -25,7 +25,7 @@ function IposPipelineOverview() {
     setIsLoading(true);
     const response = await getApiWithoutAuth(
       `${URLs.iposGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
-        selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
+        selectedTab === 0 ? "upcomingIPO" : selectedTab === 1 ? "latestPrice" : selectedTab === 2 ? "recentlyFiled" : "rumor"
       }&gainOrLoser=gain`
     );
     if (response.status === 200 && response.data !== null) {
@@ -59,37 +59,37 @@ function IposPipelineOverview() {
   const headerArrayUpcomingIPOs = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "Ticker",
-      key: "Ticker",
+      key: "ticker",
       type: "string",
     },
     {
       name: "IPO Type",
-      key: "IPOType",
+      key: "ipoType",
       type: "string",
     },
     {
       name: "Exchange",
-      key: "Exchange",
+      key: "exchange",
       type: "string",
     },
     {
       name: "Est. Pricing Date",
-      key: "EstPricingDate",
+      key: "expIpoDate",
       type: "string",
     },
     {
       name: "Price Range",
-      key: "PriceRange",
+      key: "expPriceRange",
       type: "string",
     },
     {
       name: "Offer Size (M)",
-      key: "OfferSize",
+      key: "offeringSize",
       type: "string",
     },
   ];
@@ -97,74 +97,74 @@ function IposPipelineOverview() {
   const headerArrayLatestPriced = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "Ticker",
-      key: "Ticker",
+      key: "ticker",
       type: "string",
     },
     {
       name: "IPO Type",
-      key: "IPOType",
+      key: "ipoType",
       type: "string",
     },
     {
       name: "Price Date",
-      key: "PriceDate",
+      key: "ipoDate",
       type: "string",
     },
     {
       name: "Price",
-      key: "price",
+      key: "latestPrice",
       type: "string",
     },
     {
       name: "Offer Size (M)",
-      key: "OfferSize",
+      key: "offeringSize",
       type: "string",
     },
     {
       name: "Return from IPO",
-      key: "ReturnfromIPO",
+      key: "returnFromIpo",
       type: "string",
     },
   ];
   const headerArrayRecentlyFiled = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "Ticker",
-      key: "Ticker",
+      key: "ticker",
       type: "string",
     },
     {
       name: "IPO Type",
-      key: "IPOType",
+      key: "ipoType",
       type: "string",
     },
     {
       name: "Exchange",
-      key: "Exchange",
+      key: "exchange",
       type: "string",
     },
     {
       name: "Filing Date",
-      key: "FilingDate",
+      key: "filingDate",
       type: "string",
     },
     {
       name: "Proposed Price",
-      key: "ProposedPrice",
+      key: "proposedPriceRange",
       type: "string",
     },
     {
       name: "Offer Size (M)",
-      key: "OfferSize",
+      key: "offerSize",
       type: "string",
     },
   ];
@@ -172,32 +172,32 @@ function IposPipelineOverview() {
   const headerArrayRumored = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "Rumor Status",
-      key: "RumorStatus",
+      key: "rumorDate",
       type: "string",
     },
     {
       name: "Rumored Date",
-      key: "RumoredDate",
+      key: "rumorDate",
       type: "string",
     },
     {
       name: "Rumored Market Cap (M)",
-      key: "RumoredMarketCap",
+      key: "rumorMarketCap",
       type: "string",
     },
     {
       name: "Rumored IPO Offering Size (M)",
-      key: "RumoredIPOOfferingSize",
+      key: "rumorOfferingSize",
       type: "string",
     },
     {
       name: "Rumor Source",
-      key: "RumorSource",
+      key: "rumorPublication",
       type: "string",
     },
   ];

@@ -80,7 +80,7 @@ function Losers() {
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];
@@ -113,7 +113,7 @@ function Losers() {
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];
@@ -146,7 +146,7 @@ function Losers() {
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];
