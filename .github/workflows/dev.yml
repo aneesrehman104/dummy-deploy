@@ -26,7 +26,7 @@ jobs:
     - name: Build
       run: npm run build
       env:
-        NEXT_PUBLIC_API_URL: 'http://staging.api.listingtrack.io/'
+        NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         NEXT_PUBLIC_MEMBERSTACK_KEY: ${{ secrets.NEXT_PUBLIC_MEMBERSTACK_KEY }}
       
     - name: Install 7zip
