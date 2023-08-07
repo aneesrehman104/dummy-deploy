@@ -5,7 +5,7 @@ import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
-import Rectangle from "../../../../../../public/Rectangle.svg";
+import Pic from "../../../../../../public/nonAuthPic.svg";
 import "./PowerOfPro.css";
 function PowerOfPro() {
   return (
@@ -13,19 +13,28 @@ function PowerOfPro() {
       style={{
         display: "flex",
         background: "#20608B",
-        height: "60vh",
-        // alignItems: "center",
+        height: "100%",
+        marginTop:'5%'
       }}
     >
-      <div style={{ display: "flex", width: "100%" }}>
-        <div style={{ width: "50%", border: "1px solid red" }}></div>
+      <div className="spaceBwteenPower">
         <div
-          style={{
-            width: "50%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
+        className="firstDivPowerOfPro"
+        >
+          <div
+            style={{ width: "80%", display: "flex", justifyContent: "center" }}
+          >
+            <Image
+              src={Pic}
+              alt="Pic"
+              width={375}
+              height={375}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+        </div>
+        <div
+          className="secondDivPowerOfPro"
         >
           <div className="powerProText">THE POWER OF PRO</div>
           <div className="titleMainProHadding">
@@ -34,7 +43,7 @@ function PowerOfPro() {
             voluptatem sequi nesciunt. Neque porro quisquam est, for just $60
             per month, or $500 annually.
           </div>
-          <div style={{ display: "flex" }}>
+          <div className="spaceBwteenPower">
             <div>
               <CommonfiButton
                 sx={{

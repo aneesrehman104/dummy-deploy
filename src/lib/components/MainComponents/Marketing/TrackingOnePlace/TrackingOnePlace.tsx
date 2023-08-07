@@ -9,18 +9,21 @@ import Rectangle from "../../../../../../public/Rectangle.svg";
 import "./TrackingOnePlace.css";
 function TrackingOnePlace() {
   return (
-    <section style={{display:'flex',alignItems:'center',justifyContent:'space-around',height:"80vh",flexDirection:'column' }}>
+    <section
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-around",
+        height: "100%",
+        marginTop: 20,
+        flexDirection: "column",
+      }}
+    >
       <div className="titleMainHadding">
         Finally, everything you need to track in ONE place.
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          flexWrap: "wrap",
-        }}
-      >
-        <div style={{ width: 274 }}>
+      <div className="tackingOnePlace">
+        <div style={{ width: 274, marginTop:10,marginBottom:10 }}>
           <div className="titleName">ListingTracker</div>
           <Image
             src={Rectangle}
@@ -35,7 +38,7 @@ function TrackingOnePlace() {
           </div>
           <div className="buttonViewStyle pointer">VIEW Dashboard</div>
         </div>
-        <div style={{ width: 274 }}>
+        <div style={{ width: 274, marginTop:10,marginBottom:10 }}>
           <div className="titleName">IPO PORTAL</div>
           <Image
             src={Rectangle}
@@ -50,7 +53,7 @@ function TrackingOnePlace() {
           </div>
           <div className="buttonViewStyle pointer">VIEW IPOS</div>
         </div>
-        <div style={{ width: 274 }}>
+        <div style={{ width: 274, marginTop:10,marginBottom:10 }}>
           <div className="titleName">MERGER PORTAL</div>
           <Image
             src={Rectangle}
@@ -65,7 +68,7 @@ function TrackingOnePlace() {
           </div>
           <div className="buttonViewStyle pointer">VIEW MERGERS</div>
         </div>
-        <div style={{ width: 274 }}>
+        <div style={{ width: 274, marginTop:10,marginBottom:10 }}>
           <div className="titleName">SPAC PORTAL</div>
           <Image
             src={Rectangle}

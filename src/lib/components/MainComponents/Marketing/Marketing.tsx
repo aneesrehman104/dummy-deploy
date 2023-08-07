@@ -3,6 +3,9 @@ import UnauthenticatedNavBar from "../../CommonComponents/UnauthenticatedNavBar/
 import TrackingOnePlace from "./TrackingOnePlace/TrackingOnePlace";
 import PowerOfPro from "./PowerOfPro/PowerOfPro";
 import Plans from "../Plans/Plans";
+import Creators from "./Creators/Creators";
+import GetFreeUpdates from "./GetFreeUpdates/GetFreeUpdates";
+import MarketingFooter from "./MarketingFooter/MarketingFooter";
 const Marketing = () => {
   return (
     <main>
@@ -11,6 +14,9 @@ const Marketing = () => {
         <TrackingOnePlace />
         <PowerOfPro />
         <Plans/>
+        <Creators/>
+        <GetFreeUpdates/>
+        <MarketingFooter/>
       </section>
     </main>
   );
