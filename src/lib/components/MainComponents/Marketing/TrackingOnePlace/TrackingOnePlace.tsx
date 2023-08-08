@@ -7,7 +7,12 @@ import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
 import Rectangle from "../../../../../../public/Rectangle.svg";
 import "./TrackingOnePlace.css";
+import { useRouter, usePathname } from "next/navigation";
+import { marketingConstants } from "@/lib/ts/constants";
+
 function TrackingOnePlace() {
+  const router = useRouter();
+
   return (
     <section
       style={{
@@ -23,8 +28,8 @@ function TrackingOnePlace() {
         Finally, everything you need to track in ONE place.
       </div>
       <div className="tackingOnePlace">
-        <div style={{ width: 274, marginTop:10,marginBottom:10 }}>
-          <div className="titleName">ListingTracker</div>
+        <div style={{ width: 274, marginTop: 10, marginBottom: 10 }}>
+          <div className="titleName">{marketingConstants.ListingTracker}</div>
           <Image
             src={Rectangle}
             alt="Rectangle"
@@ -32,14 +37,18 @@ function TrackingOnePlace() {
             height={110}
             style={{ cursor: "pointer" }}
           />
-          <div className="detailStyle">
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-            fugit, sed quia.
+          <div className="detailStyle">{marketingConstants.details}</div>
+          <div
+            className="buttonViewStyle pointer"
+            onClick={() => {
+              router.push("/home");
+            }}
+          >
+            {marketingConstants.VIEWDashboard}
           </div>
-          <div className="buttonViewStyle pointer">VIEW Dashboard</div>
         </div>
-        <div style={{ width: 274, marginTop:10,marginBottom:10 }}>
-          <div className="titleName">IPO PORTAL</div>
+        <div style={{ width: 274, marginTop: 10, marginBottom: 10 }}>
+          <div className="titleName">{marketingConstants.IPOPORTAL}</div>
           <Image
             src={Rectangle}
             alt="Rectangle"
@@ -47,14 +56,18 @@ function TrackingOnePlace() {
             height={110}
             style={{ cursor: "pointer" }}
           />
-          <div className="detailStyle">
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-            fugit, sed quia.
+          <div className="detailStyle">{marketingConstants.details}</div>
+          <div
+            className="buttonViewStyle pointer"
+            onClick={() => {
+              router.push("/ipos");
+            }}
+          >
+            {marketingConstants.VIEWIPOS}
           </div>
-          <div className="buttonViewStyle pointer">VIEW IPOS</div>
         </div>
-        <div style={{ width: 274, marginTop:10,marginBottom:10 }}>
-          <div className="titleName">MERGER PORTAL</div>
+        <div style={{ width: 274, marginTop: 10, marginBottom: 10 }}>
+          <div className="titleName">{marketingConstants.MERGERPORTAL}</div>
           <Image
             src={Rectangle}
             alt="Rectangle"
@@ -62,14 +75,18 @@ function TrackingOnePlace() {
             height={110}
             style={{ cursor: "pointer" }}
           />
-          <div className="detailStyle">
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-            fugit, sed quia.
+          <div className="detailStyle">{marketingConstants.details}</div>
+          <div
+            className="buttonViewStyle pointer"
+            onClick={() => {
+              router.push("/mergers");
+            }}
+          >
+            {marketingConstants.VIEWMERGERS}
           </div>
-          <div className="buttonViewStyle pointer">VIEW MERGERS</div>
         </div>
-        <div style={{ width: 274, marginTop:10,marginBottom:10 }}>
-          <div className="titleName">SPAC PORTAL</div>
+        <div style={{ width: 274, marginTop: 10, marginBottom: 10 }}>
+          <div className="titleName">{marketingConstants.SPACPORTAL}</div>
           <Image
             src={Rectangle}
             alt="Rectangle"
@@ -77,11 +94,15 @@ function TrackingOnePlace() {
             height={110}
             style={{ cursor: "pointer" }}
           />
-          <div className="detailStyle">
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-            fugit, sed quia.
+          <div className="detailStyle">{marketingConstants.details}</div>
+          <div
+            className="buttonViewStyle pointer"
+            onClick={() => {
+              router.push("/spacs");
+            }}
+          >
+            {marketingConstants.SPACPORTAL}
           </div>
-          <div className="buttonViewStyle pointer">VIEW SPACs</div>
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -99,6 +120,9 @@ function TrackingOnePlace() {
           variant="contained"
           className="buttonStyleDemo"
           title="Request A DEMO"
+          onClick={() => {
+            router.push("/requestDemo");
+          }}
         />
       </div>
     </section>

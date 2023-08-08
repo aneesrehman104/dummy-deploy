@@ -5,13 +5,20 @@ import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
-import Rectangle from "../../../../../../public/Rectangle.svg";
+import Brand1 from "../../../../../../public/brand1.svg";
+import Brand2 from "../../../../../../public/brand2.svg";
+import Brand3 from "../../../../../../public/brand3.svg";
+import Brand4 from "../../../../../../public/brand4.svg";
+
+import Link from "next/link";
 import "./Creators.css";
+import { marketingConstants } from "@/lib/ts/constants";
+
 function Creators() {
   return (
     <section className="creatorsMainDiv">
       <div className="titleMainCretaers">
-        BROUGHT TO YOU BY THe creators OF SPAC track, AS MENTIONED IN:
+      {marketingConstants.BROUGHTTOYOUBYTHEcreatorsOFSPACtrackASMENTIONEDIN}
       </div>
       <div
         style={{
@@ -21,10 +28,43 @@ function Creators() {
           flexWrap: "wrap",
         }}
       >
-        <div> Fortune</div>
-        <div> The Wall Street Joural</div>
-        <div> Forbes</div>
-        <div> The new Dork Time </div>
+        
+        <Link href="">
+          <Image
+            src={Brand3}
+            alt="Brand3"
+            width={180}
+            height={31}
+            style={{ cursor: "pointer",marginTop:10,marginBottom:10 }}
+          />
+        </Link>
+        <Link href="">
+          <Image
+            src={Brand2}
+            alt="Brand2"
+            width={180}
+            height={31}
+            style={{ cursor: "pointer",marginTop:10,marginBottom:10 }}
+          />
+        </Link>
+        <Link href="">
+          <Image
+            src={Brand1}
+            alt="Brand1"
+            width={180}
+            height={31}
+            style={{ cursor: "pointer",marginTop:10,marginBottom:10 }}
+          />
+        </Link>
+        <Link href="">
+          <Image
+            src={Brand4}
+            alt="Brand4"
+            width={180}
+            height={31}
+            style={{ cursor: "pointer",marginTop:10,marginBottom:10 }}
+          />
+        </Link>
       </div>
     </section>
   );

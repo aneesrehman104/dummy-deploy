@@ -9,7 +9,7 @@ import Rectangle from "../../../../../../public/Rectangle.svg";
 import { TextField, Checkbox, Button, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Pic from "../../../../../../public/nonAuthPic.svg";
-
+import { marketingConstants } from "@/lib/ts/constants";
 import "./GetFreeUpdates.css";
 function GetFreeUpdates() {
   const CssTextField = styled(TextField)({
@@ -45,7 +45,7 @@ function GetFreeUpdates() {
         display: "flex",
         background: "#20608B",
         height: "100%",
-        marginTop:'5%'
+        marginTop: "5%",
       }}
     >
       <div className="spaceBwteenPower">
@@ -63,12 +63,12 @@ function GetFreeUpdates() {
           </div>
         </div>
 
-        <div
-         className="secondDivGetFreeUpdate"
-        >
-          <div className="freeUpadte">GET FREE UPDATES TO YOUR INBOX</div>
+        <div className="secondDivGetFreeUpdate">
+          <div className="freeUpadte">
+            {marketingConstants.GETFREEUPDATESTOYOURINBOX}
+          </div>
           <div className="titleMainPro">
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut ofegd.
+            {marketingConstants.GETFREEUPDATESTOYOURINBOXDETAILS}
           </div>
           <div
             style={{

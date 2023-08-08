@@ -11,9 +11,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <title>MARKETING</title>
-      <meta name="description" content="MARKETING" />
-      <body className={inter.className} style={{ width: "100%" }}>
+      <title>REQUEST DEMO</title>
+      <meta name="description" content="REQUEST DEMO" />
+      <body className={inter.className}         style={{ width: "100%", height: "90vh", margin: 0 }}
+>
         <MemberstackProvider
           config={{
             publicKey: `${process.env.NEXT_PUBLIC_MEMBERSTACK_KEY}`,

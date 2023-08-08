@@ -7,7 +7,12 @@ import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
 import Pic from "../../../../../../public/nonAuthPic.svg";
 import "./PowerOfPro.css";
+import { useRouter, usePathname } from "next/navigation";
+import { marketingConstants } from "@/lib/ts/constants";
+
 function PowerOfPro() {
+  const router = useRouter();
+
   return (
     <section
       style={{
@@ -36,12 +41,9 @@ function PowerOfPro() {
         <div
           className="secondDivPowerOfPro"
         >
-          <div className="powerProText">THE POWER OF PRO</div>
+          <div className="powerProText">{marketingConstants.THEPOWEROFPRO}</div>
           <div className="titleMainProHadding">
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-            fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt. Neque porro quisquam est, for just $60
-            per month, or $500 annually.
+          {marketingConstants.THEPOWEROFPRODETAILS}
           </div>
           <div className="spaceBwteenPower">
             <div>
@@ -59,6 +61,9 @@ function PowerOfPro() {
                 variant="contained"
                 className="buttonStylePurchase"
                 title="purchase"
+                onClick={() => {
+                  router.push("/plans");
+                }}
               />
             </div>
             <div>
@@ -76,6 +81,9 @@ function PowerOfPro() {
                 variant="contained"
                 className="buttonStyleRequestDemo"
                 title="Request demo"
+                onClick={() => {
+                  router.push("/requestDemo");
+                }}
               />
             </div>
           </div>

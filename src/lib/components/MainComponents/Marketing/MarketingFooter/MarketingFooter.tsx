@@ -18,11 +18,11 @@ function MarketingFooter() {
   const FooterData = [
     {
       name: "Dashboard",
-      link: "",
+      link: "/home",
     },
     {
       name: "Contact Us",
-      link: "",
+      link: "/contact",
     },
     {
       name: "Terms & Conditions",
