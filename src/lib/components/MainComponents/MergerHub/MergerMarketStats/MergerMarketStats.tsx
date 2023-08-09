@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MergerMarketStats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { homeConstants } from "@/lib/ts/constants";
+import { getApiWithoutAuth } from "@lib/ts/api";
+import { URLs } from "@/lib/ts/apiUrl";
 function MergerMarketStats() {
   const theme = createTheme({
     palette: {
@@ -11,6 +12,21 @@ function MergerMarketStats() {
       },
     },
   });
+  const [isLoading, setIsLoading] = useState(true);
+  const [mergerStatsData, setMergerStatsData] = useState();
+  const getMergerStatsData = async () => {
+    const response = await getApiWithoutAuth(URLs.mergerStats);
+    if (response.status === 200 && response.data !== null) {
+      setMergerStatsData(response.data);
+
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    getMergerStatsData();
+  }, []);
   const dataArray = [
     {
       heading: "Overview",
@@ -93,7 +109,7 @@ function MergerMarketStats() {
   ];
   return (
     <section className={styles.minitables}>
-      <div className={styles.aggregatedMiniTables}>IPO Market Stats</div>
+      <div className={styles.aggregatedMiniTables}>Merger Market Stats</div>
       <div className={styles.cardscontainer}>
         {dataArray.map((item) => {
           return (

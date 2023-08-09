@@ -3248,3 +3248,24 @@ export const ClosedMergersScreener = [
     pro: true,
   },
 ];
+
+export const marketingConstants = {
+  ListingTracker: "Listing Tracker",
+  IPOPORTAL: "IPO PORTAL",
+  MERGERPORTAL: "MERGER PORTAL",
+  SPACPORTAL: "SPAC PORTAL",
+  details:
+    "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia.",
+  VIEWDashboard: "VIEW DASHBOARD",
+  VIEWIPOS: "VIEW IPOS",
+  VIEWMERGERS: "VIEW MERGERS",
+  THEPOWEROFPRO: "THE POWER OF PRO",
+  THEPOWEROFPRODETAILS:
+    "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, for just $60 per month, or $500 annually.",
+  BROUGHTTOYOUBYTHEcreatorsOFSPACtrackASMENTIONEDIN:
+    "BROUGHT TO YOU BY THE CREATORS OF SPAC TRACK, AS MENTIONED IN: ",
+
+  GETFREEUPDATESTOYOURINBOX: "GET FREE UPDATES TO YOUR INBOX",
+  GETFREEUPDATESTOYOURINBOXDETAILS:
+    "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut ofegd.",
+};

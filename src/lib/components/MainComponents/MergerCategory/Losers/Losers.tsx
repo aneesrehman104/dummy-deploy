@@ -19,8 +19,8 @@ function Losers() {
   const getMergersTradingLosersData = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(
-      `${URLs.iposGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
-        selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
+      `${URLs.mergerGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
+        selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceMerger"
       }&gainOrLoser=loser`
     );
     if (response.status === 200 && response.data !== null) {
@@ -50,15 +50,16 @@ function Losers() {
     setCurrentPage(1);
   };
 
+
   const headerArrayDaily = [
     {
-      name: "Company",
-      key: "company",
+      name: "Deal Name",
+      key: "dealName",
       type: "string",
     },
     {
-      name: "Symbol",
-      key: "symbol",
+      name: "Company",
+      key: "company",
       type: "string",
     },
     {
@@ -73,25 +74,25 @@ function Losers() {
     },
     {
       name: "Daily",
-      key: "daily",
-      type: "loser",
+      key: "dailyChange",
+      type: "gainer",
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];
 
   const headerArrayWeekly = [
     {
-      name: "Company",
-      key: "company",
+      name: "Deal Name",
+      key: "dealName",
       type: "string",
     },
     {
-      name: "Symbol",
-      key: "symbol",
+      name: "Company",
+      key: "company",
       type: "string",
     },
     {
@@ -106,25 +107,26 @@ function Losers() {
     },
     {
       name: "Weekly",
-      key: "weekly",
-      type: "loser",
+      key: "weeklyChange",
+      type: "gainer",
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];
 
+
   const headerArraysinceIpo = [
     {
-      name: "Company",
-      key: "company",
+      name: "Deal Name",
+      key: "dealName",
       type: "string",
     },
     {
-      name: "Symbol",
-      key: "symbol",
+      name: "Company",
+      key: "company",
       type: "string",
     },
     {
@@ -138,17 +140,16 @@ function Losers() {
       type: "string",
     },
     {
-      name: "Since IPO",
-      key: "sinceIPO",
-      type: "loser",
+      name: "Since Merger",
+      key: "sinceMerger",
+      type: "gainer",
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];
-
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Losers: Past Year Closed Mergers</div>

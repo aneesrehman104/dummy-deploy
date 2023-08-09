@@ -21,7 +21,11 @@ function LatestAnnouncedMergers() {
 
   const getLatestAnnouncedMergersData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
+    const response = await getApiWithoutAuth(
+      `${URLs.mergerPipeLine}?type=announced?subtype=${
+        selectedTab === 0 ? "exSpac" : selectedTab == 1 ? "Spac" : "all"
+      }`
+    );
     if (response.status === 200 && response.data !== null) {
       setLatestAnnouncedMergersData(response.data);
       setIsLoading(false);
@@ -32,6 +36,7 @@ function LatestAnnouncedMergers() {
 
   useEffect(() => {
     getLatestAnnouncedMergersData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
@@ -51,37 +56,37 @@ function LatestAnnouncedMergers() {
   const headerArrayMergers = [
     {
       name: "Target",
-      key: "target",
+      key: "targetCompanyName",
       type: "string",
     },
     {
       name: "Acquirer",
-      key: "acquirer",
+      key: "acquirerCompanyName",
       type: "string",
     },
     {
       name: "Announced Date",
-      key: "AnnouncedDate",
+      key: "announcedDate",
       type: "string",
     },
     {
       name: "Valuation",
-      key: "Valuation",
+      key: "valuation",
       type: "string",
     },
     {
       name: "Premium (at Deal)",
-      key: "Premium",
+      key: "premDeal",
       type: "string",
     },
     {
       name: "Target Industry",
-      key: "TargetIndustry",
+      key: "targetIndustry",
       type: "string",
     },
     {
       name: "View Deal Page",
-      key: "ViewDealPage",
+      key: "id",
       type: "string",
     },
   ];
@@ -89,64 +94,64 @@ function LatestAnnouncedMergers() {
   const headerArraySPACMergers = [
     {
       name: "Target",
-      key: "target",
+      key: "targetCompanyName",
       type: "string",
     },
     {
       name: "Acquirer",
-      key: "acquirer",
+      key: "acquirerCompanyName",
       type: "string",
     },
     {
       name: "Announced Date",
-      key: "AnnouncedDate",
+      key: "announcedDate",
       type: "string",
     },
     {
       name: "Valuation",
-      key: "Valuation",
+      key: "valuation",
       type: "string",
     },
     {
       name: "DA Link",
-      key: "DALink",
+      key: "daLink",
       type: "string",
     },
     {
       name: "Investor Pres.",
-      key: "InvestorPres",
+      key: "investorLink",
       type: "string",
     },
   ];
   const headerArrayAllMergers = [
     {
       name: "Target",
-      key: "target",
+      key: "targetCompanyName",
       type: "string",
     },
     {
       name: "Acquirer",
-      key: "acquirer",
+      key: "acquirerCompanyName",
       type: "string",
     },
     {
       name: "Announced Date",
-      key: "AnnouncedDate",
+      key: "announcedDate",
       type: "string",
     },
     {
       name: "Deal Type",
-      key: "DealType",
+      key: "dealType",
       type: "string",
     },
     {
       name: "Valuation",
-      key: "Valuation",
+      key: "valuation",
       type: "string",
     },
     {
       name: "Premium (at Deal)",
-      key: "Premium",
+      key: "premDeal",
       type: "string",
     },
   ];

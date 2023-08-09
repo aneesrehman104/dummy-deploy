@@ -8,22 +8,25 @@ import {
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
 
-function LatestClosedMergers() {
+function Closed() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [latestAnnouncedMergersData, setLatestAnnouncedMergersData] =
-    useState<any>({
-      dataset: [],
-      additional_dataset: { totalLength: 20 },
-    });
+  const [latestClosedMergersData, setLatestClosedMergersData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [itemsPerPage] = useState(5);
 
-  const getLatestAnnouncedMergersData = async () => {
+  const getLatestClosedMergersData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
+    const response = await getApiWithoutAuth(
+      `${URLs.mergerPipeLine}?type=closed?subtype=${
+        selectedTab === 0 ? "exSpac" : selectedTab == 1 ? "Spac" : "all"
+      }`
+    );
     if (response.status === 200 && response.data !== null) {
-      setLatestAnnouncedMergersData(response.data);
+      setLatestClosedMergersData(response.data);
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -31,7 +34,8 @@ function LatestClosedMergers() {
   };
 
   useEffect(() => {
-    getLatestAnnouncedMergersData();
+    getLatestClosedMergersData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
@@ -51,37 +55,37 @@ function LatestClosedMergers() {
   const headerArrayMergers = [
     {
       name: "Target",
-      key: "target",
+      key: "targetCompanyName",
       type: "string",
     },
     {
       name: "Acquirer",
-      key: "acquirer",
+      key: "acquirerCompanyName",
       type: "string",
     },
     {
-      name: "Closing Date",
-      key: "ClosingDate",
+      name: "Closed Date",
+      key: "closedDate",
       type: "string",
     },
     {
       name: "Valuation",
-      key: "Valuation",
+      key: "valuation",
       type: "string",
     },
     {
       name: "Premium (at Deal)",
-      key: "Premium",
+      key: "premDeal",
       type: "string",
     },
     {
       name: "Target Industry",
-      key: "TargetIndustry",
+      key: "targetIndustry",
       type: "string",
     },
     {
       name: "View Deal Page",
-      key: "ViewDealPage",
+      key: "id",
       type: "string",
     },
   ];
@@ -89,64 +93,64 @@ function LatestClosedMergers() {
   const headerArraySPACMergers = [
     {
       name: "Target",
-      key: "target",
+      key: "targetCompanyName",
       type: "string",
     },
     {
       name: "Acquirer",
-      key: "acquirer",
+      key: "acquirerCompanyName",
       type: "string",
     },
     {
-      name: "Closing Date",
-      key: "ClosingDate",
-      type: "string",
-    },
-    {
-      name: "Deal Type",
-      key: "DealType",
+      name: "Closed Date",
+      key: "closedDate",
       type: "string",
     },
     {
       name: "Valuation",
-      key: "Valuation",
+      key: "valuation",
       type: "string",
     },
     {
-      name: "Premium (at Deal)",
-      key: "Premium",
+      name: "DA Link",
+      key: "daLink",
+      type: "string",
+    },
+    {
+      name: "Investor Pres.",
+      key: "investorLink",
       type: "string",
     },
   ];
   const headerArrayAllMergers = [
     {
       name: "Target",
-      key: "target",
+      key: "targetCompanyName",
       type: "string",
     },
     {
       name: "Acquirer",
-      key: "acquirer",
+      key: "acquirerCompanyName",
       type: "string",
     },
     {
-      name: "Closing Date",
-      key: "ClosingDate",
+      name: "Closed Date",
+      key: "closedDate",
       type: "string",
     },
     {
       name: "Deal Type",
-      key: "DealType",
+      key: "dealType",
       type: "string",
     },
     {
       name: "Valuation",
-      key: "Valuation",
+      key: "valuation",
       type: "string",
     },
     {
       name: "Premium (at Deal)",
-      key: "Premium",
+      key: "premDeal",
       type: "string",
     },
   ];
@@ -171,9 +175,9 @@ function LatestClosedMergers() {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            latestAnnouncedMergersData && (
+            latestClosedMergersData && (
               <ListingTrackTable
-                data={latestAnnouncedMergersData?.dataset}
+                data={latestClosedMergersData?.dataset}
                 headerArray={
                   selectedTab === 0
                     ? headerArrayMergers
@@ -184,7 +188,7 @@ function LatestClosedMergers() {
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 paginate={paginate}
-                totalLength={latestAnnouncedMergersData?.additional_dataset}
+                totalLength={latestClosedMergersData?.additional_dataset}
                 showPagination
               />
             )
@@ -195,4 +199,4 @@ function LatestClosedMergers() {
   );
 }
 
-export default LatestClosedMergers;
+export default Closed;

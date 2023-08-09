@@ -12,16 +12,21 @@ function GrapevineGraveyard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [GrapevineGraveyardData, setGrapevineGraveyardData] =
-    useState<any>({
-      dataset: [],
-      additional_dataset: { totalLength: 20 },
-    });
+  const [GrapevineGraveyardData, setGrapevineGraveyardData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [itemsPerPage] = useState(5);
-
+  const tabValues: { [key: number]: string } = {
+    0: "rumor",
+    1: "stalledIPO",
+    2: "wishlistIPO",
+  };
   const getGrapevineGraveyardData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
+    const response = await getApiWithoutAuth(
+      `${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
+    );
     if (response.status === 200 && response.data !== null) {
       setGrapevineGraveyardData(response.data);
       setIsLoading(false);
@@ -32,6 +37,7 @@ function GrapevineGraveyard() {
 
   useEffect(() => {
     getGrapevineGraveyardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
@@ -51,32 +57,32 @@ function GrapevineGraveyard() {
   const headerArrayRumoredIPOs = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "Rumored Date",
-      key: "RumoredDate",
+      key: "rumorDate",
       type: "string",
     },
     {
       name: "Rumored Market Cap (M)",
-      key: "RumoredMarketCap",
+      key: "rumorMarketCap",
       type: "string",
     },
     {
       name: "Rumored IPO Offering Size (M)",
-      key: "RumoredIPOOfferingSize",
+      key: "rumorOfferingSize",
       type: "string",
     },
     {
       name: "Rumor Source",
-      key: "RumorSource",
+      key: "rumorPublication",
       type: "string",
     },
     {
       name: "Rumor Link",
-      key: "RumorLink",
+      key: "rumorSourceLink",
       type: "string",
     },
   ];
@@ -84,64 +90,64 @@ function GrapevineGraveyard() {
   const headerArrayStalledIPOs = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "IPO Stalled Status",
-      key: "IPOStalledStatus",
+      key: "ipoStatus",
       type: "string",
     },
     {
       name: "Stalled Date",
-      key: "StalledDate",
+      key: "stalledDate",
       type: "string",
     },
     {
       name: "Offering Size (M)",
-      key: "OfferingSize",
+      key: "offeringSize",
       type: "string",
     },
     {
       name: "Proposed Price Range",
-      key: "ProposedPriceRange",
+      key: "proposedPriceRange",
       type: "string",
     },
     {
       name: "Proposed Market Cap (M)",
-      key: "ProposedMarketCap",
+      key: "expMarketCap",
       type: "string",
     },
   ];
   const headerArrayWishlistIPOs = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "Wishlist Rank",
-      key: "WishlistRank",
+      key: "wishlistRank",
       type: "string",
     },
     {
       name: "Industry",
-      key: "Industry",
+      key: "industry",
       type: "string",
     },
     {
       name: "Last Private Valuation (M)",
-      key: "LastPrivateValuation",
+      key: "lastPrivateValuation",
       type: "string",
     },
     {
       name: "Last Raise Date",
-      key: "LastRaiseDate",
+      key: "lastRaiseDate",
       type: "string",
     },
     {
       name: "Last Private Raise (M)",
-      key: "LastPrivateRaise",
+      key: "lastPrivateRaise",
       type: "string",
     },
   ];

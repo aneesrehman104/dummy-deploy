@@ -21,8 +21,8 @@ function Gainer() {
   const getMergersTradingLoserData = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(
-      `${URLs.iposGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
-        selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
+      `${URLs.mergerGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
+        selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceMerger"
       }&gainOrLoser=gain`
     );
     if (response.status === 200 && response.data !== null) {
@@ -54,13 +54,13 @@ function Gainer() {
 
   const headerArrayDaily = [
     {
-      name: "Company",
-      key: "company",
+      name: "Deal Name",
+      key: "dealName",
       type: "string",
     },
     {
-      name: "Symbol",
-      key: "symbol",
+      name: "Company",
+      key: "company",
       type: "string",
     },
     {
@@ -75,25 +75,25 @@ function Gainer() {
     },
     {
       name: "Daily",
-      key: "daily",
+      key: "dailyChange",
       type: "gainer",
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];
 
   const headerArrayWeekly = [
     {
-      name: "Company",
-      key: "company",
+      name: "Deal Name",
+      key: "dealName",
       type: "string",
     },
     {
-      name: "Symbol",
-      key: "symbol",
+      name: "Company",
+      key: "company",
       type: "string",
     },
     {
@@ -108,12 +108,12 @@ function Gainer() {
     },
     {
       name: "Weekly",
-      key: "weekly",
+      key: "weeklyChange",
       type: "gainer",
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];
@@ -121,13 +121,13 @@ function Gainer() {
 
   const headerArraysinceIpo = [
     {
-      name: "Company",
-      key: "company",
+      name: "Deal Name",
+      key: "dealName",
       type: "string",
     },
     {
-      name: "Symbol",
-      key: "symbol",
+      name: "Company",
+      key: "company",
       type: "string",
     },
     {
@@ -141,13 +141,13 @@ function Gainer() {
       type: "string",
     },
     {
-      name: "Since IPO",
-      key: "sinceIPO",
+      name: "Since Merger",
+      key: "sinceMerger",
       type: "gainer",
     },
     {
       name: "Vol",
-      key: "vol",
+      key: "volume",
       type: "string",
     },
   ];

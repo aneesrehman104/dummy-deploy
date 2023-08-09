@@ -105,11 +105,11 @@ function CardElements() {
   const [personName, setPersonName] = React.useState([
     {
       name: "Deal Name",
-      key: "DealName",
+      key: "dealName",
     },
     {
       name: "Acquirer Company Name",
-      key: "AcquirerCompanyName",
+      key: "acquirerCompanyName",
     },
     {
       name: "Acquirer Symbol",
@@ -121,7 +121,7 @@ function CardElements() {
     },
     {
       name: "Target Company Name",
-      key: "TargetCompanyName",
+      key: "targetCompanyName",
     },
   ]);
 

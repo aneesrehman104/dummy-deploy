@@ -3,7 +3,31 @@ import footerLogo from "../../../../../public/footerLogo.svg";
 import Image from "next/image";
 import "./UnauthenticatedNavBar.css";
 import CommonfiButton from "../CommonfiButton";
+import Link from "next/link";
+import { useMemberstackModal, useMemberstack } from "@memberstack/react";
+import { setCookie } from "cookies-next";
+import { useRouter, usePathname } from "next/navigation";
 export default function UnauthenticatedNavBar() {
+  const { openModal, hideModal } = useMemberstackModal();
+  const router = useRouter();
+  const UnauthenticatedNavBarData = [
+    {
+      name: "Features",
+      link: "/home",
+    },
+    {
+      name: "Pricing",
+      link: "/plans",
+    },
+    {
+      name: "Request a Demo",
+      link: "requestDemo",
+    },
+    {
+      name: "CommonFi",
+      link: "",
+    },
+  ];
   return (
     <div className="headerMaindiv">
       <Image
@@ -14,13 +38,36 @@ export default function UnauthenticatedNavBar() {
         style={{ cursor: "pointer" }}
       />
       <div className="textStyle cursorPointer flexBetween">
-        <div>Features</div>
-        <div>Pricing</div>
-        <div>Request a Demo</div>
-        <div>CommonFi</div>
+        {UnauthenticatedNavBarData.map((item: any) => {
+          return (
+            <Link href={item.link} className="textStyle" key={item.name}>
+              {item.name}
+            </Link>
+          );
+        })}
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <div className="textStyle cursorPointer">
+        <div
+          className="textStyle cursorPointer"
+          onClick={() =>
+            openModal({
+              type: "SIGNUP",
+            }).then(({ data, type }: any) => {
+              console.log("data", data);
+              console.log("type: ", type);
+              if (type === "LOGIN") {
+                setCookie("accessToken", data.tokens.accessToken);
+                hideModal();
+                window.location.reload();
+              } else if (type === "CLOSED") {
+                hideModal();
+              } else {
+                setCookie("accessToken", data.tokens.accessToken);
+                router.push("/plans");
+              }
+            })
+          }
+        >
           <span>Sign up</span> / <span>Sign in</span>
         </div>
         <div>
@@ -38,6 +85,9 @@ export default function UnauthenticatedNavBar() {
             variant="contained"
             className="buttonStyleGo"
             title="Go Pro"
+            onClick={() => {
+              router.push("/plans");
+            }}
           />
         </div>
       </div>

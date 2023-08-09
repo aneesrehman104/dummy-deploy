@@ -12,16 +12,21 @@ function IposFilling() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [IposFillingData, setIposFillingData] =
-    useState<any>({
-      dataset: [],
-      additional_dataset: { totalLength: 20 },
-    });
+  const [IposFillingData, setIposFillingData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [itemsPerPage] = useState(5);
-
+  const tabValues: { [key: number]: string } = {
+    0: "latest",
+    1: "amended",
+    2: "withdrawn",
+  };
   const getIposFillingData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.iposGainer}`);
+    const response = await getApiWithoutAuth(
+      `${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
+    );
     if (response.status === 200 && response.data !== null) {
       setIposFillingData(response.data);
       setIsLoading(false);
@@ -32,6 +37,7 @@ function IposFilling() {
 
   useEffect(() => {
     getIposFillingData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
@@ -51,32 +57,32 @@ function IposFilling() {
   const headerArrayLatestFilings = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "Ticker",
-      key: "Ticker",
+      key: "ticker",
       type: "string",
     },
     {
       name: "Exchange",
-      key: "Exchange",
+      key: "exchange",
       type: "string",
     },
     {
       name: "Filing Date",
-      key: "FilingDate",
+      key: "initialFilingDate",
       type: "string",
     },
     {
       name: "Proposed Price",
-      key: "ProposedPrice",
+      key: "proposedPriceRange",
       type: "string",
     },
     {
       name: "Offer Size (M)",
-      key: "OfferSize",
+      key: "offeringSize",
       type: "string",
     },
   ];
@@ -84,64 +90,64 @@ function IposFilling() {
   const headerArrayLatestAmendedFilings = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "Ticker",
-      key: "Ticker",
+      key: "ticker",
       type: "string",
     },
     {
       name: "Exchange",
-      key: "Exchange",
+      key: "exchange",
       type: "string",
     },
     {
       name: "Amended Filing Date",
-      key: "AmendedFilingDate",
+      key: "amendedFilingDate",
       type: "string",
     },
     {
       name: "Proposed Price",
-      key: "ProposedPrice",
+      key: "proposedPriceRange",
       type: "string",
     },
     {
       name: "Offer Size (M)",
-      key: "OfferSize",
+      key: "offeringSize",
       type: "string",
     },
   ];
   const headerArrayWithdrawn = [
     {
       name: "Company Name",
-      key: "CompanyName",
+      key: "companyName",
       type: "string",
     },
     {
       name: "Ticker",
-      key: "Ticker",
+      key: "ticker",
       type: "string",
     },
     {
       name: "Exchange",
-      key: "Exchange",
+      key: "exchange",
       type: "string",
     },
     {
       name: "Withdrawn Date",
-      key: "WithdrawnDate",
+      key: "withdrawDate",
       type: "string",
     },
     {
       name: "Withdrawn Proposed Price",
-      key: "WithdrawnProposedPrice",
+      key: "withdrawPriceRange",
       type: "string",
     },
     {
       name: "Withdrawn Offer Size (M)",
-      key: "WithdrawnOfferSize",
+      key: "offeringSize",
       type: "string",
     },
   ];

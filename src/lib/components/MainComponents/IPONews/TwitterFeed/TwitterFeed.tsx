@@ -33,7 +33,7 @@ function TwitterFeed() {
 
   const getNews = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.spacNews}?type=twitter`);
+    const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=twitter`);
     if (response.status === 200 && response.data !== null) {
       setNewsData(response.data);
       setIsLoading(false);

@@ -33,7 +33,7 @@ function CurrentUpdateFeed() {
 
   const getNews = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.spacNews}?type=update`);
+    const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=update`);
     if (response.status === 200 && response.data !== null) {
       setNewsData(response.data);
       setIsLoading(false);

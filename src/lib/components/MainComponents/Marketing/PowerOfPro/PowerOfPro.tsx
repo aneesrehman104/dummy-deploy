@@ -5,36 +5,47 @@ import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
-import Rectangle from "../../../../../../public/Rectangle.svg";
+import Pic from "../../../../../../public/nonAuthPic.svg";
 import "./PowerOfPro.css";
+import { useRouter, usePathname } from "next/navigation";
+import { marketingConstants } from "@/lib/ts/constants";
+
 function PowerOfPro() {
+  const router = useRouter();
+
   return (
     <section
       style={{
         display: "flex",
         background: "#20608B",
-        height: "60vh",
-        // alignItems: "center",
+        height: "100%",
+        marginTop:'5%'
       }}
     >
-      <div style={{ display: "flex", width: "100%" }}>
-        <div style={{ width: "50%", border: "1px solid red" }}></div>
+      <div className="spaceBwteenPower">
         <div
-          style={{
-            width: "50%",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
+        className="firstDivPowerOfPro"
         >
-          <div className="powerProText">THE POWER OF PRO</div>
-          <div className="titleMainProHadding">
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
-            fugit, sed quia consequuntur magni dolores eos qui ratione
-            voluptatem sequi nesciunt. Neque porro quisquam est, for just $60
-            per month, or $500 annually.
+          <div
+            style={{ width: "80%", display: "flex", justifyContent: "center" }}
+          >
+            <Image
+              src={Pic}
+              alt="Pic"
+              width={375}
+              height={375}
+              style={{ cursor: "pointer" }}
+            />
           </div>
-          <div style={{ display: "flex" }}>
+        </div>
+        <div
+          className="secondDivPowerOfPro"
+        >
+          <div className="powerProText">{marketingConstants.THEPOWEROFPRO}</div>
+          <div className="titleMainProHadding">
+          {marketingConstants.THEPOWEROFPRODETAILS}
+          </div>
+          <div className="spaceBwteenPower">
             <div>
               <CommonfiButton
                 sx={{
@@ -50,6 +61,9 @@ function PowerOfPro() {
                 variant="contained"
                 className="buttonStylePurchase"
                 title="purchase"
+                onClick={() => {
+                  router.push("/plans");
+                }}
               />
             </div>
             <div>
@@ -67,6 +81,9 @@ function PowerOfPro() {
                 variant="contained"
                 className="buttonStyleRequestDemo"
                 title="Request demo"
+                onClick={() => {
+                  router.push("/requestDemo");
+                }}
               />
             </div>
           </div>

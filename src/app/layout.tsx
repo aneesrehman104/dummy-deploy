@@ -43,7 +43,7 @@ function MemberstackWrapper({
   return (
     <MemberInformationContext.Provider value={{ user, memberstack }}>
       <html lang="en">
-        <body style={{ width: "100%" }}>
+        <body style={{ width: "100%",margin:0,height: "90vh", }}>
           {user ? children : unauthenticated}
         </body>
       </html>
