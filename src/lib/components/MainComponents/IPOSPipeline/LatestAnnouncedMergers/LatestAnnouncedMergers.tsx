@@ -20,7 +20,9 @@ function LatestAnnouncedMergers() {
 
   const getLatestAnnouncedMergersData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=latest`);
+    const response = await getApiWithoutAuth(
+      `${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=latest`
+    );
     if (response.status === 200 && response.data !== null) {
       setLatestAnnouncedMergersData(response.data);
       setIsLoading(false);
@@ -31,6 +33,7 @@ function LatestAnnouncedMergers() {
 
   useEffect(() => {
     getLatestAnnouncedMergersData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   const paginate = (pageNumber: number) => {

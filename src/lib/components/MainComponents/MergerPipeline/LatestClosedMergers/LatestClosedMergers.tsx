@@ -12,11 +12,10 @@ function Closed() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [latestClosedMergersData, setLatestClosedMergersData] =
-    useState<any>({
-      dataset: [],
-      additional_dataset: { totalLength: 20 },
-    });
+  const [latestClosedMergersData, setLatestClosedMergersData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [itemsPerPage] = useState(5);
 
   const getLatestClosedMergersData = async () => {
@@ -36,6 +35,7 @@ function Closed() {
 
   useEffect(() => {
     getLatestClosedMergersData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {

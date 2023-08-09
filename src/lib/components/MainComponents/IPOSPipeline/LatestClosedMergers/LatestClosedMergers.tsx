@@ -37,6 +37,7 @@ function LatestClosedMergers() {
 
   useEffect(() => {
     getLatestClosedMergersData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {

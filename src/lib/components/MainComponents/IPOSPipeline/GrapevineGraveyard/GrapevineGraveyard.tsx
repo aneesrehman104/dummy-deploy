@@ -12,11 +12,10 @@ function GrapevineGraveyard() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTab, setSelectedTab] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [GrapevineGraveyardData, setGrapevineGraveyardData] =
-    useState<any>({
-      dataset: [],
-      additional_dataset: { totalLength: 20 },
-    });
+  const [GrapevineGraveyardData, setGrapevineGraveyardData] = useState<any>({
+    dataset: [],
+    additional_dataset: { totalLength: 20 },
+  });
   const [itemsPerPage] = useState(5);
   const tabValues: { [key: number]: string } = {
     0: "rumor",
@@ -38,6 +37,7 @@ function GrapevineGraveyard() {
 
   useEffect(() => {
     getGrapevineGraveyardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
