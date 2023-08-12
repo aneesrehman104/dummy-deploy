@@ -6,6 +6,7 @@ const backEndURLWithAuth: AxiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
   headers: {
     Authorization: `Bearer ${getCookie("accessToken")}`,
+    Accept: "application/listingtrack+json",
   },
   withCredentials: true,
 });
@@ -52,6 +53,21 @@ export const getApiWithAuth = async (url: string) => {
     return result;
   } catch (error: any) {
     return error.response.data;
+  }
+};
+
+export const getGetApiWithParams = async (url: string, params: object) => {
+  try {
+    const result = await backEndURLWithAuth.get(url, {
+      params
+    });
+    return {
+      status: result.status,
+      data: result.data.source,
+    };
+  }
+  catch (error: any) {
+    return error;
   }
 };
 

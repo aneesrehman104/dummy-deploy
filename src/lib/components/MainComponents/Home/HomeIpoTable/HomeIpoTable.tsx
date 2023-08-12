@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import styles from "./HomeIpoTable.module.css";
 import { homeConstants } from "@/lib/ts/constants";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getGetApiWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -85,9 +85,27 @@ function HomeIpoTable() {
 
   const getIPOPipelineData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth("ipo");
-    if (response.status === 200 && response.data !== null) {
-      setIPOPipelineData(response.data);
+    //const response = await getApiWithoutAuth(URLs.iposPipeline);
+    const response = await getGetApiWithParams(URLs.iposPipeline, {
+      page: 1,
+      offset: 0,
+      type: "upcoming",
+      subType: "",
+    });
+    
+    if (response.status === 200 && response.data.dataset !== null) {
+      setIPOPipelineData(response.data.dataset.map((item: any) => {
+        return {
+          company: item.Name,
+          event:"IPO",
+          status: item.Status,
+          pricingDate: item.Date,
+          priceRange: item.Price,
+          proceedsRange: item.TotalSharesValue,
+        }
+      }));
+
+
       setIsLoading(false);
     } else {
       setIsLoading(false);
