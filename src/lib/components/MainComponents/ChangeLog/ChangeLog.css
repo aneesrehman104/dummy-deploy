@@ -1,0 +1,27 @@
+.sectionChangeLog {
+  background: white;
+  min-height: 95vh;
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.textChangeLog {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: Barlow Condensed;
+}
+.spaceBetweenChangeLog {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.collapsColor {
+  border: 1px solid grey;
+  width: 100%;
+}
+
+/* @media screen and (max-width: 900px) {
+
+} */
