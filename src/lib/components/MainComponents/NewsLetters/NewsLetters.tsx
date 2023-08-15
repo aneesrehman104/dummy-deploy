@@ -236,7 +236,7 @@ function NewsLetters() {
                     borderBottom: "2px solid black",
                     fontSize: 18,
                     fontWeight: 400,
-                    fontFamily: "Barlow Condensed",
+                    fontFamily: "Open Sans",
                   }}
                 >
                   {item.headingName}
@@ -376,7 +376,7 @@ function NewsLetters() {
                             style={{
                               fontSize: 14,
                               fontWeight: 400,
-                              fontFamily: "Barlow Condensed",
+                              fontFamily: "Open Sans",
                             }}
                           >
                             {subHeading.sentText}
@@ -385,7 +385,7 @@ function NewsLetters() {
                             style={{
                               fontSize: 20,
                               fontWeight: 500,
-                              fontFamily: "Barlow Condensed",
+                              fontFamily: "Open Sans",
                             }}
                           >
                             {subHeading.title}
@@ -394,7 +394,7 @@ function NewsLetters() {
                             style={{
                               fontSize: 16,
                               fontWeight: 400,
-                              fontFamily: "Barlow Condensed",
+                              fontFamily: "Open Sans",
                               lineHeight: "27px",
                             }}
                           >
@@ -404,7 +404,7 @@ function NewsLetters() {
                             style={{
                               fontSize: 16,
                               fontWeight: 400,
-                              fontFamily: "Barlow Condensed",
+                              fontFamily: "Open Sans",
                               lineHeight: "27px",
                             }}
                           >
@@ -426,7 +426,7 @@ function NewsLetters() {
               borderBottom: "2px solid black",
               fontSize: 18,
               fontWeight: 400,
-              fontFamily: "Barlow Condensed",
+              fontFamily: "Open Sans",
             }}
           >
             Watchlist Alerts (for Pro subscribers only)
@@ -454,7 +454,7 @@ function NewsLetters() {
                       style={{
                         fontSize: 20,
                         fontWeight: 500,
-                        fontFamily: "Barlow Condensed",
+                        fontFamily: "Open Sans",
                       }}
                     >
                       {item.heading}
@@ -482,7 +482,7 @@ function NewsLetters() {
                     style={{
                       fontSize: 12,
                       fontWeight: 400,
-                      fontFamily: "Barlow Condensed",
+                      fontFamily: "Open Sans",
                       marginRight: 25,
                       display: "flex",
                       justifyContent: "flex-end",

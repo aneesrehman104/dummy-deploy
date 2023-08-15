@@ -18,7 +18,7 @@
   text-align: left;
   font-size: 11px;
   color: #434343;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .spaceBetween {
   display: flex;
@@ -114,7 +114,7 @@
   width: 37px;
   height: 19px;
   font-size: 16px;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .parent {
   width: 37px;
@@ -138,7 +138,7 @@
   width: 52px;
   height: 19px;
   font-size: 16px;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .group {
   width: 52px;
@@ -162,7 +162,7 @@
   width: 77px;
   height: 19px;
   font-size: 16px;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .container,
 .frameGroup {
@@ -207,7 +207,7 @@
   justify-content: flex-start;
   gap: 1px;
   font-size: 16px;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .chartcontainer,
 .frameParent,
@@ -240,7 +240,7 @@
   padding: 13px 0;
   gap: 10px;
   font-size: 24px;
-  font-family: "Barlow Condensed";
+  font-family: "Open Sans";
 }
 .sectionsummarycontainer {
   padding: 0 35px;
@@ -248,7 +248,7 @@
   text-align: left;
   font-size: 16px;
   color: #000;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .tableContainer {
   width: 100%;
@@ -262,14 +262,14 @@
   border-radius: 4px;
 }
 .tableTitle {
-  font-family: "Barlow";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;
 }
 .headerCell {
-  font-family: "Barlow";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
@@ -289,7 +289,7 @@
   width: 30%;
   display: flex;
   justify-content: space-between;
-  font-family: Barlow;
+  font-family: Open Sans;
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -310,7 +310,7 @@
 
 .titleText {
   text-transform: uppercase;
-  font-family: Barlow Condensed;
+  font-family: Open Sans;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -324,7 +324,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: 500;
-  font-family: Barlow;
+  font-family: Open Sans;
   margin-top: 4px;
 }
 

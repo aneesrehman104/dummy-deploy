@@ -187,7 +187,7 @@
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-family: Barlow;
+    font-family: Open Sans;
   }
   .group,
   .parent {
@@ -223,7 +223,7 @@
     flex-direction: row;
     font-size: 24px;
     color: #000;
-    font-family: "Barlow Condensed";
+    font-family: "Open Sans";
   }
   .cardrowinfo {
     border-bottom: 1px solid #e8e2e2;
@@ -244,7 +244,7 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     font-weight: 500;
-    font-family: Barlow;
+    font-family: Open Sans;
   }
   .head8 {
     flex: 1;
@@ -375,7 +375,7 @@
     flex-direction: column;
     gap: 1px;
     font-size: 24px;
-    font-family: "Barlow Condensed";
+    font-family: "Open Sans";
   }
   .avgReturn,
   .div9 {
@@ -390,7 +390,7 @@
   .div9 {
     font-size: 24px;
     line-height: 103%;
-    font-family: "Barlow Condensed";
+    font-family: "Open Sans";
   }
   .avgReturnParent,
   .medianReturnParent {
@@ -903,7 +903,7 @@
     text-align: left;
     font-size: 16px;
     color: #000;
-    font-family: Barlow;
+    font-family: Open Sans;
   }
   @media screen and (max-width: 900px) {
     .card,

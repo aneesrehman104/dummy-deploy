@@ -14,7 +14,7 @@ function ContactUs() {
     color: "#ffffff", // or "white"
     border: "1px solid #0aac85",
     borderRadius: "4px",
-    fontFamily: "Barlow",
+    fontFamily: "Open Sans",
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: "16px",
@@ -42,7 +42,7 @@ function ContactUs() {
     color: "white", // Text color (white in this case)
     border: "1px solid #0aac85",
     borderRadius: "4px",
-    fontFamily: "Barlow",
+    fontFamily: "Open Sans",
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: "16px",

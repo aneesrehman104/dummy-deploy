@@ -1,5 +1,5 @@
 .titleName {
-  font-family: "Barlow Condensed";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -8,7 +8,7 @@
   margin-bottom: 10px;
 }
 .titleMainHadding {
-    font-family: "Barlow Condensed";
+    font-family: "Open Sans";
     font-style: normal;
     font-weight: 500;
     font-size: 33px;
@@ -20,7 +20,7 @@
     margin-bottom: 20px
   }
 .detailStyle {
-  font-family: "Barlow Condensed";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -29,7 +29,7 @@
   margin-bottom: 10px;
 }
 .buttonViewStyle {
-  font-family: "Barlow Condensed";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 700;
   font-size: 14px;
