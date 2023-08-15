@@ -436,6 +436,7 @@ function NewsLetters() {
             {newsLettersProArray.map((item: any, index: number) => {
               return (
                 <div
+                key={`${item.heading} ${index}`}
                   style={{
                     marginRight: 20,
                     width: 300,
