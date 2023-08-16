@@ -8,6 +8,8 @@ import {
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
 
+const jsonResponse = "application/json";
+
 function TableTitle() {
   return (
     <div className={styles.tableTitle}>{homeConstants.IPOPipeline.title}</div>
@@ -69,7 +71,7 @@ function HomeIpoTable() {
       });
       console.log(response);
       if (response.status === 200 && response.data !== null) {
-        setIPOPipelineData(response.data);
+        setIPOPipelineData(jsonResponse === "application/json" ? response.data : response.data.source.dataset);
         setIsLoading(false);
       } else {
         setIsLoading(false);
