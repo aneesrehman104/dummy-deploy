@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import styles from "./HomeIpoTable.module.css";
 import { homeConstants } from "@/lib/ts/constants";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -15,7 +15,7 @@ function TableTitle() {
 }
 function HomeIpoTable() {
   const [isLoading, setIsLoading] = useState(true);
-  const [iPOPipelineData, setIPOPipelineData] = useState([])
+  const [iPOPipelineData, setIPOPipelineData] = useState([]);
 
   const headerArray = [
     {
@@ -50,7 +50,7 @@ function HomeIpoTable() {
     },
     {
       name: "Price",
-      key: "ipoPrice",
+      key: "expectedIpoPrice",
       type: "string",
     },
     {
@@ -60,18 +60,22 @@ function HomeIpoTable() {
     },
   ];
 
-  const getIPOPipelineData = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth("ipo");
-    if (response.status === 200 && response.data !== null) {
-      setIPOPipelineData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getIPOPipelineData = async () => {
+      setIsLoading(true);
+      const response = await getODataWithParams(URLs.ipoOdata, {
+        top: 5,
+        orderby: [{ field: "companyName", direction: "desc" }]
+      });
+      console.log(response);
+      if (response.status === 200 && response.data !== null) {
+        setIPOPipelineData(response.data);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
+
     getIPOPipelineData();
   }, []);
 

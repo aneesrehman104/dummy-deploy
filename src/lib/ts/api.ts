@@ -82,6 +82,20 @@ export const putApiWithAuth = async (url: string, body: object) => {
   }
 };
 
+export const getGetApiWithParams = async (url: string, params: object) => {
+  try {
+    const result = await backEndURLWithAuth.get(url, {
+      params,
+    });
+    return {
+      status: result.status,
+      data: result.data.source,
+    };
+  } catch (error: any) {
+    return error;
+  }
+};
+
 export const putApiWithoutAuth = async (url: string, body: object) => {
   try {
     const result = backEndURLWithoutAuth.put(url, body);
@@ -102,3 +116,64 @@ export const deleteApiWithAuth = async (url: string) => {
     return error;
   }
 };
+
+const toODataQuery = (params: ODataParams): string => {
+  let odataParamsArr: any[] = [];
+  console.log(params, "params");
+  if (params.top !== undefined) odataParamsArr.push(`$top=${params.top}`);
+  if (params.skip !== undefined) odataParamsArr.push(`$skip=${params.skip}`);
+  if (params.filter !== undefined)
+    odataParamsArr.push(`$filter=${encodeURIComponent(params.filter)}`);
+  if (params.select !== undefined)
+    odataParamsArr.push(`$select=${params.select.join(",")}`);
+  if (params.orderby !== undefined) {
+    const orderby = params.orderby
+      .map((o) => `${o.field} ${o.direction || "asc"}`.trim())
+      .join(",");
+    odataParamsArr.push(`$orderby=${orderby}`);
+  }
+  if (params.count !== undefined) odataParamsArr.push(`$count=${params.count}`);
+  if (params.expand !== undefined)
+    odataParamsArr.push(`$expand=${params.expand.join(",")}`);
+  if (params.search !== undefined)
+    odataParamsArr.push(`$search=${encodeURIComponent(params.search)}`);
+  console.log(odataParamsArr, "odataParamsArr");
+  return odataParamsArr.join("&");
+};
+
+/* odata operation */
+export const getODataWithParams = async (url: string, params: ODataParams) => {
+  try {
+    // Convert the params object to OData format
+    const odataParams = toODataQuery(params);
+    const fullUrl = `${url}?${odataParams}`;
+    console.log(fullUrl, "fullUrl");
+    const result = await backEndURLWithAuth.get(fullUrl);
+    
+    return {
+      status: result.status,
+      data: result.data,
+    };
+  } catch (error: any) {
+    return error;
+  }
+};
+
+type ODataParams = {
+  top?: number;
+  skip?: number;
+  filter?: string;
+  select?: string[];
+  orderby?: { field: string; direction?: "asc" | "desc" }[]; // Updated type
+  count?: boolean;
+  expand?: string[];
+  search?: string;
+};
+
+// Sample call
+// const response = await getODataWithParams("yourOdataEndpoint", {
+//   top: 10,
+//   filter: "exchange eq 'NASDAQ'",
+//   select: ['id', 'name'],
+//   orderby: [{ field: 'name', direction: 'desc' }]
+// });
