@@ -55,9 +55,12 @@ export const getApiWithAuth = async (url: string) => {
   }
 };
 
-export const getApiWithoutAuth = async (url: string) => {
+export const getApiWithoutAuth = async (
+  url: string,
+  params?: Record<string, any>
+) => {
   try {
-    const result = await backEndURLWithoutAuth.get(url);
+    const result = await backEndURLWithoutAuth.get(url, { params });
     return {
       status: result.status,
       data: result.data.source,

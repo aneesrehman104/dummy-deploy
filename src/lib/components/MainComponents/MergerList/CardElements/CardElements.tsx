@@ -26,6 +26,7 @@ import {
   InputLabel,
   Button,
   MenuItem,
+  Divider,
 } from "@mui/material";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
@@ -38,9 +39,10 @@ function CardElements() {
     transform: "translate(-50%, -50%)",
     width: "60%",
     bgcolor: "background.paper",
-    border: "2px solid #000",
+    border: "2px solid grey",
     boxShadow: 24,
-    p: 1,
+    borderRadius: "15px",
+    p: 3,
   };
   const tabValues: { [key: number]: string } = {
     0: "all",
@@ -230,8 +232,6 @@ function CardElements() {
     setOpenFilterModal(false);
   };
 
-
-
   const handleChangeFilter = (
     key: string,
     event: SelectChangeEvent<string[]>,
@@ -337,7 +337,7 @@ function CardElements() {
                       alt="searchIcon"
                       width={18}
                       height={18}
-                      style={{cursor:'pointer'}}
+                      style={{ cursor: "pointer" }}
                     />
                   </InputAdornment>
                 ),
@@ -394,15 +394,20 @@ function CardElements() {
       >
         <>
           <Box sx={style}>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Image
-                src={crossIconSvg}
-                alt="filterSvg"
-                width={18}
-                height={18}
-                onClick={clearAll}
-              />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className={styles.tableTitle}>Filter</div>
+              <div>
+                {" "}
+                <Image
+                  src={crossIconSvg}
+                  alt="filterSvg"
+                  width={18}
+                  height={18}
+                  onClick={clearAll}
+                />
+              </div>
             </div>
+            <Divider style={{ marginTop: 5, marginBottom: 5 }} />
             {selectedTab === 0 ? (
               <div
                 style={{
@@ -919,19 +924,24 @@ function CardElements() {
                 </FormControl>
               </div>
             )}
+            <Divider style={{ marginTop: 20, marginBottom: 10 }} />
             <div
               style={{
-                marginLeft: 15,
+                // marginLeft: 15,
                 width: 200,
                 display: "flex",
-                justifyContent: "space-evenly",
+                justifyContent: "space-between",
               }}
             >
-              <Button variant="text" color="error" onClick={clearAll}>
+              <Button variant="contained" color="error" onClick={clearAll}>
                 Clear
               </Button>
 
-              <Button variant="text" color="success" onClick={applyFilters}>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={applyFilters}
+              >
                 Apply
               </Button>
             </div>

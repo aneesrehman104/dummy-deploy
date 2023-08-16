@@ -88,35 +88,41 @@ function HomeMergerTable() {
   ];
   const headerArray = [
     {
-      name: "Company",
-      key: "company",
+      name: "Target",
+      key: "Target",
       type: "string",
     },
     {
-      name: "Event",
-      key: "event",
+      name: "Acquirer",
+      key: "Acquirer",
       type: "string",
     },
     {
       name: "Status",
-      key: "status",
+      key: "Status",
       type: "string",
     },
     {
-      name: "Est. Pricing Date",
-      key: "pricingDate",
+      name: "Type",
+      key: "Type",
       type: "string",
     },
     {
-      name: "Price/range",
-      key: "priceRange",
+      name: "Announced Date",
+      key: "AnnouncedDate",
       type: "string",
     },
     {
-      name: "Proceeds/range",
-      key: "proceedsRange",
+      name: "Valuation",
+      key: "Valuation",
       type: "string",
     },
+    {
+      name: "View Deal Page",
+      key: "ViewDealPage",
+      type: "string",
+    },
+    
   ];
   const getIPOPipelineData = async () => {
     setIsLoading(true);
