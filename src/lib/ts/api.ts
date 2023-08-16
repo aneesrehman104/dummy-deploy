@@ -59,14 +59,13 @@ export const getApiWithAuth = async (url: string) => {
 export const getGetApiWithParams = async (url: string, params: object) => {
   try {
     const result = await backEndURLWithAuth.get(url, {
-      params
+      params,
     });
     return {
       status: result.status,
       data: result.data.source,
     };
-  }
-  catch (error: any) {
+  } catch (error: any) {
     return error;
   }
 };
@@ -115,3 +114,62 @@ export const deleteApiWithAuth = async (url: string) => {
     return error;
   }
 };
+
+/* odata operation */
+export const getODataWithParams = async (url: string, params: ODataParams) => {
+  try {
+    // Convert the params object to OData format
+    const odataParams = toODataQuery(params);
+    const fullUrl = `${url}?${odataParams}`;
+
+    const result = await backEndURLWithAuth.get(fullUrl);
+
+    return {
+      status: result.status,
+      data: result.data.source,
+    };
+  } catch (error: any) {
+    return error;
+  }
+};
+
+type ODataParams = {
+  top?: number;
+  skip?: number;
+  filter?: string;
+  select?: string[];
+  orderby?: { field: string; direction?: "asc" | "desc" }[]; // Updated type
+  count?: boolean;
+  expand?: string[];
+  search?: string;
+};
+
+const toODataQuery = (params: ODataParams): string => {
+  let odataParamsArr: string[] = [];
+
+  if (params.top) odataParamsArr.push(`$top=${params.top}`);
+  if (params.skip) odataParamsArr.push(`$skip=${params.skip}`);
+  if (params.filter)
+    odataParamsArr.push(`$filter=${encodeURIComponent(params.filter)}`);
+  if (params.select) odataParamsArr.push(`$select=${params.select.join(",")}`);
+  if (params.orderby) {
+    const orderby = params.orderby
+      .map((o) => `${o.field} ${o.direction || "asc"}`.trim())
+      .join(",");
+    odataParamsArr.push(`$orderby=${orderby}`);
+  }
+  if (params.count) odataParamsArr.push(`$count=${params.count}`);
+  if (params.expand) odataParamsArr.push(`$expand=${params.expand.join(",")}`);
+  if (params.search)
+    odataParamsArr.push(`$search=${encodeURIComponent(params.search)}`);
+
+  return odataParamsArr.join("&");
+};
+
+// Sample call
+// const response = await getODataWithParams("yourOdataEndpoint", {
+//   top: 10,
+//   filter: "exchange eq 'NASDAQ'",
+//   select: ['id', 'name'],
+//   orderby: [{ field: 'name', direction: 'desc' }]
+// });

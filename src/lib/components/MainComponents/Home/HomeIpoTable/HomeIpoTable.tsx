@@ -1,7 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
 import styles from "./HomeIpoTable.module.css";
 import { homeConstants } from "@/lib/ts/constants";
-import { getApiWithoutAuth, getGetApiWithParams } from "@/lib/ts/api";
+import {
+  getApiWithoutAuth,
+  getGetApiWithParams,
+  getODataWithParams,
+} from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -86,25 +90,27 @@ function HomeIpoTable() {
   const getIPOPipelineData = async () => {
     setIsLoading(true);
     //const response = await getApiWithoutAuth(URLs.iposPipeline);
-    const response = await getGetApiWithParams(URLs.iposPipeline, {
-      page: 1,
-      offset: 0,
-      type: "upcoming",
-      subType: "",
+    //TODO: @Abhinav - Need to create a query object definition
+    const response = await getODataWithParams(URLs.iposPipeline, {
+      top: 4,
+      filter: "CompanyName eq 'Company A'",
+      //select: ["id", "name"],
+      orderby: [{ field: "companyName", direction: "asc" }],
     });
-    
-    if (response.status === 200 && response.data.dataset !== null) {
-      setIPOPipelineData(response.data.dataset.map((item: any) => {
-        return {
-          company: item.Name,
-          event:"IPO",
-          status: item.Status,
-          pricingDate: item.Date,
-          priceRange: item.Price,
-          proceedsRange: item.TotalSharesValue,
-        }
-      }));
 
+    if (response.status === 200 && response.data.dataset !== null) {
+      setIPOPipelineData(
+        response.data.dataset.map((item: any) => {
+          return {
+            company: item.CompanyName,
+            event: "IPO",
+            status: item.Status,
+            pricingDate: item.Date,
+            priceRange: item.Price,
+            proceedsRange: item.TotalSharesValue,
+          };
+        })
+      );
 
       setIsLoading(false);
     } else {
