@@ -17,7 +17,7 @@
   margin-top: 15px;
 }
 .titleStyle {
-  font-family: Barlow;
+  font-family: Open Sans;
   font-style: normal;
   font-weight: 600;
   font-size: 22px;
@@ -29,7 +29,7 @@
   color: #d2ecf9;
 }
 .textStyle {
-  font-family: Barlow;
+  font-family: Open Sans;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -45,7 +45,7 @@
   height: 56px;
   background-color: #263c6f;
   color: #ffffff;
-  font-family: "Barlow";
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -54,7 +54,7 @@
   letter-spacing: 0.01em;
 }
 .checkBoxStyle {
-  font-family: Barlow;
+  font-family: Open Sans;
   font-style: normal;
   font-weight: 500;
   font-size: 11px;

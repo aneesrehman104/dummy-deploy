@@ -15,70 +15,47 @@ function TableTitle() {
 }
 function HomeIpoTable() {
   const [isLoading, setIsLoading] = useState(true);
-  const [iPOPipelineData, setIPOPipelineData] = useState([
-    {
-      company: "Activision",
-      event: "IPO",
-      status: "Announced",
-      pricingDate: "Jan 2 ‘22",
-      priceRange: "$21/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "BBC",
-      event: "SPAC",
-      status: "Closed",
-      pricingDate: "Jun 2 ‘22",
-      priceRange: "$34/share2",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "CNN",
-      event: "Merger",
-      status: "Announced",
-      pricingDate: "May 2 ‘22",
-      priceRange: "$74/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "Fair Foods",
-      event: "IPO",
-      status: "Closed",
-      pricingDate: "Sept 2 ‘22",
-      priceRange: "$12/share2",
-      proceedsRange: "$150M - $175M",
-    },
-  ]);
+  const [iPOPipelineData, setIPOPipelineData] = useState([])
 
   const headerArray = [
     {
-      name: "Company",
-      key: "company",
+      name: "Company Name",
+      key: "companyName",
       type: "string",
     },
     {
-      name: "Event",
-      key: "event",
+      name: "Ticker",
+      key: "companySymbol",
+      type: "string",
+    },
+    {
+      name: "IPO Type",
+      key: "ipoType",
       type: "string",
     },
     {
       name: "Status",
-      key: "status",
+      key: "ipoStatus",
       type: "string",
     },
     {
-      name: "Est. Pricing Date",
-      key: "pricingDate",
+      name: "Exchange",
+      key: "exchange",
       type: "string",
     },
     {
-      name: "Price/range",
-      key: "priceRange",
+      name: "Date or Exp. Date",
+      key: "expectedIpoDate",
       type: "string",
     },
     {
-      name: "Proceeds/range",
-      key: "proceedsRange",
+      name: "Price",
+      key: "ipoPrice",
+      type: "string",
+    },
+    {
+      name: "Offer Size (M) ",
+      key: "ipoOfferingSize",
       type: "string",
     },
   ];

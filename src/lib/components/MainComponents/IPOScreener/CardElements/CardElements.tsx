@@ -26,6 +26,7 @@ import {
   InputLabel,
   Button,
   MenuItem,
+  Divider,
 } from "@mui/material";
 import ListItemText from "@mui/material/ListItemText";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -76,17 +77,17 @@ function CardElements() {
       },
     },
   });
-  const style = {
+  const styleBox = {
     position: "absolute" as "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "60%",
     bgcolor: "background.paper",
-    border: "2px solid #000",
+    border: "2px solid grey",
     boxShadow: 24,
-    p: 1,
-    paddingLeft: "30px",
+    borderRadius: "15px",
+    p: 3,
   };
   const tabValues: { [key: number]: string } = {
     0: "pre_deal",
@@ -142,7 +143,7 @@ function CardElements() {
   ]);
 
   const [filterArray, setFilterArray] = useState<{
-    IPOYEAR?: any[] ;
+    IPOYEAR?: any[];
     IPOType?: any[];
     IPOStatus?: any[];
   }>({});
@@ -187,7 +188,6 @@ function CardElements() {
     setFilerCount(0);
   };
   const applyFilters = () => {
-
     let count = 0;
 
     setFilerCount(count);
@@ -332,7 +332,7 @@ function CardElements() {
                       alt="searchIcon"
                       width={18}
                       height={18}
-                      style={{cursor:'pointer'}}
+                      style={{ cursor: "pointer" }}
                     />
                   </InputAdornment>
                 ),
@@ -379,7 +379,7 @@ function CardElements() {
                   width={50}
                   height={26}
                   onClick={() => {
-                    router.push('/plans');
+                    router.push("/plans");
                   }}
                 />
               )}
@@ -429,16 +429,21 @@ function CardElements() {
         aria-describedby="keep-mounted-modal-description"
       >
         <>
-          <Box sx={style}>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Image
-                src={crossIconSvg}
-                alt="filterSvg"
-                width={18}
-                height={18}
-                onClick={clearAll}
-              />
+          <Box sx={styleBox}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className={styles.tableTitle}>Filter</div>
+              <div>
+                {" "}
+                <Image
+                  src={crossIconSvg}
+                  alt="filterSvg"
+                  width={18}
+                  height={18}
+                  onClick={clearAll}
+                />
+              </div>
             </div>
+            <Divider style={{ marginTop: 5, marginBottom: 5 }} />
             {selectedTab === 0 ? (
               <div
                 style={{
@@ -490,7 +495,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                         disabled={!user?.member?.stripeCustomerId && item.pro}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -562,7 +567,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                         disabled={!user?.member?.stripeCustomerId && item.pro}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -639,7 +644,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                         disabled={!user?.member?.stripeCustomerId && item.pro}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -711,7 +716,7 @@ function CardElements() {
                       <MenuItem
                         key={item.key}
                         value={item.key}
-                         disabled={!user?.member?.stripeCustomerId && item.pro}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
                       >
                         <Checkbox
                           checked={
@@ -738,19 +743,21 @@ function CardElements() {
                 </FormControl>
               </div>
             )}
+            <Divider style={{ marginTop: 20, marginBottom: 10 }} />
+
             <div
               style={{
-                marginLeft: 15,
+                // marginLeft: 15,
                 width: 200,
                 display: "flex",
-                justifyContent: "space-evenly",
+                justifyContent:'space-between'
               }}
             >
-              <Button variant="text" color="error" onClick={clearAll}>
+              <Button variant="contained" color="error" onClick={clearAll}>
                 Clear
               </Button>
 
-              <Button variant="text" color="success" onClick={applyFilters}>
+              <Button variant="contained" color="success" onClick={applyFilters}>
                 Apply
               </Button>
             </div>
@@ -765,16 +772,21 @@ function CardElements() {
         aria-describedby="keep-mounted-modal-description"
       >
         <>
-          <Box sx={style}>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Image
-                src={crossIconSvg}
-                alt="filterSvg"
-                width={18}
-                height={18}
-                onClick={() => setOpenColumnModal(false)}
-              />
+          <Box sx={styleBox}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className={styles.tableTitle}>SELECT COLUMNS</div>
+              <div>
+                {" "}
+                <Image
+                  src={crossIconSvg}
+                  alt="filterSvg"
+                  width={18}
+                  height={18}
+                  onClick={() => setOpenColumnModal(false)}
+                />
+              </div>
             </div>
+            <Divider style={{ marginTop: 5, marginBottom: 5 }} />
             {selectedTab === 0 ? (
               <div
                 style={{
@@ -827,7 +839,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                           disabled={!user?.member?.stripeCustomerId && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -892,7 +904,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                           disabled={!user?.member?.stripeCustomerId && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -949,7 +961,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                           disabled={!user?.member?.stripeCustomerId && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1006,7 +1018,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                           disabled={!user?.member?.stripeCustomerId && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1080,7 +1092,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                           disabled={!user?.member?.stripeCustomerId && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1145,7 +1157,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                           disabled={!user?.member?.stripeCustomerId && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1202,7 +1214,7 @@ function CardElements() {
                         <MenuItem
                           key={item.key}
                           value={item.key}
-                           disabled={!user?.member?.stripeCustomerId && item.pro}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
                         >
                           <Checkbox
                             checked={personName.some(
@@ -1254,16 +1266,22 @@ function CardElements() {
         aria-describedby="keep-mounted-modal-description"
       >
         <>
-          <Box sx={style}>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Image
-                src={crossIconSvg}
-                alt="filterSvg"
-                width={18}
-                height={18}
-                onClick={() => setOpenModalSavedScreen(false)}
-              />
+          <Box sx={styleBox}>
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className={styles.tableTitle}>Saved Screens</div>
+              <div>
+                {" "}
+                <Image
+                  src={crossIconSvg}
+                  alt="filterSvg"
+                  width={18}
+                  height={18}
+                  onClick={() => setOpenModalSavedScreen(false)}
+                />
+              </div>
             </div>
+            <Divider style={{ marginTop: 5, marginBottom: 5 }} />
             <div
               style={{
                 width: "100%",
@@ -1303,9 +1321,12 @@ function CardElements() {
         aria-describedby="keep-mounted-modal-description"
       >
         <>
-          <Box sx={style}>
+          <Box sx={styleBox}>
             <>
-              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className={styles.tableTitle}>Saved Screens</div>
+              <div>
+                {" "}
                 <Image
                   src={crossIconSvg}
                   alt="filterSvg"
@@ -1314,7 +1335,8 @@ function CardElements() {
                   onClick={() => setOpenModalCheckScreen(false)}
                 />
               </div>
-              <div>Saved Screens</div>
+            </div>
+            <Divider style={{ marginTop: 5, marginBottom: 5 }} />
               {userType === "free" ? (
                 <div
                   style={{
