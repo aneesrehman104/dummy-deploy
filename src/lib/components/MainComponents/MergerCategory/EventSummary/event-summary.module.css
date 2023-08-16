@@ -50,7 +50,7 @@
   width: 37px;
   height: 19px;
   font-size: 16px;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .parent {
   width: 37px;
@@ -74,7 +74,7 @@
   width: 52px;
   height: 19px;
   font-size: 16px;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .group {
   width: 52px;
@@ -98,7 +98,7 @@
   width: 77px;
   height: 19px;
   font-size: 16px;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .container,
 .frameGroup {
@@ -143,7 +143,7 @@
   justify-content: flex-start;
   gap: 1px;
   font-size: 16px;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .chartcontainer,
 .frameParent,
@@ -180,7 +180,7 @@
   text-transform: uppercase;
   font-weight: 500;
   font-size: 18px;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 .chartcontainer,
 .sectionsummarycontainer {
@@ -196,7 +196,7 @@
   padding: 13px 0;
   gap: 10px;
   font-size: 24px;
-  font-family: "Barlow Condensed";
+  font-family: "Open Sans";
 }
 .sectionsummarycontainer {
   padding: 0 35px;
@@ -204,7 +204,7 @@
   text-align: left;
   font-size: 16px;
   color: #000;
-  font-family: Barlow;
+  font-family: Open Sans;
 }
 @media screen and (max-width: 900px) {
   .sectionsummarycontainer {

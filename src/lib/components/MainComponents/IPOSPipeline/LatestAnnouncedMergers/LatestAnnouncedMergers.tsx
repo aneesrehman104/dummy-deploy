@@ -1,12 +1,50 @@
 import React, { Fragment, useEffect } from "react";
 import styles from "./LatestAnnouncedMergers.module.css";
 import { useState } from "react";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+const itemsPerPage = 5;
+const headerArray = [
+  {
+    name: "Company Name",
+    key: "companyName",
+    type: "string",
+  },
+  {
+    name: "Ticker",
+    key: "companySymbol",
+    type: "string",
+  },
+  {
+    name: "IPO Type",
+    key: "ipoType",
+    type: "string",
+  },
+  {
+    name: "Pricing Date",
+    key: "expectedIpoDate",
+    type: "string",
+  },
+  {
+    name: "Price",
+    key: "expectedIpoPrice",
+    type: "string",
+  },
+  {
+    name: "Offer Size (M)",
+    key: "ipoOfferingSize",
+    type: "string",
+  },
+  // {
+  //   name: "Return from IPO",
+  //   key: "returnFromIpo",
+  //   type: "string",
+  // },
+];
 
 function LatestAnnouncedMergers() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,66 +54,29 @@ function LatestAnnouncedMergers() {
       dataset: [],
       additional_dataset: { totalLength: 20 },
     });
-  const [itemsPerPage] = useState(5);
-
-  const getLatestAnnouncedMergersData = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=latest`
-    );
-    if (response.status === 200 && response.data !== null) {
-      setLatestAnnouncedMergersData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const getLatestAnnouncedMergersData = async () => {
+      setIsLoading(true);
+      const response = await getODataWithParams(URLs.ipoOdata, {
+        skip: (currentPage - 1) * itemsPerPage,
+        top: itemsPerPage,
+      });
+      console.log(response.data);
+      if (response.status === 200 && response.data !== null) {
+        setLatestAnnouncedMergersData(response.data);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
+
     getLatestAnnouncedMergersData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-  const headerArray = [
-    {
-      name: "Company Name",
-      key: "companyName",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "ticker",
-      type: "string",
-    },
-    {
-      name: "IPO Type",
-      key: "ipoType",
-      type: "string",
-    },
-    {
-      name: "Pricing Date",
-      key: "ipoDate",
-      type: "string",
-    },
-    {
-      name: "Price",
-      key: "latestPrice",
-      type: "string",
-    },
-    {
-      name: "Offer Size (M)",
-      key: "offeringSize",
-      type: "string",
-    },
-    {
-      name: "Return from IPO",
-      key: "returnFromIpo",
-      type: "string",
-    },
-  ];
 
   return (
     <section className={styles.stockstablesection}>
@@ -87,7 +88,7 @@ function LatestAnnouncedMergers() {
           ) : (
             latestAnnouncedMergersData && (
               <ListingTrackTable
-                data={latestAnnouncedMergersData?.dataset}
+                data={latestAnnouncedMergersData}
                 headerArray={headerArray}
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}

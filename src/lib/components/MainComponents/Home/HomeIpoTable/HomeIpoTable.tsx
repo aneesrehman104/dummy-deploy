@@ -1,11 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import styles from "./HomeIpoTable.module.css";
 import { homeConstants } from "@/lib/ts/constants";
-import {
-  getApiWithoutAuth,
-  getGetApiWithParams,
-  getODataWithParams,
-} from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -19,106 +15,67 @@ function TableTitle() {
 }
 function HomeIpoTable() {
   const [isLoading, setIsLoading] = useState(true);
-  const [iPOPipelineData, setIPOPipelineData] = useState([
-    {
-      company: "Activision",
-      event: "IPO",
-      status: "Announced",
-      pricingDate: "Jan 2 ‘22",
-      priceRange: "$21/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "BBC",
-      event: "SPAC",
-      status: "Closed",
-      pricingDate: "Jun 2 ‘22",
-      priceRange: "$34/share2",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "CNN",
-      event: "Merger",
-      status: "Announced",
-      pricingDate: "May 2 ‘22",
-      priceRange: "$74/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "Fair Foods",
-      event: "IPO",
-      status: "Closed",
-      pricingDate: "Sept 2 ‘22",
-      priceRange: "$12/share2",
-      proceedsRange: "$150M - $175M",
-    },
-  ]);
+  const [iPOPipelineData, setIPOPipelineData] = useState([]);
 
   const headerArray = [
     {
-      name: "Company",
-      key: "company",
+      name: "Company Name",
+      key: "companyName",
       type: "string",
     },
     {
-      name: "Event",
-      key: "event",
+      name: "Ticker",
+      key: "companySymbol",
+      type: "string",
+    },
+    {
+      name: "IPO Type",
+      key: "ipoType",
       type: "string",
     },
     {
       name: "Status",
-      key: "status",
+      key: "ipoStatus",
       type: "string",
     },
     {
-      name: "Est. Pricing Date",
-      key: "pricingDate",
+      name: "Exchange",
+      key: "exchange",
       type: "string",
     },
     {
-      name: "Price/range",
-      key: "priceRange",
+      name: "Date or Exp. Date",
+      key: "expectedIpoDate",
       type: "string",
     },
     {
-      name: "Proceeds/range",
-      key: "proceedsRange",
+      name: "Price",
+      key: "expectedIpoPrice",
+      type: "string",
+    },
+    {
+      name: "Offer Size (M) ",
+      key: "ipoOfferingSize",
       type: "string",
     },
   ];
 
-  const getIPOPipelineData = async () => {
-    setIsLoading(true);
-    //const response = await getApiWithoutAuth(URLs.iposPipeline);
-    //TODO: @Abhinav - Need to create a query object definition
-    const response = await getODataWithParams(URLs.iposPipeline, {
-      top: 4,
-      filter: "CompanyName eq 'Company A'",
-      //select: ["id", "name"],
-      orderby: [{ field: "companyName", direction: "asc" }],
-    });
-
-    if (response.status === 200 && response.data.dataset !== null) {
-      setIPOPipelineData(
-        response.data.dataset.map((item: any) => {
-          return {
-            company: item.CompanyName,
-            event: "IPO",
-            status: item.Status,
-            pricingDate: item.Date,
-            priceRange: item.Price,
-            proceedsRange: item.TotalSharesValue,
-          };
-        })
-      );
-
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getIPOPipelineData = async () => {
+      setIsLoading(true);
+      const response = await getODataWithParams(URLs.ipoOdata, {
+        top: 5,
+        orderby: [{ field: "companyName", direction: "desc" }],
+      });
+      console.log(response);
+      if (response.status === 200 && response.data !== null) {
+        setIPOPipelineData(response.data);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
+
     getIPOPipelineData();
   }, []);
 
