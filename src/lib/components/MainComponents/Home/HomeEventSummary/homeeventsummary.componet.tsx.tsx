@@ -6,6 +6,8 @@ import Skeleton from "@mui/material/Skeleton";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
+interface PROPS {}
+
 const DynamicChart = dynamic(
   () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
   {
@@ -13,8 +15,7 @@ const DynamicChart = dynamic(
     loading: () => <Skeleton variant="rounded" height={200} />,
   }
 );
-
-function EventSummary() {
+const HomeEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [graphData, setGraphData] = useState<GraphDataInterface>({
     additional_dataset: {},
@@ -89,7 +90,9 @@ function EventSummary() {
       },
     ],
   };
-  const getStatsData = async () => {
+
+  useEffect(() => {
+      const getStatsData = async () => {
     const response = await getApiWithoutAuth(URLs.spacGraph);
     if (response.status === 200 && response.data !== null) {
       setGraphData(response.data);
@@ -97,9 +100,9 @@ function EventSummary() {
       setIsLoading(false);
     } else {
       setIsLoading(false);
+
     }
   };
-  useEffect(() => {
     getStatsData();
   }, []);
 
@@ -107,7 +110,7 @@ function EventSummary() {
     <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>2023 SPACs Stats</div>
+          <div className={styles.ytdEventSummary}>2023 Spacs Stats</div>
           <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
         </div>
       </div>
@@ -148,6 +151,6 @@ function EventSummary() {
       </div>
     </section>
   );
-}
+};
 
-export default EventSummary;
+export default HomeEventSummary;

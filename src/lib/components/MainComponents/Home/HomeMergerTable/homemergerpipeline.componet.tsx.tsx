@@ -7,16 +7,14 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+import { headerArrayHomeMergerTable } from "./constants";
+interface PROPS {}
 
-function HomeMergerTableTitle() {
-  return (
-    <div className={styles.tableTitle}>
-      {homeConstants.MergersPipeline.title}
-    </div>
-  );
-}
+const HomeMergerTableTitle = () => (
+  <div className={styles.tableTitle}>{homeConstants.MergersPipeline.title}</div>
+);
 
-function HomeMergerTable() {
+const HomeMergerTable: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [mergerPipelineData, setMergerPipelineData] = useState([
     {
@@ -52,80 +50,10 @@ function HomeMergerTable() {
       proceedsRange: "$150M - $175M",
     },
   ]);
-  const data = [
-    {
-      company: "Activision",
-      event: "IPO",
-      status: "Announced",
-      pricingDate: "Jan 2 ‘22",
-      priceRange: "$21/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "BBC",
-      event: "SPAC",
-      status: "Closed",
-      pricingDate: "Jun 2 ‘22",
-      priceRange: "$34/share2",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "CNN",
-      event: "Merger",
-      status: "Announced",
-      pricingDate: "May 2 ‘22",
-      priceRange: "$74/share",
-      proceedsRange: "$150M - $175M",
-    },
-    {
-      company: "Fair Foods",
-      event: "IPO",
-      status: "Closed",
-      pricingDate: "Sept 2 ‘22",
-      priceRange: "$12/share2",
-      proceedsRange: "$150M - $175M",
-    },
-  ];
-  const headerArray = [
-    {
-      name: "Target",
-      key: "Target",
-      type: "string",
-    },
-    {
-      name: "Acquirer",
-      key: "Acquirer",
-      type: "string",
-    },
-    {
-      name: "Status",
-      key: "Status",
-      type: "string",
-    },
-    {
-      name: "Type",
-      key: "Type",
-      type: "string",
-    },
-    {
-      name: "Announced Date",
-      key: "AnnouncedDate",
-      type: "string",
-    },
-    {
-      name: "Valuation",
-      key: "Valuation",
-      type: "string",
-    },
-    {
-      name: "View Deal Page",
-      key: "ViewDealPage",
-      type: "string",
-    },
-    
-  ];
+
   const getIPOPipelineData = async () => {
     setIsLoading(true);
+
     const response = await getApiWithoutAuth("ipo");
     if (response.status === 200 && response.data !== null) {
       setMergerPipelineData(response.data);
@@ -144,15 +72,18 @@ function HomeMergerTable() {
       <HomeMergerTableTitle />
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
-        {isLoading ? (
+          {isLoading ? (
             <SkeltonTable />
           ) : (
-          <ListingTrackTable data={mergerPipelineData} headerArray={headerArray} />
+            <ListingTrackTable
+              data={mergerPipelineData}
+              headerArray={headerArrayHomeMergerTable}
+            />
           )}
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default HomeMergerTable;

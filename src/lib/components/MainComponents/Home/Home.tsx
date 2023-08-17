@@ -1,10 +1,10 @@
 import styles from "./dashboard-header.module.css";
 import React from "react";
-import EventSummary from "./EventSummary/EventSummary";
-import HomeIpoTable from "./HomeIpoTable/HomeIpoTable";
-import HomeMergerTable from "./HomeMergerTable/HomeMergerTable";
-import AggrecatedMiniTable from "./AggrecatedMiniTable/AggrecatedMiniTable";
-import MiniTableList from "./MiniTableList/MiniTableList";
+import HomeEventSummary from "./HomeEventSummary/homeeventsummary.componet.tsx"
+import HomeIpoTable from "./HomeIpoTable/homeipotable.component";
+import HomeMergerTable from "./HomeMergerTable/homemergerpipeline.componet.tsx";
+import AggrecatedMiniTable from "./AggrecatedMiniTable/aggrecatedminitable.component";
+import MiniTableList from "./MiniTableList/minitablelist.component";
 import { homeConstants } from "@/lib/ts/constants";
 const Home = () => {
   return (
@@ -15,7 +15,7 @@ const Home = () => {
         </div>
       </header>
       <section>
-        <EventSummary />
+        <HomeEventSummary />
         <HomeIpoTable />
         <HomeMergerTable />
         <AggrecatedMiniTable />

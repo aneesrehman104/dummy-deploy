@@ -4,9 +4,9 @@ import Image from "next/image";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import Skeleton from "@mui/material/Skeleton";
-
-function MiniTableList() {
-  const [isLoading, setIsLoading] = useState(true);
+interface PROPS {}
+const MiniTableList: React.FC<PROPS> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [releasesnewsData, setReleasesNewsData] = useState<any>({
     dataset: [
       {
@@ -32,18 +32,17 @@ function MiniTableList() {
     ],
   });
 
-  const getNews = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.spacNews}?type=press`);
-    if (response.status === 200 && response.data !== null) {
-      setReleasesNewsData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getNews = async () => {
+      setIsLoading(true);
+      const response = await getApiWithoutAuth(`${URLs.spacNews}?type=press`);
+      if (response.status === 200 && response.data !== null) {
+        setReleasesNewsData(response.data);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
     getNews();
   }, []);
   return (
@@ -102,6 +101,6 @@ function MiniTableList() {
       </div>
     </section>
   );
-}
+};
 
 export default MiniTableList;

@@ -3,7 +3,8 @@ import styles from "../dashboard-header.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { homeConstants } from "@/lib/ts/constants";
-function AggrecatedMiniTable() {
+interface PROPS {}
+const AggrecatedMiniTable: React.FC<PROPS> = () => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -209,6 +210,6 @@ function AggrecatedMiniTable() {
       </div>
     </section>
   );
-}
+};
 
 export default AggrecatedMiniTable;

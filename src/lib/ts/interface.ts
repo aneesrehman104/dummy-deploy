@@ -93,3 +93,15 @@ export interface PipelineInterface {
   currentPage?: any;
   paginate?: any;
 }
+
+
+export interface IpoPipelineInterface {
+  companyName: string;
+  companySymbol: string;
+  ipoType: string;
+  ipoStatus: string;
+  exchange: string;
+  expectedIpoDate: string;
+  expectedIpoPrice: string;
+  ipoOfferingSize: string;
+}
