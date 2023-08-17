@@ -1,6 +1,6 @@
 "use client";
 import RootLayout from "./layout";
-import NewsLetters from "@/lib/components/MainComponents/NewsLetters/NewsLetters";
+import NewsLetters from "@/lib/components/MainComponents/NewsLetters/newsletters.component";
 const PlansPage = () => {
   return (
     <RootLayout>

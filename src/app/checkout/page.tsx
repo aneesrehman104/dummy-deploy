@@ -1,6 +1,6 @@
 "use client";
 import RootLayout from "./layout";
-import Checkout from "@/lib/components/MainComponents/Checkout/Checkout";
+import Checkout from "@/lib/components/MainComponents/Checkout/checkout.component";
 const PlansPage = () => {
   return (
     <RootLayout>

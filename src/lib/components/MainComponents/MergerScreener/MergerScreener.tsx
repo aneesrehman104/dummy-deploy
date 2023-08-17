@@ -1,6 +1,6 @@
 import styles from "./MergerScreener.module.css";
 import React from "react";
-import CardElements from "./CardElements/CardElements";
+import CardElements from "./CardElements/cardelements.component";
 const MergerScreener = () => {
   return (
     <main>

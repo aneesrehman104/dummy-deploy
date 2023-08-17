@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import CardElements from "./CardElements/CardElements";
 import IPOsGainer from "../IPOSHub/Gainer/ipohubgainer.component";
 import IPOsLoser from "../IPOSHub/Losers/ipohubloser.component";
-import MergersGainer from "../MergerHub/Gainer/Gainer";
-import MergersLoser from "../MergerHub/Losers/Losers";
-import SpacsTrending from "../Spacs/Trading/Trading";
+import MergersGainer from "../MergerHub/Gainer/gainer.component";
+import MergersLoser from "../MergerHub/Losers/losers.component";
+import SpacsTrending from "../Spacs/Trading/trading.component";
 import IPOsNews from "../IOPS/News/iponews.component"
-import MergerNews from '../MergerHub/News/News'
-import SpacsNews from '../Spacs/News/News'
+import MergerNews from '../MergerHub/News/news.component'
+import SpacsNews from '../Spacs/News/news.component'
 import IPOsPressReleases from "../IOPS/PressReleases/ipopressreleases.component"
-import MergerPressReleases from '../MergerNews/PressReleases/PressReleases'
-import SpacsPressReleases from '../SpacsNews/PressReleases/PressReleases'
+import MergerPressReleases from '../MergerNews/PressReleases/pressreleases.component'
+import SpacsPressReleases from '../SpacsNews/PressReleases/pressreleases.component'
 const WatchList = () => {
   const [selectedTab, setSelectedTab] = useState<number>(1);
   return (

@@ -1,2 +1,2 @@
-import SpacsList from "./SpacsList";
+import SpacsList from "./spacslist.component";
 export default SpacsList;

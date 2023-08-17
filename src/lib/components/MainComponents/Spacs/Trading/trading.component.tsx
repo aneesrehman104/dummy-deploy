@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import styles from "./trading.module.css";
 import { useState } from "react";
-import Gainer from "../Gainer/Gainer";
-import Losers from "../Losers/Losers";
+import Gainer from "../Gainer/gainer.component";
+import Losers from "../Losers/losers.component";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
   interface PROPS {}

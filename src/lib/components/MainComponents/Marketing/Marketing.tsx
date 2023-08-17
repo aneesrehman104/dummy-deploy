@@ -1,11 +1,11 @@
 import React from "react";
 import UnauthenticatedNavBar from "../../CommonComponents/UnauthenticatedNavBar/UnauthenticatedNavBar";
-import TrackingOnePlace from "./TrackingOnePlace/TrackingOnePlace";
-import PowerOfPro from "./PowerOfPro/PowerOfPro";
-import Plans from "../Plans/Plans";
-import Creators from "./Creators/Creators";
-import GetFreeUpdates from "./GetFreeUpdates/GetFreeUpdates";
-import MarketingFooter from "./MarketingFooter/MarketingFooter";
+import TrackingOnePlace from "./TrackingOnePlace/trackingoneplace.component";
+import PowerOfPro from "./PowerOfPro/powerofpro.component";
+import Plans from "../Plans/plans.component";
+import Creators from "./Creators/creators.component";
+import GetFreeUpdates from "./GetFreeUpdates/getfreeupdates.component";
+import MarketingFooter from "./MarketingFooter/marketingfooter.component";
 const Marketing = () => {
   return (
     <main>

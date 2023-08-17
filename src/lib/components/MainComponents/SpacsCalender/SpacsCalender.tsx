@@ -1,7 +1,7 @@
 import styles from "./SpacsCalender.module.css";
 import React from "react";
-import SpacsEventCalender from "./SpacEventCalendar/SpacEventCalendar"
-import SpacsIpoCalendar from "./SpacsIpoCalendar/SpacsIpoCalendar";
+import SpacsEventCalender from "./SpacEventCalendar/spaceventcalendar.component"
+import SpacsIpoCalendar from "./SpacsIpoCalendar/spacsIpocalendar.component";
 const SpacsCalender = () => {
   return (
     <main>

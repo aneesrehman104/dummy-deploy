@@ -1,6 +1,6 @@
 import styles from "./spacscreeners.module.css";
 import React from "react";
-import CardElements from "./CardElements/CardElements";
+import CardElements from "./CardElements/cardelements.component";
 const SpacsScreener = () => {
   return (
     <main>

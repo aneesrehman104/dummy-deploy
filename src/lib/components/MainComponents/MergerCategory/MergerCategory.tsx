@@ -1,11 +1,11 @@
 import styles from "./MergerCategory.module.css";
 import React from "react";
-import EventSummary from "./EventSummary/EventSummary";
-import Gainer from "./Gainer/Gainer";
-import Losers from "./Losers/Losers";
-import Announced from "./Announced/Announced";
-import Closed from "./Closed/Closed";
-import News from "./News/News";
+import EventSummary from "./EventSummary/eventsummarymerger.component";
+import Gainer from "./Gainer/gainer.component";
+import Losers from "./Losers/losers.component";
+import Announced from "./Announced/announced.component";
+import Closed from "./Closed/closed.component";
+import News from "./News/news.component";
 const MergerCategory = () => {
   return (
     <main>

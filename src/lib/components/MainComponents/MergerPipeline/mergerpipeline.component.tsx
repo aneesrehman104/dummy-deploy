@@ -1,9 +1,9 @@
 import styles from "./MergerPipeline.module.css";
 import React from "react";
-import GrapevineGraveyard from "./GrapevineGraveyard/GrapevineGraveyard";
-import LatestAnnouncedMergers from "./LatestAnnouncedMergers/LatestAnnouncedMergers";
-import LatestClosedMergers from "./LatestClosedMergers/LatestClosedMergers";
-import MergerCalendar from "./MergerCalendar/MergerCalendar";
+import GrapevineGraveyard from "./GrapevineGraveyard/grapevinegraveyard.component";
+import LatestAnnouncedMergers from "./LatestAnnouncedMergers/latestannouncedmergers.component";
+import LatestClosedMergers from "./LatestClosedMergers/latestclosedmergers.component";
+import MergerCalendar from "./MergerCalendar/mergercalendar.component";
 const MergerPipeline = () => {
   return (
     <main>
