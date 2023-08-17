@@ -2,15 +2,7 @@ import React from "react";
 import styles from "./secFilling.module.css";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-
-interface PROPS {
-  isLoading: boolean;
-  title: string;
-  dataArray: any;
-  isFilling: boolean;
-}
-
-const ListingTrackSECFilling: React.FC<PROPS> = ({
+const ListingTrackSECFilling = ({
   isLoading,
   title,
   dataArray,

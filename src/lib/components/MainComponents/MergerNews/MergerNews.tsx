@@ -1,6 +1,6 @@
 import styles from "./MergerNews.module.css";
 import React from "react";
-import News from "./News/News";
+import News from "./News/news.components";
 import CurrentUpdateFeed from "./CurrentUpdateFeed/CurrentUpdateFeed";
 import TwitterFeed from "./TwitterFeed/TwitterFeed";
 import PressReleases from "./PressReleases/PressReleases";

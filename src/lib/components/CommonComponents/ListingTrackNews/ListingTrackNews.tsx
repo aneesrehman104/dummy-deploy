@@ -3,7 +3,7 @@ import styles from "./news.module.css";
 import Image from "next/image";
 
 import Skeleton from "@mui/material/Skeleton";
-const ListingTrackNews: React.FC = ({ isLoading, dataArray }: any) => {
+const ListingTrackNews = ({ isLoading, dataArray }: any) => {
   return (
     <div
       style={{

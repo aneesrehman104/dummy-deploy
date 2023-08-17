@@ -3,9 +3,9 @@ import styles from "./news.module.css";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackNews } from "@/lib/components/CommonComponents";
-  interface PROPS {}
+interface PROPS {}
 
-  const nEWS: React.FC<PROPS> = () => {
+const News = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [newsData, setNewsData] = useState<any>({
     dataset: [
@@ -22,7 +22,7 @@ import { ListingTrackNews } from "@/lib/components/CommonComponents";
   const getNews = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(`${URLs.mergerNews}?type=all`);
-    if (response.status === 200 && response.data !==null) {
+    if (response.status === 200 && response.data !== null) {
       setNewsData(response.data);
       setIsLoading(false);
     } else {
@@ -39,6 +39,6 @@ import { ListingTrackNews } from "@/lib/components/CommonComponents";
       <ListingTrackNews isLoading={isLoading} dataArray={newsData?.dataset} />
     </section>
   );
-}
+};
 
 export default News;
