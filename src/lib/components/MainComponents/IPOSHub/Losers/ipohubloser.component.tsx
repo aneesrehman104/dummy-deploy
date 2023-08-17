@@ -7,11 +7,17 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+import {
+  headerArrayDaily,
+  headerArrayWeekly,
+  headerArraysinceIpo,
+} from "./constants";
+interface PROPS {}
 
-function Losers() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+const IpoHubLoser: React.FC<PROPS> = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [iPOSTradingLosersData, setIPOSTradingLosersData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
@@ -52,104 +58,6 @@ function Losers() {
     setCurrentPage(1);
   };
 
-  const headerArrayDaily = [
-    {
-      name: "Company",
-      key: "company",
-      type: "string",
-    },
-    {
-      name: "Symbol",
-      key: "symbol",
-      type: "string",
-    },
-    {
-      name: "Last 30D",
-      key: "last30D",
-      type: "graph",
-    },
-    {
-      name: "Price",
-      key: "price",
-      type: "string",
-    },
-    {
-      name: "Daily",
-      key: "daily",
-      type: "loser",
-    },
-    {
-      name: "Vol",
-      key: "volume",
-      type: "string",
-    },
-  ];
-
-  const headerArrayWeekly = [
-    {
-      name: "Company",
-      key: "company",
-      type: "string",
-    },
-    {
-      name: "Symbol",
-      key: "symbol",
-      type: "string",
-    },
-    {
-      name: "Last 30D",
-      key: "last30D",
-      type: "graph",
-    },
-    {
-      name: "Price",
-      key: "price",
-      type: "string",
-    },
-    {
-      name: "Weekly",
-      key: "weekly",
-      type: "loser",
-    },
-    {
-      name: "Vol",
-      key: "volume",
-      type: "string",
-    },
-  ];
-
-  const headerArraysinceIpo = [
-    {
-      name: "Company",
-      key: "company",
-      type: "string",
-    },
-    {
-      name: "Symbol",
-      key: "symbol",
-      type: "string",
-    },
-    {
-      name: "Last 30D",
-      key: "last30D",
-      type: "graph",
-    },
-    {
-      name: "Price",
-      key: "price",
-      type: "string",
-    },
-    {
-      name: "Since IPO",
-      key: "sinceIPO",
-      type: "loser",
-    },
-    {
-      name: "Vol",
-      key: "volume",
-      type: "string",
-    },
-  ];
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Past Year IPO Loserss</div>
@@ -193,6 +101,6 @@ function Losers() {
       </div>
     </section>
   );
-}
+};
 
-export default Losers;
+export default IpoHubLoser;

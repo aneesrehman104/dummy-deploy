@@ -1,9 +1,9 @@
 import styles from "./IPOSPipeline.module.css";
 import React from "react";
-import GrapevineGraveyard from "./GrapevineGraveyard/GrapevineGraveyard";
-import LatestAnnouncedMergers from "./LatestAnnouncedMergers/LatestAnnouncedMergers";
-import LatestClosedMergers from "./LatestClosedMergers/LatestClosedMergers";
-import IposFilling from "./IposFilling/IposFilling"
+import GrapevineGraveyard from "./GrapevineGraveyard/grapevinegraveyard.component";
+import LatestAnnouncedIpo from "./LatestAnnouncedIpo/latestannounced.components";
+import LatestClosedIpo from "./LatestClosedIpo/latestclosedipo";
+import IposFilling from "./IposFilling/iposfilling.component"
 const IPOSPipeline = () => {
   return (
     <main>
@@ -13,8 +13,8 @@ const IPOSPipeline = () => {
         </div>
       </header>
       <section>
-      <LatestAnnouncedMergers/>
-      <LatestClosedMergers/>
+      <LatestAnnouncedIpo/>
+      <LatestClosedIpo/>
       <GrapevineGraveyard/>
       <IposFilling/>
       </section>

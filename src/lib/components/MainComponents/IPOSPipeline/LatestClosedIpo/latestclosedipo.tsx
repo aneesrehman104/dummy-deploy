@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./LatestClosedMergers.module.css";
+import styles from "./LatestClosedIpo.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
@@ -7,46 +7,13 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-import { AxiosResponse } from "axios";
-
+import {headerArray} from './constants'
 const tabValues: { [key: number]: string } = {
   0: "thisWeek",
   1: "nextWeek",
   2: "afterNextWeek",
 };
 
-const headerArray = [
-  {
-    name: "Company Name",
-    key: "companyName",
-    type: "string",
-  },
-  {
-    name: "Ticker",
-    key: "companySymbol",
-    type: "string",
-  },
-  {
-    name: "Exchange",
-    key: "exchange",
-    type: "string",
-  },
-  {
-    name: "Est. Pricing Date",
-    key: "expectedIpoDate",
-    type: "string",
-  },
-  {
-    name: "Price Range",
-    key: "expectedIpoPrice",
-    type: "string",
-  },
-  {
-    name: "Offer Size (M)",
-    key: "ipoOfferingSize",
-    type: "string",
-  },
-];
 
 function getStartAndEndOfWeek(): { startOfWeek: string; endOfWeek: string } {
   const today = new Date();
@@ -91,19 +58,21 @@ function addDaysToDate(dateStr: string, days: number): string {
     .padStart(2, "0")}/${newDate.getDate().toString().padStart(2, "0")}`;
   return formattedNewDate;
 }
+interface PROPS {}
 
-function LatestClosedMergers() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [LatestClosedMergersData, setLatestClosedMergersData] = useState<any>({
+const LatestClosedIpo: React.FC<PROPS> = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  
+  const [LatestClosedIpoData, setLatestClosedIpoData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
   const [itemsPerPage] = useState(5);
   
   useEffect(() => {
-    const getLatestClosedMergersData = async () => {
+    const getLatestClosedIpoData = async () => {
       setIsLoading(true);
       // Get the start and end of the current week
       const { startOfWeek, endOfWeek } = getStartAndEndOfWeek();
@@ -116,7 +85,7 @@ function LatestClosedMergers() {
       });
 
       if (response.status === 200 && response.data !== null) {
-        setLatestClosedMergersData({
+        setLatestClosedIpoData({
           dataset: response.data,
           additional_dataset: { totalLength: 10 },
         });
@@ -126,7 +95,7 @@ function LatestClosedMergers() {
       }
     };
 
-    getLatestClosedMergersData();
+    getLatestClosedIpoData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 
@@ -165,14 +134,14 @@ function LatestClosedMergers() {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            LatestClosedMergersData && (
+            LatestClosedIpoData && (
               <ListingTrackTable
-                data={LatestClosedMergersData.dataset}
+                data={LatestClosedIpoData.dataset}
                 headerArray={headerArray}
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 paginate={paginate}
-                totalLength={LatestClosedMergersData.additional_dataset}
+                totalLength={LatestClosedIpoData.additional_dataset}
                 showPagination
               />
             )
@@ -183,4 +152,4 @@ function LatestClosedMergers() {
   );
 }
 
-export default LatestClosedMergers;
+export default LatestClosedIpo;

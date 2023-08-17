@@ -1,9 +1,9 @@
 import styles from "./IPOSStats.module.css";
 import React from "react";
-import EventSummary from "./EventSummary/EventSummary";
-import MergerMarketStats from "./MergerMarketStats/MergerMarketStats";
+import EventSummary from "./EventSummary/ipostatseventsummary.component";
+import IpoMarketStats from "./IpoMarketStats/ipomarketstats.component";
 import ReturnsByTargetIndustry from "./ReturnsByTargetIndustry/ReturnsByTargetIndustry";
-import ReturnsByClosingYearVintage from "./ReturnsByClosingYearVintage/ReturnsByClosingYearVintage";
+import ReturnsByClosingYearVintage from "./ReturnsByClosingYearVintage/returnsbyclosingyearvintage.component";
 const IPOSStats = () => {
   return (
     <main>
@@ -14,7 +14,7 @@ const IPOSStats = () => {
       </header>
       <section>
         <EventSummary />
-        <MergerMarketStats />
+        <IpoMarketStats />
         {/* <ReturnsByTargetIndustry /> */}
         <ReturnsByClosingYearVintage />
       </section>

@@ -4,7 +4,9 @@ import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-function MergerMarketStats() {
+interface PROPS {}
+
+const IpoHubMarketStats: React.FC<PROPS> = () => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -12,20 +14,21 @@ function MergerMarketStats() {
       },
     },
   });
-  const [isLoading, setIsLoading] = useState(true);
-  const [mergerStatsData, setMergerStatsData] = useState();
-  const getMergerStatsData = async () => {
-    const response = await getApiWithoutAuth(URLs.mergerStats);
-    if (response.status === 200 && response.data !== null) {
-      setMergerStatsData(response.data);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [ipoHubStatsData, setIpoHubStatsData] = useState();
 
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
-    getMergerStatsData();
+    const getIpoHubStatsData = async () => {
+      const response = await getApiWithoutAuth(URLs.mergerStats);
+      if (response.status === 200 && response.data !== null) {
+        setIpoHubStatsData(response.data);
+
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
+    getIpoHubStatsData();
   }, []);
   const dataArray = [
     {
@@ -152,6 +155,6 @@ function MergerMarketStats() {
       </div>
     </section>
   );
-}
+};
 
-export default MergerMarketStats;
+export default IpoHubMarketStats;

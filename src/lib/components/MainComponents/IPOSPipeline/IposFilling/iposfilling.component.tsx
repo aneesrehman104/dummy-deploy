@@ -7,11 +7,17 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+import {
+  headerArrayLatestFilings,
+  headerArrayLatestAmendedFilings,
+  headerArrayWithdrawn,
+} from "./constants";
+interface PROPS {}
 
-function IposFilling() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+const IposFilling: React.FC<PROPS> = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [IposFillingData, setIposFillingData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
@@ -22,20 +28,20 @@ function IposFilling() {
     1: "amended",
     2: "withdrawn",
   };
-  const getIposFillingData = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-    );
-    if (response.status === 200 && response.data !== null) {
-      setIposFillingData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const getIposFillingData = async () => {
+      setIsLoading(true);
+      const response = await getApiWithoutAuth(
+        `${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
+      );
+      if (response.status === 200 && response.data !== null) {
+        setIposFillingData(response.data);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
     getIposFillingData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
@@ -54,103 +60,6 @@ function IposFilling() {
     setCurrentPage(1);
   };
 
-  const headerArrayLatestFilings = [
-    {
-      name: "Company Name",
-      key: "companyName",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "ticker",
-      type: "string",
-    },
-    {
-      name: "Exchange",
-      key: "exchange",
-      type: "string",
-    },
-    {
-      name: "Filing Date",
-      key: "initialFilingDate",
-      type: "string",
-    },
-    {
-      name: "Proposed Price",
-      key: "proposedPriceRange",
-      type: "string",
-    },
-    {
-      name: "Offer Size (M)",
-      key: "offeringSize",
-      type: "string",
-    },
-  ];
-
-  const headerArrayLatestAmendedFilings = [
-    {
-      name: "Company Name",
-      key: "companyName",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "ticker",
-      type: "string",
-    },
-    {
-      name: "Exchange",
-      key: "exchange",
-      type: "string",
-    },
-    {
-      name: "Amended Filing Date",
-      key: "amendedFilingDate",
-      type: "string",
-    },
-    {
-      name: "Proposed Price",
-      key: "proposedPriceRange",
-      type: "string",
-    },
-    {
-      name: "Offer Size (M)",
-      key: "offeringSize",
-      type: "string",
-    },
-  ];
-  const headerArrayWithdrawn = [
-    {
-      name: "Company Name",
-      key: "companyName",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "ticker",
-      type: "string",
-    },
-    {
-      name: "Exchange",
-      key: "exchange",
-      type: "string",
-    },
-    {
-      name: "Withdrawn Date",
-      key: "withdrawDate",
-      type: "string",
-    },
-    {
-      name: "Withdrawn Proposed Price",
-      key: "withdrawPriceRange",
-      type: "string",
-    },
-    {
-      name: "Withdrawn Offer Size (M)",
-      key: "offeringSize",
-      type: "string",
-    },
-  ];
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>IPO Filings</div>
@@ -194,6 +103,6 @@ function IposFilling() {
       </div>
     </section>
   );
-}
+};
 
 export default IposFilling;

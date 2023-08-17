@@ -1,9 +1,11 @@
 import React from "react";
-import styles from "./MergerMarketStats.module.css";
+import styles from "./ipomarketstats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { homeConstants } from "@/lib/ts/constants";
-function MergerMarketStats() {
+interface PROPS {}
+
+const IpoMarketStats: React.FC<PROPS> = () => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -136,6 +138,6 @@ function MergerMarketStats() {
       </div>
     </section>
   );
-}
+};
 
-export default MergerMarketStats;
+export default IpoMarketStats;

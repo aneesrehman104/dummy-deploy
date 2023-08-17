@@ -6,13 +6,17 @@ import Skeleton from "@mui/material/Skeleton";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
-const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/ListingTrackGraph"), {
-  ssr: false,
-  loading: () => <Skeleton variant="rounded" height={200} />,
-});
+const DynamicChart = dynamic(
+  () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
+  {
+    ssr: false,
+    loading: () => <Skeleton variant="rounded" height={200} />,
+  }
+);
+interface PROPS {}
 
-function EventSummary() {
-  const [isLoading, setIsLoading] = useState(true);
+const IpoStatsEventSummary: React.FC<PROPS> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [graphData, setGraphData] = useState<GraphDataInterface>({
     additional_dataset: {},
     dataset: [],
@@ -86,17 +90,18 @@ function EventSummary() {
       },
     ],
   };
-  const getStatsData = async () => {
-    const response = await getApiWithoutAuth(URLs.spacGraph);
-    if (response.status === 200 && response.data !== null) {
-      setGraphData(response.data);
 
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
+    const getStatsData = async () => {
+      const response = await getApiWithoutAuth(URLs.spacGraph);
+      if (response.status === 200 && response.data !== null) {
+        setGraphData(response.data);
+
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
     getStatsData();
   }, []);
 
@@ -105,7 +110,13 @@ function EventSummary() {
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
           <div className={styles.ytdEventSummary}>2023 SPACs Stats</div>
-          <Image src="/vector2.svg" alt="/vector2" width={12} height={12} style={{cursor:'pointer'}} />
+          <Image
+            src="/vector2.svg"
+            alt="/vector2"
+            width={12}
+            height={12}
+            style={{ cursor: "pointer" }}
+          />
         </div>
       </div>
       <div className={styles.chartcontainer}>
@@ -145,6 +156,6 @@ function EventSummary() {
       </div>
     </section>
   );
-}
+};
 
-export default EventSummary;
+export default IpoStatsEventSummary;

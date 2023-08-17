@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import styles from "./CurrentUpdateFeed.module.css";
+import styles from "./TwitterFeed.module.css";
 import Image from "next/image";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import Skeleton from "@mui/material/Skeleton";
-function CurrentUpdateFeed() {
-  const [isLoading, setIsLoading] = useState(true);
+interface PROPS {}
+
+const TwitterFeed: React.FC<PROPS> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [newsData, setNewsData] = useState<any>({
     dataset: [
       {
@@ -33,7 +35,7 @@ function CurrentUpdateFeed() {
 
   const getNews = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=update`);
+    const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=twitter`);
     if (response.status === 200 && response.data !== null) {
       setNewsData(response.data);
       setIsLoading(false);
@@ -50,7 +52,7 @@ function CurrentUpdateFeed() {
     <section className={styles.headlineslistcontainer}>
       <div className={styles.table}>
         <div className={styles.aggregatedMiniTables}>
-          ListingTrack Curated Updates Feed
+          ListingTrack Twitter Feed
         </div>
         <div className={styles.sectionlistnewscontainerParent}>
           <div className={styles.sectionlistnewscontainer}>
@@ -80,6 +82,9 @@ function CurrentUpdateFeed() {
                             <div className={styles.headlineCallOut}>
                               {item.news}
                             </div>
+                            <div className={styles.siteName}>
+                              {item.sitename}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -103,4 +108,4 @@ function CurrentUpdateFeed() {
   );
 }
 
-export default CurrentUpdateFeed;
+export default TwitterFeed;

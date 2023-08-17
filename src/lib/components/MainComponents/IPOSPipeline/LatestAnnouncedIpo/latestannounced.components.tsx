@@ -7,50 +7,14 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+import {headerArray} from './constants'
 const itemsPerPage = 5;
-const headerArray = [
-  {
-    name: "Company Name",
-    key: "companyName",
-    type: "string",
-  },
-  {
-    name: "Ticker",
-    key: "companySymbol",
-    type: "string",
-  },
-  {
-    name: "IPO Type",
-    key: "ipoType",
-    type: "string",
-  },
-  {
-    name: "Pricing Date",
-    key: "expectedIpoDate",
-    type: "string",
-  },
-  {
-    name: "Price",
-    key: "expectedIpoPrice",
-    type: "string",
-  },
-  {
-    name: "Offer Size (M)",
-    key: "ipoOfferingSize",
-    type: "string",
-  },
-  // {
-  //   name: "Return from IPO",
-  //   key: "returnFromIpo",
-  //   type: "string",
-  // },
-];
+
 
 interface PROPS {}
-
 const LatestAnnouncedMergers: React.FC<PROPS> = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [latestAnnouncedMergersData, setLatestAnnouncedMergersData] =
     useState<any>({
       dataset: [],

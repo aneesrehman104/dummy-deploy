@@ -6,33 +6,37 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+interface PROPS {}
 
-function Gainer() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+const IpoHubGainer: React.FC<PROPS> = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [iPOSTradingGainerData, setIPOSTradingGainerData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
   const [itemsPerPage] = useState(5);
 
-  const getIPOSTradingGainerData = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.iposGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
-        selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
-      }&gainOrLoser=gain`
-    );
-    if (response.status === 200 && response.data !== null) {
-      setIPOSTradingGainerData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getIPOSTradingGainerData = async () => {
+      setIsLoading(true);
+      const response = await getApiWithoutAuth(
+        `${URLs.iposGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
+          selectedTab === 0
+            ? "daily"
+            : selectedTab === 1
+            ? "weekly"
+            : "sinceIPO"
+        }&gainOrLoser=gain`
+      );
+      if (response.status === 200 && response.data !== null) {
+        setIPOSTradingGainerData(response.data);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
     getIPOSTradingGainerData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
@@ -117,7 +121,6 @@ function Gainer() {
     },
   ];
 
-
   const headerArraysinceIpo = [
     {
       name: "Company",
@@ -175,7 +178,11 @@ function Gainer() {
               <ListingTrackTable
                 data={iPOSTradingGainerData?.dataset}
                 headerArray={
-                  selectedTab === 0 ? headerArrayDaily : selectedTab === 1 ? headerArrayWeekly : headerArraysinceIpo
+                  selectedTab === 0
+                    ? headerArrayDaily
+                    : selectedTab === 1
+                    ? headerArrayWeekly
+                    : headerArraysinceIpo
                 }
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
@@ -189,6 +196,6 @@ function Gainer() {
       </div>
     </section>
   );
-}
+};
 
-export default Gainer;
+export default IpoHubGainer;

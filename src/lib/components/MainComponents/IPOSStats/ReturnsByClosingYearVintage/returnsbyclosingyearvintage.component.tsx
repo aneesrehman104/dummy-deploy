@@ -6,13 +6,17 @@ import Skeleton from "@mui/material/Skeleton";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
-const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/ListingTrackGraph"), {
-  ssr: false,
-  loading: () => <Skeleton variant="rounded" height={200} />,
-});
+const DynamicChart = dynamic(
+  () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
+  {
+    ssr: false,
+    loading: () => <Skeleton variant="rounded" height={200} />,
+  }
+);
+interface PROPS {}
 
-function ReturnsByClosingYearVintage() {
-  const [isLoading, setIsLoading] = useState(true);
+const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [graphData, setGraphData] = useState<GraphDataInterface>({
     additional_dataset: {},
     dataset: [],
@@ -85,17 +89,18 @@ function ReturnsByClosingYearVintage() {
       },
     ],
   };
-  const getStatsData = async () => {
-    const response = await getApiWithoutAuth(URLs.spacsReturns);
-    if (response.status === 200 && response.data !== null) {
-      setGraphData(response.data);
 
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
+    const getStatsData = async () => {
+      const response = await getApiWithoutAuth(URLs.spacsReturns);
+      if (response.status === 200 && response.data !== null) {
+        setGraphData(response.data);
+
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
     getStatsData();
   }, []);
 
@@ -103,7 +108,9 @@ function ReturnsByClosingYearVintage() {
     <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>Returns by Industry (2023 IPOs)</div>
+          <div className={styles.ytdEventSummary}>
+            Returns by Industry (2023 IPOs)
+          </div>
         </div>
       </div>
       <div className={styles.chartcontainer}>

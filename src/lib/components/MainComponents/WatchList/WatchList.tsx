@@ -1,8 +1,8 @@
 import styles from "./WatchList.module.css";
 import React, { useState } from "react";
 import CardElements from "./CardElements/CardElements";
-import IPOsGainer from "../IPOSHub/Gainer/Gainer";
-import IPOsLoser from "../IPOSHub/Losers/Losers";
+import IPOsGainer from "../IPOSHub/Gainer/ipohubgainer.component";
+import IPOsLoser from "../IPOSHub/Losers/ipohubloser.component";
 import MergersGainer from "../MergerHub/Gainer/Gainer";
 import MergersLoser from "../MergerHub/Losers/Losers";
 import SpacsTrending from "../Spacs/Trading/Trading";
