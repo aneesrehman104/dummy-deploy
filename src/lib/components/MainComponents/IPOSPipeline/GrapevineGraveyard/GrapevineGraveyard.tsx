@@ -1,12 +1,116 @@
 import React, { Fragment, useEffect } from "react";
 import styles from "./GrapevineGraveyard.module.css";
 import { useState } from "react";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+
+const Mapper = {
+  "rumor": "Rumored",
+  "stalledIPO": "Stalled",
+  "wishlistIPO": "Wishlist"
+}
+
+const headerArrayRumoredIPOs = [
+  {
+    name: "Company Name",
+    key: "companyName",
+    type: "string",
+  },
+  {
+    name: "Rumored Date",
+    key: "ipoRumoredDate",
+    type: "string",
+  },
+  {
+    name: "Rumored Market Cap (M)",
+    key: "ipoRumoredMarketCap",
+    type: "string",
+  },
+  {
+    name: "Rumored IPO Offering Size (M)",
+    key: "ipoRumoredOfferingSize",
+    type: "string",
+  },
+  {
+    name: "Rumor Source",
+    key: "rumoredPublication",
+    type: "string",
+  },
+  {
+    name: "Rumor Link",
+    key: "rumoredSourceLink",
+    type: "string",
+  },
+];
+
+const headerArrayStalledIPOs = [
+  {
+    name: "Company Name",
+    key: "companyName",
+    type: "string",
+  },
+  {
+    name: "IPO Stalled Status",
+    key: "ipoStatus",
+    type: "string",
+  },
+  {
+    name: "Stalled Date",
+    key: "ipoStallDate",
+    type: "string",
+  },
+  {
+    name: "Offering Size (M)",
+    key: "ipoOfferingSize",
+    type: "string",
+  },
+  {
+    name: "Proposed Price Range",
+    key: "expectedIpoPrice",
+    type: "string",
+  },
+  {
+    name: "Proposed Market Cap (M)",
+    key: "expectedIpoMarketCap",
+    type: "string",
+  },
+];
+const headerArrayWishlistIPOs = [
+  {
+    name: "Company Name",
+    key: "companyName",
+    type: "string",
+  },
+  {
+    name: "Wishlist Rank",
+    key: "wishlistRank",
+    type: "string",
+  },
+  {
+    name: "Industry",
+    key: "industry",
+    type: "string",
+  },
+  {
+    name: "Last Private Valuation (M)",
+    key: "lastPrivateValuation",
+    type: "string",
+  },
+  {
+    name: "Last Raise Date",
+    key: "lastRaiseDate",
+    type: "string",
+  },
+  {
+    name: "Last Private Raise (M)",
+    key: "lastPrivateRaise",
+    type: "string",
+  },
+];
 
 function GrapevineGraveyard() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,18 +121,20 @@ function GrapevineGraveyard() {
     additional_dataset: { totalLength: 20 },
   });
   const [itemsPerPage] = useState(5);
-  const tabValues: { [key: number]: string } = {
+  const tabValues: { [key: number]: "rumor" | "stalledIPO" | "wishlistIPO" } = {
     0: "rumor",
     1: "stalledIPO",
     2: "wishlistIPO",
   };
   const getGrapevineGraveyardData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-    );
+    const response = await getODataWithParams(URLs.ipoOdata, {
+      skip: (currentPage - 1) * itemsPerPage,
+      top: itemsPerPage,
+      filter: `ipoStatus eq '${Mapper[tabValues[selectedTab]]}'`,
+    });
     if (response.status === 200 && response.data !== null) {
-      setGrapevineGraveyardData(response.data);
+      setGrapevineGraveyardData({dataset: response.data, additional_dataset: { totalLength: 10 }});
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -54,103 +160,6 @@ function GrapevineGraveyard() {
     setCurrentPage(1);
   };
 
-  const headerArrayRumoredIPOs = [
-    {
-      name: "Company Name",
-      key: "companyName",
-      type: "string",
-    },
-    {
-      name: "Rumored Date",
-      key: "rumorDate",
-      type: "string",
-    },
-    {
-      name: "Rumored Market Cap (M)",
-      key: "rumorMarketCap",
-      type: "string",
-    },
-    {
-      name: "Rumored IPO Offering Size (M)",
-      key: "rumorOfferingSize",
-      type: "string",
-    },
-    {
-      name: "Rumor Source",
-      key: "rumorPublication",
-      type: "string",
-    },
-    {
-      name: "Rumor Link",
-      key: "rumorSourceLink",
-      type: "string",
-    },
-  ];
-
-  const headerArrayStalledIPOs = [
-    {
-      name: "Company Name",
-      key: "companyName",
-      type: "string",
-    },
-    {
-      name: "IPO Stalled Status",
-      key: "ipoStatus",
-      type: "string",
-    },
-    {
-      name: "Stalled Date",
-      key: "stalledDate",
-      type: "string",
-    },
-    {
-      name: "Offering Size (M)",
-      key: "offeringSize",
-      type: "string",
-    },
-    {
-      name: "Proposed Price Range",
-      key: "proposedPriceRange",
-      type: "string",
-    },
-    {
-      name: "Proposed Market Cap (M)",
-      key: "expMarketCap",
-      type: "string",
-    },
-  ];
-  const headerArrayWishlistIPOs = [
-    {
-      name: "Company Name",
-      key: "companyName",
-      type: "string",
-    },
-    {
-      name: "Wishlist Rank",
-      key: "wishlistRank",
-      type: "string",
-    },
-    {
-      name: "Industry",
-      key: "industry",
-      type: "string",
-    },
-    {
-      name: "Last Private Valuation (M)",
-      key: "lastPrivateValuation",
-      type: "string",
-    },
-    {
-      name: "Last Raise Date",
-      key: "lastRaiseDate",
-      type: "string",
-    },
-    {
-      name: "Last Private Raise (M)",
-      key: "lastPrivateRaise",
-      type: "string",
-    },
-  ];
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>IPO Grapevine</div>

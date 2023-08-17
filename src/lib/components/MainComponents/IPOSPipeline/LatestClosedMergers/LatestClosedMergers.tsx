@@ -77,6 +77,7 @@ function getStartAndEndOfWeek(): { startOfWeek: string; endOfWeek: string } {
 }
 
 function addDaysToDate(dateStr: string, days: number): string {
+  if (days === 0) return dateStr;
   const parts = dateStr.split("/");
   const year = parseInt(parts[0], 10);
   const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed in JavaScript
@@ -101,7 +102,7 @@ function LatestClosedMergers() {
     additional_dataset: { totalLength: 20 },
   });
   const [itemsPerPage] = useState(5);
-  
+
   useEffect(() => {
     const getLatestClosedMergersData = async () => {
       setIsLoading(true);
@@ -112,7 +113,7 @@ function LatestClosedMergers() {
         // ?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
         skip: (currentPage - 1) * itemsPerPage,
         top: itemsPerPage,
-        filter: "expectedIpoDate gt " + startOfWeek + " and expectedIpoDate lt " + endOfWeek,
+        filter: `expectedIpoDate ge '${addDaysToDate(startOfWeek, selectedTab * 7)}' and expectedIpoDate le '${addDaysToDate(endOfWeek, selectedTab * 7)}'`
       });
 
       if (response.status === 200 && response.data !== null) {
