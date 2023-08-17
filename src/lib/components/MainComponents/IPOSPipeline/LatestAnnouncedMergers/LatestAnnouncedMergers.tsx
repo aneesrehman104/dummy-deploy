@@ -46,7 +46,9 @@ const headerArray = [
   // },
 ];
 
-function LatestAnnouncedMergers() {
+interface PROPS {}
+
+const LatestAnnouncedMergers: React.FC<PROPS> = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [latestAnnouncedMergersData, setLatestAnnouncedMergersData] =
@@ -54,7 +56,7 @@ function LatestAnnouncedMergers() {
       dataset: [],
       additional_dataset: { totalLength: 20 },
     });
-
+    
   useEffect(() => {
     const getLatestAnnouncedMergersData = async () => {
       setIsLoading(true);
@@ -64,7 +66,10 @@ function LatestAnnouncedMergers() {
       });
       console.log(response.data);
       if (response.status === 200 && response.data !== null) {
-        setLatestAnnouncedMergersData(response.data);
+        setLatestAnnouncedMergersData({
+          dataset: response.data,
+          additional_dataset: { totalLength: 10 },
+        });
         setIsLoading(false);
       } else {
         setIsLoading(false);
@@ -88,7 +93,7 @@ function LatestAnnouncedMergers() {
           ) : (
             latestAnnouncedMergersData && (
               <ListingTrackTable
-                data={latestAnnouncedMergersData}
+                data={latestAnnouncedMergersData.dataset}
                 headerArray={headerArray}
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
@@ -102,6 +107,6 @@ function LatestAnnouncedMergers() {
       </div>
     </section>
   );
-}
+};
 
 export default LatestAnnouncedMergers;
