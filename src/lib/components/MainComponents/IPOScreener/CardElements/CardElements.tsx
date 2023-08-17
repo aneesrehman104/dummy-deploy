@@ -50,8 +50,10 @@ import {
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { IPOYearsOptions, IPOTypeOptions, IPOStatusOptions } from "./constants";
+interface PROPS {}
 
-function CardElements() {
+const IpoScreener: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
   const router = useRouter();
 
@@ -93,22 +95,24 @@ function CardElements() {
     0: "pre_deal",
     1: "pre_deal",
   };
-  const [isLoading, setIsLoading] = useState(true);
-  const [openFilterModal, setOpenFilterModal] = useState(false);
-  const [openColumnModal, setOpenColumnModal] = useState(false);
-  const [openModalSavedScreen, setOpenModalSavedScreen] = useState(false);
-  const [openModalCheckScreen, setOpenModalCheckScreen] = useState(false);
-  const [name, setName] = useState("");
-  const [userType, setUserType] = useState("free");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
+  const [openColumnModal, setOpenColumnModal] = useState<boolean>(false);
+  const [openModalSavedScreen, setOpenModalSavedScreen] =
+    useState<boolean>(false);
+  const [openModalCheckScreen, setOpenModalCheckScreen] =
+    useState<boolean>(false);
+  const [name, setName] = useState<string>("");
+  const [userType, setUserType] = useState<string>("free");
 
   const [screenerData, setScreenerData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [filterCount, setFilerCount] = useState(0);
-  const [itemsPerPage, setItemPerPage] = useState(5);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [filterCount, setFilerCount] = useState<number>(0);
+  const [itemsPerPage, setItemPerPage] = useState<number>(5);
   const tabData = [
     {
       name: "Priced IPOs",
@@ -272,27 +276,6 @@ function CardElements() {
 
     setFilterArray(updatedFilterArray);
   };
-
-  const IPOYearsOptions = [
-    { key: "2023", name: "2023", pro: false },
-    { key: "2022", name: "2022", pro: false },
-    { key: "2021", name: "2021", pro: false },
-    { key: "2020", name: "2020", pro: true },
-    { key: "2019", name: "2019", pro: true },
-  ];
-
-  const IPOTypeOptions = [
-    { key: "Traditional", name: "Traditional", pro: true },
-    { key: "SPAC", name: "SPAC", pro: true },
-    { key: "Direct Listing", name: "Direct Listing", pro: true },
-  ];
-
-  const IPOStatusOptions = [
-    { key: "Expected", name: "Expected", pro: false },
-    { key: "Filed", name: "Filed", pro: false },
-    { key: "Withdrawn", name: "Withdrawn", pro: false },
-    { key: "Filed Amended", name: "Filed Amended", pro: true },
-  ];
 
   return (
     <section className={styles.stockstablesection}>
@@ -750,14 +733,18 @@ function CardElements() {
                 // marginLeft: 15,
                 width: 200,
                 display: "flex",
-                justifyContent:'space-between'
+                justifyContent: "space-between",
               }}
             >
               <Button variant="contained" color="error" onClick={clearAll}>
                 Clear
               </Button>
 
-              <Button variant="contained" color="success" onClick={applyFilters}>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={applyFilters}
+              >
                 Apply
               </Button>
             </div>
@@ -1267,7 +1254,6 @@ function CardElements() {
       >
         <>
           <Box sx={styleBox}>
-
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div className={styles.tableTitle}>Saved Screens</div>
               <div>
@@ -1324,19 +1310,19 @@ function CardElements() {
           <Box sx={styleBox}>
             <>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div className={styles.tableTitle}>Saved Screens</div>
-              <div>
-                {" "}
-                <Image
-                  src={crossIconSvg}
-                  alt="filterSvg"
-                  width={18}
-                  height={18}
-                  onClick={() => setOpenModalCheckScreen(false)}
-                />
+                <div className={styles.tableTitle}>Saved Screens</div>
+                <div>
+                  {" "}
+                  <Image
+                    src={crossIconSvg}
+                    alt="filterSvg"
+                    width={18}
+                    height={18}
+                    onClick={() => setOpenModalCheckScreen(false)}
+                  />
+                </div>
               </div>
-            </div>
-            <Divider style={{ marginTop: 5, marginBottom: 5 }} />
+              <Divider style={{ marginTop: 5, marginBottom: 5 }} />
               {userType === "free" ? (
                 <div
                   style={{
@@ -1616,6 +1602,6 @@ function CardElements() {
       </Modal>
     </section>
   );
-}
+};
 
-export default CardElements;
+export default IpoScreener;

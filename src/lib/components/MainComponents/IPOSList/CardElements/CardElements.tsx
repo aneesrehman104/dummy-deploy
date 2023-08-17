@@ -30,7 +30,16 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
-function CardElements() {
+import {
+  headerPricedIPOsList,
+  headerUpcomingIPOsList,
+  headerIPOGrapevineList,
+  header20PerformingIPOsList,
+  header20PerformingDeSPACsList,
+} from "./constants";
+interface PROPS {}
+
+const IpoList: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
 
   const style = {
@@ -62,17 +71,17 @@ function CardElements() {
     },
   });
 
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
   const [spacsListData, setSpacsListData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [filterCount, setFilerCount] = useState(0);
+  const [filterCount, setFilerCount] = useState<number>(0);
 
-  const [itemsPerPage, setItemPerPage] = useState(5);
+  const [itemsPerPage, setItemPerPage] = useState<number>(5);
   const [filters, setFilters] = useState({
     IPOYear: null,
     IPOType: null,
@@ -83,229 +92,7 @@ function CardElements() {
     IPOType?: any[];
     IPOStatus?: any[];
   }>({});
-  const headerPricedIPOsList = [
-    {
-      name: "Company Name",
-      key: "Company Name",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "Ticker",
-      type: "string",
-    },
-    {
-      name: "IPO Type",
-      key: "IPOType",
-      type: "string",
-    },
-    {
-      name: "Pricing Date",
-      key: "PricingDate",
-      type: "string",
-    },
-    {
-      name: "Price",
-      key: "Price",
-      type: "string",
-    },
-    {
-      name: "Offer Size (M)",
-      key: "OfferSize",
-      type: "string",
-    },
-    {
-      name: "Return from IPO",
-      key: "ReturnfromIPO",
-      type: "string",
-    },
-  ];
-  const headerUpcomingIPOsList = [
-    {
-      name: "Company Name",
-      key: "Company Name",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "Ticker",
-      type: "string",
-    },
-    {
-      name: "IPO Type",
-      key: "IPOType",
-      type: "string",
-    },
-    {
-      name: "Exchange",
-      key: "Exchange",
-      type: "string",
-    },
-    {
-      name: "Est. Pricing Date",
-      key: "EstPricingDate",
-      type: "string",
-    },
-    {
-      name: "Price Range",
-      key: "PriceRange",
-      type: "string",
-    },
-    {
-      name: "Offer Size (M)",
-      key: "OfferSize",
-      type: "string",
-    },
-  ];
 
-  const headerIPOGrapevineList = [
-    {
-      name: "Company Name",
-      key: "Company Name",
-      type: "string",
-    },
-    {
-      name: "IPO Status",
-      key: "IPOStatus",
-      type: "string",
-    },
-    {
-      name: "Rumored Date",
-      key: "RumoredDate",
-      type: "string",
-    },
-    {
-      name: "Rumored IPO Offering Size (M)",
-      key: "RumoredIPOOfferingSize",
-      type: "string",
-    },
-    {
-      name: "Rumored Source",
-      key: "RumoredSource",
-      type: "string",
-    },
-    {
-      name: "Rumored Link",
-      key: "RumoredLink",
-      type: "string",
-    },
-    {
-      name: "Rumor Inactive Date",
-      key: "RumorInactiveDate",
-      type: "string",
-    },
-    {
-      name: "Rumor Inactive Link",
-      key: "RumorInactiveLink",
-      type: "string",
-    },
-    {
-      name: "Rumor Inactive Source",
-      key: "RumorInactiveSource",
-      type: "string",
-    },
-  ];
-
-  const header20PerformingIPOsList = [
-    {
-      name: "Company Name",
-      key: "Company Name",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "Ticker",
-      type: "string",
-    },
-    {
-      name: "IPO Type",
-      key: "IPOType",
-      type: "string",
-    },
-    {
-      name: "Pricing Date",
-      key: "PricingDate",
-      type: "string",
-    },
-    {
-      name: "Price",
-      key: "Price",
-      type: "string",
-    },
-    {
-      name: "Market Cap at IPO",
-      key: "MarketCapatIPO",
-      type: "string",
-    },
-    {
-      name: "Market Cap",
-      key: "MarketCap",
-      type: "string",
-    },
-    {
-      name: "Rumor Inactive Link",
-      key: "RumorInactiveLink",
-      type: "string",
-    },
-    {
-      name: "Offer Size (M)",
-      key: "OfferSize",
-      type: "string",
-    },
-    {
-      name: "Return from IPO",
-      key: "ReturnfromIPO",
-      type: "string",
-    },
-  ];
-
-  const header20PerformingDeSPACsList = [
-    {
-      name: "Company Name",
-      key: "Company Name",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "Ticker",
-      type: "string",
-    },
-    {
-      name: "De-SPAC Closing Date",
-      key: "DeSPACClosingDate",
-      type: "string",
-    },
-    {
-      name: "Price",
-      key: "Price",
-      type: "string",
-    },
-    {
-      name: "Price % Chg.",
-      key: "PriceChg",
-      type: "string",
-    },
-    {
-      name: "Valuation at Deal",
-      key: "ValuationatDeal",
-      type: "string",
-    },
-    {
-      name: "Market Cap",
-      key: "MarketCap",
-      type: "string",
-    },
-    {
-      name: "Return from IPO (SPAC IPO)",
-      key: "ReturnfromIPO",
-      type: "string",
-    },
-    {
-      name: "View Deal Page",
-      key: "ViewDealPage",
-      type: "string",
-    },
-  ];
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
@@ -1004,6 +791,6 @@ function CardElements() {
       </Modal>
     </section>
   );
-}
+};
 
-export default CardElements;
+export default IpoList;
