@@ -3,8 +3,10 @@ import styles from "./PressReleases.module.css";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
-function PressReleases() {
-  const [isLoading, setIsLoading] = useState(true);
+  interface PROPS {}
+
+  const PressReleases: React.FC<PROPS> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [releasesnewsData, setReleasesNewsData] = useState<any>({
     dataset: [
       {
@@ -29,7 +31,7 @@ function PressReleases() {
       },
     ],
   });
-  const [isLoadingSec, setIsLoadingSec] = useState(true);
+  const [isLoadingSec, setIsLoadingSec] = useState<boolean>(true);
   const [secnewsData, setSecNewsData] = useState<any>({
     dataset: [
       {

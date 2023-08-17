@@ -13,8 +13,8 @@ const DynamicChart = dynamic(
     loading: () => <Skeleton variant="rounded" height={200} />,
   }
 );
-function EventSummary() {
-  const [isLoading, setIsLoading] = useState(true);
+const EventSummary=()=>{ 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [graphData, setGraphData] = useState<GraphDataInterface>({
     additional_dataset: {},
     dataset: [],

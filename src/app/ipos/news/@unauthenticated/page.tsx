@@ -2,7 +2,7 @@
 import RootLayout from "../../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import IPONews from "@/lib/components/MainComponents/IPONews";
-export default function IposNewsPage() {
+const IposNewsPage = () => {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="ipos/list">
@@ -10,4 +10,5 @@ export default function IposNewsPage() {
       </AuthenticatedNavbar>
     </RootLayout>
   );
-}
+};
+export default IposNewsPage;

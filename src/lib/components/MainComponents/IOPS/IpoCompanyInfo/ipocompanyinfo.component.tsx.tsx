@@ -125,7 +125,7 @@ const MergerHistory = [
   },
 ];
 const CompanyInfo: React.FC<PROPS> = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
 
   return (
     <>

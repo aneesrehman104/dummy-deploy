@@ -8,16 +8,18 @@ import {
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
 
-function LatestAnnouncedMergers() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  interface PROPS {}
+
+  const LatestAnnouncedMergers: React.FC<PROPS> = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [latestAnnouncedMergersData, setLatestAnnouncedMergersData] =
     useState<any>({
       dataset: [],
       additional_dataset: { totalLength: 20 },
     });
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState<number>(5);
 
   const getLatestAnnouncedMergersData = async () => {
     setIsLoading(true);

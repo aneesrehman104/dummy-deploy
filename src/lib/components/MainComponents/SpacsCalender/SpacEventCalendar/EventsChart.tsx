@@ -2,7 +2,8 @@ import React from "react";
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import { EvenetChart } from "@/lib/ts/interface";
-function EventCharts({ data }: EvenetChart) {
+const  EventCharts =({ data }: EvenetChart) =>{
+
   const options = {
     chart: {
       type: "line",

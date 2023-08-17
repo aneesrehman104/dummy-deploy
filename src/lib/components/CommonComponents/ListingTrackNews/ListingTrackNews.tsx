@@ -3,8 +3,7 @@ import styles from "./news.module.css";
 import Image from "next/image";
 
 import Skeleton from "@mui/material/Skeleton";
-
-function ListingTrackNews({ isLoading, dataArray }: any) {
+const ListingTrackNews: React.FC = ({ isLoading, dataArray }: any) => {
   return (
     <div
       style={{
@@ -62,6 +61,6 @@ function ListingTrackNews({ isLoading, dataArray }: any) {
       )}
     </div>
   );
-}
+};
 
 export default ListingTrackNews;

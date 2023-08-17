@@ -6,7 +6,9 @@ import { getApiWithoutAuth } from "@/lib/ts/api";
 import Skeleton from "@mui/material/Skeleton";
 
 import { URLs } from "@/lib/ts/apiUrl";
-function SpacsMarketStats() {
+  interface PROPS {}
+
+  const SpacsMarketStats: React.FC<PROPS> = () => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -15,7 +17,7 @@ function SpacsMarketStats() {
     },
   });
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [statsData, setStatsData] = useState<any>(null);
 
   const getStats = async () => {

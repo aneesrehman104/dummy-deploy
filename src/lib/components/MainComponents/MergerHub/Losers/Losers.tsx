@@ -6,15 +6,17 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-function Losers() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  interface PROPS {}
+
+  const Losers: React.FC<PROPS> = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [mergersLoseData, setMergersLoseData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState<number>(5);
 
   const getMergersTradingLosersData = async () => {
     setIsLoading(true);

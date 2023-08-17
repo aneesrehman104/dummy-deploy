@@ -51,8 +51,10 @@ const dataSet = [
   },
 ];
 
-function Company() {
-  const [selectedTab, setSelectedTab] = useState(1);
+  interface PROPS {}
+
+const Company: React.FC<PROPS> = () => {
+  const [selectedTab, setSelectedTab] = useState<number>(1);
   const options = {
     chartOptions: {
       chart: {

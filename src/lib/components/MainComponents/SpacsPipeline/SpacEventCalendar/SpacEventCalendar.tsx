@@ -13,7 +13,9 @@ const FullCalendarComponet = dynamic(() => import("./FullCalender"), {
   loading: () => <Skeleton variant="rounded" height={200} />,
 });
 
-function SpacEventCalendar() {
+  interface PROPS {}
+
+  const SpacEventCalendar: React.FC<PROPS> = () => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -22,15 +24,15 @@ function SpacEventCalendar() {
     },
   });
 
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [grapevineGraveyardData, setGrapevineGraveyardData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [itemsPerPage] = useState(4);
-  const [isGrid, setIsGrid] = useState(true);
+  const [itemsPerPage] = useState<number>(4);
+  const [isGrid, setIsGrid] = useState<boolean>(true);
 
   const tabData = [
     { label: "Extensions", index: 0 },

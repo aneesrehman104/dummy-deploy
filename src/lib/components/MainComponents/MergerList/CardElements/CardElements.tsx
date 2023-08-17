@@ -30,7 +30,9 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
-function CardElements() {
+  interface PROPS {}
+
+  const CardElements: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
   const style = {
     position: "absolute" as "absolute",
@@ -157,18 +159,18 @@ function CardElements() {
       type: "string",
     },
   ];
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
   const [spacsListData, setSpacsListData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [isUser, setIsUser] = useState(false);
-  const [filterCount, setFilerCount] = useState(0);
+  const [isUser, setIsUser] = useState<boolean>(false);
+  const [filterCount, setFilerCount] = useState<number>(0);
 
-  const [itemsPerPage, setItemPerPage] = useState(5);
+  const [itemsPerPage, setItemPerPage] = useState<number>(5);
   const [filters, setFilters] = useState({
     MergerType: null,
     ClosingYear: null,

@@ -6,15 +6,17 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-function GrapevineGraveyard() {
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  interface PROPS {}
+
+  const GrapevineGraveyard: React.FC<PROPS> = () => {
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [grapevineGraveyardData, setGrapevineGraveyardData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState<number>(5);
 
   const tabData = [
     { label: "Rumored Mergers", index: 0 },

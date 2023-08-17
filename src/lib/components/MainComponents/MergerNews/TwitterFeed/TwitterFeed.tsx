@@ -4,9 +4,10 @@ import Image from "next/image";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import Skeleton from "@mui/material/Skeleton";
+interface PROPS {}
 
-function TwitterFeed() {
-  const [isLoading, setIsLoading] = useState(true);
+const TwitterFeed: React.FC<PROPS> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [newsData, setNewsData] = useState<any>({
     dataset: [
       {

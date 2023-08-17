@@ -39,7 +39,9 @@ import {
   DealProfile,
   RumorsTerminations,
 } from "@/lib/ts/constants";
-function CardElements() {
+  interface PROPS {}
+
+  const CardElements: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
   const router = useRouter();
   const CssTextField = styled(TextField)({
@@ -85,16 +87,16 @@ function CardElements() {
     { name: "anees", id: 20 },
     { name: "anees", id: 20 },
   ]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [openFilterModal, setOpenFilterModal] = useState(false);
-  const [openColumnModal, setOpenColumnModal] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
+  const [openColumnModal, setOpenColumnModal] = useState<boolean>(false);
   const [screenerData, setScreenerData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [filterCount, setFilerCount] = useState(0);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [filterCount, setFilerCount] = useState<number>(0);
   const [filters, setFilters] = useState({
     MergerType: null,
     TargetSector: null,
@@ -108,14 +110,14 @@ function CardElements() {
     TargetRegion?: any[];
     ClosingYear?: any[];
   }>({});
-  const [isUser, setIsUser] = useState(false);
-  const [openModalSavedScreen, setOpenModalSavedScreen] = useState(false);
+  const [isUser, setIsUser] = useState<boolean>(false);
+  const [openModalSavedScreen, setOpenModalSavedScreen] = useState<boolean>(false);
 
-  const [openModalCheckScreen, setOpenModalCheckScreen] = useState(false);
-  const [name, setName] = useState("");
-  const [userType, setUserType] = useState("free");
+  const [openModalCheckScreen, setOpenModalCheckScreen] = useState<boolean>(false);
+  const [name, setName] = useState<string>("");
+  const [userType, setUserType] = useState<string>("free");
 
-  const [itemsPerPage, setItemPerPage] = useState(5);
+  const [itemsPerPage, setItemPerPage] = useState<number>(5);
   const tabData = [
     {
       name: "Closed Mergers",

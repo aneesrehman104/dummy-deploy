@@ -2,7 +2,7 @@
 import RootLayout from "../../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import SpacsPipeline from "@/lib/components/MainComponents/SpacsPipeline";
-export default function SpacPipelinePage() {
+const SpacPipelinePage = () => {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="spacs/pipeline">
@@ -10,4 +10,5 @@ export default function SpacPipelinePage() {
       </AuthenticatedNavbar>
     </RootLayout>
   );
-}
+};
+export default SpacPipelinePage;

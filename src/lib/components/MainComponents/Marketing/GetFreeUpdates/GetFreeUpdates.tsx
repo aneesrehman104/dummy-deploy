@@ -11,7 +11,9 @@ import { styled } from "@mui/material/styles";
 import Pic from "../../../../../../public/nonAuthPic.svg";
 import { marketingConstants } from "@/lib/ts/constants";
 import "./GetFreeUpdates.css";
-function GetFreeUpdates() {
+interface PROPS {}
+
+const GetFreeUpdates: React.FC<PROPS> = () => {
   const CssTextField = styled(TextField)({
     width: "278px",
     height: "56px",

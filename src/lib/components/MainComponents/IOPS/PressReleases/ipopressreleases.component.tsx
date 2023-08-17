@@ -5,7 +5,7 @@ import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
 interface PROPS {}
 const PressReleases: React.FC<PROPS> = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [releasesnewsData, setReleasesNewsData] = useState<any>({
     dataset: [
       {
@@ -30,7 +30,7 @@ const PressReleases: React.FC<PROPS> = () => {
       },
     ],
   });
-  const [isLoadingSec, setIsLoadingSec] = useState(true);
+  const [isLoadingSec, setIsLoadingSec] = useState<boolean>(true);
   const [secnewsData, setSecNewsData] = useState<any>({
     dataset: [
       {

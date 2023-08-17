@@ -7,16 +7,17 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+interface PROPS {}
 
-function Closed() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+const Closed: React.FC<PROPS> = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [latestClosedMergersData, setLatestClosedMergersData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState<number>(5);
 
   const getLatestClosedMergersData = async () => {
     setIsLoading(true);

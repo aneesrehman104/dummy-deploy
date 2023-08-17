@@ -22,7 +22,7 @@ const IpoHubLoser: React.FC<PROPS> = () => {
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState<number>(5);
 
   const getIPOSTradingLosersData = async () => {
     setIsLoading(true);

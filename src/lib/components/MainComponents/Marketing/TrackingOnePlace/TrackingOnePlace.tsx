@@ -9,8 +9,9 @@ import Rectangle from "../../../../../../public/Rectangle.svg";
 import "./TrackingOnePlace.css";
 import { useRouter, usePathname } from "next/navigation";
 import { marketingConstants } from "@/lib/ts/constants";
+interface PROPS {}
 
-function TrackingOnePlace() {
+const TrackingOnePlace: React.FC<PROPS> = () => {
   const router = useRouter();
 
   return (

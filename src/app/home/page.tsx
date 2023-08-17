@@ -4,7 +4,7 @@ import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import Home from "@/lib/components/MainComponents/Home";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
-export default function HomePAge() {
+const HomePAge=() =>{
   const { user, memberstack } = useContext(MemberInformationContext);
 
   return (
@@ -15,3 +15,4 @@ export default function HomePAge() {
     </RootLayout>
   );
 }
+export default HomePAge 

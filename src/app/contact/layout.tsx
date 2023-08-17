@@ -4,11 +4,11 @@ import { Inter } from "next/font/google";
 import { MemberstackProvider } from "@memberstack/react";
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({
+const  RootLayout=({
   children,
 }: {
   children: React.ReactElement | React.ReactElement[];
-}) {
+})=> {
   return (
     <html lang="en">
       <title>CONTACT US</title>
@@ -32,3 +32,4 @@ export default function RootLayout({
     </html>
   );
 }
+export default  RootLayout

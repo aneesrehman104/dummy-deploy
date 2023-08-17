@@ -4,8 +4,10 @@ import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackNews } from "@/lib/components/CommonComponents";
 
-function News() {
-  const [isLoading, setIsLoading] = useState(true);
+  interface PROPS {}
+
+  const News: React.FC<PROPS> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [newsData, setNewsData] = useState<any>({
     dataset: [
       {

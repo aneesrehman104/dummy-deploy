@@ -4,8 +4,10 @@ import MyTable from "./functions";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function SpacsEventCalendar() {
-  const [selectedTab, setSelectedTab] = useState(1);
+  interface PROPS {}
+
+  const SpacsEventCalendar: React.FC<PROPS> = () => {
+  const [selectedTab, setSelectedTab] = useState<number>(1);
 
   const theme = createTheme({
     palette: {

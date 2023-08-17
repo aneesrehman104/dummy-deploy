@@ -4,8 +4,9 @@ import { CommonfiButton } from "../../CommonComponents";
 import {  useCheckout } from "@memberstack/react";
 import { useRouter } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+interface PROPS {}
 
-function Plans() {
+const Plans: React.FC<PROPS> = () => {
   const checkout = useCheckout();
   const router = useRouter();
   const handleCheckout = async (id: any) => {

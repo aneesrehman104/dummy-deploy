@@ -6,7 +6,7 @@ import { ListingTrackNews } from "@/lib/components/CommonComponents";
 interface PROPS {}
 
 const News: React.FC<PROPS> = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [newsData, setNewsData] = useState<any>({
     dataset: [
       {

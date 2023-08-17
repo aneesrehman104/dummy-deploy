@@ -7,7 +7,8 @@ import Link from "next/link";
 import { useMemberstackModal, useMemberstack } from "@memberstack/react";
 import { setCookie } from "cookies-next";
 import { useRouter, usePathname } from "next/navigation";
-export default function UnauthenticatedNavBar() {
+interface PROPS {}
+const UnauthenticatedNavBar: React.FC<PROPS> = () => {
   const { openModal, hideModal } = useMemberstackModal();
   const router = useRouter();
   const UnauthenticatedNavBarData = [
@@ -93,4 +94,5 @@ export default function UnauthenticatedNavBar() {
       </div>
     </div>
   );
-}
+};
+export default UnauthenticatedNavBar;

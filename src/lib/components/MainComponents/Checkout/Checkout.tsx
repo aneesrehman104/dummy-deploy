@@ -4,8 +4,9 @@ import { CommonfiButton } from "../../CommonComponents";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import footerLogo from "../../../../../public/footerLogo.svg";
+interface PROPS {}
 
-function Checkout() {
+const Checkout: React.FC<PROPS> = () => {
   const router = useRouter();
 
   return (

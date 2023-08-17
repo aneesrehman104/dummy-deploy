@@ -18,7 +18,10 @@ import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-function ChangeLog() {
+interface PROPS {}
+
+const ChangeLog: React.FC<PROPS> = () => {
+
   const currencies = [
     {
       value: "Morning Brew",
@@ -97,7 +100,7 @@ function ChangeLog() {
       isOpen: false,
     },
   ];
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState<string>("");
   const [logData, setLogData] = useState(ArrayChangeLog);
 
   const handleInputChange = (event: any) => {

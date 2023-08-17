@@ -16,7 +16,9 @@ const FullCalendarComponet = dynamic(() => import("./FullCalender"), {
   loading: () => <Skeleton variant="rounded" height={200} />,
 });
 
-function MergerCalendar() {
+  interface PROPS {}
+
+  const MergerCalendar: React.FC<PROPS> = () => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -25,14 +27,14 @@ function MergerCalendar() {
     },
   });
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [grapevineGraveyardData, setGrapevineGraveyardData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [itemsPerPage] = useState(4);
-  const [isGrid, setIsGrid] = useState(true);
+  const [itemsPerPage] = useState<number>(4);
+  const [isGrid, setIsGrid] = useState<boolean>(true);
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);

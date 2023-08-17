@@ -2,7 +2,7 @@
 import RootLayout from "../../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import SpacsNews from "@/lib/components/MainComponents/SpacsNews";
-export default function SpacsNewsPage() {
+const SpacsNewsPage = () => {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="spacs/news">
@@ -10,4 +10,5 @@ export default function SpacsNewsPage() {
       </AuthenticatedNavbar>
     </RootLayout>
   );
-}
+};
+export default SpacsNewsPage;

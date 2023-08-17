@@ -5,14 +5,15 @@ export const metadata: Metadata = {
   description: 'MERGER SCREENERS',
 }
 
-export default function RootLayout({
+const RootLayout =({
   children,
 }: {
   children: React.ReactNode;
-}) {
+})=> {
   return (
     <html lang="en">
       <body style={{ width: "100%" }}>{children}</body>
     </html>
   );
 }
+export default RootLayout

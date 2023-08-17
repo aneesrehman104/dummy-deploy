@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./PressReleases.module.css";
 import Image from "next/image";
-function PressReleases() {
+  interface PROPS {}
+
+const PressReleases: React.FC<PROPS> = () => {
   return (
     <section className={styles.headlineslistcontainer}>
       <div className={styles.sectionlistnewscontainerParent}>

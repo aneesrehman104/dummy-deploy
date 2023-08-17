@@ -31,7 +31,7 @@ const PressReleases: React.FC<PROPS> = () => {
       },
     ],
   });
-  const [isLoadingSec, setIsLoadingSec] = useState(true);
+  const [isLoadingSec, setIsLoadingSec] = useState<boolean>(true);
   const [secnewsData, setSecNewsData] = useState<any>({
     dataset: [
       {

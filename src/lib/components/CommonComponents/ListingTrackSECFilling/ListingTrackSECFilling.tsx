@@ -3,12 +3,19 @@ import styles from "./secFilling.module.css";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 
-function ListingTrackSECFilling({
+interface PROPS {
+  isLoading: boolean;
+  title: string;
+  dataArray: any;
+  isFilling: boolean;
+}
+
+const ListingTrackSECFilling: React.FC<PROPS> = ({
   isLoading,
   title,
   dataArray,
   isFilling,
-}: any) {
+}: any) => {
   return !isFilling ? (
     <div className={styles.sectionlistnewscontainer}>
       <div className={styles.aggregatedMiniTables}>{title}</div>
@@ -111,6 +118,6 @@ function ListingTrackSECFilling({
       )}
     </div>
   );
-}
+};
 
 export default ListingTrackSECFilling;

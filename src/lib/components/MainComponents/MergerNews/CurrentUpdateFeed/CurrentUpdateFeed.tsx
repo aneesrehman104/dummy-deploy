@@ -5,8 +5,10 @@ import Image from "next/image";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import Skeleton from "@mui/material/Skeleton";
-function CurrentUpdateFeed() {
-  const [isLoading, setIsLoading] = useState(true);
+  interface PROPS {}
+
+  const CurrentUpdateFeed: React.FC<PROPS> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [newsData, setNewsData] = useState<any>({
     dataset: [
       {

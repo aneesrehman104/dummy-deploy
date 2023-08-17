@@ -15,7 +15,7 @@ const HomeMergerTableTitle = () => (
 );
 
 const HomeMergerTable: React.FC<PROPS> = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [mergerPipelineData, setMergerPipelineData] = useState([
     {
       company: "Activision",

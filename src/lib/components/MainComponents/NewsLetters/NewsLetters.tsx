@@ -5,7 +5,10 @@ import Image from "next/image";
 import { display } from "@mui/system";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
-function NewsLetters() {
+interface PROPS {}
+
+const NewsLetters: React.FC<PROPS> = () => {
+
   const NewsLettersArray = [
     {
       headingName: "ListingTrack  Newsletters",

@@ -48,7 +48,9 @@ import {
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
-function CardElements() {
+  interface PROPS {}
+
+  const CardElements: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
   const router = useRouter();
 
@@ -92,21 +94,21 @@ function CardElements() {
     2: "all",
     3: "de_spac",
   };
-  const [isLoading, setIsLoading] = useState(true);
-  const [openModalCheckScreen, setOpenModalCheckScreen] = useState(false);
-  const [userType, setUserType] = useState("free");
-  const [openModalSavedScreen, setOpenModalSavedScreen] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [openModalCheckScreen, setOpenModalCheckScreen] = useState<boolean>(false);
+  const [userType, setUserType] = useState<string>("free");
+  const [openModalSavedScreen, setOpenModalSavedScreen] = useState<boolean>(false);
 
-  const [openFilterModal, setOpenFilterModal] = useState(false);
-  const [openColumnModal, setOpenColumnModal] = useState(false);
+  const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
+  const [openColumnModal, setOpenColumnModal] = useState<boolean>(false);
   const [screenerData, setScreenerData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
   const [selectedTab, setSelectedTab] = useState(2);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [filterCount, setFilerCount] = useState(0);
-  const [name, setName] = useState("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [filterCount, setFilerCount] = useState<number>(0);
+  const [name, setName] = useState<string>("");
 
   const [previousSaveScreen, setPreviousSaveScreen] = useState([
     { name: "anees", id: 20 },
@@ -137,7 +139,7 @@ function CardElements() {
     deSpacClosed?: any[];
   }>({});
 
-  const [itemsPerPage, setItemPerPage] = useState(5);
+  const [itemsPerPage, setItemPerPage] = useState<number>(5);
   const tabData = [
     {
       name: "Pre-Deal SPAC Screener",

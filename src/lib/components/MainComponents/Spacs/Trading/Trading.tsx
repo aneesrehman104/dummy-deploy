@@ -5,16 +5,18 @@ import Gainer from "../Gainer/Gainer";
 import Losers from "../Losers/Losers";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-function Trading() {
+  interface PROPS {}
+
+  const Trading: React.FC<PROPS> = () => {
   const tabValues: { [key: number]: string } = {
     0: "daily",
     1: "weekly",
     2: "merger_closing",
   };
 
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingLooser, setIsLoadingLooser] = useState(true);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingLooser, setIsLoadingLooser] = useState<boolean>(true);
 
   const [spacsTradingGainerData, setSpacsTradingGainerData] = useState({
     dataset: [],
@@ -23,11 +25,11 @@ function Trading() {
   const [
     spacsTradingGainerDataSelectedTab,
     setSpacsTradingGainerDataSelectedTab,
-  ] = useState(0);
+  ] = useState<number>(0);
   const [
     spacsTradingGainerDataCurrentPage,
     setSpacsTradingGainerDataCurrentPage,
-  ] = useState(1);
+  ] = useState<number>(1);
 
   const [spacsTradingLoserData, setSpacsTradingLoserData] = useState({
     dataset: [],
@@ -36,13 +38,13 @@ function Trading() {
   const [
     spacsTradingLoserDataSelectedTab,
     setSpacsTradingLoserDataSelectedTab,
-  ] = useState(1);
+  ] = useState<number>(1);
   const [
     spacsTradingLoserDataCurrentPage,
     setSpacsTradingLoserDataCurrentPage,
-  ] = useState(1);
+  ] = useState<number>(1);
 
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState<number>(5);
 
   const getSpacsTradingGainerData = async () => {
     setIsLoading(true);

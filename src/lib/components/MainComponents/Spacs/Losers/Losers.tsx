@@ -5,7 +5,7 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-function Losers(props: LoserInterFace) {
+const Losers = (props: LoserInterFace) => {
   const paginate = (pageNumber: number) => {
     props.setSpacsTradingLoserDataCurrentPage(pageNumber);
   };
@@ -19,6 +19,7 @@ function Losers(props: LoserInterFace) {
     { label: "Weekly", index: 1 },
     { label: "Since Merger Closing", index: 2 },
   ];
+
   const headerDailyTradingArray = [
     {
       name: "Company",
@@ -159,6 +160,6 @@ function Losers(props: LoserInterFace) {
       </div>
     </section>
   );
-}
+};
 
 export default Losers;

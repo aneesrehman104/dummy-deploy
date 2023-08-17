@@ -2,7 +2,7 @@
 import RootLayout from "../../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import SpacsScreener from "@/lib/components/MainComponents/SpacsScreener";
-export default function SpacScreenersPage() {
+const SpacScreenersPage =()=> {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="spacs/screeners">
@@ -11,4 +11,5 @@ export default function SpacScreenersPage() {
     </RootLayout>
   );
 }
+export default SpacScreenersPage
 

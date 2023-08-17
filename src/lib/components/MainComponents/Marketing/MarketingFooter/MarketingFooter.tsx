@@ -14,7 +14,9 @@ import Twitter from "../../../../../../public/twitter.svg";
 import Linkdin from "../../../../../../public/linkedin.svg";
 
 import "./MarketingFooter.css";
-function MarketingFooter() {
+interface PROPS {}
+
+const MarketingFooter: React.FC<PROPS> = () => {
   const FooterData = [
     {
       name: "Dashboard",

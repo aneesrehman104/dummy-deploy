@@ -14,7 +14,9 @@ import Link from "next/link";
 import "./Creators.css";
 import { marketingConstants } from "@/lib/ts/constants";
 
-function Creators() {
+  interface PROPS {}
+
+const Creators: React.FC<PROPS> = () => {
   return (
     <section className="creatorsMainDiv">
       <div className="titleMainCretaers">

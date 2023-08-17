@@ -198,8 +198,10 @@ const TargetProfile = [
     value: "Bill Gates",
   },
 ];
-function CompanyInfo() {
-  const [selectedTab, setSelectedTab] = useState(0);
+interface PROPS {}
+
+const CompanyInfo: React.FC<PROPS> = () => {
+  const [selectedTab, setSelectedTab] = useState<number>(0);
 
   return (
     <>

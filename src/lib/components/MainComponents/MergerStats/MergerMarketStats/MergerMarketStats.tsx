@@ -4,7 +4,9 @@ import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-function MergerMarketStats() {
+  interface PROPS {}
+
+  const MergerMarketStats: React.FC<PROPS> = () => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -12,7 +14,7 @@ function MergerMarketStats() {
       },
     },
   });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [mergerStatsData, setMergerStatsData] = useState();
   const getMergerStatsData = async () => {
     const response = await getApiWithoutAuth(URLs.mergerStats);

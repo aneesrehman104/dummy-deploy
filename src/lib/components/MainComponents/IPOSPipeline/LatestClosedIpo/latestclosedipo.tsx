@@ -69,7 +69,7 @@ const LatestClosedIpo: React.FC<PROPS> = () => {
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState<number>(5);
   
   useEffect(() => {
     const getLatestClosedIpoData = async () => {

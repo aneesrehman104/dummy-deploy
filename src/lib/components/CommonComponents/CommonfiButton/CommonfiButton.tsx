@@ -2,7 +2,8 @@ import { Button, CircularProgress } from "@mui/material";
 import React from "react";
 import { ButtonProps } from "@lib/ts/interface";
 
-function CommonfiButton(props: ButtonProps) {
+const CommonfiButton: React.FC = (props: ButtonProps) => {
+
   return (
     <div>
       <Button

@@ -5,7 +5,8 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-function Gainer(props: GainerInterFace) {
+
+const Gainer = (props: GainerInterFace) => {
   const paginate = (pageNumber: number) => {
     props.setSpacsTradingGainerDataCurrentPage(pageNumber);
   };
@@ -159,6 +160,6 @@ function Gainer(props: GainerInterFace) {
       </div>
     </section>
   );
-}
+};
 
 export default Gainer;

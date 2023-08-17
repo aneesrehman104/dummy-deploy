@@ -7,14 +7,16 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-function LatestAnnouncedSpacMergers() {
+  interface PROPS {}
+
+  const LatestAnnouncedSpacMergers: React.FC<PROPS> = () => {
   const [latestAnnounced, setLatestAnnounced] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [isLoadingAnnounced, setIsLoadingAnnounced] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [isLoadingAnnounced, setIsLoadingAnnounced] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage] = useState<number>(5);
 
   const getLatestAnnounced = async () => {
     setIsLoadingAnnounced(true);

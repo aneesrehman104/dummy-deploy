@@ -7,14 +7,16 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-function LatestClosedSpacMergers() {
+  interface PROPS {}
+
+  const LatestClosedSpacMergers: React.FC<PROPS> = () => {
   const [latestClosed, setLatestClosed] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [isLoadingClosed, setIsLoadingClosed] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [isLoadingClosed, setIsLoadingClosed] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage] = useState<number>(5);
   const getLatestClosed = async () => {
     setIsLoadingClosed(true);
     const response = await getApiWithoutAuth(

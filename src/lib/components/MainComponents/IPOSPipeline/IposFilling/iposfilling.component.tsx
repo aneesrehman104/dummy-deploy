@@ -22,7 +22,7 @@ const IposFilling: React.FC<PROPS> = () => {
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState<number>(5);
   const tabValues: { [key: number]: string } = {
     0: "latest",
     1: "amended",

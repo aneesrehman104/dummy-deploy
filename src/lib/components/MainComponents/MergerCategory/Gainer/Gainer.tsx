@@ -8,15 +8,17 @@ import {
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
 
-function Gainer() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  interface PROPS {}
+
+const Gainer: React.FC<PROPS> = () => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [mergersTradingLoserData, setMergersTradingLoserData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState<number>(5);
 
   const getMergersTradingLoserData = async () => {
     setIsLoading(true);

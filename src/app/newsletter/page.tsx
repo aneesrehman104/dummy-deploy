@@ -1,10 +1,11 @@
 "use client";
 import RootLayout from "./layout";
 import NewsLetters from "@/lib/components/MainComponents/NewsLetters/NewsLetters";
-export default function PlansPage() {
+const PlansPage = () => {
   return (
     <RootLayout>
-      <NewsLetters/>
+      <NewsLetters />
     </RootLayout>
   );
-}
+};
+export default PlansPage;

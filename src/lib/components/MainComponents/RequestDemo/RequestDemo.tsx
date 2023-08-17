@@ -9,9 +9,10 @@ import utc from "dayjs/plugin/utc";
 import dayjs, { Dayjs } from "dayjs";
 
 import "./RequestDemo.css";
+interface PROPS {}
 
-function RequestDemo() {
-  const [timeZone, setTimeZone] = React.useState("");
+const RequestDemo: React.FC<PROPS> = () => {
+  const [timeZone, setTimeZone] = React.useState<string>("");
 
   const CssTextField = styled(TextField)({
     width: "278px",

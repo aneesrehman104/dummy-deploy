@@ -9,8 +9,10 @@ import Pic from "../../../../../../public/nonAuthPic.svg";
 import "./PowerOfPro.css";
 import { useRouter, usePathname } from "next/navigation";
 import { marketingConstants } from "@/lib/ts/constants";
+interface PROPS {}
 
-function PowerOfPro() {
+const PowerOfPro: React.FC<PROPS> = () => {
+
   const router = useRouter();
 
   return (

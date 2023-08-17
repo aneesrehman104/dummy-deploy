@@ -6,7 +6,10 @@ import { TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import "./ContactUs.css";
-function ContactUs() {
+interface PROPS {}
+
+const ContactUs: React.FC<PROPS> = () => {
+
   const CssTextField = styled(TextField)({
     width: "278px",
     height: "56px",

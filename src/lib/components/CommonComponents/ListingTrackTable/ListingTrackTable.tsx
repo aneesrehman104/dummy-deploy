@@ -32,9 +32,9 @@ const ListingTrackTable = ({
   isRemoveAble,
   setRemoveRow,
 }: any) => {
-  const [sortColumn, setSortColumn] = useState("");
-  const [sortDirection, setSortDirection] = useState("asc");
-  const [isSelectOpen, setIsSelectOpen] = useState(false); // Dropdown open state variable
+  const [sortColumn, setSortColumn] = useState<string>("");
+  const [sortDirection, setSortDirection] = useState<string>("asc");
+  const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false); // Dropdown open state variable
 
   const handleSort = (column: string) => {
     if (column !== "last30D") {
