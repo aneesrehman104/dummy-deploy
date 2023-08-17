@@ -1,5 +1,6 @@
 import styles from "../iops.module.css";
 import React, { useState, useEffect } from "react";
+interface PROPS {}
 
 const Overview = [
   {
@@ -123,7 +124,7 @@ const MergerHistory = [
     value: "SoftBank",
   },
 ];
-function CompanyInfo() {
+const CompanyInfo: React.FC<PROPS> = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   return (
@@ -167,20 +168,20 @@ function CompanyInfo() {
             }}
           >
             {selectedTab === 0
-              ? Overview.map((data:any) => (
+              ? Overview.map((data: any) => (
                   <div className={styles.cell} key={data.name}>
                     <span>{data.name}</span>
                     <span>{data.value}</span>
                   </div>
                 ))
               : selectedTab === 1
-              ? IPO.map((data:any) => (
+              ? IPO.map((data: any) => (
                   <div className={styles.cell} key={data.name}>
                     <span>{data.name}</span>
                     <span>{data.value}</span>
                   </div>
                 ))
-              : MergerHistory.map((data:any) => (
+              : MergerHistory.map((data: any) => (
                   <div className={styles.cell} key={data.name}>
                     <span>{data.name}</span>
                     <span>{data.value}</span>
@@ -191,6 +192,6 @@ function CompanyInfo() {
       </div>
     </>
   );
-}
+};
 
 export default CompanyInfo;

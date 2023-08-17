@@ -3,7 +3,9 @@ import styles from "./news.module.css";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackNews } from "@/lib/components/CommonComponents";
-function News() {
+interface PROPS {}
+
+const News: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [newsData, setNewsData] = useState<any>({
     dataset: [
@@ -17,19 +19,18 @@ function News() {
     ],
   });
 
-  const getNews = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=all`);
-    console.log('==================res',response)
-    if (response.status === 200 && response.data !==null) {
-      setNewsData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getNews = async () => {
+      setIsLoading(true);
+      const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=all`);
+      console.log("==================res", response);
+      if (response.status === 200 && response.data !== null) {
+        setNewsData(response.data);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
     getNews();
   }, []);
   return (
@@ -38,6 +39,6 @@ function News() {
       <ListingTrackNews isLoading={isLoading} dataArray={newsData?.dataset} />
     </section>
   );
-}
+};
 
 export default News;

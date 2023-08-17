@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-import CompanyInfo from "./CompanyInfo/CompaniInfo";
-import News from "./News/News";
-import PressReleases from "./PressReleases/PressReleases";
+import IpoCompanyInfo from "./IpoCompanyInfo/ipocompanyinfo.component.tsx"
+import News from "./News/iponews.component";
+import PressReleases from "./PressReleases/ipopressreleases.component";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useMemberstackModal } from "@memberstack/react";
@@ -17,6 +17,7 @@ const DynamicChart = dynamic(() => import("./IOPSChart"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
 });
+interface PROPS {}
 
 const dataSet = [
   {
@@ -61,7 +62,7 @@ const dataSet = [
   },
 ];
 
-function IOPS() {
+const IOPS: React.FC<PROPS> = () => {
   const { openModal, hideModal } = useMemberstackModal();
   const { user } = useContext(MemberInformationContext);
 
@@ -629,11 +630,11 @@ function IOPS() {
           </div>
         </div>
       </div>
-      <CompanyInfo />
+      <IpoCompanyInfo />
       <News />
       <PressReleases />
     </>
   );
-}
+};
 
 export default IOPS;

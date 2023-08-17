@@ -3,7 +3,8 @@ import styles from "./PressReleases.module.css";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
-function PressReleases() {
+interface PROPS {}
+const PressReleases: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [releasesnewsData, setReleasesNewsData] = useState<any>({
     dataset: [
@@ -59,29 +60,30 @@ function PressReleases() {
       },
     ],
   });
-  const getNews = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=press`);
-    if (response.status === 200 && response.data !== null) {
-      setReleasesNewsData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
 
-  const getNewsSEC = async () => {
-    setIsLoadingSec(true);
-    const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=sec`);
-    if (response.status === 200 && response.data !== null) {
-      setSecNewsData(response.data);
-      setIsLoadingSec(false);
-    } else {
-      setIsLoadingSec(false);
-    }
-  };
 
   useEffect(() => {
+    const getNews = async () => {
+      setIsLoading(true);
+      const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=press`);
+      if (response.status === 200 && response.data !== null) {
+        setReleasesNewsData(response.data);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
+  
+    const getNewsSEC = async () => {
+      setIsLoadingSec(true);
+      const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=sec`);
+      if (response.status === 200 && response.data !== null) {
+        setSecNewsData(response.data);
+        setIsLoadingSec(false);
+      } else {
+        setIsLoadingSec(false);
+      }
+    };
     getNews();
     getNewsSEC();
   }, []);
@@ -103,6 +105,6 @@ function PressReleases() {
       </div>
     </section>
   );
-}
+};
 
 export default PressReleases;

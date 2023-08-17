@@ -6,10 +6,10 @@ import IPOsLoser from "../IPOSHub/Losers/Losers";
 import MergersGainer from "../MergerHub/Gainer/Gainer";
 import MergersLoser from "../MergerHub/Losers/Losers";
 import SpacsTrending from "../Spacs/Trading/Trading";
-import IPOsNews from "../IOPS/News/News"
+import IPOsNews from "../IOPS/News/iponews.component"
 import MergerNews from '../MergerHub/News/News'
 import SpacsNews from '../Spacs/News/News'
-import IPOsPressReleases from "../IOPS/PressReleases/PressReleases"
+import IPOsPressReleases from "../IOPS/PressReleases/ipopressreleases.component"
 import MergerPressReleases from '../MergerNews/PressReleases/PressReleases'
 import SpacsPressReleases from '../SpacsNews/PressReleases/PressReleases'
 const WatchList = () => {
