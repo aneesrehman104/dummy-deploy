@@ -287,6 +287,7 @@ function CardElements() {
       skip: selectedTab >= 3 ? 0 : (currentPage - 1) * itemsPerPage,
       top: selectedTab >= 3 ? 20 : itemsPerPage,
       filter: Mapper[tabValues[selectedTab]],
+      orderby: selectedTab === 3 ? "percentReturnFromIpoPrice asc" : selectedTab === 4 ? "percentReturnFromIpoPrice desc" : undefined,
     });
     if (response.status === 200 && response.data !== null) {
       setSpacsListData({
