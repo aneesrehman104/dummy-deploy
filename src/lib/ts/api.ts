@@ -168,6 +168,7 @@ type ODataParams = {
   count?: boolean;
   expand?: string[];
   search?: string;
+  cancelToken:any;
 };
 
 // Sample call

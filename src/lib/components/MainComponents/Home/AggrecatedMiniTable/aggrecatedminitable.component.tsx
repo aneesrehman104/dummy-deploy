@@ -1,17 +1,59 @@
-import React from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import styles from "../dashboard-header.module.css";
-import Switch from "@mui/material/Switch";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { homeConstants } from "@/lib/ts/constants";
+import { getODataWithParams } from "@/lib/ts/api";
+import { URLs } from "@/lib/ts/apiUrl";
+import axios, { AxiosError } from "axios";
+
+const jsonResponse = "application/json";
+interface PROPS {}
+interface AggricatedInterface {
+  companyName: string;
+  companySymbol: string;
+  ipoType: string;
+  ipoStatus: string;
+  exchange: string;
+  expectedIpoDate: string;
+  expectedIpoPrice: string;
+  ipoOfferingSize: string;
+}
 interface PROPS {}
 const AggrecatedMiniTable: React.FC<PROPS> = () => {
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#0aac85",
-      },
-    },
-  });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const [arrrecatedMiniTableData, setArrrecatedMiniTableData] = useState<
+    AggricatedInterface[]
+  >([]);
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const getArrrecatedMiniTableData = async () => {
+      setIsLoading(true);
+
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setArrrecatedMiniTableData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getArrrecatedMiniTableData();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
+  }, []);
 
   return (
     <section className={styles.minitables}>

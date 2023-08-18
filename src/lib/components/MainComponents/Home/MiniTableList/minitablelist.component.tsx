@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "../dashboard-header.module.css";
 import Image from "next/image";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
+import axios, { AxiosError } from "axios";
 import Skeleton from "@mui/material/Skeleton";
+const jsonResponse = "application/json";
+
 interface PROPS {}
 const MiniTableList: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -33,18 +36,36 @@ const MiniTableList: React.FC<PROPS> = () => {
   });
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     const getNews = async () => {
       setIsLoading(true);
-      const response = await getApiWithoutAuth(`${URLs.spacNews}?type=press`);
-      if (response.status === 200 && response.data !== null) {
-        setReleasesNewsData(response.data);
-        setIsLoading(false);
-      } else {
+
+      try {
+        const response = await getODataWithParams(URLs.spacNews, {
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setReleasesNewsData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
         setIsLoading(false);
       }
     };
+
     getNews();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
+
   return (
     <section className={styles.headlineslistcontainer}>
       <div className={styles.table}>
