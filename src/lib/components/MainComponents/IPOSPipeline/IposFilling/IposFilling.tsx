@@ -7,6 +7,18 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+import { get } from "http";
+
+function getDateDaysAgo(daysAgo: number): string {
+  const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() - daysAgo);
+
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+
+  return `${year}/${month}/${day}`;
+}
 
 const headerArrayLatestFilings = [
   {
@@ -26,12 +38,12 @@ const headerArrayLatestFilings = [
   },
   {
     name: "Filing Date",
-    key: "initialFilingDate",
+    key: "s1InitialFilingDate",
     type: "string",
   },
   {
     name: "Proposed Price",
-    key: "proposedPriceRange",
+    key: "expectedIpoPrice",
     type: "string",
   },
   {
@@ -59,12 +71,12 @@ const headerArrayLatestAmendedFilings = [
   },
   {
     name: "Amended Filing Date",
-    key: "amendedFilingDate",
+    key: "amendedS1FilingDate",
     type: "string",
   },
   {
     name: "Proposed Price",
-    key: "proposedPriceRange",
+    key: "expectedIpoPrice",
     type: "string",
   },
   {
@@ -91,12 +103,12 @@ const headerArrayWithdrawn = [
   },
   {
     name: "Withdrawn Date",
-    key: "withdrawDate",
+    key: "s1WithdrawalDate",
     type: "string",
   },
   {
     name: "Withdrawn Proposed Price",
-    key: "withdrawPriceRange",
+    key: "expectedIpoPrice",
     type: "string",
   },
   {
@@ -105,6 +117,18 @@ const headerArrayWithdrawn = [
     type: "string",
   },
 ];
+
+const Mapper = {
+  latest: "Filed",
+  amended: "Filed",
+  withdrawn: "Withdrawn",
+}
+
+const NameMapper = {
+  latest: `s1InitialFilingDate ge '${getDateDaysAgo(90)}'`,
+  amended: `amendedS1FilingDate ge '${getDateDaysAgo(90)}'`,
+  withdrawn: `s1WithdrawalDate ge '${getDateDaysAgo(90)}'`,
+}
 
 function IposFilling() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -115,7 +139,7 @@ function IposFilling() {
     additional_dataset: { totalLength: 20 },
   });
   const [itemsPerPage] = useState(5);
-  const tabValues: { [key: number]: string } = {
+  const tabValues: { [key: number]: "latest" | "amended" | "withdrawn" } = {
     0: "latest",
     1: "amended",
     2: "withdrawn",
@@ -125,7 +149,7 @@ function IposFilling() {
     const response = await getODataWithParams(URLs.ipoOdata, {
       skip: (currentPage - 1) * itemsPerPage,
       top: itemsPerPage,
-      // filter: `ipoStatus eq '${Mapper[tabValues[selectedTab]]}'`,
+      filter: `ipoStatus eq '${Mapper[tabValues[selectedTab]]}' and ${NameMapper[tabValues[selectedTab]]} `,
     });
     if (response.status === 200 && response.data !== null) {
       setIposFillingData({dataset: response.data, additional_dataset: { totalLength: 10 }});
