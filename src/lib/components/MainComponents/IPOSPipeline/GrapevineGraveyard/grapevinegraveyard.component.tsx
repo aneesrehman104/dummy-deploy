@@ -1,16 +1,25 @@
 import React, { Fragment, useEffect } from "react";
 import styles from "./GrapevineGraveyard.module.css";
 import { useState } from "react";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-import {headerArrayRumoredIPOs,headerArrayStalledIPOs,headerArrayWishlistIPOs } from "./constants"
-  interface PROPS {}
+import {
+  headerArrayRumoredIPOs,
+  headerArrayStalledIPOs,
+  headerArrayWishlistIPOs,
+} from "./constants";
+interface PROPS {}
 
 const GrapevineGraveyard: React.FC<PROPS> = () => {
+  const Mapper = {
+    rumor: "Rumored",
+    stalledIPO: "Stalled",
+    wishlistIPO: "Wishlist",
+  };
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedTab, setSelectedTab] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -19,18 +28,23 @@ const GrapevineGraveyard: React.FC<PROPS> = () => {
     additional_dataset: { totalLength: 20 },
   });
   const [itemsPerPage] = useState<number>(5);
-  const tabValues: { [key: number]: string } = {
+  const tabValues: { [key: number]: "rumor" | "stalledIPO" | "wishlistIPO" } = {
     0: "rumor",
     1: "stalledIPO",
     2: "wishlistIPO",
   };
   const getGrapevineGraveyardData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-    );
+    const response = await getODataWithParams(URLs.ipoOdata, {
+      skip: (currentPage - 1) * itemsPerPage,
+      top: itemsPerPage,
+      filter: `ipoStatus eq '${Mapper[tabValues[selectedTab]]}'`,
+    });
     if (response.status === 200 && response.data !== null) {
-      setGrapevineGraveyardData(response.data);
+      setGrapevineGraveyardData({
+        dataset: response.data,
+        additional_dataset: { totalLength: 10 },
+      });
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -55,7 +69,6 @@ const GrapevineGraveyard: React.FC<PROPS> = () => {
     setSelectedTab(tabIndex);
     setCurrentPage(1);
   };
-
 
   return (
     <section className={styles.stockstablesection}>
@@ -100,6 +113,6 @@ const GrapevineGraveyard: React.FC<PROPS> = () => {
       </div>
     </section>
   );
-}
+};
 
 export default GrapevineGraveyard;

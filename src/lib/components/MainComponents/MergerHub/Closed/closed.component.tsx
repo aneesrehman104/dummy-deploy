@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import styles from "./Closed.module.css";
 import { useState } from "react";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -10,49 +10,6 @@ import {
 interface PROPS {}
 
 const Closed: React.FC<PROPS> = () => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectedTab, setSelectedTab] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [latestClosedMergersData, setLatestClosedMergersData] = useState<any>({
-    dataset: [],
-    additional_dataset: { totalLength: 20 },
-  });
-  const [itemsPerPage] = useState<number>(5);
-
-  const getLatestClosedMergersData = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.mergerPipeLine}?type=closed?subtype=${
-        selectedTab === 0 ? "exSpac" : selectedTab == 1 ? "Spac" : "all"
-      }`
-    );
-    if (response.status === 200 && response.data !== null) {
-      setLatestClosedMergersData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getLatestClosedMergersData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTab, currentPage]);
-
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const tabData = [
-    { label: "Mergers (ex. SPACs)", index: 0 },
-    { label: "SPAC Mergers", index: 1 },
-    { label: "All Mergers", index: 2 },
-  ];
-  const handleTabClick = (tabIndex: any) => {
-    setSelectedTab(tabIndex);
-    setCurrentPage(1);
-  };
-
   const headerArrayMergers = [
     {
       name: "Target",
@@ -155,6 +112,49 @@ const Closed: React.FC<PROPS> = () => {
       type: "string",
     },
   ];
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [latestClosedMergersData, setLatestClosedMergersData] = useState<any>({
+      dataset: [],
+      additional_dataset: { totalLength: 20 },
+    });
+  const [itemsPerPage] = useState<number>(5);
+
+  const getLatestClosedMergersData = async () => {
+    setIsLoading(true);
+    const response = await getODataWithParams(URLs.ipoOdata, {
+      skip: (currentPage - 1) * itemsPerPage,
+      top: itemsPerPage,
+      // filter: `ipoStatus eq '${Mapper[tabValues[selectedTab]]}'`,
+    });
+    if (response.status === 200 && response.data !== null) {
+      setLatestClosedMergersData({dataset: response.data, additional_dataset: { totalLength: 10 }});
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getLatestClosedMergersData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedTab, currentPage]);
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const tabData = [
+    { label: "Mergers (ex. SPACs)", index: 0 },
+    { label: "SPAC Mergers", index: 1 },
+    { label: "All Mergers", index: 2 },
+  ];
+  const handleTabClick = (tabIndex: any) => {
+    setSelectedTab(tabIndex);
+    setCurrentPage(1);
+  };
+
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Latest Closed Mergers</div>
