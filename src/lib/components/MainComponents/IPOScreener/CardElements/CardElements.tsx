@@ -9,7 +9,7 @@ import saveScreenerSvg from "../../../../../../public/saveScreenerSvg.svg";
 import exportSvg from "../../../../../../public/exportSvg.svg";
 import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/ProSvg.svg";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -51,6 +51,14 @@ import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
+const Mapper = {
+  priced_ipo: `ipoStatus eq 'Priced'`,
+  upcoming_ipo: `ipoStatus eq 'Expected' `,
+  ipo_grapevine: `ipoStatus eq 'Rumored'`,
+  top_20_performers: ``,
+  worst_20_performers: ``,
+};
+
 function CardElements() {
   const { user } = useContext(MemberInformationContext);
   const router = useRouter();
@@ -89,10 +97,11 @@ function CardElements() {
     borderRadius: "15px",
     p: 3,
   };
-  const tabValues: { [key: number]: string } = {
-    0: "pre_deal",
-    1: "pre_deal",
+  const tabValues: { [key: number]: "priced_ipo" | "upcoming_ipo" } = {
+    0: "priced_ipo",
+    1: "upcoming_ipo",
   };
+
   const [isLoading, setIsLoading] = useState(true);
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [openColumnModal, setOpenColumnModal] = useState(false);
@@ -122,11 +131,11 @@ function CardElements() {
   const [personName, setPersonName] = useState([
     {
       name: "Company",
-      key: "company",
+      key: "companyName",
     },
     {
       name: "Symbol",
-      key: "symbol",
+      key: "companySymbol",
     },
     {
       name: "Listing Method",
@@ -196,12 +205,18 @@ function CardElements() {
 
   const getScreenerData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-    );
+    const response = await getODataWithParams(URLs.ipoOdata, {
+      skip: (currentPage - 1) * itemsPerPage,
+      top: itemsPerPage,
+      filter: Mapper[tabValues[selectedTab]],
+    });
     console.log("========================res", response);
     if (response.status === 200 && response.data !== null) {
-      setScreenerData(response.data);
+      setScreenerData({
+        dataset: response.data,
+        additional_dataset: { totalLength: 10 },
+      });
+      console.log("donee ----")
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -750,14 +765,18 @@ function CardElements() {
                 // marginLeft: 15,
                 width: 200,
                 display: "flex",
-                justifyContent:'space-between'
+                justifyContent: "space-between",
               }}
             >
               <Button variant="contained" color="error" onClick={clearAll}>
                 Clear
               </Button>
 
-              <Button variant="contained" color="success" onClick={applyFilters}>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={applyFilters}
+              >
                 Apply
               </Button>
             </div>
@@ -1267,7 +1286,6 @@ function CardElements() {
       >
         <>
           <Box sx={styleBox}>
-
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div className={styles.tableTitle}>Saved Screens</div>
               <div>
@@ -1324,19 +1342,19 @@ function CardElements() {
           <Box sx={styleBox}>
             <>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div className={styles.tableTitle}>Saved Screens</div>
-              <div>
-                {" "}
-                <Image
-                  src={crossIconSvg}
-                  alt="filterSvg"
-                  width={18}
-                  height={18}
-                  onClick={() => setOpenModalCheckScreen(false)}
-                />
+                <div className={styles.tableTitle}>Saved Screens</div>
+                <div>
+                  {" "}
+                  <Image
+                    src={crossIconSvg}
+                    alt="filterSvg"
+                    width={18}
+                    height={18}
+                    onClick={() => setOpenModalCheckScreen(false)}
+                  />
+                </div>
               </div>
-            </div>
-            <Divider style={{ marginTop: 5, marginBottom: 5 }} />
+              <Divider style={{ marginTop: 5, marginBottom: 5 }} />
               {userType === "free" ? (
                 <div
                   style={{
