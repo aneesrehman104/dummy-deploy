@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import styles from "./IposFilling.module.css";
 import { useState } from "react";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -14,6 +14,31 @@ import {
 } from "./constants";
 interface PROPS {}
 
+import { get } from "http";
+
+function getDateDaysAgo(daysAgo: number): string {
+  const currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() - daysAgo);
+
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+
+  return `${year}/${month}/${day}`;
+}
+
+const Mapper = {
+  latest: "Filed",
+  amended: "Filed",
+  withdrawn: "Withdrawn",
+};
+
+const NameMapper = {
+  latest: `s1InitialFilingDate ge '${getDateDaysAgo(90)}'`,
+  amended: `amendedS1FilingDate ge '${getDateDaysAgo(90)}'`,
+  withdrawn: `s1WithdrawalDate ge '${getDateDaysAgo(90)}'`,
+};
+
 const IposFilling: React.FC<PROPS> = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedTab, setSelectedTab] = useState<number>(1);
@@ -23,25 +48,33 @@ const IposFilling: React.FC<PROPS> = () => {
     additional_dataset: { totalLength: 20 },
   });
   const [itemsPerPage] = useState<number>(5);
-  const tabValues: { [key: number]: string } = {
+
+  const tabValues: { [key: number]: "latest" | "amended" | "withdrawn" } = {
     0: "latest",
     1: "amended",
     2: "withdrawn",
   };
+  const getIposFillingData = async () => {
+    setIsLoading(true);
+    const response = await getODataWithParams(URLs.ipoOdata, {
+      skip: (currentPage - 1) * itemsPerPage,
+      top: itemsPerPage,
+      filter: `ipoStatus eq '${Mapper[tabValues[selectedTab]]}' and ${
+        NameMapper[tabValues[selectedTab]]
+      } `,
+    });
+    if (response.status === 200 && response.data !== null) {
+      setIposFillingData({
+        dataset: response.data,
+        additional_dataset: { totalLength: 10 },
+      });
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const getIposFillingData = async () => {
-      setIsLoading(true);
-      const response = await getApiWithoutAuth(
-        `${URLs.iposPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-      );
-      if (response.status === 200 && response.data !== null) {
-        setIposFillingData(response.data);
-        setIsLoading(false);
-      } else {
-        setIsLoading(false);
-      }
-    };
     getIposFillingData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
