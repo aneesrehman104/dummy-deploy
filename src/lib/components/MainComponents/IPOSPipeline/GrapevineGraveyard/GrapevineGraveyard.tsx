@@ -22,27 +22,27 @@ const headerArrayRumoredIPOs = [
   },
   {
     name: "Rumored Date",
-    key: "ipoRumoredDate",
+    key: "ipoRumorDate",
     type: "string",
   },
   {
     name: "Rumored Market Cap (M)",
-    key: "ipoRumoredMarketCap",
+    key: "rumoredIpoMarketCap",
     type: "string",
   },
   {
     name: "Rumored IPO Offering Size (M)",
-    key: "ipoRumoredOfferingSize",
+    key: "rumoredIpoOfferingSize",
     type: "string",
   },
   {
     name: "Rumor Source",
-    key: "rumoredPublication",
+    key: "ipoRumorPublication",
     type: "string",
   },
   {
     name: "Rumor Link",
-    key: "rumoredSourceLink",
+    key: "ipoRumorSourceLink",
     type: "string",
   },
 ];
