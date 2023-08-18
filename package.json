@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "",    
+    "test": "",
     "package": "7z a -r publish.zip . -x!.git* -x!node_modules* -x!.next/cache -x!__tests__"
   },
   "dependencies": {
@@ -38,6 +38,7 @@
     "next": "13.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-slideshow-image": "^4.2.1",
     "typescript": "5.0.4"
   },
   "devDependencies": {

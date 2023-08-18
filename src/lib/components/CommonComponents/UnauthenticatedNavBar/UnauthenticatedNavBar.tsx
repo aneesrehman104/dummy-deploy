@@ -73,6 +73,7 @@ const UnauthenticatedNavBar: React.FC<PROPS> = () => {
         </div>
         <div>
           <CommonfiButton
+          className="buttonStyleGo"
             sx={{
               "&:hover": {
                 backgroundColor: "#263c6f",
@@ -84,7 +85,6 @@ const UnauthenticatedNavBar: React.FC<PROPS> = () => {
               },
             }}
             variant="contained"
-            className="buttonStyleGo"
             title="Go Pro"
             onClick={() => {
               router.push("/plans");
