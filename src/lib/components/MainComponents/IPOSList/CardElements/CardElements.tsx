@@ -107,7 +107,6 @@ const headerUpcomingIPOsList = [
 ];
 
 const headerIPOGrapevineList = [
-
   {
     name: "Company Name",
     key: "companyName",
@@ -159,103 +158,51 @@ const headerIPOGrapevineList = [
   },
 ];
 
-const header20PerformingIPOsList = [
+const headerIPOsList = [
   {
     name: "Company Name",
-    key: "Company Name",
+    key: "companyName",
     type: "string",
   },
   {
     name: "Ticker",
-    key: "Ticker",
+    key: "companySymbol",
     type: "string",
   },
   {
     name: "IPO Type",
-    key: "IPOType",
+    key: "ipoType",
     type: "string",
   },
   {
     name: "Pricing Date",
-    key: "PricingDate",
+    key: "expectedIpoDate",
     type: "string",
   },
   {
     name: "Price",
-    key: "Price",
+    key: "expectedIpoPrice",
     type: "string",
   },
   {
     name: "Market Cap at IPO",
-    key: "MarketCapatIPO",
+    key: "ipoMarketCap",
     type: "string",
   },
   {
     name: "Market Cap",
-    key: "MarketCap",
+    key: "marketCap",
     type: "string",
   },
-  {
-    name: "Rumor Inactive Link",
-    key: "RumorInactiveLink",
-    type: "string",
-  },
+
   {
     name: "Offer Size (M)",
-    key: "OfferSize",
+    key: "ipoOfferingSize",
     type: "string",
   },
   {
     name: "Return from IPO",
-    key: "ReturnfromIPO",
-    type: "string",
-  },
-];
-
-const header20PerformingDeSPACsList = [
-  {
-    name: "Company Name",
-    key: "Company Name",
-    type: "string",
-  },
-  {
-    name: "Ticker",
-    key: "Ticker",
-    type: "string",
-  },
-  {
-    name: "De-SPAC Closing Date",
-    key: "DeSPACClosingDate",
-    type: "string",
-  },
-  {
-    name: "Price",
-    key: "Price",
-    type: "string",
-  },
-  {
-    name: "Price % Chg.",
-    key: "PriceChg",
-    type: "string",
-  },
-  {
-    name: "Valuation at Deal",
-    key: "ValuationatDeal",
-    type: "string",
-  },
-  {
-    name: "Market Cap",
-    key: "MarketCap",
-    type: "string",
-  },
-  {
-    name: "Return from IPO (SPAC IPO)",
-    key: "ReturnfromIPO",
-    type: "string",
-  },
-  {
-    name: "View Deal Page",
-    key: "ViewDealPage",
+    key: "percentReturnFromIpoPrice", // change this
     type: "string",
   },
 ];
@@ -264,8 +211,8 @@ const Mapper = {
   priced_ipo: `ipoStatus eq 'Priced'`,
   upcoming_ipo: `ipoStatus eq 'Expected' `,
   ipo_grapevine: `ipoStatus eq 'Rumored'`,
-  top_20_performers: ``,
-  worst_20_performers: ``,
+  top_20_performers: `ipoStatus eq 'Priced' and expectedIpoDate ge '2018/01/01'`,
+  worst_20_performers: `ipoStatus eq 'Priced' and expectedIpoDate ge '2018/01/01'`,
 };
 
 function CardElements() {
@@ -283,7 +230,14 @@ function CardElements() {
     borderRadius: "15px",
     p: 3,
   };
-  const tabValues: { [key: number]: "priced_ipo" | "upcoming_ipo" | "ipo_grapevine" | "top_20_performers" | "worst_20_performers" } = {
+  const tabValues: {
+    [key: number]:
+      | "priced_ipo"
+      | "upcoming_ipo"
+      | "ipo_grapevine"
+      | "top_20_performers"
+      | "worst_20_performers";
+  } = {
     0: "priced_ipo",
     1: "upcoming_ipo",
     2: "ipo_grapevine",
@@ -330,12 +284,15 @@ function CardElements() {
   const getSpacsList = async () => {
     setIsLoading(true);
     const response = await getODataWithParams(URLs.ipoOdata, {
-      skip: (currentPage - 1) * itemsPerPage,
-      top: itemsPerPage,
+      skip: selectedTab >= 3 ? 0 : (currentPage - 1) * itemsPerPage,
+      top: selectedTab >= 3 ? 20 : itemsPerPage,
       filter: Mapper[tabValues[selectedTab]],
     });
     if (response.status === 200 && response.data !== null) {
-      setSpacsListData({dataset: response.data, additional_dataset: { totalLength: 10 }});
+      setSpacsListData({
+        dataset: response.data,
+        additional_dataset: { totalLength: 10 },
+      });
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -555,9 +512,7 @@ function CardElements() {
                   ? headerUpcomingIPOsList
                   : selectedTab === 2
                   ? headerIPOGrapevineList
-                  : selectedTab === 3
-                  ? header20PerformingIPOsList
-                  : header20PerformingIPOsList
+                  : selectedTab >= 3 && headerIPOsList
               }
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}

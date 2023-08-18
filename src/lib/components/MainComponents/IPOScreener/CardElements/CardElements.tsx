@@ -54,9 +54,6 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 const Mapper = {
   priced_ipo: `ipoStatus eq 'Priced'`,
   upcoming_ipo: `ipoStatus eq 'Expected' `,
-  ipo_grapevine: `ipoStatus eq 'Rumored'`,
-  top_20_performers: ``,
-  worst_20_performers: ``,
 };
 
 function CardElements() {
