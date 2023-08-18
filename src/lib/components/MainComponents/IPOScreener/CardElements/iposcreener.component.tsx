@@ -9,7 +9,7 @@ import saveScreenerSvg from "../../../../../../public/saveScreenerSvg.svg";
 import exportSvg from "../../../../../../public/exportSvg.svg";
 import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/ProSvg.svg";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -52,7 +52,10 @@ import { MemberInformationContext } from "@/lib/components/context";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { IPOYearsOptions, IPOTypeOptions, IPOStatusOptions } from "./constants";
 interface PROPS {}
-
+const Mapper = {
+  priced_ipo: `ipoStatus eq 'Priced'`,
+  upcoming_ipo: `ipoStatus eq 'Expected' `,
+};
 const IpoScreener: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
   const router = useRouter();
@@ -91,9 +94,9 @@ const IpoScreener: React.FC<PROPS> = () => {
     borderRadius: "15px",
     p: 3,
   };
-  const tabValues: { [key: number]: string } = {
-    0: "pre_deal",
-    1: "pre_deal",
+  const tabValues: { [key: number]: "priced_ipo" | "upcoming_ipo" } = {
+    0: "priced_ipo",
+    1: "upcoming_ipo",
   };
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
@@ -126,11 +129,11 @@ const IpoScreener: React.FC<PROPS> = () => {
   const [personName, setPersonName] = useState([
     {
       name: "Company",
-      key: "company",
+      key: "companyName",
     },
     {
       name: "Symbol",
-      key: "symbol",
+      key: "companySymbol",
     },
     {
       name: "Listing Method",
@@ -200,12 +203,18 @@ const IpoScreener: React.FC<PROPS> = () => {
 
   const getScreenerData = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.spacsScreeners}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-    );
+    const response = await getODataWithParams(URLs.ipoOdata, {
+      skip: (currentPage - 1) * itemsPerPage,
+      top: itemsPerPage,
+      filter: Mapper[tabValues[selectedTab]],
+    });
     console.log("========================res", response);
     if (response.status === 200 && response.data !== null) {
-      setScreenerData(response.data);
+      setScreenerData({
+        dataset: response.data,
+        additional_dataset: { totalLength: 10 },
+      });
+      console.log("donee ----")
       setIsLoading(false);
     } else {
       setIsLoading(false);

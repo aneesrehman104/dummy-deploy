@@ -38,7 +38,13 @@ import {
   header20PerformingDeSPACsList,
 } from "./constants";
 interface PROPS {}
-
+const Mapper = {
+  priced_ipo: `ipoStatus eq 'Priced'`,
+  upcoming_ipo: `ipoStatus eq 'Expected' `,
+  ipo_grapevine: `ipoStatus eq 'Rumored'`,
+  top_20_performers: ``,
+  worst_20_performers: ``,
+};
 const IpoList: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
 
@@ -54,11 +60,12 @@ const IpoList: React.FC<PROPS> = () => {
     borderRadius: "15px",
     p: 3,
   };
-  const tabValues: { [key: number]: string } = {
-    0: "all",
-    1: "pre_deal",
-    2: "announced",
-    3: "de_spac",
+  const tabValues: { [key: number]: "priced_ipo" | "upcoming_ipo" | "ipo_grapevine" | "top_20_performers" | "worst_20_performers" } = {
+    0: "priced_ipo",
+    1: "upcoming_ipo",
+    2: "ipo_grapevine",
+    3: "top_20_performers",
+    4: "worst_20_performers",
   };
   const CssTextField = styled(TextField)({
     width: "368px",
@@ -100,13 +107,12 @@ const IpoList: React.FC<PROPS> = () => {
   const getSpacsList = async () => {
     setIsLoading(true);
     const response = await getODataWithParams(URLs.ipoOdata, {
-      // `${URLs.spacsList}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
       skip: (currentPage - 1) * itemsPerPage,
       top: itemsPerPage,
-      filter: ``,
+      filter: Mapper[tabValues[selectedTab]],
     });
     if (response.status === 200 && response.data !== null) {
-      setSpacsListData(response.data);
+      setSpacsListData({dataset: response.data, additional_dataset: { totalLength: 10 }});
       setIsLoading(false);
     } else {
       setIsLoading(false);
