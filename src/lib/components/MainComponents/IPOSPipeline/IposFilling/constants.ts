@@ -6,7 +6,7 @@ export const headerArrayLatestFilings = [
   },
   {
     name: "Ticker",
-    key: "ticker",
+    key: "companySymbol",
     type: "string",
   },
   {
@@ -16,17 +16,17 @@ export const headerArrayLatestFilings = [
   },
   {
     name: "Filing Date",
-    key: "initialFilingDate",
+    key: "s1InitialFilingDate",
     type: "string",
   },
   {
     name: "Proposed Price",
-    key: "proposedPriceRange",
+    key: "expectedIpoPriceRange",
     type: "string",
   },
   {
     name: "Offer Size (M)",
-    key: "offeringSize",
+    key: "ipoOfferingSize",
     type: "string",
   },
 ];
@@ -39,7 +39,7 @@ export const headerArrayLatestAmendedFilings = [
   },
   {
     name: "Ticker",
-    key: "ticker",
+    key: "companySymbol",
     type: "string",
   },
   {
@@ -49,17 +49,17 @@ export const headerArrayLatestAmendedFilings = [
   },
   {
     name: "Amended Filing Date",
-    key: "amendedFilingDate",
+    key: "amendedS1FilingDate",
     type: "string",
   },
   {
     name: "Proposed Price",
-    key: "proposedPriceRange",
+    key: "expectedIpoPriceRange",
     type: "string",
   },
   {
     name: "Offer Size (M)",
-    key: "offeringSize",
+    key: "ipoOfferingSize",
     type: "string",
   },
 ];
@@ -71,7 +71,7 @@ export const headerArrayWithdrawn = [
   },
   {
     name: "Ticker",
-    key: "ticker",
+    key: "companySymbol",
     type: "string",
   },
   {
@@ -81,17 +81,17 @@ export const headerArrayWithdrawn = [
   },
   {
     name: "Withdrawn Date",
-    key: "withdrawDate",
+    key: "s1WithdrawalDate",
     type: "string",
   },
   {
     name: "Withdrawn Proposed Price",
-    key: "withdrawPriceRange",
+    key: "expectedIpoPrice",
     type: "string",
   },
   {
     name: "Withdrawn Offer Size (M)",
-    key: "offeringSize",
+    key: "ipoOfferingSize",
     type: "string",
   },
 ];

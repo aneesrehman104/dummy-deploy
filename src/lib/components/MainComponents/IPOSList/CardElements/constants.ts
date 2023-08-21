@@ -1,74 +1,74 @@
 export const headerPricedIPOsList = [
   {
     name: "Company Name",
-    key: "Company Name",
+    key: "companyName",
     type: "string",
   },
   {
     name: "Ticker",
-    key: "Ticker",
+    key: "companySymbol",
     type: "string",
   },
   {
     name: "IPO Type",
-    key: "IPOType",
+    key: "ipoType",
     type: "string",
   },
   {
     name: "Pricing Date",
-    key: "PricingDate",
+    key: "expectedIpoDate",
     type: "string",
   },
   {
     name: "Price",
-    key: "Price",
+    key: "price",
     type: "string",
   },
   {
     name: "Offer Size (M)",
-    key: "OfferSize",
+    key: "ipoOfferingSize",
     type: "string",
   },
   {
     name: "Return from IPO",
-    key: "ReturnfromIPO",
+    key: "price", // change this
     type: "string",
   },
 ];
 export const headerUpcomingIPOsList = [
   {
     name: "Company Name",
-    key: "Company Name",
+    key: "companyName",
     type: "string",
   },
   {
     name: "Ticker",
-    key: "Ticker",
+    key: "companySymbol",
     type: "string",
   },
   {
     name: "IPO Type",
-    key: "IPOType",
+    key: "ipoType",
     type: "string",
   },
   {
     name: "Exchange",
-    key: "Exchange",
+    key: "exchange",
     type: "string",
   },
   {
     name: "Est. Pricing Date",
-    key: "EstPricingDate",
+    key: "expectedIpoDate",
     type: "string",
   },
   {
     name: "Price Range",
-    key: "PriceRange",
+    key: "expectedIpoPrice",
     type: "string",
   },
   {
     name: "Offer Size (M)",
-    key: "OfferSize",
+    key: "ipoOfferingSize",
     type: "string",
   },
 ];
@@ -76,148 +76,47 @@ export const headerUpcomingIPOsList = [
 export const headerIPOGrapevineList = [
   {
     name: "Company Name",
-    key: "Company Name",
+    key: "companyName",
     type: "string",
   },
   {
     name: "IPO Status",
-    key: "IPOStatus",
+    key: "ipoStatus",
     type: "string",
   },
   {
     name: "Rumored Date",
-    key: "RumoredDate",
+    key: "ipoRumorDate",
     type: "string",
   },
   {
     name: "Rumored IPO Offering Size (M)",
-    key: "RumoredIPOOfferingSize",
+    key: "rumoredIpoOfferingSize",
     type: "string",
   },
   {
-    name: "Rumored Source",
-    key: "RumoredSource",
+    name: "Rumor Source",
+    key: "ipoRumorPublication",
     type: "string",
   },
   {
-    name: "Rumored Link",
-    key: "RumoredLink",
+    name: "Rumor Link",
+    key: "ipoRumorSourceLink",
     type: "string",
   },
   {
     name: "Rumor Inactive Date",
-    key: "RumorInactiveDate",
+    key: "ipoStallDate",
     type: "string",
   },
   {
     name: "Rumor Inactive Link",
-    key: "RumorInactiveLink",
+    key: "ipoStallLink",
     type: "string",
   },
   {
     name: "Rumor Inactive Source",
-    key: "RumorInactiveSource",
-    type: "string",
-  },
-];
-
-export const header20PerformingIPOsList = [
-  {
-    name: "Company Name",
-    key: "Company Name",
-    type: "string",
-  },
-  {
-    name: "Ticker",
-    key: "Ticker",
-    type: "string",
-  },
-  {
-    name: "IPO Type",
-    key: "IPOType",
-    type: "string",
-  },
-  {
-    name: "Pricing Date",
-    key: "PricingDate",
-    type: "string",
-  },
-  {
-    name: "Price",
-    key: "Price",
-    type: "string",
-  },
-  {
-    name: "Market Cap at IPO",
-    key: "MarketCapatIPO",
-    type: "string",
-  },
-  {
-    name: "Market Cap",
-    key: "MarketCap",
-    type: "string",
-  },
-  {
-    name: "Rumor Inactive Link",
-    key: "RumorInactiveLink",
-    type: "string",
-  },
-  {
-    name: "Offer Size (M)",
-    key: "OfferSize",
-    type: "string",
-  },
-  {
-    name: "Return from IPO",
-    key: "ReturnfromIPO",
-    type: "string",
-  },
-];
-
-export const header20PerformingDeSPACsList = [
-  {
-    name: "Company Name",
-    key: "Company Name",
-    type: "string",
-  },
-  {
-    name: "Ticker",
-    key: "Ticker",
-    type: "string",
-  },
-  {
-    name: "De-SPAC Closing Date",
-    key: "DeSPACClosingDate",
-    type: "string",
-  },
-  {
-    name: "Price",
-    key: "Price",
-    type: "string",
-  },
-  {
-    name: "Price % Chg.",
-    key: "PriceChg",
-    type: "string",
-  },
-  {
-    name: "Valuation at Deal",
-    key: "ValuationatDeal",
-    type: "string",
-  },
-  {
-    name: "Market Cap",
-    key: "MarketCap",
-    type: "string",
-  },
-  {
-    name: "Return from IPO (SPAC IPO)",
-    key: "ReturnfromIPO",
-    type: "string",
-  },
-  {
-    name: "View Deal Page",
-    key: "ViewDealPage",
+    key: "ipoStallPublication",
     type: "string",
   },
 ];
@@ -257,7 +156,6 @@ export const headerIPOsList = [
     key: "marketCap",
     type: "string",
   },
-
   {
     name: "Offer Size (M)",
     key: "ipoOfferingSize",
