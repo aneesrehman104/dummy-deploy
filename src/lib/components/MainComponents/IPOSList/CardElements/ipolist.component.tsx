@@ -36,15 +36,19 @@ import {
   headerIPOGrapevineList,
   header20PerformingIPOsList,
   header20PerformingDeSPACsList,
+  headerIPOsList,
 } from "./constants";
-interface PROPS {}
+
 const Mapper = {
   priced_ipo: `ipoStatus eq 'Priced'`,
   upcoming_ipo: `ipoStatus eq 'Expected' `,
   ipo_grapevine: `ipoStatus eq 'Rumored'`,
-  top_20_performers: ``,
-  worst_20_performers: ``,
+  top_20_performers: `ipoStatus eq 'Priced' and expectedIpoDate ge '2018/01/01'`,
+  worst_20_performers: `ipoStatus eq 'Priced' and expectedIpoDate ge '2018/01/01'`,
 };
+
+interface PROPS {}
+
 const IpoList: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
 
@@ -60,7 +64,14 @@ const IpoList: React.FC<PROPS> = () => {
     borderRadius: "15px",
     p: 3,
   };
-  const tabValues: { [key: number]: "priced_ipo" | "upcoming_ipo" | "ipo_grapevine" | "top_20_performers" | "worst_20_performers" } = {
+  const tabValues: {
+    [key: number]:
+      | "priced_ipo"
+      | "upcoming_ipo"
+      | "ipo_grapevine"
+      | "top_20_performers"
+      | "worst_20_performers";
+  } = {
     0: "priced_ipo",
     1: "upcoming_ipo",
     2: "ipo_grapevine",
@@ -107,12 +118,21 @@ const IpoList: React.FC<PROPS> = () => {
   const getSpacsList = async () => {
     setIsLoading(true);
     const response = await getODataWithParams(URLs.ipoOdata, {
-      skip: (currentPage - 1) * itemsPerPage,
-      top: itemsPerPage,
+      skip: selectedTab >= 3 ? 0 : (currentPage - 1) * itemsPerPage,
+      top: selectedTab >= 3 ? 20 : itemsPerPage,
       filter: Mapper[tabValues[selectedTab]],
+      orderby:
+        selectedTab === 3
+          ? [{ field: "percentReturnFromIpoPrice", direction: "asc" }]
+          : selectedTab === 4
+          ? [{ field: "percentReturnFromIpoPrice", direction: "desc" }]
+          : undefined,
     });
     if (response.status === 200 && response.data !== null) {
-      setSpacsListData({dataset: response.data, additional_dataset: { totalLength: 10 }});
+      setSpacsListData({
+        dataset: response.data,
+        additional_dataset: { totalLength: 10 },
+      });
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -201,369 +221,6 @@ const IpoList: React.FC<PROPS> = () => {
     { key: "Rumor Active", name: "Rumor Active", pro: false },
     { key: "Rumor Inactive", name: "Rumor Inactive", pro: true },
   ];
-
-  const SelectedTabPricedIPOsFilter = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-checkbox-label">IPO Year</InputLabel>
-          <Select
-            label="IPO Year"
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={
-              filterArray?.IPOYEAR
-                ? filterArray?.IPOYEAR.map((item: any) => item.key)
-                : []
-            }
-            onChange={(event) =>
-              handleChangeFilter("IPOYEAR", event, IPOYearsOptions)
-            }
-            renderValue={(selected) =>
-              `${selected.length} filters selected: ` +
-              selected
-                .map((selectedKey: string) => {
-                  const selectedItem = IPOYearsOptions.find(
-                    (item) => item.key === selectedKey
-                  );
-                  return selectedItem ? selectedItem.name : null;
-                })
-                .filter(Boolean) // Remove null values
-                .join(", ")
-            }
-            MenuProps={{
-              style: {
-                maxHeight: 250,
-              },
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                },
-              },
-            }}
-          >
-            {IPOYearsOptions.map((item: any) => (
-              <MenuItem
-                key={item.key}
-                value={item.key}
-                disabled={!user?.member?.stripeCustomerId && item.pro}
-              >
-                <Checkbox
-                  checked={
-                    filterArray.IPOYEAR &&
-                    filterArray.IPOYEAR.some(
-                      (selectedItem: any) => selectedItem.key === item.key
-                    )
-                  }
-                />
-
-                {item.name}
-                {!user?.member?.stripeCustomerId && item.pro ? (
-                  <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-                ) : null}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel
-            id="demo-multiple-c
-      heckbox-label"
-          >
-            IPO Type
-          </InputLabel>
-          <Select
-            label="IPO Type"
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={
-              filterArray?.IPOType
-                ? filterArray?.IPOType.map((item: any) => item.key)
-                : []
-            }
-            onChange={(event) =>
-              handleChangeFilter("IPOType", event, IPOTypeOptions)
-            }
-            renderValue={(selected) =>
-              `${selected.length} filters selected: ` +
-              selected
-                .map((selectedKey: string) => {
-                  const selectedItem = IPOTypeOptions.find(
-                    (item) => item.key === selectedKey
-                  );
-                  return selectedItem ? selectedItem.name : null;
-                })
-                .filter(Boolean) // Remove null values
-                .join(", ")
-            }
-            MenuProps={{
-              style: {
-                maxHeight: 250,
-              },
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                },
-              },
-            }}
-          >
-            {IPOTypeOptions.map((item: any) => (
-              <MenuItem
-                key={item.key}
-                value={item.key}
-                disabled={!user?.member?.stripeCustomerId && item.pro}
-              >
-                <Checkbox
-                  checked={
-                    filterArray.IPOType &&
-                    filterArray.IPOType.some(
-                      (selectedItem: any) => selectedItem.key === item.key
-                    )
-                  }
-                />
-
-                {item.name}
-                {!user?.member?.stripeCustomerId && item.pro ? (
-                  <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-                ) : null}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  };
-
-  const SelectedTabUpcomingIPOsFilter = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-checkbox-label">IPO Status</InputLabel>
-          <Select
-            label="IPO Status"
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={
-              filterArray?.IPOStatus
-                ? filterArray?.IPOStatus.map((item: any) => item.key)
-                : []
-            }
-            onChange={(event) =>
-              handleChangeFilter("IPOStatus", event, IPOStatusOptions)
-            }
-            renderValue={(selected) =>
-              `${selected.length} filters selected: ` +
-              selected
-                .map((selectedKey: string) => {
-                  const selectedItem = IPOStatusOptions.find(
-                    (item) => item.key === selectedKey
-                  );
-                  return selectedItem ? selectedItem.name : null;
-                })
-                .filter(Boolean) // Remove null values
-                .join(", ")
-            }
-            MenuProps={{
-              style: {
-                maxHeight: 250,
-              },
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                },
-              },
-            }}
-          >
-            {IPOStatusOptions.map((item: any) => (
-              <MenuItem
-                key={item.key}
-                value={item.key}
-                disabled={!user?.member?.stripeCustomerId && item.pro}
-              >
-                <Checkbox
-                  checked={
-                    filterArray.IPOStatus &&
-                    filterArray.IPOStatus.some(
-                      (selectedItem: any) => selectedItem.key === item.key
-                    )
-                  }
-                />
-
-                {item.name}
-                {!user?.member?.stripeCustomerId && item.pro ? (
-                  <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-                ) : null}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel
-            id="demo-multiple-c
-        heckbox-label"
-          >
-            IPO Type
-          </InputLabel>
-          <Select
-            label="IPO Type"
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={
-              filterArray?.IPOType
-                ? filterArray?.IPOType.map((item: any) => item.key)
-                : []
-            }
-            onChange={(event) =>
-              handleChangeFilter("IPOType", event, IPOTypeOptions)
-            }
-            renderValue={(selected) =>
-              `${selected.length} filters selected: ` +
-              selected
-                .map((selectedKey: string) => {
-                  const selectedItem = IPOTypeOptions.find(
-                    (item) => item.key === selectedKey
-                  );
-                  return selectedItem ? selectedItem.name : null;
-                })
-                .filter(Boolean) // Remove null values
-                .join(", ")
-            }
-            MenuProps={{
-              style: {
-                maxHeight: 250,
-              },
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                },
-              },
-            }}
-          >
-            {IPOTypeOptions.map((item: any) => (
-              <MenuItem
-                key={item.key}
-                value={item.key}
-                disabled={!user?.member?.stripeCustomerId && item.pro}
-              >
-                <Checkbox
-                  checked={
-                    filterArray.IPOType &&
-                    filterArray.IPOType.some(
-                      (selectedItem: any) => selectedItem.key === item.key
-                    )
-                  }
-                />
-
-                {item.name}
-                {!user?.member?.stripeCustomerId && item.pro ? (
-                  <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-                ) : null}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  };
-  const SelectedTabIPOGrapevineFilter = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-checkbox-label">IPO Status</InputLabel>
-          <Select
-            label="IPO Status"
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={
-              filterArray?.IPOStatus
-                ? filterArray?.IPOStatus.map((item: any) => item.key)
-                : []
-            }
-            onChange={(event) =>
-              handleChangeFilter("IPOStatus", event, IPOStatusRumorOptions)
-            }
-            renderValue={(selected) =>
-              `${selected.length} filters selected: ` +
-              selected
-                .map((selectedKey: string) => {
-                  const selectedItem = IPOStatusRumorOptions.find(
-                    (item) => item.key === selectedKey
-                  );
-                  return selectedItem ? selectedItem.name : null;
-                })
-                .filter(Boolean) // Remove null values
-                .join(", ")
-            }
-            MenuProps={{
-              style: {
-                maxHeight: 250,
-              },
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                },
-              },
-            }}
-          >
-            {IPOStatusRumorOptions.map((item: any) => (
-              <MenuItem
-                key={item.key}
-                value={item.key}
-                disabled={!user?.member?.stripeCustomerId && item.pro}
-              >
-                <Checkbox
-                  checked={
-                    filterArray.IPOStatus &&
-                    filterArray.IPOStatus.some(
-                      (selectedItem: any) => selectedItem.key === item.key
-                    )
-                  }
-                />
-
-                {item.name}
-                {!user?.member?.stripeCustomerId && item.pro ? (
-                  <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-                ) : null}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  };
-  const SelectedTab20PerformersFilter = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          flexWrap: "wrap",
-        }}
-      >
-        <div className={styles.filterModalStyling}>Not have any filter</div>
-      </div>
-    );
-  };
 
   return (
     <section className={styles.stockstablesection}>
@@ -695,9 +352,7 @@ const IpoList: React.FC<PROPS> = () => {
                   ? headerUpcomingIPOsList
                   : selectedTab === 2
                   ? headerIPOGrapevineList
-                  : selectedTab === 3
-                  ? header20PerformingIPOsList
-                  : header20PerformingIPOsList
+                  : selectedTab >= 3 && headerIPOsList
               }
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
@@ -710,7 +365,6 @@ const IpoList: React.FC<PROPS> = () => {
           )}
         </div>
       </div>
-      {/* This is for filters */}
       <Modal
         keepMounted
         open={openFilterModal}
@@ -734,15 +388,410 @@ const IpoList: React.FC<PROPS> = () => {
               </div>
             </div>
             <Divider style={{ marginTop: 5, marginBottom: 5 }} />
-            {selectedTab === 0
-              ? SelectedTabPricedIPOsFilter()
-              : selectedTab === 1
-              ? SelectedTabUpcomingIPOsFilter()
-              : selectedTab === 2
-              ? SelectedTabIPOGrapevineFilter()
-              : selectedTab === 3
-              ? SelectedTab20PerformersFilter()
-              : SelectedTab20PerformersFilter()}
+            {selectedTab === 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    IPO Year
+                  </InputLabel>
+                  <Select
+                    label="IPO Year"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOYEAR
+                        ? filterArray?.IPOYEAR.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOYEAR", event, IPOYearsOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOYearsOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOYearsOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOYEAR &&
+                            filterArray.IPOYEAR.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel
+                    id="demo-multiple-c
+                  heckbox-label"
+                  >
+                    IPO Type
+                  </InputLabel>
+                  <Select
+                    label="IPO Type"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOType
+                        ? filterArray?.IPOType.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOType", event, IPOTypeOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOTypeOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOTypeOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOType &&
+                            filterArray.IPOType.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            ) : selectedTab === 1 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    IPO Status
+                  </InputLabel>
+                  <Select
+                    label="IPO Status"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOStatus
+                        ? filterArray?.IPOStatus.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOStatus", event, IPOStatusOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOStatusOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOStatusOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOStatus &&
+                            filterArray.IPOStatus.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel
+                    id="demo-multiple-c
+                  heckbox-label"
+                  >
+                    IPO Type
+                  </InputLabel>
+                  <Select
+                    label="IPO Type"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOType
+                        ? filterArray?.IPOType.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOType", event, IPOTypeOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOTypeOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOTypeOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOType &&
+                            filterArray.IPOType.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            ) : selectedTab === 2 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    IPO Status
+                  </InputLabel>
+                  <Select
+                    label="IPO Status"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOStatus
+                        ? filterArray?.IPOStatus.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter(
+                        "IPOStatus",
+                        event,
+                        IPOStatusRumorOptions
+                      )
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOStatusRumorOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOStatusRumorOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOStatus &&
+                            filterArray.IPOStatus.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            ) : selectedTab === 3 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div className={styles.filterModalStyling}>
+                  Not have any filter
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div className={styles.filterModalStyling}>
+                  Not have any filter
+                </div>
+              </div>
+            )}
             <Divider style={{ marginTop: 20, marginBottom: 10 }} />
             <div
               style={{

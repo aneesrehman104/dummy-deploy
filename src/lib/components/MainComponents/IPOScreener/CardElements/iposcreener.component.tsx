@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from "react";
 import styles from "./CardElements.module.css";
 import { styled } from "@mui/material/styles";
@@ -9,7 +11,7 @@ import saveScreenerSvg from "../../../../../../public/saveScreenerSvg.svg";
 import exportSvg from "../../../../../../public/exportSvg.svg";
 import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/ProSvg.svg";
-import { getODataWithParams } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -50,12 +52,15 @@ import {
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { IPOYearsOptions, IPOTypeOptions, IPOStatusOptions } from "./constants";
-interface PROPS {}
+ import { IPOYearsOptions, IPOTypeOptions, IPOStatusOptions } from "./constants";
+
 const Mapper = {
   priced_ipo: `ipoStatus eq 'Priced'`,
   upcoming_ipo: `ipoStatus eq 'Expected' `,
 };
+
+interface PROPS {}
+
 const IpoScreener: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
   const router = useRouter();
@@ -98,20 +103,20 @@ const IpoScreener: React.FC<PROPS> = () => {
     0: "priced_ipo",
     1: "upcoming_ipo",
   };
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
   const [openColumnModal, setOpenColumnModal] = useState<boolean>(false);
-  const [openModalSavedScreen, setOpenModalSavedScreen] =
-    useState<boolean>(false);
-  const [openModalCheckScreen, setOpenModalCheckScreen] =
-    useState<boolean>(false);
-  const [name, setName] = useState<string>("");
-  const [userType, setUserType] = useState<string>("free");
+  const [openModalSavedScreen, setOpenModalSavedScreen] = useState<boolean>(false);
+  const [openModalCheckScreen, setOpenModalCheckScreen] = useState<boolean>(false);
+  const [name, setName] = useState("");
+  const [userType, setUserType] = useState("free");
 
   const [screenerData, setScreenerData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
+  
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filterCount, setFilerCount] = useState<number>(0);
@@ -286,736 +291,27 @@ const IpoScreener: React.FC<PROPS> = () => {
     setFilterArray(updatedFilterArray);
   };
 
-  const selectedPriceIpoFilter = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-checkbox-label">IPO Year</InputLabel>
-          <Select
-            label="IPO Year"
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={
-              filterArray?.IPOYEAR
-                ? filterArray?.IPOYEAR.map((item: any) => item.key)
-                : []
-            }
-            onChange={(event) =>
-              handleChangeFilter("IPOYEAR", event, IPOYearsOptions)
-            }
-            renderValue={(selected) =>
-              `${selected.length} filters selected: ` +
-              selected
-                .map((selectedKey: string) => {
-                  const selectedItem = IPOYearsOptions.find(
-                    (item) => item.key === selectedKey
-                  );
-                  return selectedItem ? selectedItem.name : null;
-                })
-                .filter(Boolean) // Remove null values
-                .join(", ")
-            }
-            MenuProps={{
-              style: {
-                maxHeight: 250,
-              },
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                },
-              },
-            }}
-          >
-            {IPOYearsOptions.map((item: any) => (
-              <MenuItem
-                key={item.key}
-                value={item.key}
-                disabled={!user?.member?.stripeCustomerId && item.pro}
-              >
-                <Checkbox
-                  checked={
-                    filterArray.IPOYEAR &&
-                    filterArray.IPOYEAR.some(
-                      (selectedItem: any) => selectedItem.key === item.key
-                    )
-                  }
-                />
+  const IPOYearsOptions = [
+    { key: "2023", name: "2023", pro: false },
+    { key: "2022", name: "2022", pro: false },
+    { key: "2021", name: "2021", pro: false },
+    { key: "2020", name: "2020", pro: true },
+    { key: "2019", name: "2019", pro: true },
+  ];
 
-                {item.name}
-                {!user?.member?.stripeCustomerId && item.pro ? (
-                  <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-                ) : null}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel
-            id="demo-multiple-c
-    heckbox-label"
-          >
-            IPO Type
-          </InputLabel>
-          <Select
-            label="IPO Type"
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={
-              filterArray?.IPOType
-                ? filterArray?.IPOType.map((item: any) => item.key)
-                : []
-            }
-            onChange={(event) =>
-              handleChangeFilter("IPOType", event, IPOTypeOptions)
-            }
-            renderValue={(selected) =>
-              `${selected.length} filters selected: ` +
-              selected
-                .map((selectedKey: string) => {
-                  const selectedItem = IPOTypeOptions.find(
-                    (item) => item.key === selectedKey
-                  );
-                  return selectedItem ? selectedItem.name : null;
-                })
-                .filter(Boolean) // Remove null values
-                .join(", ")
-            }
-            MenuProps={{
-              style: {
-                maxHeight: 250,
-              },
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                },
-              },
-            }}
-          >
-            {IPOTypeOptions.map((item: any) => (
-              <MenuItem
-                key={item.key}
-                value={item.key}
-                disabled={!user?.member?.stripeCustomerId && item.pro}
-              >
-                <Checkbox
-                  checked={
-                    filterArray.IPOType &&
-                    filterArray.IPOType.some(
-                      (selectedItem: any) => selectedItem.key === item.key
-                    )
-                  }
-                />
+  const IPOTypeOptions = [
+    { key: "Traditional", name: "Traditional", pro: true },
+    { key: "SPAC", name: "SPAC", pro: true },
+    { key: "Direct Listing", name: "Direct Listing", pro: true },
+  ];
 
-                {item.name}
-                {!user?.member?.stripeCustomerId && item.pro ? (
-                  <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-                ) : null}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  };
-  const selectedUpcomingIpoFilter = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-checkbox-label">IPO Status</InputLabel>
-          <Select
-            label="IPO Status"
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={
-              filterArray?.IPOStatus
-                ? filterArray?.IPOStatus.map((item: any) => item.key)
-                : []
-            }
-            onChange={(event) =>
-              handleChangeFilter("IPOStatus", event, IPOStatusOptions)
-            }
-            renderValue={(selected) =>
-              `${selected.length} filters selected: ` +
-              selected
-                .map((selectedKey: string) => {
-                  const selectedItem = IPOStatusOptions.find(
-                    (item) => item.key === selectedKey
-                  );
-                  return selectedItem ? selectedItem.name : null;
-                })
-                .filter(Boolean) // Remove null values
-                .join(", ")
-            }
-            MenuProps={{
-              style: {
-                maxHeight: 250,
-              },
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                },
-              },
-            }}
-          >
-            {IPOStatusOptions.map((item: any) => (
-              <MenuItem
-                key={item.key}
-                value={item.key}
-                disabled={!user?.member?.stripeCustomerId && item.pro}
-              >
-                <Checkbox
-                  checked={
-                    filterArray.IPOStatus &&
-                    filterArray.IPOStatus.some(
-                      (selectedItem: any) => selectedItem.key === item.key
-                    )
-                  }
-                />
+  const IPOStatusOptions = [
+    { key: "Expected", name: "Expected", pro: false },
+    { key: "Filed", name: "Filed", pro: false },
+    { key: "Withdrawn", name: "Withdrawn", pro: false },
+    { key: "Filed Amended", name: "Filed Amended", pro: true },
+  ];
 
-                {item.name}
-                {!user?.member?.stripeCustomerId && item.pro ? (
-                  <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-                ) : null}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel
-            id="demo-multiple-c
-        heckbox-label"
-          >
-            IPO Type
-          </InputLabel>
-          <Select
-            label="IPO Type"
-            labelId="demo-multiple-checkbox-label"
-            id="demo-multiple-checkbox"
-            multiple
-            value={
-              filterArray?.IPOType
-                ? filterArray?.IPOType.map((item: any) => item.key)
-                : []
-            }
-            onChange={(event) =>
-              handleChangeFilter("IPOType", event, IPOTypeOptions)
-            }
-            renderValue={(selected) =>
-              `${selected.length} filters selected: ` +
-              selected
-                .map((selectedKey: string) => {
-                  const selectedItem = IPOTypeOptions.find(
-                    (item) => item.key === selectedKey
-                  );
-                  return selectedItem ? selectedItem.name : null;
-                })
-                .filter(Boolean) // Remove null values
-                .join(", ")
-            }
-            MenuProps={{
-              style: {
-                maxHeight: 250,
-              },
-              PaperProps: {
-                style: {
-                  maxHeight: 250,
-                },
-              },
-            }}
-          >
-            {IPOTypeOptions.map((item: any) => (
-              <MenuItem
-                key={item.key}
-                value={item.key}
-                disabled={!user?.member?.stripeCustomerId && item.pro}
-              >
-                <Checkbox
-                  checked={
-                    filterArray.IPOType &&
-                    filterArray.IPOType.some(
-                      (selectedItem: any) => selectedItem.key === item.key
-                    )
-                  }
-                />
-
-                {item.name}
-                {!user?.member?.stripeCustomerId && item.pro ? (
-                  <Image src={proSvg} alt="filterSvg" width={50} height={32} />
-                ) : null}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    );
-  };
-
-  const selectedPriceIpoColumn = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-multiple-checkbox-label">
-              Find Column
-            </InputLabel>
-            <Select
-              label="Find Column"
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
-              multiple
-              value={personName.map((item: any) => item.key)}
-              onChange={handleChange}
-              renderValue={(selected) =>
-                selected
-                  .map((selectedKey: string) => {
-                    const selectedItem = personName.find(
-                      (item) => item.key === selectedKey
-                    );
-                    return selectedItem ? selectedItem.name : "";
-                  })
-                  .join(", ")
-              }
-              MenuProps={{
-                style: {
-                  maxHeight: 250,
-                },
-                PaperProps: {
-                  style: {
-                    maxHeight: 250,
-                  },
-                },
-              }}
-            >
-              {IPOPricedScreeners.map((item: any) => (
-                <MenuItem
-                  key={item.key}
-                  value={item.key}
-                  disabled={!user?.member?.stripeCustomerId && item.pro}
-                >
-                  <Checkbox
-                    checked={personName.some(
-                      (selectedItem) => selectedItem.key === item.key
-                    )}
-                  />
-                  {item.name}
-                  {!user?.member?.stripeCustomerId && item.pro ? (
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                    />
-                  ) : null}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-multiple-checkbox-label">
-              Company Profile
-            </InputLabel>
-            <Select
-              label="Company Profile"
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
-              multiple
-              value={personName.map((item: any) => item.key)}
-              onChange={handleChange}
-              renderValue={(selected) =>
-                selected
-                  .map((selectedKey: string) => {
-                    const selectedItem = CompanyProfile.find(
-                      (item) => item.key === selectedKey
-                    );
-                    return selectedItem ? selectedItem.name : null;
-                  })
-                  .filter(Boolean) // Remove null values
-                  .join(", ")
-              }
-              MenuProps={{
-                style: {
-                  maxHeight: 250,
-                },
-                PaperProps: {
-                  style: {
-                    maxHeight: 250,
-                  },
-                },
-              }}
-            >
-              {CompanyProfile.map((item: any) => (
-                <MenuItem
-                  key={item.key}
-                  value={item.key}
-                  disabled={!user?.member?.stripeCustomerId && item.pro}
-                >
-                  <Checkbox
-                    checked={personName.some(
-                      (selectedItem) => selectedItem.key === item.key
-                    )}
-                  />
-                  {item.name}
-                  {!user?.member?.stripeCustomerId && item.pro ? (
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                    />
-                  ) : null}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-multiple-checkbox-label">
-              IPO Profile
-            </InputLabel>
-            <Select
-              label="IPO Profile"
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
-              multiple
-              value={personName.map((item: any) => item.key)}
-              onChange={handleChange}
-              renderValue={(selected) =>
-                selected
-                  .map((selectedKey: string) => {
-                    const selectedItem = IPOProfile.find(
-                      (item) => item.key === selectedKey
-                    );
-                    return selectedItem ? selectedItem.name : null;
-                  })
-                  .filter(Boolean) // Remove null values
-                  .join(", ")
-              }
-              MenuProps={{
-                style: {
-                  maxHeight: 250,
-                },
-                PaperProps: {
-                  style: {
-                    maxHeight: 250,
-                  },
-                },
-              }}
-            >
-              {IPOProfile.map((item: any) => (
-                <MenuItem
-                  key={item.key}
-                  value={item.key}
-                  disabled={!user?.member?.stripeCustomerId && item.pro}
-                >
-                  <Checkbox
-                    checked={personName.some(
-                      (selectedItem) => selectedItem.key === item.key
-                    )}
-                  />
-                  {item.name}
-                  {!user?.member?.stripeCustomerId && item.pro ? (
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                    />
-                  ) : null}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-multiple-checkbox-label">Trading</InputLabel>
-            <Select
-              label="Trading"
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
-              multiple
-              value={personName.map((item: any) => item.key)}
-              onChange={handleChange}
-              renderValue={(selected) =>
-                selected
-                  .map((selectedKey: string) => {
-                    const selectedItem = Trading.find(
-                      (item) => item.key === selectedKey
-                    );
-                    return selectedItem ? selectedItem.name : null;
-                  })
-                  .filter(Boolean) // Remove null values
-                  .join(", ")
-              }
-              MenuProps={{
-                style: {
-                  maxHeight: 250,
-                },
-                PaperProps: {
-                  style: {
-                    maxHeight: 250,
-                  },
-                },
-              }}
-            >
-              {Trading.map((item: any) => (
-                <MenuItem
-                  key={item.key}
-                  value={item.key}
-                  disabled={!user?.member?.stripeCustomerId && item.pro}
-                >
-                  <Checkbox
-                    checked={personName.some(
-                      (selectedItem) => selectedItem.key === item.key
-                    )}
-                  />
-                  {item.name}
-                  {!user?.member?.stripeCustomerId && item.pro ? (
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                    />
-                  ) : null}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-      </div>
-    );
-  };
-  const selectedUpcomingIpoColumn = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-multiple-checkbox-label">
-              Find Column
-            </InputLabel>
-            <Select
-              label="Find Column"
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
-              multiple
-              value={personName.map((item: any) => item.key)}
-              onChange={handleChange}
-              renderValue={(selected) =>
-                selected
-                  .map((selectedKey: string) => {
-                    const selectedItem = personName.find(
-                      (item) => item.key === selectedKey
-                    );
-                    return selectedItem ? selectedItem.name : "";
-                  })
-                  .join(", ")
-              }
-              MenuProps={{
-                style: {
-                  maxHeight: 250,
-                },
-                PaperProps: {
-                  style: {
-                    maxHeight: 250,
-                  },
-                },
-              }}
-            >
-              {IPOUpcommingScreeners.map((item: any) => (
-                <MenuItem
-                  key={item.key}
-                  value={item.key}
-                  disabled={!user?.member?.stripeCustomerId && item.pro}
-                >
-                  <Checkbox
-                    checked={personName.some(
-                      (selectedItem) => selectedItem.key === item.key
-                    )}
-                  />
-                  {item.name}
-                  {!user?.member?.stripeCustomerId && item.pro ? (
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                    />
-                  ) : null}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-multiple-checkbox-label">
-              Company Profile
-            </InputLabel>
-            <Select
-              label="Company Profile"
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
-              multiple
-              value={personName.map((item: any) => item.key)}
-              onChange={handleChange}
-              renderValue={(selected) =>
-                selected
-                  .map((selectedKey: string) => {
-                    const selectedItem = CompanyProfile.find(
-                      (item) => item.key === selectedKey
-                    );
-                    return selectedItem ? selectedItem.name : null;
-                  })
-                  .filter(Boolean) // Remove null values
-                  .join(", ")
-              }
-              MenuProps={{
-                style: {
-                  maxHeight: 250,
-                },
-                PaperProps: {
-                  style: {
-                    maxHeight: 250,
-                  },
-                },
-              }}
-            >
-              {CompanyProfile.map((item: any) => (
-                <MenuItem
-                  key={item.key}
-                  value={item.key}
-                  disabled={!user?.member?.stripeCustomerId && item.pro}
-                >
-                  <Checkbox
-                    checked={personName.some(
-                      (selectedItem) => selectedItem.key === item.key
-                    )}
-                  />
-                  {item.name}
-                  {!user?.member?.stripeCustomerId && item.pro ? (
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                    />
-                  ) : null}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-multiple-checkbox-label">
-              IPO Profile
-            </InputLabel>
-            <Select
-              label="IPO Profile"
-              labelId="demo-multiple-checkbox-label"
-              id="demo-multiple-checkbox"
-              multiple
-              value={personName.map((item: any) => item.key)}
-              onChange={handleChange}
-              renderValue={(selected) =>
-                selected
-                  .map((selectedKey: string) => {
-                    const selectedItem = IPOProfile.find(
-                      (item) => item.key === selectedKey
-                    );
-                    return selectedItem ? selectedItem.name : null;
-                  })
-                  .filter(Boolean) // Remove null values
-                  .join(", ")
-              }
-              MenuProps={{
-                style: {
-                  maxHeight: 250,
-                },
-                PaperProps: {
-                  style: {
-                    maxHeight: 250,
-                  },
-                },
-              }}
-            >
-              {IPOProfile.map((item: any) => (
-                <MenuItem
-                  key={item.key}
-                  value={item.key}
-                  disabled={!user?.member?.stripeCustomerId && item.pro}
-                >
-                  <Checkbox
-                    checked={personName.some(
-                      (selectedItem) => selectedItem.key === item.key
-                    )}
-                  />
-                  {item.name}
-                  {!user?.member?.stripeCustomerId && item.pro ? (
-                    <Image
-                      src={proSvg}
-                      alt="filterSvg"
-                      width={50}
-                      height={32}
-                    />
-                  ) : null}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-      </div>
-    );
-  };
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
@@ -1143,7 +439,6 @@ const IpoScreener: React.FC<PROPS> = () => {
           )}
         </div>
       </div>
-      {/* Filter Modal */}
       <Modal
         keepMounted
         open={openFilterModal}
@@ -1167,9 +462,305 @@ const IpoScreener: React.FC<PROPS> = () => {
               </div>
             </div>
             <Divider style={{ marginTop: 5, marginBottom: 5 }} />
-            {selectedTab === 0
-              ? selectedPriceIpoFilter()
-              : selectedUpcomingIpoFilter()}
+            {selectedTab === 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    IPO Year
+                  </InputLabel>
+                  <Select
+                    label="IPO Year"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOYEAR
+                        ? filterArray?.IPOYEAR.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOYEAR", event, IPOYearsOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOYearsOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOYearsOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOYEAR &&
+                            filterArray.IPOYEAR.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel
+                    id="demo-multiple-c
+                  heckbox-label"
+                  >
+                    IPO Type
+                  </InputLabel>
+                  <Select
+                    label="IPO Type"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOType
+                        ? filterArray?.IPOType.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOType", event, IPOTypeOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOTypeOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOTypeOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOType &&
+                            filterArray.IPOType.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel id="demo-multiple-checkbox-label">
+                    IPO Status
+                  </InputLabel>
+                  <Select
+                    label="IPO Status"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOStatus
+                        ? filterArray?.IPOStatus.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOStatus", event, IPOStatusOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOStatusOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOStatusOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOStatus &&
+                            filterArray.IPOStatus.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel
+                    id="demo-multiple-c
+                  heckbox-label"
+                  >
+                    IPO Type
+                  </InputLabel>
+                  <Select
+                    label="IPO Type"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOType
+                        ? filterArray?.IPOType.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOType", event, IPOTypeOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOTypeOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOTypeOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOType &&
+                            filterArray.IPOType.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            )}
             <Divider style={{ marginTop: 20, marginBottom: 10 }} />
 
             <div
@@ -1195,8 +786,6 @@ const IpoScreener: React.FC<PROPS> = () => {
           </Box>
         </>
       </Modal>
-
-      {/* Columns Modal */}
       <Modal
         keepMounted
         open={openColumnModal}
@@ -1220,9 +809,456 @@ const IpoScreener: React.FC<PROPS> = () => {
               </div>
             </div>
             <Divider style={{ marginTop: 5, marginBottom: 5 }} />
-            {selectedTab === 0
-              ? selectedPriceIpoColumn()
-              : selectedUpcomingIpoColumn()}
+            {selectedTab === 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Find Column
+                    </InputLabel>
+                    <Select
+                      label="Find Column"
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = personName.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : "";
+                          })
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {IPOPricedScreeners.map((item: any) => (
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
+                        >
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {!user?.member?.stripeCustomerId && item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Company Profile
+                    </InputLabel>
+                    <Select
+                      label="Company Profile"
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = CompanyProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {CompanyProfile.map((item: any) => (
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
+                        >
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {!user?.member?.stripeCustomerId && item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      IPO Profile
+                    </InputLabel>
+                    <Select
+                      label="IPO Profile"
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = IPOProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {IPOProfile.map((item: any) => (
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
+                        >
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {!user?.member?.stripeCustomerId && item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Trading
+                    </InputLabel>
+                    <Select
+                      label="Trading"
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = Trading.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {Trading.map((item: any) => (
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
+                        >
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {!user?.member?.stripeCustomerId && item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Find Column
+                    </InputLabel>
+                    <Select
+                      label="Find Column"
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = personName.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : "";
+                          })
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {IPOUpcommingScreeners.map((item: any) => (
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
+                        >
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {!user?.member?.stripeCustomerId && item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                  }}
+                >
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      Company Profile
+                    </InputLabel>
+                    <Select
+                      label="Company Profile"
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = CompanyProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {CompanyProfile.map((item: any) => (
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
+                        >
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {!user?.member?.stripeCustomerId && item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl sx={{ m: 1, width: 300 }}>
+                    <InputLabel id="demo-multiple-checkbox-label">
+                      IPO Profile
+                    </InputLabel>
+                    <Select
+                      label="IPO Profile"
+                      labelId="demo-multiple-checkbox-label"
+                      id="demo-multiple-checkbox"
+                      multiple
+                      value={personName.map((item: any) => item.key)}
+                      onChange={handleChange}
+                      renderValue={(selected) =>
+                        selected
+                          .map((selectedKey: string) => {
+                            const selectedItem = IPOProfile.find(
+                              (item) => item.key === selectedKey
+                            );
+                            return selectedItem ? selectedItem.name : null;
+                          })
+                          .filter(Boolean) // Remove null values
+                          .join(", ")
+                      }
+                      MenuProps={{
+                        style: {
+                          maxHeight: 250,
+                        },
+                        PaperProps: {
+                          style: {
+                            maxHeight: 250,
+                          },
+                        },
+                      }}
+                    >
+                      {IPOProfile.map((item: any) => (
+                        <MenuItem
+                          key={item.key}
+                          value={item.key}
+                          disabled={!user?.member?.stripeCustomerId && item.pro}
+                        >
+                          <Checkbox
+                            checked={personName.some(
+                              (selectedItem) => selectedItem.key === item.key
+                            )}
+                          />
+                          {item.name}
+                          {!user?.member?.stripeCustomerId && item.pro ? (
+                            <Image
+                              src={proSvg}
+                              alt="filterSvg"
+                              width={50}
+                              height={32}
+                            />
+                          ) : null}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
+              </div>
+            )}
             {/* <div
               style={{
                 marginLeft: 15,
@@ -1601,6 +1637,6 @@ const IpoScreener: React.FC<PROPS> = () => {
       </Modal>
     </section>
   );
-};
+}
 
 export default IpoScreener;
