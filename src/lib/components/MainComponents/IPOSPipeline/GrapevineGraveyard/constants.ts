@@ -6,27 +6,27 @@ export const headerArrayRumoredIPOs = [
   },
   {
     name: "Rumored Date",
-    key: "rumorDate",
+    key: "ipoRumorDate",
     type: "string",
   },
   {
     name: "Rumored Market Cap (M)",
-    key: "rumorMarketCap",
+    key: "rumoredIpoMarketCap",
     type: "string",
   },
   {
     name: "Rumored IPO Offering Size (M)",
-    key: "rumorOfferingSize",
+    key: "rumoredIpoOfferingSize",
     type: "string",
   },
   {
     name: "Rumor Source",
-    key: "rumorPublication",
+    key: "ipoRumorPublication",
     type: "string",
   },
   {
     name: "Rumor Link",
-    key: "rumorSourceLink",
+    key: "ipoRumorSourceLink",
     type: "string",
   },
 ];
@@ -44,22 +44,22 @@ export const headerArrayStalledIPOs = [
   },
   {
     name: "Stalled Date",
-    key: "stalledDate",
+    key: "ipoStallDate",
     type: "string",
   },
   {
     name: "Offering Size (M)",
-    key: "offeringSize",
+    key: "ipoOfferingSize",
     type: "string",
   },
   {
     name: "Proposed Price Range",
-    key: "proposedPriceRange",
+    key: "expectedIpoPriceRange",
     type: "string",
   },
   {
     name: "Proposed Market Cap (M)",
-    key: "expMarketCap",
+    key: "expectedIpoMarketCap",
     type: "string",
   },
 ];
