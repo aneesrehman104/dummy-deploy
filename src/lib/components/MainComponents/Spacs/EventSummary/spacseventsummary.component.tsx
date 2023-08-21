@@ -6,6 +6,8 @@ import Skeleton from "@mui/material/Skeleton";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
+import { getODataWithParams } from "@lib/ts/api";
+import axios, { AxiosError } from "axios";
 const DynamicChart = dynamic(
   () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
   {
@@ -16,7 +18,7 @@ const DynamicChart = dynamic(
 
   interface PROPS {}
 
-  const EventSummary: React.FC<PROPS> = () => {
+  const SpacsEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [graphData, setGraphData] = useState<GraphDataInterface>({
     additional_dataset: {},
@@ -91,25 +93,39 @@ const DynamicChart = dynamic(
       },
     ],
   };
-  const getStatsData = async () => {
-    const response = await getApiWithoutAuth(URLs.spacGraph);
-    if (response.status === 200 && response.data !== null) {
-      setGraphData(response.data);
-
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
+    const source = axios.CancelToken.source();
+    const getStatsData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setGraphData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
     getStatsData();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
 
   return (
     <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>2023 SPACs Stats</div>
+          <div className={styles.SpacsytdEventSummary}>2023 SPACs Stats</div>
           <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
         </div>
       </div>
@@ -152,4 +168,4 @@ const DynamicChart = dynamic(
   );
 }
 
-export default EventSummary;
+export default SpacsEventSummary;

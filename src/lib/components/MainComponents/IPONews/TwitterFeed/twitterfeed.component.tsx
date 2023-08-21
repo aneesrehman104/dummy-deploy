@@ -4,8 +4,9 @@ import Image from "next/image";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import Skeleton from "@mui/material/Skeleton";
+import { getODataWithParams } from "@lib/ts/api";
+import axios, { AxiosError } from "axios";
 interface PROPS {}
-
 const TwitterFeed: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [newsData, setNewsData] = useState<any>({
@@ -32,20 +33,33 @@ const TwitterFeed: React.FC<PROPS> = () => {
       },
     ],
   });
-
-  const getNews = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=twitter`);
-    if (response.status === 200 && response.data !== null) {
-      setNewsData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const source = axios.CancelToken.source();
+    const getNews = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.ipoNews, {
+          filter:'twitter',
+          cancelToken: source.token,
+        });
+        if (response.status === 200 && response.data !== null) {
+          setNewsData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
     getNews();
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
 
   return (

@@ -30,6 +30,7 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
+import axios, { AxiosError } from "axios";
 import {
   headerPricedIPOsList,
   headerUpcomingIPOsList,
@@ -115,34 +116,51 @@ const IpoList: React.FC<PROPS> = () => {
     setCurrentPage(pageNumber);
   };
 
-  const getSpacsList = async () => {
-    setIsLoading(true);
-    const response = await getODataWithParams(URLs.ipoOdata, {
-      skip: selectedTab >= 3 ? 0 : (currentPage - 1) * itemsPerPage,
-      top: selectedTab >= 3 ? 20 : itemsPerPage,
-      filter: Mapper[tabValues[selectedTab]],
-      orderby:
-        selectedTab === 3
-          ? [{ field: "percentReturnFromIpoPrice", direction: "asc" }]
-          : selectedTab === 4
-          ? [{ field: "percentReturnFromIpoPrice", direction: "desc" }]
-          : undefined,
-    });
-    if (response.status === 200 && response.data !== null) {
-      setSpacsListData({
-        dataset: response.data,
-        additional_dataset: { totalLength: 10 },
-      });
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const getSpacsList = async () => {
+      setIsLoading(true);
+
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          skip: selectedTab >= 3 ? 0 : (currentPage - 1) * itemsPerPage,
+          top: selectedTab >= 3 ? 20 : itemsPerPage,
+          filter: Mapper[tabValues[selectedTab]],
+          cancelToken: source.token,
+          orderby:
+            selectedTab === 3
+              ? [{ field: "percentReturnFromIpoPrice", direction: "asc" }]
+              : selectedTab === 4
+              ? [{ field: "percentReturnFromIpoPrice", direction: "desc" }]
+              : undefined,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setSpacsListData({
+            dataset: response.data,
+            additional_dataset: { totalLength: 10 },
+          });
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     getSpacsList();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [selectedTab, currentPage, itemsPerPage]);
+
   const saveValue = (e: any) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });

@@ -12,6 +12,7 @@ import exportSvg from "../../../../../../public/exportSvg.svg";
 import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/ProSvg.svg";
 import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
+import axios, { AxiosError } from "axios";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -206,29 +207,43 @@ const IpoScreener: React.FC<PROPS> = () => {
     setOpenFilterModal(false);
   };
 
-  const getScreenerData = async () => {
-    setIsLoading(true);
-    const response = await getODataWithParams(URLs.ipoOdata, {
-      skip: (currentPage - 1) * itemsPerPage,
-      top: itemsPerPage,
-      filter: Mapper[tabValues[selectedTab]],
-    });
-    console.log("========================res", response);
-    if (response.status === 200 && response.data !== null) {
-      setScreenerData({
-        dataset: response.data,
-        additional_dataset: { totalLength: 10 },
-      });
-      console.log("donee ----")
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const getScreenerData = async () => {
+      setIsLoading(true);
+
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          skip: (currentPage - 1) * itemsPerPage,
+          top: itemsPerPage,
+          filter: Mapper[tabValues[selectedTab]],
+          cancelToken: source.token,
+        });
+        console.log("========================res", response);
+        if (response.status === 200 && response.data !== null) {
+          setScreenerData({
+            dataset: response.data,
+            additional_dataset: { totalLength: 10 },
+          });
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     getScreenerData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [selectedTab, currentPage, itemsPerPage]);
 
   const handleTabClick = (key: any) => {
@@ -290,27 +305,6 @@ const IpoScreener: React.FC<PROPS> = () => {
 
     setFilterArray(updatedFilterArray);
   };
-
-  const IPOYearsOptions = [
-    { key: "2023", name: "2023", pro: false },
-    { key: "2022", name: "2022", pro: false },
-    { key: "2021", name: "2021", pro: false },
-    { key: "2020", name: "2020", pro: true },
-    { key: "2019", name: "2019", pro: true },
-  ];
-
-  const IPOTypeOptions = [
-    { key: "Traditional", name: "Traditional", pro: true },
-    { key: "SPAC", name: "SPAC", pro: true },
-    { key: "Direct Listing", name: "Direct Listing", pro: true },
-  ];
-
-  const IPOStatusOptions = [
-    { key: "Expected", name: "Expected", pro: false },
-    { key: "Filed", name: "Filed", pro: false },
-    { key: "Withdrawn", name: "Withdrawn", pro: false },
-    { key: "Filed Amended", name: "Filed Amended", pro: true },
-  ];
 
   return (
     <section className={styles.stockstablesection}>

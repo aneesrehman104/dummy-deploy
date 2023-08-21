@@ -7,6 +7,8 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+import { getODataWithParams } from "@lib/ts/api";
+import axios, { AxiosError } from "axios";
 import {
   headerArrayDaily,
   headerArrayWeekly,
@@ -23,26 +25,54 @@ const IpoHubLoser: React.FC<PROPS> = () => {
     additional_dataset: { totalLength: 20 },
   });
   const [itemsPerPage] = useState<number>(5);
-
-  const getIPOSTradingLosersData = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.iposGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
-        selectedTab === 0 ? "daily" : selectedTab === 1 ? "weekly" : "sinceIPO"
-      }&gainOrLoser=loser`
-    );
-    if (response.status === 200 && response.data !== null) {
-      setIPOSTradingLosersData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
+  const Mapper = {
+    daily_ipo: ``,
+    weekly_ipo: ``,
+    since_ipo: ``,
+  };
+  const tabValues: {
+    [key: number]: "daily_ipo" | "weekly_ipo" | "since_ipo";
+  } = {
+    0: "daily_ipo",
+    1: "weekly_ipo",
+    2: "since_ipo",
   };
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const getIPOSTradingLosersData = async () => {
+      setIsLoading(true);
+
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          skip: (currentPage - 1) * itemsPerPage,
+          top: itemsPerPage,
+          filter: Mapper[tabValues[selectedTab]],
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setIPOSTradingLosersData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     getIPOSTradingLosersData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [selectedTab, currentPage]);
+
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);

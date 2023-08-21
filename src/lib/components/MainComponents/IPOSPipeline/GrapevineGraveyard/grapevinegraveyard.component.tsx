@@ -12,6 +12,8 @@ import {
   headerArrayStalledIPOs,
   headerArrayWishlistIPOs,
 } from "./constants";
+import axios, { AxiosError } from "axios";
+
 interface PROPS {}
 
 const GrapevineGraveyard: React.FC<PROPS> = () => {
@@ -33,26 +35,42 @@ const GrapevineGraveyard: React.FC<PROPS> = () => {
     1: "stalledIPO",
     2: "wishlistIPO",
   };
-  const getGrapevineGraveyardData = async () => {
-    setIsLoading(true);
-    const response = await getODataWithParams(URLs.ipoOdata, {
-      skip: (currentPage - 1) * itemsPerPage,
-      top: itemsPerPage,
-      filter: `ipoStatus eq '${Mapper[tabValues[selectedTab]]}'`,
-    });
-    if (response.status === 200 && response.data !== null) {
-      setGrapevineGraveyardData({
-        dataset: response.data,
-        additional_dataset: { totalLength: 10 },
-      });
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const getGrapevineGraveyardData = async () => {
+      setIsLoading(true);
+
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          skip: (currentPage - 1) * itemsPerPage,
+          top: itemsPerPage,
+          filter: `ipoStatus eq '${Mapper[tabValues[selectedTab]]}'`,
+          cancelToken: source.token,
+        });
+        console.log('================res',response);
+        if (response.status === 200 && response.data !== null) {
+          setGrapevineGraveyardData({
+            dataset: response.data,
+            additional_dataset: { totalLength: 10 },
+          });
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     getGrapevineGraveyardData();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
 

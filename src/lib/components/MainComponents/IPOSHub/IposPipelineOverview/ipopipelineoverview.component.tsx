@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect } from "react";
 import styles from "./IposPipelineOverview.module.css";
 import { useState } from "react";
-import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
+import { getODataWithParams } from "@lib/ts/api";
+import axios, { AxiosError } from "axios";
 import {
   SkeltonTable,
   ListingTrackTable,
@@ -27,30 +28,54 @@ const IposPipelineOverview: React.FC<PROPS> = () => {
     additional_dataset: { totalLength: 20 },
   });
   const [itemsPerPage] = useState<number>(5);
+  const Mapper = {
+    upcoming_ipo: ``,
+    latest_ipo: ``,
+    recent_ipo: ``,
+    rumor_ipo: ``,
+  };
+  const tabValues: {
+    [key: number]: "upcoming_ipo" | "latest_ipo" | "recent_ipo" | "rumor_ipo";
+  } = {
+    0: "upcoming_ipo",
+    1: "latest_ipo",
+    2: "recent_ipo",
+    3: "rumor_ipo",
+  };
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     const getIPOSTradingIposPipelineOverviewData = async () => {
       setIsLoading(true);
-      const response = await getApiWithoutAuth(
-        `${URLs.iposGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
-          selectedTab === 0
-            ? "upcomingIPO"
-            : selectedTab === 1
-            ? "latestPrice"
-            : selectedTab === 2
-            ? "recentlyFiled"
-            : "rumor"
-        }&gainOrLoser=gain`
-      );
-      if (response.status === 200 && response.data !== null) {
-        setIPOSTradingIposPipelineOverviewData(response.data);
-        setIsLoading(false);
-      } else {
+
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          skip: (currentPage - 1) * itemsPerPage,
+          top: itemsPerPage,
+          filter: Mapper[tabValues[selectedTab]],
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setIPOSTradingIposPipelineOverviewData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
         setIsLoading(false);
       }
     };
+
     getIPOSTradingIposPipelineOverviewData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {

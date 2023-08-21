@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./MergerMarketStats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
+import { getODataWithParams } from "@lib/ts/api";
+import axios, { AxiosError } from "axios";
 interface PROPS {}
 
 const IpoHubMarketStats: React.FC<PROPS> = () => {
@@ -18,17 +19,33 @@ const IpoHubMarketStats: React.FC<PROPS> = () => {
   const [ipoHubStatsData, setIpoHubStatsData] = useState();
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
     const getIpoHubStatsData = async () => {
-      const response = await getApiWithoutAuth(URLs.mergerStats);
-      if (response.status === 200 && response.data !== null) {
-        setIpoHubStatsData(response.data);
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          cancelToken: source.token,
+        });
 
-        setIsLoading(false);
-      } else {
+        if (response.status === 200 && response.data !== null) {
+          setIpoHubStatsData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
         setIsLoading(false);
       }
     };
+
     getIpoHubStatsData();
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
   const dataArray = [
     {

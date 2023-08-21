@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./news.module.css";
-import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackNews } from "@/lib/components/CommonComponents";
+import { getODataWithParams } from "@lib/ts/api";
+import axios, { AxiosError } from "axios";
 interface PROPS {}
 
 const News: React.FC<PROPS> = () => {
@@ -20,18 +21,36 @@ const News: React.FC<PROPS> = () => {
   });
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
     const getNews = async () => {
       setIsLoading(true);
-      const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=all`);
-      console.log("==================res", response);
-      if (response.status === 200 && response.data !== null) {
-        setNewsData(response.data);
-        setIsLoading(false);
-      } else {
+      try {
+        const response = await getODataWithParams(URLs.ipoNews, {
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setNewsData(response.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+          setIsLoading(false);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+          setIsLoading(false);
+        }
+      } finally {
         setIsLoading(false);
       }
     };
+
     getNews();
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
   return (
     <section className={styles.headlineslistcontainer}>

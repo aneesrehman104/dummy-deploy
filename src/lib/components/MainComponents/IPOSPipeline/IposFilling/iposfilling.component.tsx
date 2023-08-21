@@ -12,6 +12,8 @@ import {
   headerArrayLatestAmendedFilings,
   headerArrayWithdrawn,
 } from "./constants";
+import axios, { AxiosError } from "axios";
+
 interface PROPS {}
 
 import { get } from "http";
@@ -54,29 +56,46 @@ const IposFilling: React.FC<PROPS> = () => {
     1: "amended",
     2: "withdrawn",
   };
-  const getIposFillingData = async () => {
-    setIsLoading(true);
-    const response = await getODataWithParams(URLs.ipoOdata, {
-      skip: (currentPage - 1) * itemsPerPage,
-      top: itemsPerPage,
-      filter: `ipoStatus eq '${Mapper[tabValues[selectedTab]]}' and ${
-        NameMapper[tabValues[selectedTab]]
-      } `,
-    });
-    if (response.status === 200 && response.data !== null) {
-      setIposFillingData({
-        dataset: response.data,
-        additional_dataset: { totalLength: 10 },
-      });
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
+
+
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const getIposFillingData = async () => {
+      setIsLoading(true);
+
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          skip: (currentPage - 1) * itemsPerPage,
+          top: itemsPerPage,
+          filter: `ipoStatus eq '${Mapper[tabValues[selectedTab]]}' and ${
+            NameMapper[tabValues[selectedTab]]
+          } `,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setIposFillingData({
+            dataset: response.data,
+            additional_dataset: { totalLength: 10 },
+          });
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     getIposFillingData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
