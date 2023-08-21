@@ -908,13 +908,13 @@ export const PreDealSpacScreener = [
 export const CompanyProfile = [
   {
     name: "Company",
-    key: "company",
+    key: "companyName",
     type: "string",
     pro: false,
   },
   {
     name: "Symbol",
-    key: "symbol",
+    key: "companySymbol",
     type: "string",
     pro: false,
   },
