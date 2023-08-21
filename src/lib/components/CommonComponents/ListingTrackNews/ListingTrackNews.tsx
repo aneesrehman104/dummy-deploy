@@ -20,10 +20,10 @@ const ListingTrackNews = ({ isLoading, dataArray }: any) => {
           width={"100%"}
           style={{ marginTop: 15 }}
         />
-      ) : dataArray.length === 0 ? (
+      ) : dataArray?.length === 0 ? (
         <div className={styles.title}>Don&apos;t have any News</div>
       ) : (
-        dataArray.map((item: any, index: number) => {
+        dataArray?.map((item: any, index: number) => {
           return (
             <div className={styles.cardStyle} key={index}>
               <div style={{ height: 180 }}>

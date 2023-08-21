@@ -94,7 +94,6 @@ const LatestClosedIpo: React.FC<PROPS> = () => {
           )}'`,
           cancelToken: source.token,
         });
-
         if (response.status === 200 && response.data !== null) {
           setLatestClosedIpoData({
             dataset: response.data,

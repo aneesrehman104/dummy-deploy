@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import styles from "./CardElements.module.css";
 import { styled } from "@mui/material/styles";
@@ -53,7 +51,7 @@ import {
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
- import { IPOYearsOptions, IPOTypeOptions, IPOStatusOptions } from "./constants";
+import { IPOYearsOptions, IPOTypeOptions, IPOStatusOptions } from "./constants";
 
 const Mapper = {
   priced_ipo: `ipoStatus eq 'Priced'`,
@@ -108,8 +106,10 @@ const IpoScreener: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
   const [openColumnModal, setOpenColumnModal] = useState<boolean>(false);
-  const [openModalSavedScreen, setOpenModalSavedScreen] = useState<boolean>(false);
-  const [openModalCheckScreen, setOpenModalCheckScreen] = useState<boolean>(false);
+  const [openModalSavedScreen, setOpenModalSavedScreen] =
+    useState<boolean>(false);
+  const [openModalCheckScreen, setOpenModalCheckScreen] =
+    useState<boolean>(false);
   const [name, setName] = useState("");
   const [userType, setUserType] = useState("free");
 
@@ -117,7 +117,7 @@ const IpoScreener: React.FC<PROPS> = () => {
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  
+
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filterCount, setFilerCount] = useState<number>(0);
@@ -136,22 +136,27 @@ const IpoScreener: React.FC<PROPS> = () => {
     {
       name: "Company",
       key: "companyName",
+      type: "string",
     },
     {
       name: "Symbol",
       key: "companySymbol",
+      type: "string",
     },
     {
       name: "Listing Method",
       key: "listing_method",
+      type: "string",
     },
     {
       name: "Listing Status",
       key: "listing_status",
+      type: "string",
     },
     {
       name: "Market Cap",
       key: "marketCap",
+      type: "string",
     },
   ]);
 
@@ -184,7 +189,7 @@ const IpoScreener: React.FC<PROPS> = () => {
     });
     const filteredItems = selectedItems.filter(
       (item: any) => item !== null
-    ) as Array<{ name: string; key: string }>;
+    ) as Array<{ name: string; key: string, type:string }>;
     setPersonName(filteredItems);
   };
 
@@ -206,7 +211,6 @@ const IpoScreener: React.FC<PROPS> = () => {
     setFilerCount(count);
     setOpenFilterModal(false);
   };
-
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -252,23 +256,28 @@ const IpoScreener: React.FC<PROPS> = () => {
     setPersonName([
       {
         name: "Company",
-        key: "company",
+        key: "companyName",
+        type: "string",
       },
       {
         name: "Symbol",
-        key: "symbol",
+        key: "companySymbol",
+        type: "string",
       },
       {
-        name: "Price",
-        key: "price",
+        name: "Listing Method",
+        key: "listing_method",
+        type: "string",
       },
       {
-        name: "Today",
-        key: "daily",
+        name: "Listing Status",
+        key: "listing_status",
+        type: "string",
       },
       {
         name: "Market Cap",
-        key: "vol",
+        key: "marketCap",
+        type: "string",
       },
     ]);
     // setFilterArray({
@@ -419,17 +428,25 @@ const IpoScreener: React.FC<PROPS> = () => {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            <ListingTrackTable
-              data={screenerData?.dataset}
-              headerArray={personName}
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPage}
-              paginate={paginate}
-              totalLength={screenerData?.additional_dataset}
-              showPagination
-              setItemPerPage={setItemPerPage}
-              isUser={user?.member?.stripeCustomerId}
-            />
+            <>
+              {console.log(
+                "========screenerData?.dataset",
+                screenerData?.dataset,
+                personName
+              )}
+
+              <ListingTrackTable
+                data={screenerData?.dataset}
+                headerArray={personName}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+                paginate={paginate}
+                totalLength={screenerData?.additional_dataset}
+                showPagination
+                setItemPerPage={setItemPerPage}
+                isUser={user?.member?.stripeCustomerId}
+              />
+            </>
           )}
         </div>
       </div>
@@ -1631,6 +1648,6 @@ const IpoScreener: React.FC<PROPS> = () => {
       </Modal>
     </section>
   );
-}
+};
 
 export default IpoScreener;
