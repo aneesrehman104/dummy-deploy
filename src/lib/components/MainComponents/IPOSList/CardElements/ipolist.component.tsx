@@ -34,8 +34,6 @@ import {
   headerPricedIPOsList,
   headerUpcomingIPOsList,
   headerIPOGrapevineList,
-  header20PerformingIPOsList,
-  header20PerformingDeSPACsList,
   headerIPOsList,
 } from "./constants";
 

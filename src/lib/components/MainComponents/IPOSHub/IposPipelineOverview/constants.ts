@@ -6,7 +6,7 @@ export const headerArrayUpcomingIPOs = [
   },
   {
     name: "Ticker",
-    key: "ticker",
+    key: "companySymbol",
     type: "string",
   },
   {
@@ -21,17 +21,17 @@ export const headerArrayUpcomingIPOs = [
   },
   {
     name: "Est. Pricing Date",
-    key: "expIpoDate",
+    key: "expectedIpoDate",
     type: "string",
   },
   {
     name: "Price Range",
-    key: "expPriceRange",
+    key: "expectedIpoPriceRange",
     type: "string",
   },
   {
     name: "Offer Size (M)",
-    key: "offeringSize",
+    key: "ipoOfferingSize",
     type: "string",
   },
 ];
@@ -44,7 +44,7 @@ export const headerArrayLatestPriced = [
   },
   {
     name: "Ticker",
-    key: "ticker",
+    key: "companySymbol",
     type: "string",
   },
   {
@@ -59,12 +59,12 @@ export const headerArrayLatestPriced = [
   },
   {
     name: "Price",
-    key: "latestPrice",
+    key: "ipoPrice",
     type: "string",
   },
   {
     name: "Offer Size (M)",
-    key: "offeringSize",
+    key: "ipoOfferingSize",
     type: "string",
   },
   {
@@ -81,7 +81,7 @@ export const headerArrayRecentlyFiled = [
   },
   {
     name: "Ticker",
-    key: "ticker",
+    key: "companySymbol",
     type: "string",
   },
   {
@@ -119,7 +119,7 @@ export const headerArrayRumored = [
   },
   {
     name: "Rumor Status",
-    key: "rumorDate",
+    key: "ipoRumorStatus",
     type: "string",
   },
   {
@@ -139,7 +139,7 @@ export const headerArrayRumored = [
   },
   {
     name: "Rumor Source",
-    key: "rumorPublication",
+    key: "ipoRumorPublication",
     type: "string",
   },
 ];

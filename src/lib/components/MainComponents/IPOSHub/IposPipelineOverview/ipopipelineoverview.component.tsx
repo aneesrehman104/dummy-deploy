@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import styles from "./IposPipelineOverview.module.css";
 import { useState } from "react";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -13,7 +13,15 @@ import {
   headerArrayRecentlyFiled,
   headerArrayRumored,
 } from "./constants";
+import { getDateDaysAgo } from "@/lib/ts/utils/utils";
 interface PROPS {}
+
+const Mapper = {
+  0: "ipoStatus eq 'Expected'",
+  1: `ipoStatus eq 'Priced' and ipoDate ge '${getDateDaysAgo(90)}'`,
+  2: `ipoStatus eq 'Filed' and ipoDate ge '${getDateDaysAgo(90)}'`,
+  3: `ipoStatus eq 'Rumored' and ipoDate ge '${getDateDaysAgo(90)}'`
+}
 
 const IposPipelineOverview: React.FC<PROPS> = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -31,19 +39,19 @@ const IposPipelineOverview: React.FC<PROPS> = () => {
   useEffect(() => {
     const getIPOSTradingIposPipelineOverviewData = async () => {
       setIsLoading(true);
-      const response = await getApiWithoutAuth(
-        `${URLs.iposGainer}?page=${currentPage}&offset=${itemsPerPage}&period=${
-          selectedTab === 0
-            ? "upcomingIPO"
-            : selectedTab === 1
-            ? "latestPrice"
-            : selectedTab === 2
-            ? "recentlyFiled"
-            : "rumor"
-        }&gainOrLoser=gain`
-      );
+      const response = await getODataWithParams(URLs.ipoOdata, {
+        skip: selectedTab >= 3 ? 0 : (currentPage - 1) * itemsPerPage,
+        top: selectedTab >= 3 ? 20 : itemsPerPage,
+        filter: Mapper[selectedTab as 0 | 1 | 2 | 3],
+        orderby:
+          selectedTab === 3
+            ? [{ field: "percentReturnFromIpoPrice", direction: "asc" }]
+            : selectedTab === 4
+            ? [{ field: "percentReturnFromIpoPrice", direction: "desc" }]
+            : undefined,
+      });
       if (response.status === 200 && response.data !== null) {
-        setIPOSTradingIposPipelineOverviewData(response.data);
+        setIPOSTradingIposPipelineOverviewData({dataset: response.data, additional_dataset: { totalLength: 10 }});
         setIsLoading(false);
       } else {
         setIsLoading(false);
