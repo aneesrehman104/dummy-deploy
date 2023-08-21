@@ -41,7 +41,7 @@ import {
 } from "@/lib/ts/constants";
   interface PROPS {}
 
-  const CardElements: React.FC<PROPS> = () => {
+  const MergerScreener: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
   const router = useRouter();
   const CssTextField = styled(TextField)({
@@ -1795,4 +1795,4 @@ import {
   );
 }
 
-export default CardElements;
+export default MergerScreener;
