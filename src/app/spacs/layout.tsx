@@ -7,13 +7,13 @@ import {
 import Fallback from "../fallback/page";
 import { MemberInformationContext } from "@/lib/components/context";
 
-export default function RootLayout({
+const RootLayout = ({
   unauthenticated,
   children,
 }: {
   unauthenticated?: React.ReactNode;
   children: React.ReactNode;
-}) {
+}) => {
   return (
     <MemberstackProvider
       config={{
@@ -33,13 +33,13 @@ export default function RootLayout({
   );
 }
 
-function MemberstackWrapper({
+const MemberstackWrapper =({
   unauthenticated,
   children,
 }: {
   unauthenticated?: React.ReactNode;
   children: React.ReactNode;
-}) {
+}) => {
   const user = useMember();
   const memberstack = useMemberstack();
 
@@ -49,3 +49,4 @@ function MemberstackWrapper({
     </MemberInformationContext.Provider>
   );
 }
+export default RootLayout;

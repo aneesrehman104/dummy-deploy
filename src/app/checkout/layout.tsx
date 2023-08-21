@@ -9,11 +9,11 @@ const inter = Inter({ subsets: ["latin"] });
 //   description: "Listing Track",
 // };
 
-export default function RootLayout({
+const  RootLayout=({
   children,
 }: {
   children: React.ReactElement | React.ReactElement[];
-}) {
+})=> {
   return (
     <html lang="en">
       <title>CHECKOUT</title>
@@ -34,3 +34,4 @@ export default function RootLayout({
     </html>
   );
 }
+export default  RootLayout

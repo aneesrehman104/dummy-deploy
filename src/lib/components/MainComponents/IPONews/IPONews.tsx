@@ -1,9 +1,9 @@
 import styles from "./IPONews.module.css";
 import React from "react";
-import News from "./News/News";
-import CurrentUpdateFeed from "./CurrentUpdateFeed/CurrentUpdateFeed";
-import TwitterFeed from "./TwitterFeed/TwitterFeed";
-import PressReleases from "./PressReleases/PressReleases";
+import News from "./News/iponews.components";
+import CurrentUpdateFeed from "./CurrentUpdateFeed/currentupdatefeed.component";
+import TwitterFeed from "./TwitterFeed/twitterfeed.component";
+import PressReleases from "./PressReleases/ipopressrelaeased.component";
 const IPONews = () => {
   return (
     <main>

@@ -46,7 +46,7 @@ const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 const drawerWidth = 240;
 
-export default function AuthenticatedNavbar(props: Props) {
+const AuthenticatedNavbar = (props: Props) => {
   const { logout } = useMemberstack();
   const router = useRouter();
   const pathname = usePathname();
@@ -54,10 +54,10 @@ export default function AuthenticatedNavbar(props: Props) {
   console.log("====================a", router, user);
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down(900));
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("Home");
   const [isOpen, setIsOpen] = useState<SidebarState>({});
-  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
   const { openModal, hideModal } = useMemberstackModal();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -521,21 +521,21 @@ export default function AuthenticatedNavbar(props: Props) {
                   {item.items && isOpen[item.id] ? (
                     <List>
                       {item.items.map((subItem) => (
-                         <motion.div
-                         key={subItem.id}
-                         initial={{ opacity: 0, y: -10 }}
-                         animate={{ opacity: 1, y: 0 }}
-                         exit={{ opacity: 0, y: -10 }}
-                         transition={{ duration: 0.3, delay: index * 0.1 }}
-                       >
-                        <ListItem key={subItem.id}>
-                          <ListItemButton
-                            onClick={() => {
-                              setCurrentBreadcrumb(subItem.breadcrumb);
-                              router.push(subItem.pathname);
-                            }}
-                          >
-                             <motion.div
+                        <motion.div
+                          key={subItem.id}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.3, delay: index * 0.1 }}
+                        >
+                          <ListItem key={subItem.id}>
+                            <ListItemButton
+                              onClick={() => {
+                                setCurrentBreadcrumb(subItem.breadcrumb);
+                                router.push(subItem.pathname);
+                              }}
+                            >
+                              <motion.div
                                 whileHover={{ scale: 1.05 }} // Scale up effect on hover
                                 className={
                                   subItem.pathname === pathname
@@ -543,11 +543,10 @@ export default function AuthenticatedNavbar(props: Props) {
                                     : "tabStyle"
                                 }
                               >
-                              
-                              {subItem.name}
-                            </motion.div>
-                          </ListItemButton>
-                        </ListItem>
+                                {subItem.name}
+                              </motion.div>
+                            </ListItemButton>
+                          </ListItem>
                         </motion.div>
                       ))}
                     </List>
@@ -625,4 +624,5 @@ export default function AuthenticatedNavbar(props: Props) {
       </Dialog>
     </Box>
   );
-}
+};
+export default AuthenticatedNavbar;

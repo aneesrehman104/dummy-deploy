@@ -2,7 +2,7 @@
 import RootLayout from "../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import IPOSHub from "@/lib/components/MainComponents/IPOSHub";
-export default function IposHubPage() {
+const IposHubPage =()=> {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="ipos/hub">
@@ -11,3 +11,5 @@ export default function IposHubPage() {
     </RootLayout>
   );
 }
+
+export default  IposHubPage

@@ -1,2 +1,2 @@
-import RequestDemo from "./RequestDemo";
+import RequestDemo from "./requestdemo.component";
 export default RequestDemo;

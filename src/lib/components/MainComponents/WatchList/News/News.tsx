@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./news.module.css";
 import Image from "next/image";
-function News() {
+  interface PROPS {}
+
+  const News: React.FC<PROPS> = () => {
   return (
     <section className={styles.headlineslistcontainer}>
       <div className={styles.aggregatedMiniTables}>SPAC News </div>

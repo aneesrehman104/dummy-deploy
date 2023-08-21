@@ -1,2 +1,2 @@
-import MergerPipeline from "./MergerPipeline";
+import MergerPipeline from "./mergerpipeline.component";
 export default MergerPipeline;

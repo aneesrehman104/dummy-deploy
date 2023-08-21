@@ -1,10 +1,11 @@
 "use client";
 import RootLayout from "./layout";
-import Plans from "@/lib/components/MainComponents/Plans/Plans";
-export default function PlansPage() {
+import Plans from "@/lib/components/MainComponents/Plans/plans.component";
+const PlansPage = () => {
   return (
     <RootLayout>
-      <Plans/>
+      <Plans />
     </RootLayout>
   );
-}
+};
+export default PlansPage;

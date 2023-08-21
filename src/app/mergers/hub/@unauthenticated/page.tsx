@@ -2,7 +2,7 @@
 import RootLayout from "../../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import MergerHub from "@/lib/components/MainComponents/MergerHub";
-export default function MergerHubPage() {
+const MergerHubPage = () => {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="mergers/hub">
@@ -10,4 +10,6 @@ export default function MergerHubPage() {
       </AuthenticatedNavbar>
     </RootLayout>
   );
-}
+};
+
+export default MergerHubPage;

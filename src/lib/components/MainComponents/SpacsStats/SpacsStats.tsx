@@ -1,9 +1,9 @@
 import styles from "./spacsStats.module.css";
 import React from "react";
-import EventSummary from "./EventSummary/EventSummary";
-import MarketStats from "./MarketStats/MarketStats";
-import ReturnsByTargetIndustry from "./ReturnsByTargetIndustry/ReturnsByTargetIndustry";
-import ReturnsByClosingYearVintage from "./ReturnsByClosingYearVintage/ReturnsByClosingYearVintage";
+import EventSummary from "./EventSummary/eventsummary.component";
+import MarketStats from "./MarketStats/marketstats.component";
+import ReturnsByTargetIndustry from "./ReturnsByTargetIndustry/returnsbytargetindustry.component";
+import ReturnsByClosingYearVintage from "./ReturnsByClosingYearVintage/returnsbyclosingyearvintage.component";
 const SpacsStats = () => {
   return (
     <main>

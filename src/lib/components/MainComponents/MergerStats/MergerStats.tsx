@@ -1,7 +1,7 @@
 import styles from "./MergerStats.module.css";
 import React from "react";
-import EventSummary from "./EventSummary/EventSummary";
-import MergerMarketStats from "./MergerMarketStats/MergerMarketStats";
+import EventSummary from "./EventSummary/eventsummary.component";
+import MergerMarketStats from "./MergerMarketStats/mergermarketstats.component";
 const MergerStats = () => {
   return (
     <main>

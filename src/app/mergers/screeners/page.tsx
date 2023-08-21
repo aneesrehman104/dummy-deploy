@@ -2,7 +2,7 @@
 import RootLayout from "../../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import MergerScreener from "@/lib/components/MainComponents/MergerScreener";
-export default function MergerScreenerPage() {
+const MergerScreenerPage = () => {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="mergers/screeners">
@@ -10,4 +10,5 @@ export default function MergerScreenerPage() {
       </AuthenticatedNavbar>
     </RootLayout>
   );
-}
+};
+export default MergerScreenerPage;
