@@ -4,7 +4,8 @@ import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import Skeleton from "@mui/material/Skeleton";
-
+import { getODataWithParams } from "@lib/ts/api";
+import axios, { AxiosError } from "axios";
 import { URLs } from "@/lib/ts/apiUrl";
   interface PROPS {}
 
@@ -17,24 +18,39 @@ import { URLs } from "@/lib/ts/apiUrl";
     },
   });
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [statsData, setStatsData] = useState<any>(null);
 
-  const getStats = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.spacsStats}`);
-    if (response.status === 200 && response.data !== null) {
-      setStatsData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
+  // useEffect(() => {
+  //   const source = axios.CancelToken.source();
 
-  useEffect(() => {
-    getStats();
-  }, []);
+  //   const getStatsData = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const response = await getODataWithParams(URLs.ipoOdata, {
+  //         cancelToken: source.token,
+  //       });
 
+  //       if (response.status === 200 && response.data !== null) {
+  //         setStatsData(response.data);
+  //       }
+  //     } catch (error) {
+  //       if (axios.isCancel(error)) {
+  //         console.log("Request cancelled:", (error as AxiosError).message);
+  //       } else {
+  //         console.error("An error occurred:", (error as AxiosError).message);
+  //       }
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   getStatsData();
+
+  //   return () => {
+  //     source.cancel("Request cancelled due to component unmount");
+  //   };
+  // }, []);
   const dataArray = [
     {
       heading: "Overview",

@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import styles from "./CardElements.module.css";
 import { styled } from "@mui/material/styles";
@@ -12,6 +10,7 @@ import exportSvg from "../../../../../../public/exportSvg.svg";
 import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/ProSvg.svg";
 import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
+import axios, { AxiosError } from "axios";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -52,7 +51,7 @@ import {
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
- import { IPOYearsOptions, IPOTypeOptions, IPOStatusOptions } from "./constants";
+import { IPOYearsOptions, IPOTypeOptions, IPOStatusOptions } from "./constants";
 
 const Mapper = {
   priced_ipo: `ipoStatus eq 'Priced'`,
@@ -107,8 +106,10 @@ const IpoScreener: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
   const [openColumnModal, setOpenColumnModal] = useState<boolean>(false);
-  const [openModalSavedScreen, setOpenModalSavedScreen] = useState<boolean>(false);
-  const [openModalCheckScreen, setOpenModalCheckScreen] = useState<boolean>(false);
+  const [openModalSavedScreen, setOpenModalSavedScreen] =
+    useState<boolean>(false);
+  const [openModalCheckScreen, setOpenModalCheckScreen] =
+    useState<boolean>(false);
   const [name, setName] = useState("");
   const [userType, setUserType] = useState("free");
 
@@ -116,7 +117,7 @@ const IpoScreener: React.FC<PROPS> = () => {
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  
+
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filterCount, setFilerCount] = useState<number>(0);
@@ -135,22 +136,27 @@ const IpoScreener: React.FC<PROPS> = () => {
     {
       name: "Company",
       key: "companyName",
+      type: "string",
     },
     {
       name: "Symbol",
       key: "companySymbol",
+      type: "string",
     },
     {
       name: "Listing Method",
       key: "listing_method",
+      type: "string",
     },
     {
       name: "Listing Status",
       key: "listing_status",
+      type: "string",
     },
     {
       name: "Market Cap",
       key: "marketCap",
+      type: "string",
     },
   ]);
 
@@ -183,7 +189,7 @@ const IpoScreener: React.FC<PROPS> = () => {
     });
     const filteredItems = selectedItems.filter(
       (item: any) => item !== null
-    ) as Array<{ name: string; key: string }>;
+    ) as Array<{ name: string; key: string, type:string }>;
     setPersonName(filteredItems);
   };
 
@@ -206,29 +212,42 @@ const IpoScreener: React.FC<PROPS> = () => {
     setOpenFilterModal(false);
   };
 
-  const getScreenerData = async () => {
-    setIsLoading(true);
-    const response = await getODataWithParams(URLs.ipoOdata, {
-      skip: (currentPage - 1) * itemsPerPage,
-      top: itemsPerPage,
-      filter: Mapper[tabValues[selectedTab]],
-    });
-    console.log("========================res", response);
-    if (response.status === 200 && response.data !== null) {
-      setScreenerData({
-        dataset: response.data,
-        additional_dataset: { totalLength: 10 },
-      });
-      console.log("donee ----")
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const getScreenerData = async () => {
+      setIsLoading(true);
+
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          skip: (currentPage - 1) * itemsPerPage,
+          top: itemsPerPage,
+          filter: Mapper[tabValues[selectedTab]],
+          cancelToken: source.token,
+        });
+        console.log("========================res", response);
+        if (response.status === 200 && response.data !== null) {
+          setScreenerData({
+            dataset: response.data,
+            additional_dataset: { totalLength: 10 },
+          });
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     getScreenerData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [selectedTab, currentPage, itemsPerPage]);
 
   const handleTabClick = (key: any) => {
@@ -237,23 +256,28 @@ const IpoScreener: React.FC<PROPS> = () => {
     setPersonName([
       {
         name: "Company",
-        key: "company",
+        key: "companyName",
+        type: "string",
       },
       {
         name: "Symbol",
-        key: "symbol",
+        key: "companySymbol",
+        type: "string",
       },
       {
-        name: "Price",
-        key: "price",
+        name: "Listing Method",
+        key: "listing_method",
+        type: "string",
       },
       {
-        name: "Today",
-        key: "daily",
+        name: "Listing Status",
+        key: "listing_status",
+        type: "string",
       },
       {
         name: "Market Cap",
-        key: "vol",
+        key: "marketCap",
+        type: "string",
       },
     ]);
     // setFilterArray({
@@ -290,27 +314,6 @@ const IpoScreener: React.FC<PROPS> = () => {
 
     setFilterArray(updatedFilterArray);
   };
-
-  const IPOYearsOptions = [
-    { key: "2023", name: "2023", pro: false },
-    { key: "2022", name: "2022", pro: false },
-    { key: "2021", name: "2021", pro: false },
-    { key: "2020", name: "2020", pro: true },
-    { key: "2019", name: "2019", pro: true },
-  ];
-
-  const IPOTypeOptions = [
-    { key: "Traditional", name: "Traditional", pro: true },
-    { key: "SPAC", name: "SPAC", pro: true },
-    { key: "Direct Listing", name: "Direct Listing", pro: true },
-  ];
-
-  const IPOStatusOptions = [
-    { key: "Expected", name: "Expected", pro: false },
-    { key: "Filed", name: "Filed", pro: false },
-    { key: "Withdrawn", name: "Withdrawn", pro: false },
-    { key: "Filed Amended", name: "Filed Amended", pro: true },
-  ];
 
   return (
     <section className={styles.stockstablesection}>
@@ -425,17 +428,25 @@ const IpoScreener: React.FC<PROPS> = () => {
           {isLoading ? (
             <SkeltonTable />
           ) : (
-            <ListingTrackTable
-              data={screenerData?.dataset}
-              headerArray={personName}
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPage}
-              paginate={paginate}
-              totalLength={screenerData?.additional_dataset}
-              showPagination
-              setItemPerPage={setItemPerPage}
-              isUser={user?.member?.stripeCustomerId}
-            />
+            <>
+              {console.log(
+                "========screenerData?.dataset",
+                screenerData?.dataset,
+                personName
+              )}
+
+              <ListingTrackTable
+                data={screenerData?.dataset}
+                headerArray={personName}
+                currentPage={currentPage}
+                itemsPerPage={itemsPerPage}
+                paginate={paginate}
+                totalLength={screenerData?.additional_dataset}
+                showPagination
+                setItemPerPage={setItemPerPage}
+                isUser={user?.member?.stripeCustomerId}
+              />
+            </>
           )}
         </div>
       </div>
@@ -1637,6 +1648,6 @@ const IpoScreener: React.FC<PROPS> = () => {
       </Modal>
     </section>
   );
-}
+};
 
 export default IpoScreener;

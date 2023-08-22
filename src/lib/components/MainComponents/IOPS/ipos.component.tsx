@@ -1,9 +1,10 @@
+import React, { useEffect, useState } from "react";
+
 import styles from "./iops.module.css";
-import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-import IpoCompanyInfo from "./IpoCompanyInfo/ipocompanyinfo.component.tsx"
+import IpoCompanyInfo from "./IpoCompanyInfo/ipocompanyinfo.component.tsx";
 import News from "./News/iponews.component";
 import PressReleases from "./PressReleases/ipopressreleases.component";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -12,6 +13,13 @@ import { useMemberstackModal } from "@memberstack/react";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
 import { Checkbox, FormControlLabel, Menu, MenuItem } from "@mui/material";
+import { getODataWithParams } from "@lib/ts/api";
+import { GraphDataInterface } from "@/lib/ts/interface";
+import { URLs } from "@/lib/ts/apiUrl";
+import axios, { AxiosError } from "axios";
+
+const jsonResponse = "application/json";
+interface PROPS {}
 
 const DynamicChart = dynamic(() => import("./IOPSChart"), {
   ssr: false,
@@ -63,6 +71,11 @@ const dataSet = [
 ];
 
 const IOPS: React.FC<PROPS> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [graphData, setGraphData] = useState<GraphDataInterface>({
+    additional_dataset: {},
+    dataset: [],
+  });
   const { openModal, hideModal } = useMemberstackModal();
   const { user } = useContext(MemberInformationContext);
 
@@ -470,7 +483,37 @@ const IOPS: React.FC<PROPS> = () => {
       );
     }
   };
+  useEffect(() => {
+    const source = axios.CancelToken.source();
 
+    const getStatsData = async () => {
+      setIsLoading(true);
+
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setGraphData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getStatsData();
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
+  }, []);
   return (
     <>
       <div className={styles.dashboardheader}>

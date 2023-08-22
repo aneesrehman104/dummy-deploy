@@ -3,7 +3,9 @@ import styles from "./PressReleases.module.css";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
-  interface PROPS {}
+import { getODataWithParams } from "@lib/ts/api";
+import axios, { AxiosError } from "axios";
+interface PROPS {}
 
 const PressReleases: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -36,68 +38,96 @@ const PressReleases: React.FC<PROPS> = () => {
     dataset: [
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
     ],
   });
-  const getNews = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=press`);
-    if (response.status === 200 && response.data !== null) {
-      setReleasesNewsData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
-  const getNewsSEC = async () => {
-    setIsLoadingSec(true);
-    const response = await getApiWithoutAuth(`${URLs.ipoNews}?type=sec`);
-    if (response.status === 200 && response.data !== null) {
-      setSecNewsData(response.data);
-      setIsLoadingSec(false);
-    } else {
-      setIsLoadingSec(false);
-    }
-  };
-
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const getNews = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          filter: "press",
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setReleasesNewsData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const getNewsSEC = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          filter: "sec",
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setReleasesNewsData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     getNews();
     getNewsSEC();
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
 
   return (
     <section className={styles.headlineslistcontainer}>
       <div className={styles.sectionlistnewscontainerParent}>
-      <ListingTrackSECFilling
+        <ListingTrackSECFilling
           isLoading={isLoading}
           dataArray={releasesnewsData?.dataset}
           title={"Press Releases"}
         />
         <ListingTrackSECFilling
-        isFilling
+          isFilling
           isLoading={isLoadingSec}
           dataArray={secnewsData?.dataset}
           title={"IPO SEC Feed"}
@@ -105,6 +135,6 @@ const PressReleases: React.FC<PROPS> = () => {
       </div>
     </section>
   );
-}
+};
 
 export default PressReleases;

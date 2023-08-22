@@ -6,6 +6,8 @@ import Skeleton from "@mui/material/Skeleton";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
+import { getODataWithParams } from "@lib/ts/api";
+import axios, { AxiosError } from "axios";
 const DynamicChart = dynamic(
   () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
   {
@@ -92,19 +94,34 @@ const IpoStatsEventSummary: React.FC<PROPS> = () => {
   };
 
   useEffect(() => {
+    const source = axios.CancelToken.source();
     const getStatsData = async () => {
-      const response = await getApiWithoutAuth(URLs.spacGraph);
-      if (response.status === 200 && response.data !== null) {
-        setGraphData(response.data);
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          cancelToken: source.token,
+        });
 
-        setIsLoading(false);
-      } else {
+        if (response.status === 200 && response.data !== null) {
+          setGraphData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
         setIsLoading(false);
       }
     };
-    getStatsData();
-  }, []);
 
+    getStatsData();
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
+  }, []);
   return (
     <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>

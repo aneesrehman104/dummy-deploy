@@ -3,9 +3,12 @@ import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-import { getApiWithoutAuth } from "@lib/ts/api";
+import { getODataWithParams } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
+import axios, { AxiosError } from "axios";
+
+const jsonResponse = "application/json";
 interface PROPS {}
 
 const DynamicChart = dynamic(
@@ -92,18 +95,35 @@ const HomeEventSummary: React.FC<PROPS> = () => {
   };
 
   useEffect(() => {
-      const getStatsData = async () => {
-    const response = await getApiWithoutAuth(URLs.spacGraph);
-    if (response.status === 200 && response.data !== null) {
-      setGraphData(response.data);
+    const source = axios.CancelToken.source();
 
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
+    const getStatsData = async () => {
+      setIsLoading(true);
 
-    }
-  };
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setGraphData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     getStatsData();
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
 
   return (

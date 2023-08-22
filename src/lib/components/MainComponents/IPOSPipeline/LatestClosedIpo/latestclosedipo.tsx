@@ -7,13 +7,13 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-import {headerArray} from './constants'
+import { headerArray } from "./constants";
+import axios, { AxiosError } from "axios";
 const tabValues: { [key: number]: string } = {
   0: "thisWeek",
   1: "nextWeek",
   2: "afterNextWeek",
 };
-
 
 function getStartAndEndOfWeek(): { startOfWeek: string; endOfWeek: string } {
   const today = new Date();
@@ -65,39 +65,56 @@ const LatestClosedIpo: React.FC<PROPS> = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedTab, setSelectedTab] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  
+
   const [LatestClosedIpoData, setLatestClosedIpoData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
   const [itemsPerPage] = useState<number>(5);
-  
+
   useEffect(() => {
+    const source = axios.CancelToken.source();
+
     const getLatestClosedIpoData = async () => {
       setIsLoading(true);
-      // Get the start and end of the current week
-      const { startOfWeek, endOfWeek } = getStartAndEndOfWeek();
-      console.log(startOfWeek, endOfWeek);
-      const response = await getODataWithParams(URLs.ipoOdata, {
-        // ?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-        skip: (currentPage - 1) * itemsPerPage,
-        top: itemsPerPage,
-        filter: `expectedIpoDate ge '${addDaysToDate(startOfWeek, selectedTab * 7)}' and expectedIpoDate le '${addDaysToDate(endOfWeek, selectedTab * 7)}'`
-      });
 
-      if (response.status === 200 && response.data !== null) {
-        setLatestClosedIpoData({
-          dataset: response.data,
-          additional_dataset: { totalLength: 10 },
+      try {
+        // Get the start and end of the current week
+        const { startOfWeek, endOfWeek } = getStartAndEndOfWeek();
+        console.log(startOfWeek, endOfWeek);
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          skip: (currentPage - 1) * itemsPerPage,
+          top: itemsPerPage,
+          filter: `expectedIpoDate ge '${addDaysToDate(
+            startOfWeek,
+            selectedTab * 7
+          )}' and expectedIpoDate le '${addDaysToDate(
+            endOfWeek,
+            selectedTab * 7
+          )}'`,
+          cancelToken: source.token,
         });
-        setIsLoading(false);
-      } else {
+        if (response.status === 200 && response.data !== null) {
+          setLatestClosedIpoData({
+            dataset: response.data,
+            additional_dataset: { totalLength: 10 },
+          });
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
         setIsLoading(false);
       }
     };
 
     getLatestClosedIpoData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [selectedTab, currentPage]);
 
   const paginate = (pageNumber: number) => {
@@ -151,6 +168,6 @@ const LatestClosedIpo: React.FC<PROPS> = () => {
       </div>
     </section>
   );
-}
+};
 
 export default LatestClosedIpo;

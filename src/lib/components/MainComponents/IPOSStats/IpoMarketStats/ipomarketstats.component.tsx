@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ipomarketstats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { homeConstants } from "@/lib/ts/constants";
+import { URLs } from "@/lib/ts/apiUrl";
+import { getODataWithParams } from "@lib/ts/api";
+import axios, { AxiosError } from "axios";
 interface PROPS {}
 
 const IpoMarketStats: React.FC<PROPS> = () => {
@@ -13,6 +16,41 @@ const IpoMarketStats: React.FC<PROPS> = () => {
       },
     },
   });
+
+
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [ipoStatsData, setIpoStatsData] = useState();
+
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+    const getIpoStatsData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setIpoStatsData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getIpoStatsData();
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
+  }, []);
+
   const dataArray = [
     {
       heading: "Overview",

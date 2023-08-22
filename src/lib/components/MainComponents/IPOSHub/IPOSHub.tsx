@@ -1,9 +1,9 @@
 import styles from "./IPOSHub.module.css";
 import React from "react";
 import EventSummary from "./EventSummary/ipohubeventsummary.component";
-import Gainer from "./Gainer/ipohubgainer.component";
-import Losers from "./Losers/ipohubloser.component";
-import News from "./News/iponews.component";
+import IpoHubGainer from "./Gainer/ipohubgainer.component";
+import IpoHubLosers from "./Losers/ipohubloser.component";
+import IpoHubNews from "./News/iponews.component";
 import IposPipelineOverview from "./IposPipelineOverview/ipopipelineoverview.component"
 import IpoHubMarketStats from "./IpoHubMarketStats/ipohubmarketstats.component";
 const IPOSHub = () => {
@@ -18,9 +18,9 @@ const IPOSHub = () => {
         <EventSummary />
         <IpoHubMarketStats />
         <IposPipelineOverview/>
-        <Gainer />
-        <Losers />
-        <News />
+        <IpoHubGainer />
+        <IpoHubLosers />
+        <IpoHubNews />
       </section>
     </main>
   );
