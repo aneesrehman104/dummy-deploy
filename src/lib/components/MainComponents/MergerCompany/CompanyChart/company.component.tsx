@@ -65,7 +65,12 @@ const Company: React.FC<PROPS> = () => {
         zoomType: "x",
         plotBackgroundColor: null,
         renderTo: "container",
-        animation: false,
+               animation: false,
+        zooming: {
+          mouseWheel: {
+            enabled: false,
+          },
+        },
       },
       accessibility: {
         enabled: false,
@@ -452,7 +457,12 @@ const Company: React.FC<PROPS> = () => {
         zoomType: "x",
         plotBackgroundColor: null,
         renderTo: "container",
-        animation: false,
+               animation: false,
+        zooming: {
+          mouseWheel: {
+            enabled: false,
+          },
+        },
       },
       accessibility: {
         enabled: false,

@@ -90,6 +90,11 @@ const IOPS: React.FC<PROPS> = () => {
         plotBackgroundColor: null,
         renderTo: "container",
         animation: false,
+        zooming: {
+          mouseWheel: {
+            enabled: false,
+          },
+        },
       },
       accessibility: {
         enabled: false,

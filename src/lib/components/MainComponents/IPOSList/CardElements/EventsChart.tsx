@@ -13,7 +13,12 @@ const  EventCharts =({ data }: EvenetChart) =>{
       marginBottom: 0,
       plotBackgroundColor: null,
       renderTo: "container",
-      animation: false,
+             animation: false,
+        zooming: {
+          mouseWheel: {
+            enabled: false,
+          },
+        },
     },
     title: {
       text: "",

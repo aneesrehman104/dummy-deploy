@@ -29,7 +29,12 @@ const EventSummary=()=>{
       marginBottom: 90,
       plotBackgroundColor: null,
       renderTo: "container",
-      animation: false,
+             animation: false,
+        zooming: {
+          mouseWheel: {
+            enabled: false,
+          },
+        },
     },
     title: {
       text: "",
