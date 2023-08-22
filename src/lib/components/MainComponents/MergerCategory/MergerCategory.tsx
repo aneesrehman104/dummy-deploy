@@ -6,6 +6,7 @@ import Losers from "./Losers/losers.component";
 import Announced from "./Announced/announced.component";
 import Closed from "./Closed/closed.component";
 import News from "./News/news.component";
+import MergerMarketStats from './MergerMarketStats/mergermarketstats.component'
 const MergerCategory = () => {
   return (
     <main>
@@ -16,6 +17,7 @@ const MergerCategory = () => {
       </header>
       <section>
       <EventSummary />
+      <MergerMarketStats/>
       <Announced />
       <Closed />
       <Gainer />

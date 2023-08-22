@@ -115,9 +115,9 @@ const Footer = () => {
               </div>
               <div className="textStyle paddingTop">
                 {FOOTER.detailPremiumFeature}
-                <li style={{ marginTop: 7 }}>{FOOTER.pointOne} </li>
-                <li style={{ marginTop: 7 }}> {FOOTER.pointTwo} </li>
-                <li style={{ marginTop: 7 }}> {FOOTER.pointThree} </li>
+                <li className="liTopStyle" >{FOOTER.pointOne} </li>
+                <li className="liTopStyle"> {FOOTER.pointTwo} </li>
+                <li className="liTopStyle"> {FOOTER.pointThree} </li>
                 <div className="paddingTop"> {FOOTER.pricing}</div>
               </div>
               <CommonfiButton
