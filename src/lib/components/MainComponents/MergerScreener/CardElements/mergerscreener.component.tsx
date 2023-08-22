@@ -94,7 +94,7 @@ import {
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filterCount, setFilerCount] = useState<number>(0);
   const [filters, setFilters] = useState({

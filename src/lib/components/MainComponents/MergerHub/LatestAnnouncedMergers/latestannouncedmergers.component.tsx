@@ -12,7 +12,7 @@ import {
 
   const LatestAnnouncedMergers: React.FC<PROPS> = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [latestAnnouncedMergersData, setLatestAnnouncedMergersData] =
     useState<any>({

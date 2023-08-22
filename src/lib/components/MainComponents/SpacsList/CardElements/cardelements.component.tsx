@@ -408,7 +408,7 @@ import { MemberInformationContext } from "@/lib/components/context";
       type: "string",
     },
   ];
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);

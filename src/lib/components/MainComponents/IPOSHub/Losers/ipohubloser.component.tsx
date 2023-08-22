@@ -18,7 +18,7 @@ interface PROPS {}
 
 const IpoHubLoser: React.FC<PROPS> = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [iPOSTradingLosersData, setIPOSTradingLosersData] = useState<any>({
     dataset: [],
