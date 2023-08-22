@@ -1,8 +1,8 @@
 import React from "react";
-import Company from "./CompanyChart/Company";
-import News from "./News/News";
-import PressReleases from "./PressReleases/PressReleases";
-import CompanyInfo from "./CompanyInfo/CompaniInfo";
+import Company from "./CompanyChart/company.component";
+import News from "./News/news.component"
+import PressReleases from "./PressReleases/pressreleases.component";
+import CompanyInfo from "./CompanyInfo/companiinfo.component";
 const MergerCompany = () => {
   return (
     <main>

@@ -1,9 +1,9 @@
 import styles from "./dashboard-header.module.css";
 import React from "react";
-import LatestAnnouncedSpacMergers from "./LatestAnnouncedSpacMergers/LatestAnnouncedSpacMergers";
-import LatestClosedSpacMergers from "./LatestClosedSpacMergers/LatestClosedSpacMergers";
-import SpacEventCalendar from "./SpacEventCalendar/SpacEventCalendar";
-import GrapevineGraveyard from "./GrapevineGraveyard/GrapevineGraveyard";
+import LatestAnnouncedSpacMergers from "./LatestAnnouncedSpacMergers/latestannouncedspacmergers.component";
+import LatestClosedSpacMergers from "./LatestClosedSpacMergers/latestclosedspacmergers.component";
+import SpacEventCalendar from "./SpacEventCalendar/spaceventcalendar.component";
+import GrapevineGraveyard from "./GrapevineGraveyard/grapevinegraveyard.component";
 const SpacsPipeline = () => {
   return (
     <main>

@@ -1,10 +1,11 @@
 "use client";
 import RootLayout from "./layout";
 import Marketing from "@/lib/components/MainComponents/Marketing";
-export default function PlansPage() {
+const MarketingPage = () => {
   return (
     <RootLayout>
-      <Marketing/>
+      <Marketing />
     </RootLayout>
   );
-}
+};
+export default MarketingPage;

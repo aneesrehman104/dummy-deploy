@@ -3,8 +3,7 @@ import styles from "./news.module.css";
 import Image from "next/image";
 
 import Skeleton from "@mui/material/Skeleton";
-
-function ListingTrackNews({ isLoading, dataArray }: any) {
+const ListingTrackNews = ({ isLoading, dataArray }: any) => {
   return (
     <div
       style={{
@@ -21,10 +20,10 @@ function ListingTrackNews({ isLoading, dataArray }: any) {
           width={"100%"}
           style={{ marginTop: 15 }}
         />
-      ) : dataArray.length === 0 ? (
+      ) : dataArray?.length === 0 ? (
         <div className={styles.title}>Don&apos;t have any News</div>
       ) : (
-        dataArray.map((item: any, index: number) => {
+        dataArray?.map((item: any, index: number) => {
           return (
             <div className={styles.cardStyle} key={index}>
               <div style={{ height: 180 }}>
@@ -62,6 +61,6 @@ function ListingTrackNews({ isLoading, dataArray }: any) {
       )}
     </div>
   );
-}
+};
 
 export default ListingTrackNews;

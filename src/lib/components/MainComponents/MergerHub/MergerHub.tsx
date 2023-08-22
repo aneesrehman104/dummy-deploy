@@ -1,12 +1,12 @@
 import styles from "./MergerHub.module.css";
 import React from "react";
-import EventSummary from "./EventSummary/EventSummary";
-import Gainer from "./Gainer/Gainer";
-import Losers from "./Losers/Losers";
-import LatestAnnouncedMergers from "./LatestAnnouncedMergers/LatestAnnouncedMergers";
-import Closed from "./Closed/Closed";
-import News from "./News/News";
-import MergerMarketStats from "./MergerMarketStats/MergerMarketStats";
+import EventSummary from "./EventSummary/eventsummarymerger.component";
+import Gainer from "./Gainer/gainer.component";
+import Losers from "./Losers/losers.component";
+import LatestAnnouncedMergers from "./LatestAnnouncedMergers/latestannouncedmergers.component";
+import Closed from "./Closed/closed.component";
+import News from "./News/news.component";
+import MergerMarketStats from "./MergerMarketStats/mergermarketstats.component";
 const MergerHub = () => {
   return (
     <main>

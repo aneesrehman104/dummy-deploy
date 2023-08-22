@@ -1,11 +1,11 @@
 import styles from "./IPOSHub.module.css";
 import React from "react";
-import EventSummary from "./EventSummary/EventSummary";
-import Gainer from "./Gainer/Gainer";
-import Losers from "./Losers/Losers";
-import News from "./News/News";
-import IposPipelineOverview from "./IposPipelineOverview/IposPipelineOverview"
-import MergerMarketStats from "./MergerMarketStats/MergerMarketStats";
+import EventSummary from "./EventSummary/ipohubeventsummary.component";
+import IpoHubGainer from "./Gainer/ipohubgainer.component";
+import IpoHubLosers from "./Losers/ipohubloser.component";
+import IpoHubNews from "./News/iponews.component";
+import IposPipelineOverview from "./IposPipelineOverview/ipopipelineoverview.component"
+import IpoHubMarketStats from "./IpoHubMarketStats/ipohubmarketstats.component";
 const IPOSHub = () => {
   return (
     <main>
@@ -16,11 +16,11 @@ const IPOSHub = () => {
       </header>
       <section>
         <EventSummary />
-        <MergerMarketStats />
+        <IpoHubMarketStats />
         <IposPipelineOverview/>
-        <Gainer />
-        <Losers />
-        <News />
+        <IpoHubGainer />
+        <IpoHubLosers />
+        <IpoHubNews />
       </section>
     </main>
   );

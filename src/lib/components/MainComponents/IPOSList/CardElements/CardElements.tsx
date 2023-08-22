@@ -8,7 +8,7 @@ import filterSvg from "../../../../../../public/filterSvg.svg";
 import exportSvg from "../../../../../../public/exportSvg.svg";
 import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
 import proSvg from "../../../../../../public/ProSvg.svg";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -30,6 +30,16 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
+import { headerIPOGrapevineList, headerIPOsList, headerPricedIPOsList, headerUpcomingIPOsList } from "./constants";
+
+const Mapper = {
+  priced_ipo: `ipoStatus eq 'Priced'`,
+  upcoming_ipo: `ipoStatus eq 'Expected' `,
+  ipo_grapevine: `ipoStatus eq 'Rumored'`,
+  top_20_performers: `ipoStatus eq 'Priced' and expectedIpoDate ge '2018/01/01'`,
+  worst_20_performers: `ipoStatus eq 'Priced' and expectedIpoDate ge '2018/01/01'`,
+};
+
 function CardElements() {
   const { user } = useContext(MemberInformationContext);
 
@@ -45,11 +55,19 @@ function CardElements() {
     borderRadius: "15px",
     p: 3,
   };
-  const tabValues: { [key: number]: string } = {
-    0: "all",
-    1: "pre_deal",
-    2: "announced",
-    3: "de_spac",
+  const tabValues: {
+    [key: number]:
+      | "priced_ipo"
+      | "upcoming_ipo"
+      | "ipo_grapevine"
+      | "top_20_performers"
+      | "worst_20_performers";
+  } = {
+    0: "priced_ipo",
+    1: "upcoming_ipo",
+    2: "ipo_grapevine",
+    3: "top_20_performers",
+    4: "worst_20_performers",
   };
   const CssTextField = styled(TextField)({
     width: "368px",
@@ -83,240 +101,29 @@ function CardElements() {
     IPOType?: any[];
     IPOStatus?: any[];
   }>({});
-  const headerPricedIPOsList = [
-    {
-      name: "Company Name",
-      key: "Company Name",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "Ticker",
-      type: "string",
-    },
-    {
-      name: "IPO Type",
-      key: "IPOType",
-      type: "string",
-    },
-    {
-      name: "Pricing Date",
-      key: "PricingDate",
-      type: "string",
-    },
-    {
-      name: "Price",
-      key: "Price",
-      type: "string",
-    },
-    {
-      name: "Offer Size (M)",
-      key: "OfferSize",
-      type: "string",
-    },
-    {
-      name: "Return from IPO",
-      key: "ReturnfromIPO",
-      type: "string",
-    },
-  ];
-  const headerUpcomingIPOsList = [
-    {
-      name: "Company Name",
-      key: "Company Name",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "Ticker",
-      type: "string",
-    },
-    {
-      name: "IPO Type",
-      key: "IPOType",
-      type: "string",
-    },
-    {
-      name: "Exchange",
-      key: "Exchange",
-      type: "string",
-    },
-    {
-      name: "Est. Pricing Date",
-      key: "EstPricingDate",
-      type: "string",
-    },
-    {
-      name: "Price Range",
-      key: "PriceRange",
-      type: "string",
-    },
-    {
-      name: "Offer Size (M)",
-      key: "OfferSize",
-      type: "string",
-    },
-  ];
 
-  const headerIPOGrapevineList = [
-    {
-      name: "Company Name",
-      key: "Company Name",
-      type: "string",
-    },
-    {
-      name: "IPO Status",
-      key: "IPOStatus",
-      type: "string",
-    },
-    {
-      name: "Rumored Date",
-      key: "RumoredDate",
-      type: "string",
-    },
-    {
-      name: "Rumored IPO Offering Size (M)",
-      key: "RumoredIPOOfferingSize",
-      type: "string",
-    },
-    {
-      name: "Rumored Source",
-      key: "RumoredSource",
-      type: "string",
-    },
-    {
-      name: "Rumored Link",
-      key: "RumoredLink",
-      type: "string",
-    },
-    {
-      name: "Rumor Inactive Date",
-      key: "RumorInactiveDate",
-      type: "string",
-    },
-    {
-      name: "Rumor Inactive Link",
-      key: "RumorInactiveLink",
-      type: "string",
-    },
-    {
-      name: "Rumor Inactive Source",
-      key: "RumorInactiveSource",
-      type: "string",
-    },
-  ];
-
-  const header20PerformingIPOsList = [
-    {
-      name: "Company Name",
-      key: "Company Name",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "Ticker",
-      type: "string",
-    },
-    {
-      name: "IPO Type",
-      key: "IPOType",
-      type: "string",
-    },
-    {
-      name: "Pricing Date",
-      key: "PricingDate",
-      type: "string",
-    },
-    {
-      name: "Price",
-      key: "Price",
-      type: "string",
-    },
-    {
-      name: "Market Cap at IPO",
-      key: "MarketCapatIPO",
-      type: "string",
-    },
-    {
-      name: "Market Cap",
-      key: "MarketCap",
-      type: "string",
-    },
-    {
-      name: "Rumor Inactive Link",
-      key: "RumorInactiveLink",
-      type: "string",
-    },
-    {
-      name: "Offer Size (M)",
-      key: "OfferSize",
-      type: "string",
-    },
-    {
-      name: "Return from IPO",
-      key: "ReturnfromIPO",
-      type: "string",
-    },
-  ];
-
-  const header20PerformingDeSPACsList = [
-    {
-      name: "Company Name",
-      key: "Company Name",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "Ticker",
-      type: "string",
-    },
-    {
-      name: "De-SPAC Closing Date",
-      key: "DeSPACClosingDate",
-      type: "string",
-    },
-    {
-      name: "Price",
-      key: "Price",
-      type: "string",
-    },
-    {
-      name: "Price % Chg.",
-      key: "PriceChg",
-      type: "string",
-    },
-    {
-      name: "Valuation at Deal",
-      key: "ValuationatDeal",
-      type: "string",
-    },
-    {
-      name: "Market Cap",
-      key: "MarketCap",
-      type: "string",
-    },
-    {
-      name: "Return from IPO (SPAC IPO)",
-      key: "ReturnfromIPO",
-      type: "string",
-    },
-    {
-      name: "View Deal Page",
-      key: "ViewDealPage",
-      type: "string",
-    },
-  ];
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
   const getSpacsList = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.spacsList}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-    );
+    const response = await getODataWithParams(URLs.ipoOdata, {
+      skip: selectedTab >= 3 ? 0 : (currentPage - 1) * itemsPerPage,
+      top: selectedTab >= 3 ? 20 : itemsPerPage,
+      filter: Mapper[tabValues[selectedTab]],
+      orderby:
+        selectedTab === 3
+          ? [{ field: "percentReturnFromIpoPrice", direction: "asc" }]
+          : selectedTab === 4
+          ? [{ field: "percentReturnFromIpoPrice", direction: "desc" }]
+          : undefined,
+    });
     if (response.status === 200 && response.data !== null) {
-      setSpacsListData(response.data);
+      setSpacsListData({
+        dataset: response.data,
+        additional_dataset: { totalLength: 10 },
+      });
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -536,9 +343,7 @@ function CardElements() {
                   ? headerUpcomingIPOsList
                   : selectedTab === 2
                   ? headerIPOGrapevineList
-                  : selectedTab === 3
-                  ? header20PerformingIPOsList
-                  : header20PerformingIPOsList
+                  : selectedTab >= 3 && headerIPOsList
               }
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}

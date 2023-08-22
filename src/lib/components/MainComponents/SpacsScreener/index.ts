@@ -1,2 +1,2 @@
-import SpacsScreener from "./SpacsScreener";
+import SpacsScreener from "./spacsscreener.component";
 export default SpacsScreener;

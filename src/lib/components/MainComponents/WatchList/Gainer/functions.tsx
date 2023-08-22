@@ -44,8 +44,8 @@ const headerArray = [
   },
 ];
 const MyTable = ({ data, currentPage, itemsPerPage, paginate }: any) => {
-  const [sortColumn, setSortColumn] = useState("");
-  const [sortDirection, setSortDirection] = useState("asc");
+  const [sortColumn, setSortColumn] = useState<string>("");
+  const [sortDirection, setSortDirection] = useState<string>("asc");
 
   const handleSort = (column: string) => {
     if (column !== "last30D") {

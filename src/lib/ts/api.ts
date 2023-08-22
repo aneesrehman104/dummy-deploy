@@ -124,9 +124,9 @@ const toODataQuery = (params: ODataParams): string => {
   if (params.top !== undefined) odataParamsArr.push(`$top=${params.top}`);
   if (params.skip !== undefined) odataParamsArr.push(`$skip=${params.skip}`);
   if (params.filter !== undefined)
-    odataParamsArr.push(`$filter=${encodeURIComponent(params.filter)}`);
+    odataParamsArr.push(`filter=${encodeURIComponent(params.filter)}`);
   if (params.select !== undefined)
-    odataParamsArr.push(`$select=${params.select.join(",")}`);
+    odataParamsArr.push(`select=${params.select.join(",")}`);
   if (params.orderby !== undefined) {
     const orderby = params.orderby
       .map((o) => `${o.field} ${o.direction || "asc"}`.trim())
@@ -137,7 +137,7 @@ const toODataQuery = (params: ODataParams): string => {
   if (params.expand !== undefined)
     odataParamsArr.push(`$expand=${params.expand.join(",")}`);
   if (params.search !== undefined)
-    odataParamsArr.push(`$search=${encodeURIComponent(params.search)}`);
+    odataParamsArr.push(`search=${encodeURIComponent(params.search)}`);
   console.log(odataParamsArr, "odataParamsArr");
   return odataParamsArr.join("&");
 };
@@ -169,6 +169,7 @@ type ODataParams = {
   count?: boolean;
   expand?: string[];
   search?: string;
+  cancelToken?:any;
 };
 
 // Sample call

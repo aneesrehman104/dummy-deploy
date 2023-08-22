@@ -1,2 +1,2 @@
-import MergerNews from "./MergerNews";
+import MergerNews from "./mergernews.component";
 export default MergerNews;

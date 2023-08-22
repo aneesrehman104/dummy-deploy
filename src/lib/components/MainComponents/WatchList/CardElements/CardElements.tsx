@@ -25,16 +25,16 @@ const style = {
   p: 4,
 };
 
-function CardElements({ selectedTab }: any) {
-  const [currentPage, setCurrentPage] = useState(1);
+const CardElements = ({ selectedTab }: any) => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [removeRow, setRemoveRow] = useState(null);
-  const [showRemoveModal, setShowRemoveModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [showRemoveModal, setShowRemoveModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [tableData, setTableData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState<number>(5);
   const tabValues: { [key: number]: string } = {
     0: "ipo",
     1: "merger",
@@ -257,6 +257,6 @@ function CardElements({ selectedTab }: any) {
       </Modal>
     </section>
   );
-}
+};
 
 export default CardElements;

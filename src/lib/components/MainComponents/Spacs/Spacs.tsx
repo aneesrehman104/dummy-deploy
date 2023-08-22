@@ -1,11 +1,11 @@
 import styles from "./spacs.module.css";
 import React from "react";
-import EventSummary from "./EventSummary/EventSummary";
-import SpacsMarketStats from "./SpacsMarketStats/SpacsMarketStats";
-import Trading from "./Trading/Trading";
-import Announced from "./Announced/Announced";
-import Closed from "./Closed/Closed";
-import News from "./News/News";
+import SpacsEventSummary from "./EventSummary/spacseventsummary.component";
+import SpacsMarketStats from "./SpacsMarketStats/spacsmarketstats.component";
+import Trading from "./Trading/trading.component";
+import Announced from "./Announced/announced.component";
+import Closed from "./Closed/closed.component";
+import News from "./News/news.component";
 const Spacs = () => {
   return (
     <main>
@@ -15,7 +15,7 @@ const Spacs = () => {
         </div>
       </header>
       <section>
-        <EventSummary />
+        <SpacsEventSummary />
         <SpacsMarketStats />
         <Trading />
         <Announced />

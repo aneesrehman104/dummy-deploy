@@ -1,6 +1,6 @@
 import styles from "./IPOSList.module.css";
 import React from "react";
-import CardElements from "./CardElements/CardElements";
+import CardElements from "./CardElements/ipolist.component";
 import CommonfiButton from "../../CommonComponents/CommonfiButton";
 import { useRouter } from "next/navigation";
 

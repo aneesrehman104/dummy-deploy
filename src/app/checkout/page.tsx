@@ -1,10 +1,11 @@
 "use client";
 import RootLayout from "./layout";
-import Checkout from "@/lib/components/MainComponents/Checkout/Checkout";
-export default function PlansPage() {
+import Checkout from "@/lib/components/MainComponents/Checkout/checkout.component";
+const PlansPage = () => {
   return (
     <RootLayout>
-      <Checkout/>
+      <Checkout />
     </RootLayout>
   );
-}
+};
+export default PlansPage;

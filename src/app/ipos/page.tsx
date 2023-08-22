@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import IOPS from "@/lib/components/MainComponents/IOPS";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
-export default function IposPage() {
+ const IposPage = ()=> {
   const { user, memberstack } = useContext(MemberInformationContext);
   return (
     <RootLayout>
@@ -17,3 +17,6 @@ export default function IposPage() {
     </RootLayout>
   );
 }
+
+
+export default IposPage

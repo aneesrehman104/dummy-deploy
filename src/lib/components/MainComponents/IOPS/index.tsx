@@ -1,1 +1,1 @@
-export { default } from './IOPS';
+export { default } from './ipos.component';

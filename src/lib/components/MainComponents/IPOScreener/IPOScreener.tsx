@@ -1,6 +1,6 @@
 import styles from "./iposscreeners.module.css";
 import React from "react";
-import CardElements from "./CardElements/CardElements";
+import CardElements from "./CardElements/iposcreener.component";
 
 const IPOScreener = () => {
 

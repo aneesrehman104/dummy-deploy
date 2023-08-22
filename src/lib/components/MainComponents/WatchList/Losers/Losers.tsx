@@ -3,10 +3,12 @@ import styles from "./losers.module.css";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import MyTable from "./functions";
-function Losers() {
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2);
+  interface PROPS {}
+
+  const Losers: React.FC<PROPS> = () => {
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage] = useState<number>(2);
   const data = [
     {
       company: "Navia Studio",

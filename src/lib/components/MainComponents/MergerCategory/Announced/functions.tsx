@@ -35,8 +35,8 @@ const headerArray = [
   }
 ];
 const MyTable = ({ data }: any) => {
-  const [sortColumn, setSortColumn] = useState("");
-  const [sortDirection, setSortDirection] = useState("asc");
+  const [sortColumn, setSortColumn] = useState<string>("");
+  const [sortDirection, setSortDirection] = useState<string>("asc");
 
   const handleSort = (column: string) => {
     setSortColumn(column);

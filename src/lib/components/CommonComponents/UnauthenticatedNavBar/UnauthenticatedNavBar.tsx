@@ -7,7 +7,8 @@ import Link from "next/link";
 import { useMemberstackModal, useMemberstack } from "@memberstack/react";
 import { setCookie } from "cookies-next";
 import { useRouter, usePathname } from "next/navigation";
-export default function UnauthenticatedNavBar() {
+interface PROPS {}
+const UnauthenticatedNavBar: React.FC<PROPS> = () => {
   const { openModal, hideModal } = useMemberstackModal();
   const router = useRouter();
   const UnauthenticatedNavBarData = [
@@ -72,6 +73,7 @@ export default function UnauthenticatedNavBar() {
         </div>
         <div>
           <CommonfiButton
+          className="buttonStyleGo"
             sx={{
               "&:hover": {
                 backgroundColor: "#263c6f",
@@ -83,7 +85,6 @@ export default function UnauthenticatedNavBar() {
               },
             }}
             variant="contained"
-            className="buttonStyleGo"
             title="Go Pro"
             onClick={() => {
               router.push("/plans");
@@ -93,4 +94,5 @@ export default function UnauthenticatedNavBar() {
       </div>
     </div>
   );
-}
+};
+export default UnauthenticatedNavBar;

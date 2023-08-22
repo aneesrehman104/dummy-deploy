@@ -4,7 +4,7 @@ import HighchartsReact from 'highcharts-react-official';
 import { EventChartSpacs } from "@/lib/ts/interface";
 
 
-function CompanyChart({options}: EventChartSpacs) {
+const CompanyChart =({options}: EventChartSpacs)=> {
   return (
     <HighchartsReact highcharts={Highcharts} constructorType={'stockChart'} options={options.chartOptions} />
     

@@ -2,7 +2,7 @@
 import RootLayout from "../../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import SpacsCalender from "@/lib/components/MainComponents/SpacsCalender";
-export default function SpacsCalenderPage() {
+const SpacsCalenderPage = () => {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="spacs/calendar">
@@ -10,4 +10,5 @@ export default function SpacsCalenderPage() {
       </AuthenticatedNavbar>
     </RootLayout>
   );
-}
+};
+export default SpacsCalenderPage;

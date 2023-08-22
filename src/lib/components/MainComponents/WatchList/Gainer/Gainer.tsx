@@ -2,10 +2,12 @@ import React from "react";
 import styles from "./gainer.module.css";
 import { useState } from "react";
 import MyTable from "./functions";
-function Gainer() {
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2);
+  interface PROPS {}
+
+  const Gainer: React.FC<PROPS> = () => {
+  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage] = useState<number>(2);
   const data = [
     {
       company: "Navia Studio",

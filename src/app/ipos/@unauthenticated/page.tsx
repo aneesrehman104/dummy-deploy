@@ -2,7 +2,7 @@
 import RootLayout from "../../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import IOPS from "@/lib/components/MainComponents/IOPS";
-export default function IposPage() {
+const IposPage =()=> {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="ipos">
@@ -12,3 +12,4 @@ export default function IposPage() {
   );
 }
 
+export default IposPage 

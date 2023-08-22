@@ -1,10 +1,12 @@
 "use client";
 import RootLayout from "./layout";
 import ContactUs from "@/lib/components/MainComponents/ContactUs";
-export default function PlansPage() {
+const ContactUsPage = () => {
   return (
     <RootLayout>
-      <ContactUs/>
+      <ContactUs />
     </RootLayout>
   );
-}
+};
+
+export default ContactUsPage;

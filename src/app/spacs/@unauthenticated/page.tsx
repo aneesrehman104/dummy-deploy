@@ -2,7 +2,7 @@
 import RootLayout from "../../layout";
 import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
 import Spacs from "@/lib/components/MainComponents/Spacs";
-export default function HomePAge() {
+const HomePAge = () => {
   return (
     <RootLayout>
       <AuthenticatedNavbar selected_id="spacs/hub">
@@ -10,5 +10,6 @@ export default function HomePAge() {
       </AuthenticatedNavbar>
     </RootLayout>
   );
-}
+};
 
+export default HomePAge;
