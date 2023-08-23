@@ -11,7 +11,7 @@ const RootLayout =({
   children: React.ReactNode;
 })=> {
   return (
-    <html lang="en">
+     <html lang="en">
       <body style={{ width: "100%" }}>{children}</body>
     </html>
   );

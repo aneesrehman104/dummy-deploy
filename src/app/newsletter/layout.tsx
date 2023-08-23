@@ -10,7 +10,7 @@ const RootLayout = ({
   children: React.ReactElement | React.ReactElement[];
 }) => {
   return (
-    <html lang="en">
+     <html lang="en">
       <title>NEWS LETTERS</title>
       <meta name="description" content="NEWS LETTERS" />
       <body className={inter.className} style={{ width: "100%" }}>

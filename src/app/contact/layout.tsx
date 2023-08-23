@@ -10,7 +10,7 @@ const  RootLayout=({
   children: React.ReactElement | React.ReactElement[];
 })=> {
   return (
-    <html lang="en">
+     <html lang="en">
       <title>CONTACT US</title>
       <meta name="description" content="Contact Us" />
       <body

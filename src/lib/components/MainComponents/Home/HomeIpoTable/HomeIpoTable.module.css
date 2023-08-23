@@ -1,6 +1,7 @@
 .tableTitle {
     position: relative;
-    font-weight: 600;
+   font-weight: var(--font-weight-600);
+
     display: inline-block;
     width: 149.79px;
   }
@@ -22,7 +23,8 @@
     position: relative;
     letter-spacing: 0.01em;
     line-height: 135%;
-    font-weight: 600;
+   font-weight: var(--font-weight-600);
+
   }
   .tablehead {
     width: 230px;
@@ -129,7 +131,7 @@
   }
   .companiestable {
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--font-background-color-white);
     box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
       0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
     overflow: hidden;
@@ -143,7 +145,8 @@
   .listingtrack {
     align-self: stretch;
     position: relative;
-    font-weight: 600;
+   font-weight: var(--font-weight-600);
+
   }
   .listingtrack {
     letter-spacing: 0.01em;
@@ -167,7 +170,7 @@
     align-items: flex-start;
     justify-content: center;
     font-size: 16px;
-    color: #000;
+    color: var(--font-color-000);
   }
   .cardrowheader {
     height: 40.67px;
@@ -182,7 +185,8 @@
     line-height: 103%;
   }
   .ytdWithSpacs {
-    font-weight: 500;
+   font-weight: var(--font-weight-500);
+
   }
   .ytdWithSpacsContainer {
     align-self: stretch;
@@ -190,7 +194,7 @@
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-family: Open Sans;
+    font-family: var(--font-family-primary);
   }
   .group,
   .parent {
@@ -225,8 +229,8 @@
   .frameParent {
     flex-direction: row;
     font-size: 24px;
-    color: #000;
-    font-family: "Open Sans";
+    color: var(--font-color-000);
+    font-family: var(--font-family-primary);
   }
   .cardrowinfo {
     border-bottom: 1px solid #e8e2e2;
@@ -246,15 +250,17 @@
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 500;
-    font-family: Open Sans;
+   font-weight: var(--font-weight-500);
+
+    font-family: var(--font-family-primary);
   }
   .head8 {
     flex: 1;
     position: relative;
     letter-spacing: 0.01em;
     line-height: 135%;
-    font-weight: 600;
+   font-weight: var(--font-weight-600);
+
   }
   .card,
   .cardrowinfo2 {
@@ -270,7 +276,7 @@
   .card {
     /* flex: 1; */
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--font-background-color-white);
     box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
       0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
     overflow: hidden;
@@ -280,7 +286,8 @@
     position: relative;
     letter-spacing: 0.01em;
     line-height: 148.5%;
-    font-weight: 600;
+   font-weight: var(--font-weight-600);
+
   }
   .showSpacs {
     position: relative;
@@ -294,7 +301,7 @@
   .slide1 {
     position: relative;
     border-radius: 100px;
-    background-color: #0aac85;
+    background-color: var(--font-background-color-0aac85);
     width: 26px;
     height: 10px;
   }
@@ -358,7 +365,7 @@
     padding: 9px 15px;
     justify-content: flex-start;
     font-size: 16px;
-    color: #000;
+    color: var(--font-color-000);
   }
   .mask7,
   .parent6 {
@@ -377,7 +384,7 @@
     flex-direction: column;
     gap: 1px;
     font-size: 24px;
-    font-family: "Open Sans";
+    font-family: var(--font-family-primary);
   }
   .avgReturn,
   .div9 {
@@ -387,12 +394,13 @@
   .avgReturn {
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 500;
+   font-weight: var(--font-weight-500);
+
   }
   .div9 {
     font-size: 24px;
     line-height: 103%;
-    font-family: "Open Sans";
+    font-family: var(--font-family-primary);
   }
   .avgReturnParent,
   .medianReturnParent {
@@ -420,7 +428,7 @@
     flex-direction: row;
     align-items: flex-start;
     font-size: 12px;
-    color: #000;
+    color: var(--font-color-000);
   }
   .card1,
   .paper {
@@ -430,7 +438,7 @@
   }
   .paper {
     align-self: stretch;
-    background-color: #fff;
+    background-color: var(--font-background-color-white);
     box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
       0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
     overflow: hidden;
@@ -455,7 +463,7 @@
     padding: 9px 15px;
     align-items: center;
     font-size: 16px;
-    color: #000;
+    color: var(--font-color-000);
   }
   .cardscontainer,
   .minitables {
@@ -465,7 +473,7 @@
     flex-direction: row;
     gap: 36px;
     font-size: 13px;
-    color: #1991ac;
+      color: var(--font-color-1991ac);
   }
   .minitables {
     flex-direction: column;
@@ -498,7 +506,7 @@
   .siteName {
     font-size: 11px;
     line-height: 127%;
-    color: #434343;
+    color: var(--font-color-434343);
   }
   .customTableCustomCell4 {
     align-self: stretch;
@@ -540,7 +548,7 @@
   .paper2 {
     align-self: stretch;
     border-radius: 4px;
-    background-color: #fff;
+    background-color: var(--font-background-color-white);
     box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
       0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
     overflow: hidden;
@@ -574,13 +582,15 @@
     font-size: 22px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 600;
-    color: #d2ecf9;
+   font-weight: var(--font-weight-600);
+
+    color: var(--font-color-d2ecf9);
   }
   .getFreeWeekly {
     letter-spacing: 0.01em;
     line-height: 135%;
-    font-weight: 500;
+   font-weight: var(--font-weight-500);
+
   }
   .minHeight {
     position: relative;
@@ -636,7 +646,8 @@
     position: relative;
     letter-spacing: 0.01em;
     line-height: 127%;
-    font-weight: 500;
+   font-weight: var(--font-weight-500);
+
     display: inline-block;
     width: 279px;
   }
@@ -667,7 +678,7 @@
   }
   .button {
     border-radius: 4px;
-    background-color: #0aac85;
+    background-color: var(--font-background-color-0aac85);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.14),
       0 3px 1px -2px rgba(0, 0, 0, 0.2);
     width: 131px;
@@ -689,7 +700,8 @@
     position: relative;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 600;
+   font-weight: var(--font-weight-600);
+
   }
   .flashOnParent {
     align-self: stretch;
@@ -698,7 +710,7 @@
     align-items: center;
     justify-content: flex-start;
     gap: 4px;
-    color: #d2ecf9;
+    color: var(--font-color-d2ecf9);
   }
   .tool1Description {
     margin-bottom: 0;
@@ -716,7 +728,8 @@
     font-size: inherit;
     letter-spacing: 0.01em;
     line-height: 135%;
-    font-weight: 500;
+   font-weight: var(--font-weight-500);
+
     font-family: inherit;
   }
   .button3 {
@@ -725,7 +738,7 @@
   }
   .button2 {
     border-radius: 4px;
-    background-color: #0aac85;
+    background-color: var(--font-background-color-0aac85);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.14),
       0 3px 1px -2px rgba(0, 0, 0, 0.2);
     width: 216px;
@@ -763,13 +776,15 @@
   .portals {
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 600;
+   font-weight: var(--font-weight-600);
+
   }
   .spacs {
     text-decoration: underline;
     letter-spacing: 0.01em;
     line-height: 135%;
-    font-weight: 500;
+   font-weight: var(--font-weight-500);
+
   }
   .portallinkscontainer,
   .portalsParent,
@@ -782,7 +797,7 @@
   .portallinkscontainer {
     gap: 16px;
     font-size: 16px;
-    color: #fff;
+      color: var(--font-color-ffffff);
   }
   .portalsParent,
   .supportParent {
@@ -797,8 +812,9 @@
     font-size: 22px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 600;
-    color: #d2ecf9;
+   font-weight: var(--font-weight-600);
+
+    color: var(--font-color-d2ecf9);
   }
   .connectWithUsParent,
   .footerlinkscontainer {
@@ -811,7 +827,7 @@
     flex-direction: column;
     gap: 11px;
     font-size: 16px;
-    color: #fff;
+      color: var(--font-color-ffffff);
   }
   .footerlinkscontainer {
     flex: 1;
@@ -838,7 +854,8 @@
     position: relative;
     letter-spacing: 0.01em;
     line-height: 135%;
-    font-weight: 500;
+   font-weight: var(--font-weight-500);
+
   }
   .frameParent5,
   .frameWrapper1 {
@@ -855,7 +872,7 @@
     height: 214px;
     justify-content: flex-end;
     font-size: 16px;
-    color: #fff;
+      color: var(--font-color-ffffff);
   }
   .footerlinkscontainerParent {
     align-self: stretch;
@@ -864,7 +881,7 @@
     align-items: center;
     justify-content: flex-start;
     font-size: 22px;
-    color: #d2ecf9;
+    color: var(--font-color-d2ecf9);
   }
   .footercontainer {
     flex: 1;
@@ -882,11 +899,11 @@
     align-items: flex-start;
   }
   .footer {
-    background-color: #263c6f;
+    background-color: var(--font-color-263c6f);
     flex-direction: row;
     padding: 36px 39px;
     justify-content: flex-start;
-    color: #fff;
+      color: var(--font-color-ffffff);
   }
   .dashboard,
   .dashboardcontent {
@@ -904,8 +921,8 @@
     justify-content: space-between;
     text-align: left;
     font-size: 16px;
-    color: #000;
-    font-family: Open Sans;
+    color: var(--font-color-000);
+    font-family: var(--font-family-primary);
   }
   @media screen and (max-width: 900px) {
     .card,

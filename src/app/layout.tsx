@@ -5,7 +5,7 @@ import {
   MemberstackProvider,
 } from "@memberstack/react";
 import { MemberInformationContext } from "@/lib/components/context";
-
+import './globals.css'
 const RootLayout = ({
   unauthenticated,
   children,
@@ -30,7 +30,7 @@ const RootLayout = ({
   );
 };
 
-const MemberstackWrapper =({
+const MemberstackWrapper = ({
   unauthenticated,
   children,
 }: {
@@ -49,6 +49,6 @@ const MemberstackWrapper =({
       </html>
     </MemberInformationContext.Provider>
   );
-}
+};
 
 export default RootLayout;

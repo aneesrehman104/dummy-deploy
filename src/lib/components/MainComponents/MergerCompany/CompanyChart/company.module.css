@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: flex-start;
   font-size: 24px;
-  color: #263c6f;
+  color: var(--font-color-263c6f);
 }
 .dashboardheader {
   /* height: 56px; */
@@ -17,8 +17,8 @@
   gap: 8px;
   text-align: left;
   font-size: 12.5px;
-  color: #434343;
-  font-family: Open Sans;
+  color: var(--font-color-434343);
+  font-family: var(--font-family-primary);
 }
 .completedMergers {
   align-self: stretch;
@@ -26,8 +26,9 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 500;
-  font-family: Open Sans;
+ font-weight: var(--font-weight-500);
+
+  font-family: var(--font-family-primary);
   margin-top: 4px;
 }
 
@@ -36,12 +37,14 @@
   position: relative;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 500;
+ font-weight: var(--font-weight-500);
+
 }
 .ytdEventSummary {
   flex: 1;
   position: relative;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
 }
 
 .chartcontainer,
@@ -57,21 +60,21 @@
 }
 .chartcontainer {
   border-radius: 4px;
-  background-color: #fff;
+  background-color: var(--font-background-color-white);
   border-right: 1px solid #dfd4d4;
   overflow: hidden;
   padding: 13px 0;
   gap: 10px;
   font-size: 24px;
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
 }
 .sectionsummarycontainer {
   padding-left: 25px;
   gap: 16px;
   text-align: left;
   font-size: 16px;
-  color: #000;
-  font-family: Open Sans;
+  color: var(--font-color-000);
+  font-family: var(--font-family-primary);
   width: 48%;
 }
 
@@ -123,12 +126,14 @@
 
 .titleText {
   text-transform: uppercase;
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 400;
+ font-weight: var(--font-weight-400);
+
   font-size: 16px;
   line-height: 103%;
-  color: #000000;
+    color: var(--font-color-000);
+
 }
 .eventsummaryinfo {
   flex: 1;
@@ -138,7 +143,7 @@
   justify-content: flex-start;
   gap: 1px;
   font-size: 16px;
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
 }
 @media screen and (max-width: 900px) {
   .sectionsummarycontainer {

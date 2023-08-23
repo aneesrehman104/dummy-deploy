@@ -1,9 +1,10 @@
 .titleMainCretaers {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 500;
+ font-weight: var(--font-weight-500);
+
   font-size: 33px;
-  color: #20608b;
+  color: var(--font-color-20608b);
   display: flex;
   justify-content: center;
 }
