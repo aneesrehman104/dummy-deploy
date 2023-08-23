@@ -20,5 +20,6 @@ export const URLs = {
   ipoNews: "api/ipo/news",
   ipoGraph: "api/ipo/graph/comparison",
   iposPipeline:'api/ipo/pipeline',
-  ipoOdata: "/odata/ipo"
+  ipoOdata: "/odata/ipo",
+  spacOdata: "/odata/spac"
 };

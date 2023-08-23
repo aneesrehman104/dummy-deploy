@@ -1,2 +1,2 @@
-import IPOSPipeline from "./IPOSPipeline";
+import IPOSPipeline from "./ipo-pipeline";
 export default IPOSPipeline;

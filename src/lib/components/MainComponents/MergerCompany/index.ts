@@ -1,2 +1,2 @@
-import MergerCompany from './MergerCompany'
+import MergerCompany from './merger-company'
 export default MergerCompany

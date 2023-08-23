@@ -1,1 +1,1 @@
-export { default } from "./ListingTrackTable";
+export { default } from "./listingtrack-table";

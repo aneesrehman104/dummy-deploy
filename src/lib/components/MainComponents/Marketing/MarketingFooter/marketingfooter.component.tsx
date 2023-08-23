@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./Losers.module.css";
+import "./marketing-footer.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./Losers.module.css";
+import "./creators.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
@@ -14,13 +14,13 @@ import Link from "next/link";
 import "./Creators.css";
 import { marketingConstants } from "@/lib/ts/constants";
 
-  interface PROPS {}
+interface PROPS {}
 
 const Creators: React.FC<PROPS> = () => {
   return (
     <section className="creatorsMainDiv">
       <div className="titleMainCretaers">
-      {marketingConstants.BROUGHTTOYOUBYTHEcreatorsOFSPACtrackASMENTIONEDIN}
+        {marketingConstants.BROUGHTTOYOUBYTHEcreatorsOFSPACtrackASMENTIONEDIN}
       </div>
       <div
         style={{
@@ -30,14 +30,13 @@ const Creators: React.FC<PROPS> = () => {
           flexWrap: "wrap",
         }}
       >
-        
         <Link href="">
           <Image
             src={Brand3}
             alt="Brand3"
             width={180}
             height={31}
-            style={{ cursor: "pointer",marginTop:10,marginBottom:10 }}
+            style={{ cursor: "pointer", marginTop: 10, marginBottom: 10 }}
           />
         </Link>
         <Link href="">
@@ -46,7 +45,7 @@ const Creators: React.FC<PROPS> = () => {
             alt="Brand2"
             width={180}
             height={31}
-            style={{ cursor: "pointer",marginTop:10,marginBottom:10 }}
+            style={{ cursor: "pointer", marginTop: 10, marginBottom: 10 }}
           />
         </Link>
         <Link href="">
@@ -55,7 +54,7 @@ const Creators: React.FC<PROPS> = () => {
             alt="Brand1"
             width={180}
             height={31}
-            style={{ cursor: "pointer",marginTop:10,marginBottom:10 }}
+            style={{ cursor: "pointer", marginTop: 10, marginBottom: 10 }}
           />
         </Link>
         <Link href="">
@@ -64,12 +63,12 @@ const Creators: React.FC<PROPS> = () => {
             alt="Brand4"
             width={180}
             height={31}
-            style={{ cursor: "pointer",marginTop:10,marginBottom:10 }}
+            style={{ cursor: "pointer", marginTop: 10, marginBottom: 10 }}
           />
         </Link>
       </div>
     </section>
   );
-}
+};
 
 export default Creators;

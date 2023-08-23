@@ -1,2 +1,2 @@
-import MergerScreener from "./MergerScreener";
+import MergerScreener from "./merger-screener";
 export default MergerScreener;

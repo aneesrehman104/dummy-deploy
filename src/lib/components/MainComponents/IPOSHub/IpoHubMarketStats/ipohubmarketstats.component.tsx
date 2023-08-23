@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./MergerMarketStats.module.css";
+import styles from "./ipohub-market-stats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { URLs } from "@/lib/ts/apiUrl";

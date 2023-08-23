@@ -1,11 +1,9 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { getApiWithoutAuth } from "@/lib/ts/api";
-import { URLs } from "@/lib/ts/apiUrl";
+import React from "react";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
 import { TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import "./contact-us.css";
 
-import "./ContactUs.css";
 interface PROPS {}
 
 const ContactUs: React.FC<PROPS> = () => {

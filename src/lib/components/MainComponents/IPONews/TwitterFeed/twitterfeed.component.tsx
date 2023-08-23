@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./TwitterFeed.module.css";
+import styles from "./twitterfeed.module.css";
 import Image from "next/image";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";

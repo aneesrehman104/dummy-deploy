@@ -1,1 +1,1 @@
-export { default } from "./AuthenticatedNavbar";
+export { default } from "./authenticated-navbar.component";

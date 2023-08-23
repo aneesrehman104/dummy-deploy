@@ -3269,3 +3269,11 @@ export const marketingConstants = {
   GETFREEUPDATESTOYOURINBOXDETAILS:
     "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut ofegd.",
 };
+
+export const memberstack_config = {
+  publicKey: `${process.env.NEXT_PUBLIC_MEMBERSTACK_KEY}`,
+  appId: undefined,
+  sessionDurationDays: undefined,
+  useCookies: undefined,
+  domain: undefined,
+}

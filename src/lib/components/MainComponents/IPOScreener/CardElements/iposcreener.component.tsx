@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./CardElements.module.css";
+import styles from "./card-elements.module.css";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import searchIcon from "../../../../../../public/searchIcon.svg";

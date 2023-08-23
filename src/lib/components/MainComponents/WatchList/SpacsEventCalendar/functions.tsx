@@ -8,7 +8,7 @@ import TableCell from "@mui/material/TableCell";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION } from "@/lib/ts/constants";
-import styles from "./SpacsEventCalendar.module.css";
+import styles from "./spacs-event-calendar.module.css";
 import Image from "next/image";
 
 const headerArray = [

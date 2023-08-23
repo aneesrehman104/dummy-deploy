@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./HomeIpoTable.module.css";
+import styles from "./home-ipo-table.module.css";
 import { homeConstants } from "@/lib/ts/constants";
 import { getODataWithParams } from "@/lib/ts/api";
 import { IpoPipelineInterface } from "@/lib/ts/interface";
@@ -30,6 +30,7 @@ const HomeIpoTable: React.FC<PROPS> = () => {
       try {
         const response = await getODataWithParams(URLs.ipoOdata, {
           top: 5,
+          filter: "ipoStatus eq 'Expected'",
           orderby: [{ field: "companyName", direction: "desc" }],
           cancelToken: source.token,
         });

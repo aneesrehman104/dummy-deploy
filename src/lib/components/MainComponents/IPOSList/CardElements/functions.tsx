@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./CardElements.module.css";
+import styles from "./card-elements.module.css";
 import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
