@@ -4,7 +4,7 @@ import Image from "next/image";
 import NewsImage from "@public/newsImage.svg";
 
 import Skeleton from "@mui/material/Skeleton";
-const ListingTrackNews: React.FC<{ isLoading: boolean, dataArray: any }> = ({ isLoading, dataArray }) => {
+const ListingTrackNews: React.FC<{ isLoading: boolean, dataArray: any }> = ({ isLoading, dataArray }: any) => {
   return (
     <main
       style={{

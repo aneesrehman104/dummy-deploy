@@ -1,2 +1,1 @@
-import MergerHub from './MergerHub'
-export default MergerHub;
+export { default } from "./mergerhub.component"
