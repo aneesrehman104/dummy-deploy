@@ -12,11 +12,10 @@ const RootLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <MemberstackProvider config={memberstack_config}>
-      <MemberstackWrapper unauthenticated={unauthenticated}>
-        {children}
-      </MemberstackWrapper>
-    </MemberstackProvider>
+    <>
+    {children}
+    </>
+        
   );
 };
 

@@ -10,13 +10,7 @@ const RootLayout = ({
   unauthenticated?: React.ReactNode;
   children: React.ReactNode;
 }) => {
-  return (
-    <MemberstackProvider config={memberstack_config}>
-      <MemberstackWrapper unauthenticated={unauthenticated}>
-        {children}
-      </MemberstackWrapper>
-    </MemberstackProvider>
-  );
+  return <>{children}</>;
 };
 
 export default RootLayout;

@@ -19,11 +19,7 @@ const RootLayout = ({
 }) => {
   return (
     <Meta title="Watchlist" description="" style={{ width: "100%" }}>
-      <MemberstackProvider config={memberstack_config}>
-        <MemberstackWrapper unauthenticated={unauthenticated}>
-          {children}
-        </MemberstackWrapper>
-      </MemberstackProvider>
+      {children}
     </Meta>
   );
 };

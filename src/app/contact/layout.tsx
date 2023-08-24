@@ -15,9 +15,7 @@ const RootLayout = ({
       description=""
       style={{ width: "100%", height: "90vh", margin: "0" }}
     >
-      <MemberstackProvider config={memberstack_config}>
         {children}
-      </MemberstackProvider>
     </Meta>
   );
 };

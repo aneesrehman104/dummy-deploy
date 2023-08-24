@@ -9,11 +9,11 @@ const HomePAge = () => {
   const { user, memberstack } = useContext(MemberInformationContext);
   return (
     <Meta title="Main" description="" style={{ width: "100%" }}>
-    <RootLayout>
-      <AuthenticatedLayout selected_id="home">
-        <Home />
-      </AuthenticatedLayout>
-    </RootLayout>
+      <RootLayout>
+        <AuthenticatedLayout selected_id="home">
+          <Home />
+        </AuthenticatedLayout>
+      </RootLayout>
     </Meta>
   );
 };
