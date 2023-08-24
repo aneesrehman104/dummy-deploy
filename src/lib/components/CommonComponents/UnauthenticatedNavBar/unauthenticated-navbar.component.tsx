@@ -4,7 +4,7 @@ import Image from "next/image";
 import "./unauthenticated-navbar.css";
 import CommonfiButton from "../CommonfiButton";
 import Link from "next/link";
-import { useMemberstackModal } from "@memberstack/react";
+import { useMemberstackModal,useMemberstack } from "@memberstack/react";
 import { setCookie } from "cookies-next";
 import { useRouter, usePathname } from "next/navigation";
 import {
@@ -35,7 +35,6 @@ import { motion } from "framer-motion";
 import { useContext } from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { MemberInformationContext } from "@/lib/components/context";
-
 interface PROPS {}
 const UnauthenticatedNavBar: React.FC<PROPS> = () => {
   const { logout } = useMemberstack();
