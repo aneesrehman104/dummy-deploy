@@ -201,142 +201,182 @@ const AuthenticatedNavbar = (props: Props) => {
               )}
             </div>
 
-            {user?.member !== null ? (
-              <div className="textStyle cursorPointer">
-                <React.Fragment>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      textAlign: "center",
-                    }}
-                  >
-                    <Tooltip title="Account settings">
-                      <IconButton
-                        onClick={handleClick}
-                        size="small"
-                        sx={{ ml: 2 }}
-                        aria-controls={open ? "account-menu" : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? "true" : undefined}
-                      >
-                        <Avatar sx={{ width: 32, height: 32 }}>
-                          {user?.member?.auth?.email[0].toUpperCase()}
-                        </Avatar>
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
-                  <Menu
-                    anchorEl={anchorEl}
-                    id="account-menu"
-                    open={open}
-                    onClose={handleClose}
-                    onClick={handleClose}
-                    PaperProps={{
-                      elevation: 0,
-                      sx: {
-                        overflow: "visible",
-                        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                        mt: 1.5,
-                        "& .MuiAvatar-root": {
-                          width: 32,
-                          height: 32,
-                          ml: -0.5,
-                          mr: 1,
-                        },
-                        "&:before": {
-                          content: '""',
-                          display: "block",
-                          position: "absolute",
-                          top: 0,
-                          right: 14,
-                          width: 10,
-                          height: 10,
-                          bgcolor: "background.paper",
-                          transform: "translateY(-50%) rotate(45deg)",
-                          zIndex: 0,
-                        },
+            <div className="textStyle cursorPointer">
+              <React.Fragment>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <Tooltip title="Account settings">
+                    <IconButton
+                      onClick={handleClick}
+                      size="small"
+                      sx={{ ml: 2 }}
+                      aria-controls={open ? "account-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
+                    >
+                      <Avatar sx={{ width: 32, height: 32 }}>
+                        {user?.member?.auth?.email[0].toUpperCase()}
+                      </Avatar>
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+                <Menu
+                  anchorEl={anchorEl}
+                  id="account-menu"
+                  open={open}
+                  onClose={handleClose}
+                  onClick={handleClose}
+                  PaperProps={{
+                    elevation: 0,
+                    sx: {
+                      overflow: "visible",
+                      filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                      mt: 1.5,
+                      "& .MuiAvatar-root": {
+                        width: 32,
+                        height: 32,
+                        ml: -0.5,
+                        mr: 1,
                       },
-                    }}
-                    transformOrigin={{ horizontal: "right", vertical: "top" }}
-                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-                  >
-                    <motion.div
-                      whileHover={{ scale: 0.98 }} // Scale down effect on hover
-                    >
-                      <MenuItem onClick={handleClose}>
-                        {user?.member?.auth?.email}
-                      </MenuItem>
-                      <Divider />
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 0.98 }} // Scale down effect on hover
-                    >
-                      <MenuItem onClick={handleClose}>
-                        <ListItemIcon>
-                          <Home fontSize="medium" />
-                        </ListItemIcon>
-                        Home
-                      </MenuItem>
-                      <Divider />
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 0.98 }} // Scale down effect on hover
-                    >
-                      <MenuItem onClick={handleClose}>
-                        <Avatar /> Profile
-                      </MenuItem>
-                      <Divider />
-                    </motion.div>
+                      "&:before": {
+                        content: '""',
+                        display: "block",
+                        position: "absolute",
+                        top: 0,
+                        right: 14,
+                        width: 10,
+                        height: 10,
+                        bgcolor: "background.paper",
+                        transform: "translateY(-50%) rotate(45deg)",
+                        zIndex: 0,
+                      },
+                    },
+                  }}
+                  transformOrigin={{ horizontal: "right", vertical: "top" }}
+                  anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                >
+                  {user?.member === null ? (
+                    <>
+                      <motion.div
+                        whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                      >
+                        <MenuItem
+                          onClick={() =>
+                            openModal({
+                              type: "LOGIN",
+                            }).then(({ data, type }: any) => {
+                              console.log("data", data);
+                              console.log("type: ", type);
+                              if (type === "LOGIN") {
+                                setCookie(
+                                  "accessToken",
+                                  data.tokens.accessToken
+                                );
+                                hideModal();
+                                window.location.reload();
+                              } else {
+                                hideModal();
+                              }
+                            })
+                          }
+                        >
+                           <Avatar /> SignIn
+                        </MenuItem>
+                        <Divider />
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                      >
+                        <MenuItem
+                          onClick={() =>
+                            openModal({
+                              type: "SIGNUP",
+                            }).then(({ data, type }: any) => {
+                              console.log("data", data);
+                              console.log("type: ", type);
+                              if (type === "LOGIN") {
+                                setCookie(
+                                  "accessToken",
+                                  data.tokens.accessToken
+                                );
+                                hideModal();
+                                window.location.reload();
+                              } else if (type === "CLOSED") {
+                                hideModal();
+                              } else {
+                                setCookie(
+                                  "accessToken",
+                                  data.tokens.accessToken
+                                );
+                                router.push("/plans");
+                              }
+                            })
+                          }
+                        >
+                           <Avatar /> Sign Up
+                        </MenuItem>
+                        <Divider />
+                      </motion.div>
+                    </>
+                  ) : (
+                    <>
+                      <motion.div
+                        whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                      >
+                        <MenuItem onClick={handleClose}>
+                          {user?.member?.auth?.email}
+                        </MenuItem>
+                        <Divider />
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                      >
+                        <MenuItem onClick={handleClose}>
+                          <ListItemIcon>
+                            <Home fontSize="medium" />
+                          </ListItemIcon>
+                          Home
+                        </MenuItem>
+                        <Divider />
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                      >
+                        <MenuItem onClick={handleClose}>
+                          <Avatar /> Profile
+                        </MenuItem>
+                        <Divider />
+                      </motion.div>
 
-                    <motion.div
-                      whileHover={{ scale: 0.98 }} // Scale down effect on hover
-                    >
-                      <MenuItem onClick={handleCheckout}>
-                        <Avatar />
-                        Plans
-                      </MenuItem>
-                      <Divider />
-                    </motion.div>
-                    <motion.div
-                      whileHover={{ scale: 0.98 }} // Scale down effect on hover
-                    >
-                      <MenuItem onClick={handleLogout2}>
-                        <ListItemIcon>
-                          <Logout fontSize="small" />
-                        </ListItemIcon>
-                        Logout
-                      </MenuItem>
-                    </motion.div>
-                  </Menu>
-                </React.Fragment>
-              </div>
-            ) : (
-              <div
-                className="textStyle cursorPointer"
-                onClick={() =>
-                  openModal({
-                    type: "SIGNUP",
-                  }).then(({ data, type }: any) => {
-                    console.log("data", data);
-                    console.log("type: ", type);
-                    if (type === "LOGIN") {
-                      setCookie("accessToken", data.tokens.accessToken);
-                      hideModal();
-                      window.location.reload();
-                    } else if (type === "CLOSED") {
-                      hideModal();
-                    } else {
-                      setCookie("accessToken", data.tokens.accessToken);
-                      router.push("/plans");
-                    }
-                  })
-                }
-              >
-                <span>{navBarText.signUp}</span> /{" "}
-                <span>{navBarText.signIn}</span>
-              </div>
-            )}
+                      <motion.div
+                        whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                      >
+                        <MenuItem onClick={handleCheckout}>
+                          <Avatar />
+                          Plans
+                        </MenuItem>
+                        <Divider />
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 0.98 }} // Scale down effect on hover
+                      >
+                        <MenuItem onClick={handleLogout2}>
+                          <ListItemIcon>
+                            <Logout fontSize="small" />
+                          </ListItemIcon>
+                          Logout
+                        </MenuItem>
+                      </motion.div>
+                    </>
+                  )}
+                </Menu>
+              </React.Fragment>
+            </div>
           </div>
         </div>
       </AppBar>

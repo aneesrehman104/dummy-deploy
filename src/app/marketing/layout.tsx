@@ -4,13 +4,13 @@ import { Inter } from "next/font/google";
 import { MemberstackProvider } from "@memberstack/react";
 const inter = Inter({ subsets: ["latin"] });
 
-const  RootLayout=({
+const RootLayout = ({
   children,
 }: {
   children: React.ReactElement | React.ReactElement[];
-})=> {
+}) => {
   return (
-     <html lang="en">
+    <html lang="en">
       <title>MARKETING</title>
       <meta name="description" content="MARKETING" />
       <body className={inter.className} style={{ width: "100%" }}>
@@ -28,5 +28,5 @@ const  RootLayout=({
       </body>
     </html>
   );
-}
-export default  RootLayout
+};
+export default RootLayout;

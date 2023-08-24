@@ -61,7 +61,7 @@ const MarketingFooter: React.FC<PROPS> = () => {
             return (
               <Link
                 href={item.link}
-                className="textStyle"
+                className="textStyleFooter"
                 style={{ width: "150px", marginTop: 20 }}
                 key={item.name}
               >

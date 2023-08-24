@@ -30,8 +30,13 @@
     width: 278px;
     margin-right: 20px;
 }
+.firstDivGetFreeUpdate{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
 .secondDivGetFreeUpdate{
-  width: 50%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,6 +47,9 @@
 
   .secondDivGetFreeUpdate {
     width: 95%;
+  }
+  .secondDivGetFreeUpdate{
+    width: 100%;
   }
 
 }

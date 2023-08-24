@@ -26,10 +26,10 @@ const TrackingOnePlace: React.FC<PROPS> = () => {
       }}
     >
       <div className="titleMainHadding">
-        Finally, everything you need to track in ONE place.
+        Finally, everything you need to track in &nbsp;<span className="oneLineUnder">ONE</span>&nbsp; place.
       </div>
       <div className="tackingOnePlace">
-        <div style={{ width: 274, marginTop: 10, marginBottom: 10 }}>
+        <div style={{ width: 274, marginTop: 10, marginBottom: 30 }}>
           <div className="titleName">{marketingConstants.ListingTracker}</div>
           <Image
             src={Rectangle}

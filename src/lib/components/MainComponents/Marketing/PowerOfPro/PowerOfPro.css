@@ -2,11 +2,11 @@
   font-family: var(--font-family-primary);
   font-style: normal;
  font-weight: var(--font-weight-500);
-
   font-size: 33px;
   line-height: 40px;
   color: var(--font-color-d2ecf9);
   margin-bottom: 10px;
+  width: 80%;
 }
 .titleMainProHadding {
   font-family: var(--font-family-primary);
@@ -50,6 +50,9 @@
   width: 50%;
   display: flex;
   justify-content: center;
+   /* border: 1px solid black ;
+  cursor: pointer; 
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
 }
 .innerFirstDivPowerOfPro {
   width: 80%;

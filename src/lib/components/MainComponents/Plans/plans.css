@@ -12,12 +12,28 @@
   background: white;
   border-radius: 4px;
   height: 387px;
-  width: 288px;
+  width: 350px;
   padding: 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-direction: column;
   margin: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  height: 390px;
+}
+.planStylePro {
+  margin-top: 25px;
+  background: white;
+  border-radius: 4px;
+  height: 387px;
+  width: 350px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  height: 430px;
 }
 
 .plansBackground {
@@ -29,14 +45,17 @@
   justify-content: center;
   align-items: center;
   width: 62px;
+  border: 1px solid black;
+  text-transform: uppercase;
 }
 
 .plansPrice {
   color: "#000000";
- font-weight: var(--font-weight-500);
-
+  font-weight: var(--font-weight-500);
   font-size: 24px;
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+
 }

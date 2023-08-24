@@ -10,12 +10,12 @@
 .cursorPointer {
   cursor: pointer;
 }
-.textStyle {
+.textStyleUnAuthenticatedNavBar {
   font-family: var(--font-family-primary);
   font-style: normal;
  font-weight: var(--font-weight-500);
 
-  font-size: 16px;
+  font-size: 12px;
   line-height: 135%;
   letter-spacing: 0.01em;
   color: var(--font-color-ffffff);
@@ -23,7 +23,7 @@
 .flexBetween {
   display: flex;
   justify-content: space-between;
-  width: 30%;
+  width: 500px;
 }
 .buttonStyleGo {
   background: var(--font-background-0aac85);
@@ -31,10 +31,9 @@
     0px 3px 1px -2px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   width: 130px;
-  margin-left: 10px;
+  font-size: 0.675rem;
+  margin-left: 20px;
 }
-
-
 
 .paddingTop {
   margin-top: 15px;
@@ -45,9 +44,6 @@
     background: var(--font-background-263c6f);
     height: 150px;
     flex-direction: column;
-  }
-  .flexBetween {
-    width: 80%;
   }
   .buttonStyleGo {
     margin-left: 30px;
