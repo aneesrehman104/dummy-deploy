@@ -85,6 +85,9 @@ const UnauthenticatedNavBar: React.FC<PROPS> = () => {
         width={148}
         height={21}
         style={{ cursor: "pointer" }}
+        onClick={() => {
+          router.push('/home');
+        }}
       />
       <div className="textStyleUnAuthenticatedNavBar cursorPointer flexBetween">
         {UnauthenticatedNavBarData.map((item: any) => {

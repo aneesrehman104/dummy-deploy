@@ -89,7 +89,7 @@ const ListingTrackSECFilling = ({
                         <div className={styles.headlineCallOut}>
                           {item.heading}
                         </div>
-                        <div>{item.date}</div>
+                        <div className={styles.headlineCallOut}>{item.date}</div>
                       </div>
                       <div className={styles.siteName}>{item.sitename}</div>
                     </div>

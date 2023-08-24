@@ -28,14 +28,7 @@ const ListingTrackNews: React.FC<{ isLoading: boolean, dataArray: any }> = ({ is
           return (
             <main className={styles.cardStyle} key={index}>
               <div style={{ height: 180 }}>
-                <div
-                  style={{ width: "100%", height: 180, position: "relative" }}
-                >
-                  <Image
-                    alt="Mountains"
-                    src={ NewsImage }
-                  />
-                </div>
+              <Image src={ NewsImage } alt="Your Image" width={1000} height={800} />
               </div>
               <div
                 style={{
@@ -45,6 +38,7 @@ const ListingTrackNews: React.FC<{ isLoading: boolean, dataArray: any }> = ({ is
                   justifyContent: "space-evenly",
                   paddingLeft: 15,
                   paddingRight: 15,
+                  marginTop:15
                 }}
               >
                 <div className={styles.date}>

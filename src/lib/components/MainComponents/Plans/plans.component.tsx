@@ -112,7 +112,7 @@ const Plans: React.FC<PROPS> = () => {
               <CommonfiButton
                 variant="contained"
                 className="buttonStylePlans paddingTop"
-                title="CONTINUE"
+                title="Sign Up"
                 onClick={() => handleCheckout("prc_commonfi-11dh0xk5")}
               />
             </div>

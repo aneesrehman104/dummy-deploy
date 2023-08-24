@@ -122,7 +122,7 @@ const Navbar: React.FC<PROPS> = ({
                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                   sx={{ mr: 2 }}
                 >
-                  <MenuIcon />
+                  <MenuIcon sx={{ fontSize: 32 }} />
                 </IconButton>
               </Toolbar>
             ) : null}
@@ -133,6 +133,9 @@ const Navbar: React.FC<PROPS> = ({
                 width={148}
                 height={21}
                 style={{ marginRight: 20, cursor: "pointer" }}
+                onClick={() => {
+                  router.push("/home");
+                }}
               />
             ) : null}
             {!isMediumScreen ? (
@@ -159,8 +162,8 @@ const Navbar: React.FC<PROPS> = ({
               <div
                 style={{
                   backgroundColor: "#dddee0",
-                  width: "36px",
-                  height: "36px",
+                  width: "30px",
+                  height: "30px",
                   borderRadius: "50%",
                   display: "flex",
                   justifyContent: "center",

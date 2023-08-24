@@ -3,8 +3,10 @@ import { styled } from "@mui/material/styles";
 
 export const CssTextField = styled(TextField)({
   width: "375px",
-  height: "40px",
+  height: "32px",
   border: "1px solid #dddee0",
+  display:'flex',
+  justifyContent:'center',
   background: "#dddee0",
   borderRadius: "8px",
   "& .MuiOutlinedInput-root": {
