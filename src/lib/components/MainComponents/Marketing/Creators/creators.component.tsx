@@ -1,9 +1,5 @@
-import React, { Fragment, useEffect } from "react";
+import React from "react";
 import "./creators.css";
-import { useState } from "react";
-import { getApiWithoutAuth } from "@/lib/ts/api";
-import { URLs } from "@/lib/ts/apiUrl";
-import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
 import Brand1 from "../../../../../../public/brand1.svg";
 import Brand2 from "../../../../../../public/brand2.svg";
