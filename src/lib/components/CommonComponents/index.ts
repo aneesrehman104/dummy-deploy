@@ -1,5 +1,5 @@
 import Footer from "./Footer";
-import AuthenticatedNavbar from "./AuthenticatedNavbar";
+import AuthenticatedLayout from "./AuthenticatedLayout";
 import SkeltonTable from "./SkeltonTable";
 import ListingTrackTable from "./ListingTrackTable";
 import ListingTrackGraph from "./ListingTrackGraph";
@@ -8,7 +8,7 @@ import ListingTrackSECFilling from "./ListingTrackSECFilling";
 import CommonfiButton from "./CommonfiButton";
 export {
   Footer,
-  AuthenticatedNavbar,
+  AuthenticatedLayout,
   SkeltonTable,
   ListingTrackTable,
   ListingTrackGraph,

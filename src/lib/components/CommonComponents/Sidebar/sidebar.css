@@ -37,28 +37,3 @@
   text-transform: uppercase;
   color: #20608b;
 }
-.dashboardheader {
-  height: 20px;
-  flex-direction: column;
-  padding: 0 35px;
-  box-sizing: border-box;
-  align-items: flex-start;
-  gap: 8px;
-  text-align: left;
-  font-size: 12.5px;
-  color: #434343;
-  font-weight: 500;
-  font-family: Open Sans;
-}
-
-.link {
-  position: relative;
-  letter-spacing: 0.01em;
-  line-height: 127%;
-  /* font-size: 11px; */
-}
-@media screen and (max-width: 900px) {
-  .dashboardheader {
-    padding: 0 10px;
-  }
-}

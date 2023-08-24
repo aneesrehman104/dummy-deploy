@@ -14,7 +14,7 @@ const Footer = () => {
   const SOCIALLINKS = [{ name: "Twitter" }, { name: "Common.fi" }];
   return (
     <>
-      <main className="footerMainDiv">
+      <footer className="footerMainDiv">
         <div className="footerSecondDiv">
           <div className="flexDiv">
             <div className="stayInTheKnowMainDiv">
@@ -165,7 +165,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </main>
+      </footer>
     </>
   );
 };

@@ -121,9 +121,10 @@ const ListingTrackTable = ({
       <TableBody>
         {sortedData.map((item: any, index: number) => (
           <>
-          {
-            console.log('========screenerData?.dataset sortedData',sortedData)
-          }
+            {console.log(
+              "========screenerData?.dataset sortedData",
+              sortedData
+            )}
             <TableRow key={index}>
               {isRemoveAble ? (
                 <TableCell>

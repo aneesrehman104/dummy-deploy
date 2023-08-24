@@ -1,34 +1,17 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React from "react";
 import footerLogo from "../../../../../public/footerLogo.svg";
 import Image from "next/image";
 import "./unauthenticated-navbar.css";
 import CommonfiButton from "../CommonfiButton";
 import Link from "next/link";
-import { useMemberstackModal, useMemberstack } from "@memberstack/react";
+import { useMemberstackModal } from "@memberstack/react";
 import { setCookie } from "cookies-next";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { UnauthenticatedNavBarData } from "./constants";
 interface PROPS {}
 const UnauthenticatedNavBar: React.FC<PROPS> = () => {
   const { openModal, hideModal } = useMemberstackModal();
   const router = useRouter();
-  const UnauthenticatedNavBarData = [
-    {
-      name: "Features",
-      link: "/home",
-    },
-    {
-      name: "Pricing",
-      link: "/plans",
-    },
-    {
-      name: "Request a Demo",
-      link: "requestDemo",
-    },
-    {
-      name: "CommonFi",
-      link: "",
-    },
-  ];
   return (
     <div className="headerMaindiv">
       <Image
@@ -73,7 +56,7 @@ const UnauthenticatedNavBar: React.FC<PROPS> = () => {
         </div>
         <div>
           <CommonfiButton
-          className="buttonStyleGo"
+            className="buttonStyleGo"
             sx={{
               "&:hover": {
                 backgroundColor: "#263c6f",
