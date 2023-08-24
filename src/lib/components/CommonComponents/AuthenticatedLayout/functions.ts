@@ -20,3 +20,18 @@ export const toggleItem = (itemId: string, setIsOpen: any) => {
     return newState;
   });
 };
+
+export function findItemPath(pathname: string) {
+  return sidebarItem.find((item) => {
+    if (item.pathname === pathname) {
+      return true;
+    }
+    if (
+      item.items &&
+      item.items.some((subItem) => subItem.pathname === pathname)
+    ) {
+      return true;
+    }
+    return false;
+  });
+}

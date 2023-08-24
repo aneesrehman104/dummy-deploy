@@ -1,13 +1,13 @@
 "use client";
 import RootLayout from "../../layout";
-import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
+import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
 import IPOScreener from "@/lib/components/MainComponents/IPOScreener";
 const IPOSScreenerPage = () => {
   return (
     <RootLayout>
-      <AuthenticatedNavbar selected_id="ipos/screeners">
+      <AuthenticatedLayout selected_id="ipos/screeners">
         <IPOScreener />
-      </AuthenticatedNavbar>
+      </AuthenticatedLayout>
     </RootLayout>
   );
 };

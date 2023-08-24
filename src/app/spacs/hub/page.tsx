@@ -1,13 +1,13 @@
 "use client";
 import RootLayout from "../../layout";
-import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
+import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
 import Spacs from "@/lib/components/MainComponents/Spacs";
 const SpacsHubPage =()=> {
   return (
     <RootLayout>
-      <AuthenticatedNavbar selected_id="spacs/hub">
+      <AuthenticatedLayout selected_id="spacs/hub">
         <Spacs />
-      </AuthenticatedNavbar>
+      </AuthenticatedLayout>
     </RootLayout>
   );
 }

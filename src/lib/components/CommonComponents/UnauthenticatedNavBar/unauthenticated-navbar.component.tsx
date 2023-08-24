@@ -1,10 +1,10 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React from "react";
 import footerLogo from "../../../../../public/footerLogo.svg";
 import Image from "next/image";
 import "./unauthenticated-navbar.css";
 import CommonfiButton from "../CommonfiButton";
 import Link from "next/link";
-import { useMemberstackModal, useMemberstack } from "@memberstack/react";
+import { useMemberstackModal } from "@memberstack/react";
 import { setCookie } from "cookies-next";
 import { useRouter, usePathname } from "next/navigation";
 import {

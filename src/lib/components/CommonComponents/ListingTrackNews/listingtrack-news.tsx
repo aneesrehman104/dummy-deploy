@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styles from "./news.module.css";
 import Image from "next/image";
+import NewsImage from "@public/newsImage.svg";
 
 import Skeleton from "@mui/material/Skeleton";
-const ListingTrackNews = ({ isLoading, dataArray }: any) => {
+const ListingTrackNews: React.FC<{ isLoading: boolean, dataArray: any }> = ({ isLoading, dataArray }) => {
   return (
-    <div
+    <main
       style={{
         display: "flex",
         justifyContent: "space-between",
@@ -25,16 +26,14 @@ const ListingTrackNews = ({ isLoading, dataArray }: any) => {
       ) : (
         dataArray?.map((item: any, index: number) => {
           return (
-            <div className={styles.cardStyle} key={index}>
+            <main className={styles.cardStyle} key={index}>
               <div style={{ height: 180 }}>
                 <div
                   style={{ width: "100%", height: 180, position: "relative" }}
                 >
                   <Image
                     alt="Mountains"
-                    src="/newsImage.svg"
-                    layout="fill"
-                    objectFit="contain"
+                    src={ NewsImage }
                   />
                 </div>
               </div>
@@ -55,11 +54,11 @@ const ListingTrackNews = ({ isLoading, dataArray }: any) => {
                 <div className={styles.discreption}>{item.newsDetail}</div>
                 <div className={styles.backgroundTitle}>{item.newsTag}</div>
               </div>
-            </div>
+            </main>
           );
         })
       )}
-    </div>
+    </main>
   );
 };
 

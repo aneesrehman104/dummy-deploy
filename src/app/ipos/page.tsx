@@ -1,6 +1,6 @@
 "use client";
 import RootLayout from "./layout";
-import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
+import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
 import { useRouter } from "next/navigation";
 import IOPS from "@/lib/components/MainComponents/IPOS";
 import { useContext } from "react";
@@ -11,9 +11,9 @@ const IposPage = () => {
   return (
     <Meta title="Ipos" description="" style={{ width: "100%" }}>
       <RootLayout>
-        <AuthenticatedNavbar selected_id="ipos">
+        <AuthenticatedLayout selected_id="ipos">
           <IOPS />
-        </AuthenticatedNavbar>
+        </AuthenticatedLayout>
       </RootLayout>
     </Meta>
   );
