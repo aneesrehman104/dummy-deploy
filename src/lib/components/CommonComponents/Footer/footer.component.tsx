@@ -1,16 +1,14 @@
 import React from "react";
 import "./footer.css";
-import { TextField, Checkbox, Button, Link } from "@mui/material";
-import footerLogo from "../../../../../public/footerLogo.svg";
-import lightVector from "../../../../../public/lightVector.svg";
+import { Checkbox, Link } from "@mui/material";
+import footerLogo from "@public/footerLogo.svg";
+import lightVector from "@public/lightVector.svg";
 import CommonfiButton from "../CommonfiButton";
 import Image from "next/image";
-import { styled } from "@mui/material/styles";
 import { FOOTER } from "@/lib/ts/constants";
 import { FooterTextField } from "@/lib/styled-components/index.styled";
 import { PORTALS, SUPPORT } from "./constants";
 const Footer = () => {
-
   const SOCIALLINKS = [{ name: "Twitter" }, { name: "Common.fi" }];
   return (
     <>
@@ -78,7 +76,7 @@ const Footer = () => {
               </div>
               <div className="textStyle paddingTop">
                 {FOOTER.detailPremiumFeature}
-                <li className="liTopStyle" >{FOOTER.pointOne} </li>
+                <li className="liTopStyle">{FOOTER.pointOne} </li>
                 <li className="liTopStyle"> {FOOTER.pointTwo} </li>
                 <li className="liTopStyle"> {FOOTER.pointThree} </li>
                 <div className="paddingTop"> {FOOTER.pricing}</div>
@@ -105,35 +103,33 @@ const Footer = () => {
           </div>
           <hr className="horizontalStyling" />
           <div className="footerLastDiv paddingTop">
-          <div className="marginMobile">
-
-            <div className="footerLastRowStyle">
-              <div className="titleStyle">{FOOTER.portals}</div>
-              {PORTALS.map((item) => {
-                return (
-                  <div key={item.name}>
-                    <Link href="#" color={"#FFFFFF"}>
-                      {item.name}
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
+            <div className="marginMobile">
+              <div className="footerLastRowStyle">
+                <div className="titleStyle">{FOOTER.portals}</div>
+                {PORTALS.map((item) => {
+                  return (
+                    <div key={item.name}>
+                      <Link href="#" color={"#FFFFFF"}>
+                        {item.name}
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <div className="marginMobile">
-
-            <div className="footerLastRowStyle">
-              <div className="titleStyle">{FOOTER.support} </div>
-              {SUPPORT.map((item) => {
-                return (
-                  <div key={item.name}>
-                    <Link href="#" color={"#FFFFFF"}>
-                      {item.name}
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
+              <div className="footerLastRowStyle">
+                <div className="titleStyle">{FOOTER.support} </div>
+                {SUPPORT.map((item) => {
+                  return (
+                    <div key={item.name}>
+                      <Link href="#" color={"#FFFFFF"}>
+                        {item.name}
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="marginMobile">
