@@ -2,6 +2,7 @@
 import { MemberstackProvider } from "@memberstack/react";
 import { MemberstackWrapper } from "@/lib/components/memberstack/memberstack.wrapper";
 import { Meta } from "@/lib/meta.component";
+import './globals.css'
 
 const RootLayout = ({
   unauthenticated,

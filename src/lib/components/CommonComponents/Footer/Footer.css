@@ -1,5 +1,5 @@
 .footerMainDiv {
-  background: #263c6f;
+  background: var(--font-background-263c6f);
   min-height: 575px;
   width: 100%;
   display: flex;
@@ -17,25 +17,27 @@
   margin-top: 15px;
 }
 .titleStyle {
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
   font-size: 22px;
   line-height: 26px;
   display: flex;
   align-items: center;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #d2ecf9;
+  color: var(--font-color-d2ecf9);
 }
 .textStyle {
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 500;
+ font-weight: var(--font-weight-500);
+
   font-size: 16px;
   line-height: 135%;
   letter-spacing: 0.01em;
-  color: #ffffff;
+  color: var(--font-color-ffffff);
 }
 
 .emailButton {
@@ -43,23 +45,25 @@
   border-radius: 4px;
   width: 90%;
   height: 56px;
-  background-color: #263c6f;
-  color: #ffffff;
-  font-family: "Open Sans";
+  background-color: var(--font-color-263c6f);
+  color: var(--font-color-ffffff);
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 400;
+ font-weight: var(--font-weight-400);
+
   font-size: 16px;
   line-height: 135%;
 
   letter-spacing: 0.01em;
 }
 .checkBoxStyle {
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 500;
+ font-weight: var(--font-weight-500);
+
   font-size: 11px;
   letter-spacing: 0.01em;
-  color: #ffffff;
+  color: var(--font-color-ffffff);
   line-height: 127%;
 }
 .horizontalStyling {
@@ -67,7 +71,7 @@
   width: 100%;
 }
 .buttonStyle {
-  background: #0aac85;
+  background: var(--font-background-0aac85);
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14),
     0px 3px 1px -2px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
@@ -124,6 +128,9 @@
 .marginMobile{
   margin-top: 0px;
 }
+.liTopStyle{
+  margin-top: 10px;
+}
 @media screen and (min-width: 0px) and (max-width: 925px) {
   .footerLogoStyle {
     display: none;
@@ -137,11 +144,13 @@
   }
   .stayInTheKnowMainDiv {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 35px;
   }
   .unlockFeatureMainDiv {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 30px;
+    padding-bottom: 20px;
+
   }
   .connectwithinline {
     display: flex;
@@ -149,6 +158,9 @@
     width: 100%;
   }
   .marginMobile{
+    margin-top: 20px;
+  }
+  .liTopStyle{
     margin-top: 10px;
   }
 }

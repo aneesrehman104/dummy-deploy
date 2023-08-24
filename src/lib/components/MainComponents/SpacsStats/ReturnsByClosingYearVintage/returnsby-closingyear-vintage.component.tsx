@@ -28,7 +28,12 @@ const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/Lis
       marginBottom: 90,
       plotBackgroundColor: null,
       renderTo: "container",
-      animation: false,
+             animation: false,
+        zooming: {
+          mouseWheel: {
+            enabled: false,
+          },
+        },
     },
     title: {
       text: "",

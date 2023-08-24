@@ -1,2 +1,2 @@
-import MergerHub from "./mergerhub";
+import MergerHub from './MergerHub'
 export default MergerHub;

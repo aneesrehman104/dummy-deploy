@@ -10,7 +10,7 @@ import { TextField, Checkbox, Button, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Pic from "../../../../../../public/nonAuthPic.svg";
 import { marketingConstants } from "@/lib/ts/constants";
-import "./GetFreeUpdates.css";
+import "./get-free-updates.css";
 interface PROPS {}
 
 const GetFreeUpdates: React.FC<PROPS> = () => {
@@ -47,11 +47,10 @@ const GetFreeUpdates: React.FC<PROPS> = () => {
         display: "flex",
         background: "#20608B",
         height: "100%",
-        marginTop: "5%",
       }}
     >
       <div className="spaceBwteenPower">
-        <div className="firstDivPowerOfPro">
+        <div className="firstDivGetFreeUpdate">
           <div
             style={{ width: "80%", display: "flex", justifyContent: "center" }}
           >
@@ -76,7 +75,7 @@ const GetFreeUpdates: React.FC<PROPS> = () => {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              width: "90%",
+              width: "85%",
               flexWrap: "wrap",
             }}
           >

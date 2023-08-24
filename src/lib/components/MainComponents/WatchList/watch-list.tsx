@@ -13,7 +13,7 @@ import IPOsPressReleases from "../IPOS/PressReleases/ipo-pressreleases.component
 import MergerPressReleases from '../MergerNews/PressReleases/press-releases.component'
 import SpacsPressReleases from '../SpacsNews/PressReleases/press-releases.component'
 const WatchList = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   return (
     <>
       <div className={styles.dashboardheader}>

@@ -9,8 +9,9 @@
 .textChangeLog {
   margin-top: 20px;
   font-size: 20px;
-  font-weight: 500;
-  font-family: Open Sans;
+ font-weight: var(--font-weight-500);
+
+  font-family: var(--font-family-primary);
 }
 .spaceBetweenChangeLog {
   display: flex;

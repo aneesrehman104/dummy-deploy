@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
   interface PROPS {}
 
   const SpacsIpoCalendar: React.FC<PROPS> = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
 
   const theme = createTheme({
     palette: {

@@ -1,7 +1,7 @@
 import React from "react";
 import "./plans.css";
 import { CommonfiButton } from "../../CommonComponents";
-import {  useCheckout } from "@memberstack/react";
+import { useCheckout } from "@memberstack/react";
 import { useRouter } from "next/navigation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 interface PROPS {}
@@ -28,7 +28,7 @@ const Plans: React.FC<PROPS> = () => {
       }}
     >
       <div>
-          {/* <div>
+        {/* <div>
             <ArrowBackIcon
               onClick={() => {
                 router.back();
@@ -45,7 +45,15 @@ const Plans: React.FC<PROPS> = () => {
             textAlign: "center",
           }}
         >
-          <div style={{ color: "#263C6F", fontWeight: 500, fontSize: 33 }}>
+          <div
+            style={{
+              color: "#263C6F",
+              fontWeight: 500,
+              fontSize: 33,
+              padding: "5rem",
+              textTransform: "uppercase",
+            }}
+          >
             Unlock the full potential
           </div>
           <div style={{ width: "80%", marginTop: 10 }}>
@@ -69,17 +77,35 @@ const Plans: React.FC<PROPS> = () => {
               <div className="plansPrice">View-only dashboard access</div>
               <ul style={{ marginLeft: -29 }}>
                 <li style={{ marginTop: 15 }}>Sign up to use the Watchlist</li>
-                <li style={{ marginTop: 15, textDecoration: "line-through" }}>
+                <div
+                  style={{
+                    marginTop: 15,
+                    textDecoration: "line-through",
+                    color: "#6c757d",
+                  }}
+                >
                   Set notifications
-                </li>
-                <li style={{ marginTop: 15, textDecoration: "line-through" }}>
+                </div>
+                <div
+                  style={{
+                    marginTop: 15,
+                    textDecoration: "line-through",
+                    color: "#6c757d",
+                  }}
+                >
                   {" "}
                   Customize & export tables
-                </li>
-                <li style={{ marginTop: 15, textDecoration: "line-through" }}>
+                </div>
+                <div
+                  style={{
+                    marginTop: 15,
+                    textDecoration: "line-through",
+                    color: "#6c757d",
+                  }}
+                >
                   {" "}
                   Daily premium newsletter
-                </li>
+                </div>
               </ul>
             </div>
             <div>
@@ -91,7 +117,7 @@ const Plans: React.FC<PROPS> = () => {
               />
             </div>
           </div>
-          <div className="planStyle" style={{ height: 420 }}>
+          <div className="planStylePro">
             <div className="plansBackground" style={{ background: "#0AAC85" }}>
               PRO
             </div>
@@ -104,10 +130,12 @@ const Plans: React.FC<PROPS> = () => {
                 <div style={{ color: "grey", fontSize: 16 }}>or </div>{" "}
                 <div>
                   <div>$500 </div>
-                  <div>annually </div>
-                  <span style={{ color: "#0AAC85", fontSize: 16 }}>
-                    ($41.66/mo)
-                  </span>
+                  <div>
+                    annually{" "}
+                    <span style={{ color: "#0AAC85", fontSize: 16 }}>
+                      ($41.66/mo)
+                    </span>
+                  </div>
                 </div>
               </div>
               <ul style={{ marginLeft: -29 }}>
@@ -140,24 +168,38 @@ const Plans: React.FC<PROPS> = () => {
                 <div style={{ color: "grey", fontSize: 16 }}>or </div>{" "}
                 <div>
                   <div>$79.99 </div>
-                  <div>annually </div>
-                  <span style={{ color: "grey", fontSize: 16 }}>
-                    ($6.66/mo)
-                  </span>
+                  <div>
+                    annually{" "}
+                    <span style={{ color: "grey", fontSize: 16 }}>
+                      ($6.66/mo)
+                    </span>
+                  </div>
                 </div>
               </div>
               <ul style={{ marginLeft: -29 }}>
                 <li style={{ marginTop: 15 }}>Sign up to use the Watchlist</li>
                 <li style={{ marginTop: 15 }}>Set notifications</li>
                 <li style={{ marginTop: 15 }}> Customize table Filters</li>
-                <li style={{ marginTop: 15, textDecoration: "line-through" }}>
+                <div
+                  style={{
+                    marginTop: 15,
+                    textDecoration: "line-through",
+                    color: "#6c757d",
+                  }}
+                >
                   {" "}
                   Export tables
-                </li>
-                <li style={{ marginTop: 15, textDecoration: "line-through" }}>
+                </div>
+                <div
+                  style={{
+                    marginTop: 15,
+                    textDecoration: "line-through",
+                    color: "#6c757d",
+                  }}
+                >
                   {" "}
                   Daily premium newsletter
-                </li>
+                </div>
               </ul>
             </div>
             <div>
@@ -173,6 +215,6 @@ const Plans: React.FC<PROPS> = () => {
       </div>
     </section>
   );
-}
+};
 
 export default Plans;

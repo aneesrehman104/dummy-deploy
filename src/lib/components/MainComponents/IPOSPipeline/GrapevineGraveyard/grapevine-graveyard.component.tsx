@@ -23,7 +23,7 @@ const GrapevineGraveyard: React.FC<PROPS> = () => {
     wishlistIPO: "Wishlist",
   };
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [GrapevineGraveyardData, setGrapevineGraveyardData] = useState<any>({
     dataset: [],

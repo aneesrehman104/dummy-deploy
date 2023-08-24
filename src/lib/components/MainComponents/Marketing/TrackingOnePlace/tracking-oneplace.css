@@ -1,57 +1,65 @@
 .titleName {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 500;
+  font-weight: var(--font-weight-500);
   font-size: 16px;
   line-height: 20px;
-  color: #000000;
-  margin-bottom: 10px;
+  color: var(--font-color-000);
+  text-transform: uppercase;
+  margin-bottom: 20px;
 }
 .titleMainHadding {
-    font-family: "Open Sans";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 33px;
-    line-height: 40px;
-    color: #000000;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px
-  }
-.detailStyle {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
+  font-weight: var(--font-weight-500);
+  font-size: 20px;
+  line-height: 40px;
+  color: var(--font-color-000);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.oneLineUnder{
+  text-decoration: underline;
+}
+.detailStyle {
+  font-family: var(--font-family-primary);
+  font-style: normal;
+  font-weight: var(--font-weight-400);
+
+  font-size: 15px;
   line-height: 20px;
-  color: #000000;
+  color: var(--font-color-000);
+
   margin-bottom: 10px;
 }
 .buttonViewStyle {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 700;
+  font-weight: var(--font-weight-700);
+
   font-size: 14px;
   line-height: 20px;
-  color: #0aac85;
+  color: var(--font-color-0aac85);
   margin-top: 20px;
 }
 .pointer {
   cursor: pointer;
 }
 
-.buttonStyleDemo{
-    background: #0aac85;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14),
-      0px 3px 1px -2px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    height: 40px;
-    width: 196px;
-    margin-top: 30px;
+.buttonStyleDemo {
+  background: var(--font-background-0aac85);
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14),
+    0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  height: 40px;
+  width: 196px;
+  margin-top: 30px;
 }
 
-.tackingOnePlace{
+.tackingOnePlace {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;

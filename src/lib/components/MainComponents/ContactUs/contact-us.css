@@ -1,15 +1,16 @@
 .contactUsUpdate {
-    font-family: "Open Sans";
+    font-family: var(--font-family-primary);
     font-style: normal;
-    font-weight: 500;
+   font-weight: var(--font-weight-500);
+
     font-size: 33px;
     line-height: 40px;
-    color: #D2ECF9;
+    color: var(--font-color-d2ecf9);
     margin-bottom: 10px;
   }
 
   .buttonStyleSendMessage{
-    background: #0aac85;
+    background: var(--font-background-0aac85);
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14),
       0px 3px 1px -2px rgba(0, 0, 0, 0.2);
     border-radius: 4px;

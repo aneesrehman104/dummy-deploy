@@ -6,7 +6,7 @@ import { URLs } from "@/lib/ts/apiUrl";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
 import Rectangle from "../../../../../../public/Rectangle.svg";
-import "./TrackingOnePlace.css";
+import "./tracking-oneplace.css";
 import { useRouter, usePathname } from "next/navigation";
 import { marketingConstants } from "@/lib/ts/constants";
 interface PROPS {}
@@ -26,10 +26,10 @@ const TrackingOnePlace: React.FC<PROPS> = () => {
       }}
     >
       <div className="titleMainHadding">
-        Finally, everything you need to track in ONE place.
+        Finally, everything you need to track in &nbsp;<span className="oneLineUnder">ONE</span>&nbsp; place.
       </div>
       <div className="tackingOnePlace">
-        <div style={{ width: 274, marginTop: 10, marginBottom: 10 }}>
+        <div style={{ width: 274, marginTop: 10, marginBottom: 30 }}>
           <div className="titleName">{marketingConstants.ListingTracker}</div>
           <Image
             src={Rectangle}

@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: flex-start;
   font-size: 24px;
-  color: #263c6f;
+  color: var(--font-color-263c6f);
 }
 .dashboardheader {
   /* height: 56px; */
@@ -17,8 +17,8 @@
   gap: 8px;
   text-align: left;
   font-size: 12.5px;
-  color: #434343;
-  font-family: Open Sans;
+  color: var(--font-color-434343);
+  font-family: var(--font-family-primary);
 }
 
 .selectedValueStyle {
@@ -30,7 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #d2ecf9;
+  background: var(--font-background-d2ecf9);
   cursor: pointer;
 }
 .notSelectedValueStyle {
@@ -61,12 +61,14 @@
   position: relative;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 500;
+ font-weight: var(--font-weight-500);
+
 }
 .ytdEventSummary {
   flex: 1;
   position: relative;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
 }
 .vectorIcon {
   position: relative;
@@ -102,14 +104,15 @@
   left: 0;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 500;
+ font-weight: var(--font-weight-500);
+
 }
 .title2 {
   position: relative;
   width: 37px;
   height: 19px;
   font-size: 16px;
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
 }
 .parent {
   width: 37px;
@@ -133,7 +136,7 @@
   width: 52px;
   height: 19px;
   font-size: 16px;
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
 }
 .group {
   width: 52px;
@@ -157,7 +160,7 @@
   width: 77px;
   height: 19px;
   font-size: 16px;
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
 }
 .container,
 .frameGroup {
@@ -192,7 +195,8 @@
   position: relative;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 500;
+ font-weight: var(--font-weight-500);
+
 }
 .eventsummaryinfo {
   flex: 1;
@@ -202,7 +206,7 @@
   justify-content: flex-start;
   gap: 1px;
   font-size: 16px;
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
 }
 .chartcontainer,
 .frameParent,
@@ -228,22 +232,22 @@
 }
 .chartcontainer {
   border-radius: 4px;
-  background-color: #fff;
+  background-color: var(--font-background-color-white);
   box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
     0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
   overflow: hidden;
   padding: 13px 0;
   gap: 10px;
   font-size: 24px;
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
 }
 .sectionsummarycontainer {
   padding: 0 35px;
   gap: 16px;
   text-align: left;
   font-size: 16px;
-  color: #000;
-  font-family: Open Sans;
+  color: var(--font-color-000);
+  font-family: var(--font-family-primary);
 }
 .tableContainer {
   width: 100%;
@@ -257,16 +261,18 @@
   border-radius: 4px;
 }
 .tableTitle {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
   font-size: 16px;
   line-height: 19px;
 }
 .headerCell {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
   font-size: 16px;
   width: 100%;
   text-align: center;
@@ -275,7 +281,7 @@
 }
 .selectedHeader {
   border-bottom: 3px solid #1991ac;
-  color: #1991ac;
+    color: var(--font-color-1991ac);
 }
 .cell {
   /* border: 2px solid purple; */
@@ -284,9 +290,10 @@
   width: 30%;
   display: flex;
   justify-content: space-between;
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 400;
+ font-weight: var(--font-weight-400);
+
   font-size: 14px;
   line-height: 135%;
 }
@@ -305,12 +312,14 @@
 
 .titleText {
   text-transform: uppercase;
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 400;
+ font-weight: var(--font-weight-400);
+
   font-size: 16px;
   line-height: 103%;
-  color: #000000;
+    color: var(--font-color-000);
+
 }
 .completedMergers {
   align-self: stretch;
@@ -318,8 +327,9 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 500;
-  font-family: Open Sans;
+ font-weight: var(--font-weight-500);
+
+  font-family: var(--font-family-primary);
   margin-top: 4px;
 }
 
@@ -353,7 +363,8 @@
     border-bottom: 1.5px solid #d2ecf9;
     padding: 10px 0px;
     width: 40%;
-    font-weight: 400;
+   font-weight: var(--font-weight-400);
+
     font-size: 14px;
     line-height: 135%;
   }

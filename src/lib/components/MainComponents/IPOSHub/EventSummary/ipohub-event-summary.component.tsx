@@ -29,7 +29,12 @@ const IpoHubEventSummary: React.FC<PROPS> = () => {
       marginBottom: 90,
       plotBackgroundColor: null,
       renderTo: "container",
-      animation: false,
+             animation: false,
+        zooming: {
+          mouseWheel: {
+            enabled: false,
+          },
+        },
     },
     title: {
       text: "",

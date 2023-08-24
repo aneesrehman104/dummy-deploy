@@ -26,7 +26,7 @@
       "@components/*":["./src/components/*"],
       "@CommonComponents/*":["./src/lib/components/CommonComponents/*"],
       "@MainComponents/*":["./src/lib/components/MainComponents/*"],
-      "@public/*":["./public/*"]
+      "@public/*":["./public/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

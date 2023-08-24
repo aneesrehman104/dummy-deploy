@@ -30,7 +30,7 @@
 .paper2 {
   align-self: stretch;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: var(--font-background-color-white);
   box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
     0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
   overflow: hidden;
@@ -42,7 +42,8 @@
 .aggregatedMiniTables {
   align-self: stretch;
   position: relative;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
   margin-bottom: 15px;
 }
 
@@ -102,7 +103,7 @@
 .siteName {
   font-size: 11px;
   line-height: 127%;
-  color: #434343;
+  color: var(--font-color-434343);
 }
 .chevronRight {
   display: flex;

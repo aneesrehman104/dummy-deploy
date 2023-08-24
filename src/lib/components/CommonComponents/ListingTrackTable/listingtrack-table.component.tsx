@@ -14,6 +14,7 @@ import TablePagination from "@mui/material/TablePagination";
 import dynamic from "next/dynamic";
 import Skeleton from "@mui/material/Skeleton";
 import CloseIcon from "@mui/icons-material/Close";
+import Image from "next/image";
 const DynamicChart = dynamic(() => import("./events-chart.component"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
@@ -139,7 +140,19 @@ const ListingTrackTable = ({
               {headerArray.map((headerItem: any) =>
                 headerItem.type === "string" ? (
                   <TableCell key={headerItem.key}>
-                    {item[headerItem.key]}
+                    <div style={{display:'flex',alignItems:'center'}}>
+                      {headerItem.key === "companyName" && "company" ? (
+                        <Image
+                        src="/newsImage.svg"
+                        alt="newsImage"
+                        width={38}
+                        height={38}
+                      />
+                      ) : (
+                        ""
+                      )}
+                      &nbsp;&nbsp;{item[headerItem.key]}
+                    </div>
                   </TableCell>
                 ) : headerItem.type === "gainer" ? (
                   <TableCell style={{ color: "#0AAC1A" }}>

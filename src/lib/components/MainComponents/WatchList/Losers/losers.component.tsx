@@ -6,7 +6,7 @@ import MyTable from "./functions";
   interface PROPS {}
 
   const Losers: React.FC<PROPS> = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [itemsPerPage] = useState<number>(2);
   const data = [
