@@ -6,7 +6,7 @@ export interface MemberData {
   stripeCustomerId?: string;
 }
 export const memberstack_config = {
-  publicKey: "",
+  publicKey: "pk_sb_e1babdb2327aaadd2e43",
 };
 
 export const MemberInformationContext = React.createContext<{

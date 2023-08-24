@@ -11,12 +11,7 @@ const RootLayout = ({
   unauthenticated?: React.ReactNode;
   children: React.ReactNode;
 }) => {
-  return (
-    <>
-    {children}
-    </>
-        
-  );
+  return <>{children}</>;
 };
 
 export default RootLayout;

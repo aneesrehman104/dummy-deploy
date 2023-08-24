@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "SPACS HUB",
-  description: "SPACS HUB",
-};
+import { Meta } from "@/lib/meta.component";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  return <>{children}</>;
+  return (
+    <Meta title="Spacs Hub" description="" style={{ width: "100%" }}>
+      {children}
+    </Meta>
+  );
 };
 export default RootLayout;

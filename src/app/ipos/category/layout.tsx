@@ -1,17 +1,10 @@
-import { Metadata } from 'next'
- 
-export const metadata: Metadata = {
-  title: 'IPO Category',
-  description: 'IPO Category',
-}
+import { Meta } from "@/lib/meta.component";
 
-const RootLayout =({
-  children,
-}: {
-  children: React.ReactNode;
-})=> {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>{ children }</>
+    <Meta title="Category" description="" style={{ width: "100%" }}>
+      {children}
+    </Meta>
   );
-}
-export default RootLayout
+};
+export default RootLayout;

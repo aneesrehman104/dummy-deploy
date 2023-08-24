@@ -11,7 +11,7 @@ const RootLayout = ({
 }) => {
   return (
     <Meta title="Change Log" description="" style={{ width: "100%" }}>
-        {children}
+      {children}
     </Meta>
   );
 };

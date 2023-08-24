@@ -18,13 +18,19 @@ import {
 } from "../Sidebar/sidebar.component";
 import SearchDialogBox from "../SearchDialogBox/dialogbox.component";
 import Navbar from "../Navbar/navbar.component";
+import {
+  useMember,
+  useMemberstack,
+  useMemberstackModal,
+} from "@memberstack/react";
 
 const AuthenticatedLayout = (props: Props) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("Home");
   const [isOpen, setIsOpen] = useState<SidebarState>({});
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
-
+  const { logout } = useMemberstack();
+  const { openModal, hideModal } = useMemberstackModal();
   const router = useRouter();
   const pathname = usePathname();
   const theme = useTheme();
@@ -77,6 +83,9 @@ const AuthenticatedLayout = (props: Props) => {
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
         setIsSearchModalOpen={setIsSearchModalOpen}
+        logout={logout}
+        openModal={openModal}
+        hideModal={hideModal}
       />
 
       {/* sidebar */}
@@ -112,7 +121,7 @@ const AuthenticatedLayout = (props: Props) => {
         {props.children}
         <Footer />
       </Box>
-      
+
       <SearchDialogBox
         isSearchModalOpen={isSearchModalOpen}
         handleCloseModal={handleCloseModal}
