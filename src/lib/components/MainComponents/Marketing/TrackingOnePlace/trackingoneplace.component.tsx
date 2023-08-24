@@ -6,7 +6,7 @@ import { URLs } from "@/lib/ts/apiUrl";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
 import Rectangle from "../../../../../../public/Rectangle.svg";
-import "./TrackingOnePlace.css";
+import "./tracking-oneplace.css";
 import { useRouter, usePathname } from "next/navigation";
 import { marketingConstants } from "@/lib/ts/constants";
 interface PROPS {}

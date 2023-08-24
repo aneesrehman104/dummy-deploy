@@ -63,7 +63,7 @@ const IpoHubGainer: React.FC<PROPS> = () => {
     return () => {
       source.cancel("Request cancelled due to component unmount");
     };
-  }, [selectedTab, currentPage]);
+  }, [selectedTab, currentPage,itemsPerPage]);
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);

@@ -10,7 +10,7 @@ import { TextField, Checkbox, Button, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Pic from "../../../../../../public/nonAuthPic.svg";
 import { marketingConstants } from "@/lib/ts/constants";
-import "./GetFreeUpdates.css";
+import "./get-free-updates.css";
 interface PROPS {}
 
 const GetFreeUpdates: React.FC<PROPS> = () => {
