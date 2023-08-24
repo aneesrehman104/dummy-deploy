@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Announced.module.css";
+import styles from "./announced.module.css";
 import { useState, useEffect } from "react";
 import {
   Table,

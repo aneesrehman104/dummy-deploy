@@ -6,6 +6,9 @@ import {
 } from "@memberstack/react";
 import Fallback from "../fallback/page";
 import { MemberInformationContext } from "@/lib/components/context";
+import { MemberstackWrapper } from "@/lib/components/memberstack/memberstack.wrapper";
+import { memberstack_config } from "@/lib/ts/constants";
+import { Meta } from "@/lib/meta.component";
 
 const RootLayout = ({
   unauthenticated,
@@ -15,38 +18,14 @@ const RootLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <MemberstackProvider
-      config={{
-        publicKey: `${process.env.NEXT_PUBLIC_MEMBERSTACK_KEY}`,
-        appId: undefined,
-        sessionDurationDays: undefined,
-        useCookies: undefined,
-        domain: undefined,
-      }}
-    >
-      <MemberstackWrapper unauthenticated={unauthenticated}>
-      <title>WATCHLIST</title>
-        <meta name="description" content="WATCHLIST" />
-        {children}
-      </MemberstackWrapper>
-    </MemberstackProvider>
+    <Meta title="Watchlist" description="" style={{ width: "100%" }}>
+      <MemberstackProvider config={memberstack_config}>
+        <MemberstackWrapper unauthenticated={unauthenticated}>
+          {children}
+        </MemberstackWrapper>
+      </MemberstackProvider>
+    </Meta>
   );
-}
+};
 
-const MemberstackWrapper =({
-  unauthenticated,
-  children,
-}: {
-  unauthenticated?: React.ReactNode;
-  children: React.ReactNode;
-}) => {
-  const user = useMember();
-  const memberstack = useMemberstack();
-
-  return (
-    <MemberInformationContext.Provider value={{ user, memberstack }}>
-      {user ? children : unauthenticated}
-    </MemberInformationContext.Provider>
-  );
-}
 export default RootLayout;

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-const DynamicChart = dynamic(() => import("./CompanyChart"), {
+const DynamicChart = dynamic(() => import("./company-chart"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
 });

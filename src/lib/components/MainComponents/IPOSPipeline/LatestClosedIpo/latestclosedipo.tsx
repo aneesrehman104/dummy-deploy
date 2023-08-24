@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./LatestClosedIpo.module.css";
+import styles from "./latest-closed-ipo.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";

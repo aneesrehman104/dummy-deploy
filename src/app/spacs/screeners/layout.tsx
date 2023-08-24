@@ -1,19 +1,12 @@
-import { Metadata } from 'next'
- 
-export const metadata: Metadata = {
-  title: 'SPACS SCREENERS',
-  description: 'SPACS SCREENERS',
-}
+import { Meta } from "@/lib/meta.component";
+import { Metadata } from "next";
 
-const RootLayout =({
-  children,
-}: {
-  children: React.ReactNode;
-})=> {
-  return (
-     <html lang="en">
-      <body style={{ width: "100%" }}>{children}</body>
-    </html>
-  );
-}
-export default RootLayout
+export const metadata: Metadata = {
+  title: "SPACS SCREENERS",
+  description: "SPACS SCREENERS",
+};
+
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
+  return <>{children}</>;
+};
+export default RootLayout;

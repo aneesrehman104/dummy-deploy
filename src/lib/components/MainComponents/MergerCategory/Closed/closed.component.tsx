@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./Closed.module.css";
+import styles from "./closed.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";

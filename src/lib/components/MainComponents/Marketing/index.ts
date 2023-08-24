@@ -1,2 +1,2 @@
-import Marketing from "./Marketing";
+import Marketing from "./marketing.component";
 export default Marketing;

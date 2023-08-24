@@ -1,1 +1,1 @@
-export { default } from "./ListingTrackNews";
+export { default } from "./listingtrack-news";
