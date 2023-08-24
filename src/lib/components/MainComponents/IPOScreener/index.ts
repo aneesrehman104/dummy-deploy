@@ -1,2 +1,2 @@
-import IPOScreener from "./IPOScreener";
+import IPOScreener from "./ipo-screener";
 export default IPOScreener;

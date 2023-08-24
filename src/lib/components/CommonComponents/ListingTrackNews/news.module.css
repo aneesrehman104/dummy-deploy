@@ -2,7 +2,8 @@
 .aggregatedMiniTables {
   align-self: stretch;
   position: relative;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
   margin-bottom: 15px;
 }
 .headlineslistcontainer {
@@ -16,7 +17,7 @@
 .cardStyle {
   width: 32%;
   height: 395px;
-  background: #ffffff;
+  background: var(--font-background-ffffff);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px -1px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
@@ -24,9 +25,10 @@
 }
 
 .date {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 500;
+ font-weight: var(--font-weight-500);
+
   font-size: 12px;
   line-height: 14px;
   letter-spacing: 0.08em;
@@ -34,38 +36,43 @@
   color: rgba(0, 0, 0, 0.56);
 }
 .title {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 500;
+ font-weight: var(--font-weight-500);
+
   font-size: 24px;
   line-height: 25px;
-  color: #000000;
+    color: var(--font-color-000);
+
 }
 .discreption {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 400;
+ font-weight: var(--font-weight-400);
+
   font-size: 16px;
   line-height: 135%;
   letter-spacing: 0.01em;
-  color: #000000;
+    color: var(--font-color-000);
+
   height:62px;
   overflow:hidden;
 }
 .backgroundTitle {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 500;
+ font-weight: var(--font-weight-500);
+
   font-size: 12px;
   line-height: 103%;
-  color: #ffffff;
+  color: var(--font-color-ffffff);
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 58px;
   max-width: 120px;
   height: 26px;
-  background: #0aac85;
+  background: var(--font-background-0aac85);
   border-radius: 100px;
 }
 

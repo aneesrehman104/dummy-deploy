@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-const DynamicChart = dynamic(() => import("./CompanyChart"), {
+const DynamicChart = dynamic(() => import("./company-chart"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
 });
@@ -54,7 +54,7 @@ const dataSet = [
   interface PROPS {}
 
 const Company: React.FC<PROPS> = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const options = {
     chartOptions: {
       chart: {
@@ -65,7 +65,12 @@ const Company: React.FC<PROPS> = () => {
         zoomType: "x",
         plotBackgroundColor: null,
         renderTo: "container",
-        animation: false,
+               animation: false,
+        zooming: {
+          mouseWheel: {
+            enabled: false,
+          },
+        },
       },
       accessibility: {
         enabled: false,
@@ -452,7 +457,12 @@ const Company: React.FC<PROPS> = () => {
         zoomType: "x",
         plotBackgroundColor: null,
         renderTo: "container",
-        animation: false,
+               animation: false,
+        zooming: {
+          mouseWheel: {
+            enabled: false,
+          },
+        },
       },
       accessibility: {
         enabled: false,

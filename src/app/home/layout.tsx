@@ -1,52 +1,20 @@
 "use client";
-import {
-  useMember,
-  useMemberstack,
-  MemberstackProvider,
-} from "@memberstack/react";
-import Fallback from "../fallback/page";
-import { MemberInformationContext } from "@/lib/components/context";
+import React from "react";
+import { Meta } from "@/lib/meta.component";
 
 const RootLayout = ({
-  unauthenticated,
   children,
 }: {
-  unauthenticated?: React.ReactNode;
-  children: React.ReactNode;
+  children: React.ReactElement | React.ReactElement[];
 }) => {
   return (
-    <MemberstackProvider
-      config={{
-        publicKey: `${process.env.NEXT_PUBLIC_MEMBERSTACK_KEY}`,
-        appId: undefined,
-        sessionDurationDays: undefined,
-        useCookies: undefined,
-        domain: undefined,
-      }}
+    <Meta
+      title="Home Page"
+      description=""
+      style={{ width: "100%", height: "90vh", margin: "0" }}
     >
-      <MemberstackWrapper unauthenticated={unauthenticated}>
-        <title>Home</title>
-        <meta name="description" content="Home" />
         {children}
-      </MemberstackWrapper>
-    </MemberstackProvider>
+    </Meta>
   );
-}
-
-const MemberstackWrapper =({
-  unauthenticated,
-  children,
-}: {
-  unauthenticated?: React.ReactNode;
-  children: React.ReactNode;
-}) => {
-  const user = useMember();
-  const memberstack = useMemberstack();
-
-  return (
-    <MemberInformationContext.Provider value={{ user, memberstack }}>
-      {user ? children : unauthenticated}
-    </MemberInformationContext.Provider>
-  );
-}
+};
 export default RootLayout;

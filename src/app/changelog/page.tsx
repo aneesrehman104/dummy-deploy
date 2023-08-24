@@ -1,6 +1,6 @@
 "use client";
 import RootLayout from "./layout";
-import ChangeLog from "@/lib/components/MainComponents/ChangeLog/chnagelog.component";
+import ChangeLog from "@/lib/components/MainComponents/ChangeLog/changelog.component";
 const ChangeLogPage=()=> {
   return (
     <RootLayout>

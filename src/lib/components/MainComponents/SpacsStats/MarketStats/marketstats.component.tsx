@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./MarketStats.module.css";
+import styles from "./marketstats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getApiWithoutAuth } from "@/lib/ts/api";

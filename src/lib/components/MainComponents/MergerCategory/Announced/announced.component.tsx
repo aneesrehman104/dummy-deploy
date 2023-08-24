@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./Announced.module.css";
+import styles from "./announced.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
@@ -11,7 +11,7 @@ interface PROPS {}
 
 const Announced: React.FC<PROPS> = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [latestAnnouncedMergersData, setLatestAnnouncedMergersData] =
     useState<any>({

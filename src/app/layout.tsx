@@ -1,10 +1,8 @@
 "use client";
-import {
-  useMember,
-  useMemberstack,
-  MemberstackProvider,
-} from "@memberstack/react";
-import { MemberInformationContext } from "@/lib/components/context";
+import { MemberstackProvider } from "@memberstack/react";
+import { MemberstackWrapper } from "@/lib/components/memberstack/memberstack.wrapper";
+import "./globals.css";
+import { memberstack_config } from "@/lib/components/context";
 
 const RootLayout = ({
   unauthenticated,
@@ -14,41 +12,12 @@ const RootLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <MemberstackProvider
-      config={{
-        publicKey: `${process.env.NEXT_PUBLIC_MEMBERSTACK_KEY}`,
-        appId: undefined,
-        sessionDurationDays: undefined,
-        useCookies: undefined,
-        domain: undefined,
-      }}
-    >
+    <MemberstackProvider config={memberstack_config}>
       <MemberstackWrapper unauthenticated={unauthenticated}>
         {children}
       </MemberstackWrapper>
     </MemberstackProvider>
   );
 };
-
-const MemberstackWrapper =({
-  unauthenticated,
-  children,
-}: {
-  unauthenticated?: React.ReactNode;
-  children: React.ReactNode;
-}) => {
-  const user = useMember();
-  const memberstack = useMemberstack();
-
-  return (
-    <MemberInformationContext.Provider value={{ user, memberstack }}>
-      <html lang="en">
-        <body style={{ width: "100%", margin: 0, height: "90vh" }}>
-          {user ? children : unauthenticated}
-        </body>
-      </html>
-    </MemberInformationContext.Provider>
-  );
-}
 
 export default RootLayout;

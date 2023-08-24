@@ -11,7 +11,7 @@
   display: flex;
   gap: 16px;
   font-size: 13px;
-  color: #1991ac;
+    color: var(--font-color-1991ac);
   flex-wrap: wrap;
 }
 .minitables {
@@ -22,12 +22,13 @@
 .aggregatedMiniTables {
   align-self: stretch;
   position: relative;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
 }
 .card {
   border-radius: 4px;
   min-height: 400px;
-  background-color: #fff;
+  background-color: var(--font-background-color-white);
   box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
     0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
   width: 380px;
@@ -38,8 +39,9 @@
   height: 51px;
   padding: 9px 15px;
   font-size: 16px;
-  color: #000;
-  font-weight: 600;
+  color: var(--font-color-000);
+ font-weight: var(--font-weight-600);
+
   letter-spacing: 0.01em;
   display: flex;
   justify-content: space-between;
@@ -64,7 +66,6 @@
   line-height: 166%;
   display: flex;
   align-items: center;
-  width: 75px;
   height: 29px;
   flex-shrink: 0;
 }
@@ -75,11 +76,11 @@
   gap: 10px;
 }
 .cardrowheader {
-  height: 40.67px;
-  padding: 16px 0;
+  height: 20.67px;
   letter-spacing: 0.01em;
   line-height: 135%;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
@@ -88,7 +89,8 @@
   position: relative;
   letter-spacing: 0.01em;
   line-height: 135%;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
   margin-top: 10px;
 }
 .frameParent {
@@ -96,10 +98,10 @@
   justify-content: space-between;
   flex-wrap: wrap;
   font-size: 24px;
-  color: #000;
-  font-family: "Open Sans";
-  margin-top: 10px;
+  color: var(--font-color-000);
+  font-family: var(--font-family-primary);
   display: flex;
+  min-height: 75px;
 }
 .div {
   align-self: stretch;
@@ -113,7 +115,7 @@
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-family: Open Sans;
+  font-family: var(--font-family-primary);
   width: 100px;
   margin-top: 2px;
 }

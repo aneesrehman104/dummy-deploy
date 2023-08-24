@@ -1,9 +1,9 @@
-import styles from "./MergerNews.module.css";
+import styles from "./mergernews.module.css";
 import React from "react";
 import News from "./News/news.components";
-import CurrentUpdateFeed from "./CurrentUpdateFeed/currentupdatefeed.component";
-import TwitterFeed from "./TwitterFeed/twitterfeed.component";
-import PressReleases from "./PressReleases/pressreleases.component";
+import CurrentUpdateFeed from "./CurrentUpdateFeed/current-update-feed.component";
+import TwitterFeed from "./TwitterFeed/twitter-feed.component";
+import PressReleases from "./PressReleases/press-releases.component";
 const MergerNews = () => {
   return (
     <main>

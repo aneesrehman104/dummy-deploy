@@ -1,0 +1,27 @@
+.titleMainCretaers {
+  font-family: var(--font-family-primary);
+  font-style: normal;
+ font-weight: var(--font-weight-500);
+
+  font-size: 20px;
+  color: var(--font-color-20608b);
+  display: flex;
+  justify-content: center;
+}
+.creatorsMainDiv {
+  display: flex;
+  background: white;
+  height: 40vh;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 925px) {
+
+  .creatorsMainDiv {
+    height: 80vh;
+  }
+
+}

@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./Losers.module.css";
+import styles from "./power-of-pro.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
 import Pic from "../../../../../../public/nonAuthPic.svg";
-import "./PowerOfPro.css";
+import "./power-of-pro.module.css";
 import { useRouter, usePathname } from "next/navigation";
 import { marketingConstants } from "@/lib/ts/constants";
 interface PROPS {}

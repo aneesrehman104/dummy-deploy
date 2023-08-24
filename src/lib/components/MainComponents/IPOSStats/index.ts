@@ -1,2 +1,2 @@
-import IPOSStats from "./IPOSStats"
+import IPOSStats from "./ipo-stats.component"
 export default IPOSStats;

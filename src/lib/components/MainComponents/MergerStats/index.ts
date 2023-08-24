@@ -1,2 +1,2 @@
-import MergerStats from "./MergerStats";
+import MergerStats from "./merger-stats.component";
 export default MergerStats;

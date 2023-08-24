@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./SpacEventCalendar.module.css";
+import styles from "./spac-event-calendar.module.css";
 import { useState } from "react";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";

@@ -12,11 +12,13 @@
 }
 .tableTitle {
   position: relative;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
   display: inline-block;
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
   font-size: 16px;
   line-height: 19px;
 }
@@ -28,9 +30,10 @@
   border-radius: 4px;
 }
 .headerCell {
-  font-family: "Open Sans";
+  font-family: var(--font-family-primary);
   font-style: normal;
-  font-weight: 600;
+ font-weight: var(--font-weight-600);
+
   font-size: 16px;
   width: 100%;
   text-align: center;
@@ -39,7 +42,7 @@
 }
 .selectedHeader {
   border-bottom: 3px solid #1991ac;
-  color: #1991ac;
+    color: var(--font-color-1991ac);
 }
 @media screen and (max-width: 900px) {
   .stockstablesection {

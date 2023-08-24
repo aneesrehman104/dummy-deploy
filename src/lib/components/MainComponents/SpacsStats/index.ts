@@ -1,2 +1,2 @@
-import SpacsStats from "./SpacsStats";
+import SpacsStats from "./spacs-stats";
 export default SpacsStats;

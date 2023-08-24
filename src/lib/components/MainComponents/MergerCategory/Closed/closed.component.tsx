@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./Closed.module.css";
+import styles from "./closed.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
@@ -12,7 +12,7 @@ interface PROPS {}
 
 const Closed: React.FC<PROPS> = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [latestClosedMergersData, setLatestClosedMergersData] = useState<any>({
     dataset: [],

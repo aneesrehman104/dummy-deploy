@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./SpacsMarketStats.module.css";
+import styles from "./spacs-market-stats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getApiWithoutAuth } from "@/lib/ts/api";
@@ -7,9 +7,9 @@ import Skeleton from "@mui/material/Skeleton";
 import { getODataWithParams } from "@lib/ts/api";
 import axios, { AxiosError } from "axios";
 import { URLs } from "@/lib/ts/apiUrl";
-  interface PROPS {}
+interface PROPS {}
 
-  const SpacsMarketStats: React.FC<PROPS> = () => {
+const SpacsMarketStats: React.FC<PROPS> = () => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -20,42 +20,11 @@ import { URLs } from "@/lib/ts/apiUrl";
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [statsData, setStatsData] = useState<any>(null);
-
-  // useEffect(() => {
-  //   const source = axios.CancelToken.source();
-
-  //   const getStatsData = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const response = await getODataWithParams(URLs.ipoOdata, {
-  //         cancelToken: source.token,
-  //       });
-
-  //       if (response.status === 200 && response.data !== null) {
-  //         setStatsData(response.data);
-  //       }
-  //     } catch (error) {
-  //       if (axios.isCancel(error)) {
-  //         console.log("Request cancelled:", (error as AxiosError).message);
-  //       } else {
-  //         console.error("An error occurred:", (error as AxiosError).message);
-  //       }
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   getStatsData();
-
-  //   return () => {
-  //     source.cancel("Request cancelled due to component unmount");
-  //   };
-  // }, []);
-  const dataArray = [
+  const [dataArray, setDataArray] = useState<any>([
     {
       heading: "Overview",
       showSpac: false,
-      innerHadding: [
+      innerHeading: [
         {
           title: "IPOs",
 
@@ -75,7 +44,7 @@ import { URLs } from "@/lib/ts/apiUrl";
     {
       heading: "Liquidations / Terminations",
       showSpac: false,
-      innerHadding: [
+      innerHeading: [
         {
           title: "LIQUIDATIONS",
           data: [
@@ -97,7 +66,7 @@ import { URLs } from "@/lib/ts/apiUrl";
     {
       heading: "De-SPACS",
       showSpac: false,
-      innerHadding: [
+      innerHeading: [
         {
           title: "RETURNS",
           data: [
@@ -116,7 +85,41 @@ import { URLs } from "@/lib/ts/apiUrl";
         },
       ],
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+
+    const getStatsData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.ipoOdata, {
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setStatsData(response.data);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+
+    getStatsData();
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
+  }, []);
+
+
   return (
     <section className={styles.minitables}>
       <div className={styles.aggregatedMiniTables}>Spacs Market Stats</div>
@@ -315,6 +318,6 @@ import { URLs } from "@/lib/ts/apiUrl";
       )}
     </section>
   );
-}
+};
 
 export default SpacsMarketStats;

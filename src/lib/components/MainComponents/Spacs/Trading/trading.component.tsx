@@ -14,7 +14,7 @@ import { URLs } from "@/lib/ts/apiUrl";
     2: "merger_closing",
   };
 
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLoadingLooser, setIsLoadingLooser] = useState<boolean>(true);
 

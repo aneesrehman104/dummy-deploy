@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./CardElements.module.css";
+import styles from "./card-elements.module.css";
 import MyTable from "./functions";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
@@ -88,7 +88,7 @@ const IpoList: React.FC<PROPS> = () => {
     },
   });
 
-  const [selectedTab, setSelectedTab] = useState<number>(1);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);

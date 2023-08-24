@@ -1,7 +1,7 @@
 
 "use client";
 import RootLayout from "../layout";
-import { AuthenticatedNavbar } from "@/lib/components/CommonComponents";
+import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
 import Home from "@/lib/components/MainComponents/Home";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
@@ -11,9 +11,9 @@ import { MemberInformationContext } from "@/lib/components/context";
 
   return (
     <RootLayout>
-      <AuthenticatedNavbar selected_id="home">
+      <AuthenticatedLayout selected_id="home">
         <Home />
-      </AuthenticatedNavbar>
+      </AuthenticatedLayout>
     </RootLayout>
   );
 }

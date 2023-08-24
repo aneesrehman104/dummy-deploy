@@ -19,6 +19,7 @@ export const URLs = {
   mergerCalender: "api/merger/calendar",
   ipoNews: "api/ipo/news",
   ipoGraph: "api/ipo/graph/comparison",
-  iposPipeline: "api/ipo/pipeline",
+  iposPipeline:'api/ipo/pipeline',
   ipoOdata: "/odata/ipo",
+  spacOdata: "/odata/spac"
 };

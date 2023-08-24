@@ -1,0 +1,132 @@
+.headlineslistcontainer,
+.sectionlistnewscontainerParent,
+.table {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.sectionlistnewscontainerParent {
+  flex-direction: row;
+  gap: 16px;
+}
+.headlineslistcontainer,
+.table {
+  flex-direction: column;
+}
+.table {
+  gap: 16px;
+}
+.headlineslistcontainer {
+  padding: 15px 40px 57px;
+}
+.paper2,
+.sectionlistnewscontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.paper2 {
+  align-self: stretch;
+  border-radius: 4px;
+  background-color: var(--font-background-color-white);
+  box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
+    0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+}
+.sectionlistnewscontainer {
+  flex: 1;
+}
+
+.aggregatedMiniTables {
+  align-self: stretch;
+  position: relative;
+ font-weight: var(--font-weight-600);
+
+  margin-bottom: 15px;
+}
+
+.tablerow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.tablerow {
+  align-self: stretch;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 14px 13px 14px 28px;
+  align-items: center;
+}
+
+.frameWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameWrapper {
+  flex: 1;
+  flex-direction: column;
+}
+.customTableCustomCell4 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+}
+.vectorWrapper {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.56);
+  display: flex;
+  flex-direction: row;
+  padding: 9px 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  cursor:pointer;
+}
+.vectorIcon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+
+.headlineCallOut,
+.siteName {
+  position: relative;
+  letter-spacing: 0.01em;
+}
+.headlineCallOut {
+  align-self: stretch;
+  line-height: 135%;
+}
+.siteName {
+  font-size: 11px;
+  line-height: 127%;
+  color: var(--font-color-434343);
+}
+.chevronRight {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.chevronRight {
+  overflow: hidden;
+  padding: 6px 8px;
+  align-items: flex-start;
+  cursor:pointer;
+}
+
+@media screen and (max-width: 1200px) {
+  .sectionlistnewscontainerParent {
+    flex-direction: column;
+  }
+  .sectionlistnewscontainer {
+    flex: unset;
+    align-self: stretch;
+  }
+  .headlineslistcontainer {
+    padding: 5px 10px 57px;
+  }
+}

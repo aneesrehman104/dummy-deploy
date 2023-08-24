@@ -1,19 +1,10 @@
-import { Metadata } from 'next'
- 
-export const metadata: Metadata = {
-  title: 'SPACS CALENDAR',
-  description: 'SPACS CALENDAR',
-}
+import { Meta } from "@/lib/meta.component";
 
-const RootLayout =({
-  children,
-}: {
-  children: React.ReactNode;
-})=> {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en">
-      <body style={{ width: "100%" }}>{children}</body>
-    </html>
+    <Meta title="Spacs Calendar" description="" style={{ width: "100%" }}>
+      {children}
+    </Meta>
   );
-}
-export default RootLayout
+};
+export default RootLayout;

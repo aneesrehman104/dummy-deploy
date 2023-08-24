@@ -1,2 +1,2 @@
-import SpacsNews from "./SpacsNews";
+import SpacsNews from "./spacs-news.component";
 export default SpacsNews;

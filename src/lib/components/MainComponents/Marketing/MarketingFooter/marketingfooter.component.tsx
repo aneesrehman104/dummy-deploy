@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import styles from "./Losers.module.css";
+import "./marketing-footer.module.css";
 import { useState } from "react";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
@@ -13,7 +13,7 @@ import faceBook from "../../../../../../public/facebook.svg";
 import Twitter from "../../../../../../public/twitter.svg";
 import Linkdin from "../../../../../../public/linkedin.svg";
 
-import "./MarketingFooter.css";
+import "./marketing-footer.module.css";
 interface PROPS {}
 
 const MarketingFooter: React.FC<PROPS> = () => {
@@ -61,7 +61,8 @@ const MarketingFooter: React.FC<PROPS> = () => {
             return (
               <Link
                 href={item.link}
-                className="textStyle"
+                className="textStyleFooter
+                "
                 style={{ width: "150px", marginTop: 20 }}
                 key={item.name}
               >

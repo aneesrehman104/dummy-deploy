@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./NewsLetters.css";
+import "./newsletters.css";
 import { CommonfiButton } from "../../CommonComponents";
 import Image from "next/image";
 import { display } from "@mui/system";

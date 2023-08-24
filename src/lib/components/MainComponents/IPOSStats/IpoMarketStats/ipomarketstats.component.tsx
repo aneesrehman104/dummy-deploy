@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./ipomarketstats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -28,6 +28,9 @@ const IpoMarketStats: React.FC<PROPS> = () => {
       try {
         const response = await getODataWithParams(URLs.ipoOdata, {
           cancelToken: source.token,
+          top: 5,
+          skip: 10,
+          filter: `year eq 2022`,
         });
 
         if (response.status === 200 && response.data !== null) {
