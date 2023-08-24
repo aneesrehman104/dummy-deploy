@@ -19,8 +19,7 @@
 .titleStyle {
   font-family: var(--font-family-primary);
   font-style: normal;
- font-weight: var(--font-weight-600);
-
+  font-weight: var(--font-weight-600);
   font-size: 22px;
   line-height: 26px;
   display: flex;
@@ -32,7 +31,7 @@
 .textStyle {
   font-family: var(--font-family-primary);
   font-style: normal;
- font-weight: var(--font-weight-500);
+  font-weight: var(--font-weight-500);
 
   font-size: 16px;
   line-height: 135%;
@@ -49,7 +48,7 @@
   color: var(--font-color-ffffff);
   font-family: var(--font-family-primary);
   font-style: normal;
- font-weight: var(--font-weight-400);
+  font-weight: var(--font-weight-400);
 
   font-size: 16px;
   line-height: 135%;
@@ -59,7 +58,7 @@
 .checkBoxStyle {
   font-family: var(--font-family-primary);
   font-style: normal;
- font-weight: var(--font-weight-500);
+  font-weight: var(--font-weight-500);
 
   font-size: 11px;
   letter-spacing: 0.01em;
@@ -125,10 +124,10 @@
   width: 100%;
   padding-bottom: 50px;
 }
-.marginMobile{
+.marginMobile {
   margin-top: 0px;
 }
-.liTopStyle{
+.liTopStyle {
   margin-top: 10px;
 }
 @media screen and (min-width: 0px) and (max-width: 925px) {
@@ -150,17 +149,16 @@
     width: 100%;
     margin-top: 30px;
     padding-bottom: 20px;
-
   }
   .connectwithinline {
     display: flex;
     justify-content: space-between;
     width: 100%;
   }
-  .marginMobile{
+  .marginMobile {
     margin-top: 20px;
   }
-  .liTopStyle{
+  .liTopStyle {
     margin-top: 10px;
   }
 }
