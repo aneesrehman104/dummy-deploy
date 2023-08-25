@@ -60,7 +60,7 @@ import MyTable from "./functions";
     setCurrentPage(pageNumber);
   };
   return (
-    <div className={styles.stockstablesection}>
+    <main className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Watchlist Losers</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
@@ -98,7 +98,7 @@ import MyTable from "./functions";
           />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

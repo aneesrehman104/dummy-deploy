@@ -10,7 +10,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
+import crossIconSvg from "@public/crossIconSvg.svg";
 import Image from "next/image";
 
 const style = {
@@ -150,26 +150,28 @@ const CardElements = ({ selectedTab }: any) => {
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
-  const getLatestClosed = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=grapevine&subtype=${tabValues[selectedTab]}`
-    );
-    if (response.status === 200 && response.data !== null) {
-      setTableData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const getLatestClosed = async () => {
+      setIsLoading(true);
+      const response = await getApiWithoutAuth(
+        `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=grapevine&subtype=${tabValues[selectedTab]}`
+      );
+      if (response.status === 200 && response.data !== null) {
+        setTableData(response.data);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+      }
+    };
+
     getLatestClosed();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage]);
   useEffect(() => {
     if (removeRow !== null) setShowRemoveModal(true);
   }, [removeRow]);
+  
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>

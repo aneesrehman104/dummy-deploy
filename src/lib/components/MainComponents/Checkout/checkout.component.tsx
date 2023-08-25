@@ -1,39 +1,20 @@
 import React from "react";
 import "./checkout.css";
-import { CommonfiButton } from "../../CommonComponents";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import footerLogo from "../../../../../public/footerLogo.svg";
+import footerLogo from "@public/footerLogo.svg";
+import { CommonfiButton } from "@CommonComponents/index";
 interface PROPS {}
 
 const Checkout: React.FC<PROPS> = () => {
   const router = useRouter();
-
   return (
-    <section
-      style={{
-        background: "#20608b",
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-      }}
-    >
-      <div>
+    <section className="checkout-main-wrapper ">
+      <main>
         <div style={{ marginBottom: 50 }}>
           <Image src={footerLogo} alt="footerImage" width={200} height={50} />
         </div>
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            flexDirection: "column",
-            alignItems: "center",
-            textAlign: "center",
-          }}
-        >
+        <div className="checkout-description-holder">
           <div style={{ color: "#263C6F", fontWeight: 500, fontSize: 33 }}>
             Amazing
           </div>
@@ -47,9 +28,9 @@ const Checkout: React.FC<PROPS> = () => {
             onClick={() => router.push("/home")}
           />
         </div>
-      </div>
+      </main>
     </section>
   );
-}
+};
 
 export default Checkout;
