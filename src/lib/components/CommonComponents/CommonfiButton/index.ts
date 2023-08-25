@@ -1,2 +1,2 @@
-import CommonfiButton from "./commonfi-button";
+import CommonfiButton from "./commonfi-button.component";
 export default CommonfiButton;
