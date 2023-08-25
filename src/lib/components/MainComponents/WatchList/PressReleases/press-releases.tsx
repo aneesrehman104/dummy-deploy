@@ -3,9 +3,9 @@ import styles from "./press-releases.module.css";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
-  interface PROPS {}
+interface PROPS {}
 
-  const PressReleases: React.FC<PROPS> = () => {
+const PressReleases: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [releasesnewsData, setReleasesNewsData] = useState<any>({
     dataset: [
@@ -36,27 +36,27 @@ import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
     dataset: [
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
       {
         heading: "Microsoft Corp. -- 8-K",
-        date:"05/01/2023   8:05AM",
+        date: "05/01/2023   8:05AM",
         sitename: "Site name",
       },
     ],
@@ -64,7 +64,7 @@ import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
   const getNews = async () => {
     setIsLoading(true);
     const response = await getApiWithoutAuth(`${URLs.spacNews}?type=press`);
-   if (response.status === 200 && response.data !== null) {
+    if (response.status === 200 && response.data !== null) {
       setReleasesNewsData(response.data);
       setIsLoading(false);
     } else {
@@ -75,7 +75,7 @@ import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
   const getNewsSEC = async () => {
     setIsLoadingSec(true);
     const response = await getApiWithoutAuth(`${URLs.spacNews}?type=sec`);
-   if (response.status === 200 && response.data !== null) {
+    if (response.status === 200 && response.data !== null) {
       setSecNewsData(response.data);
       setIsLoadingSec(false);
     } else {
@@ -91,13 +91,13 @@ import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
   return (
     <section className={styles.headlineslistcontainer}>
       <div className={styles.sectionlistnewscontainerParent}>
-      <ListingTrackSECFilling
+        <ListingTrackSECFilling
           isLoading={isLoading}
           dataArray={releasesnewsData?.dataset}
           title={"Press Releases"}
         />
         <ListingTrackSECFilling
-        isFilling
+          isFilling
           isLoading={isLoadingSec}
           dataArray={secnewsData?.dataset}
           title={"IPO SEC Feed"}
@@ -105,6 +105,6 @@ import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
       </div>
     </section>
   );
-}
+};
 
 export default PressReleases;
