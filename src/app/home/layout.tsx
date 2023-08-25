@@ -1,31 +1,20 @@
 "use client";
-import {
-  useMember,
-  useMemberstack,
-  MemberstackProvider,
-} from "@memberstack/react";
-import Fallback from "../fallback/page";
-import { MemberInformationContext } from "@/lib/components/context";
-import { MemberstackWrapper } from "@/lib/components/memberstack/memberstack.wrapper";
+import React from "react";
 import { Meta } from "@/lib/meta.component";
-import { memberstack_config } from "@/lib/ts/constants";
 
 const RootLayout = ({
-  unauthenticated,
   children,
 }: {
-  unauthenticated?: React.ReactNode;
-  children: React.ReactNode;
+  children: React.ReactElement | React.ReactElement[];
 }) => {
   return (
-    <Meta title="Home" description="" style={{ width: "100%" }}>
-      <MemberstackProvider config={memberstack_config}>
-        <MemberstackWrapper unauthenticated={unauthenticated}>
-          {children}
-        </MemberstackWrapper>
-      </MemberstackProvider>
+    <Meta
+      title="Home Page"
+      description=""
+      style={{ width: "100%", height: "90vh", margin: "0" }}
+    >
+        {children}
     </Meta>
   );
 };
-
 export default RootLayout;

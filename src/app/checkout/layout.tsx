@@ -13,9 +13,7 @@ const RootLayout = ({
 }) => {
   return (
     <Meta title="Checkout" description="" style={{ width: "100%" }}>
-      <MemberstackProvider config={memberstack_config}>
         {children}
-      </MemberstackProvider>
     </Meta>
   );
 };

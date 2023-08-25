@@ -29,23 +29,33 @@ import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
 import { useMemberstackModal, useMemberstack } from "@memberstack/react";
 import { CssTextField } from "@/lib/styled-components/index.styled";
+import { LogoutMemberPayload } from "@memberstack/dom/lib/types";
+import { MemberstackOptions } from "@memberstack/dom/lib/methods/requests";
+import { ForgotModalProps, LoginModalProps, ProfileModalProps, ResetModalProps, SignupModalProps } from "@memberstack/react/dist/hooks/useMemberstackModal";
 const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 
 interface PROPS {
   isSidebarOpen: boolean;
   setIsSearchModalOpen: (value: boolean) => void;
   setIsSidebarOpen: (value: boolean) => void;
+  logout: (options?: MemberstackOptions | undefined) => Promise<{
+    data: {
+      redirect?: string | undefined;
+    };
+  }>;
+  openModal: (openModalProps?: ForgotModalProps | ResetModalProps | LoginModalProps | SignupModalProps | ProfileModalProps) => Promise<any>;
+  hideModal: () => void;
 }
 
 const Navbar: React.FC<PROPS> = ({
   isSidebarOpen,
   setIsSidebarOpen,
   setIsSearchModalOpen,
+  logout,
+  openModal,
+  hideModal
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const { logout } = useMemberstack();
-  const { openModal, hideModal } = useMemberstackModal();
   const router = useRouter();
   const theme = useTheme();
   const open = Boolean(anchorEl);

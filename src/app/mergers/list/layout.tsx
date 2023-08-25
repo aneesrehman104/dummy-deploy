@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "MERGER LIST",
-  description: "MERGER LIST",
-};
+import { Meta } from "@/lib/meta.component";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  return <>{children}</>;
+  return (
+    <Meta title="Merger List" description="" style={{ width: "100%" }}>
+      {children}
+    </Meta>
+  );
 };
 export default RootLayout;

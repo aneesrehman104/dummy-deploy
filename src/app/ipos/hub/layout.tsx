@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "IPO HUB",
-  description: "IPO HUB",
-};
+import { Meta } from "@/lib/meta.component";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  return <>{children}</>;
+  return (
+    <Meta title="Ipo hub" description="" style={{ width: "100%" }}>
+      {children}
+    </Meta>
+  );
 };
 export default RootLayout;

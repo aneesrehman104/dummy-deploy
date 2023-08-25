@@ -1,6 +1,6 @@
 import Footer from "./Footer";
 import AuthenticatedLayout from "./AuthenticatedLayout";
-import SkeltonTable from "./SkeltonTable";
+import SkeltonTable from "./SkeletonTable";
 import ListingTrackTable from "./ListingTrackTable";
 import ListingTrackGraph from "./ListingTrackGraph";
 import ListingTrackNews from "./ListingTrackNews";

@@ -1,22 +1,10 @@
-"use client";
-import { MemberstackProvider } from "@memberstack/react";
-import { memberstack_config } from "@/lib/ts/constants";
-import { MemberstackWrapper } from "@/lib/components/memberstack/memberstack.wrapper";
+import { Meta } from "@/lib/meta.component";
 
-const RootLayout = ({
-  unauthenticated,
-  children,
-}: {
-  unauthenticated?: React.ReactNode;
-  children: React.ReactNode;
-}) => {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <MemberstackProvider config={memberstack_config}>
-      <MemberstackWrapper unauthenticated={unauthenticated}>
-        {children}
-      </MemberstackWrapper>
-    </MemberstackProvider>
+    <>
+      {children}
+    </>
   );
 };
-
 export default RootLayout;

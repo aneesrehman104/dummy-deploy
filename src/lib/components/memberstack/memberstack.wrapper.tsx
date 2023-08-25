@@ -11,13 +11,7 @@ export const MemberstackWrapper: React.FC<{
 
   return (
     <MemberInformationContext.Provider value={{ user, memberstack }}>
-      <Meta
-        title=""
-        description=""
-        style={{ width: "100%", margin: 0, height: "90vh" }}
-      >
-        {user ? children : unauthenticated}
-      </Meta>
+      {user ? children : unauthenticated}
     </MemberInformationContext.Provider>
   );
 };

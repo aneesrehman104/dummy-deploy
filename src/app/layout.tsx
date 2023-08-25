@@ -1,8 +1,8 @@
 "use client";
 import { MemberstackProvider } from "@memberstack/react";
 import { MemberstackWrapper } from "@/lib/components/memberstack/memberstack.wrapper";
-import { Meta } from "@/lib/meta.component";
-import './globals.css'
+import "./globals.css";
+import { memberstack_config } from "@/lib/components/context";
 
 const RootLayout = ({
   unauthenticated,
@@ -12,19 +12,11 @@ const RootLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-      <MemberstackProvider
-        config={{
-          publicKey: `${process.env.NEXT_PUBLIC_MEMBERSTACK_KEY}`,
-          appId: undefined,
-          sessionDurationDays: undefined,
-          useCookies: undefined,
-          domain: undefined,
-        }}
-      >
-        <MemberstackWrapper unauthenticated={unauthenticated}>
-          {children}
-        </MemberstackWrapper>
-      </MemberstackProvider>
+    <MemberstackProvider config={memberstack_config}>
+      <MemberstackWrapper unauthenticated={unauthenticated}>
+        {children}
+      </MemberstackWrapper>
+    </MemberstackProvider>
   );
 };
 
