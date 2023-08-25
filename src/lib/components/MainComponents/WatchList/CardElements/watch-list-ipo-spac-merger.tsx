@@ -9,10 +9,13 @@ import {
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-
 import crossIconSvg from "@public/crossIconSvg.svg";
 import Image from "next/image";
-
+import {
+  headerArrayIPO,
+  headerArrayMergers,
+  headerArraySpac,
+} from "./constants";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -40,112 +43,6 @@ const CardElements = ({ selectedTab }: any) => {
     1: "merger",
     2: "spac",
   };
-  const headerArrayIPO = [
-    {
-      name: "Company",
-      key: "Company",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "Ticker",
-      type: "string",
-    },
-    {
-      name: "IPO Status",
-      key: "IPOStatus",
-      type: "string",
-    },
-    {
-      name: "IPO Date",
-      key: "IPODate",
-      type: "string",
-    },
-    {
-      name: "Price",
-      key: "Price",
-      type: "string",
-    },
-    {
-      name: "Daily Chg %",
-      key: "DailyChg",
-      type: "string",
-    },
-  ];
-  const headerArrayMergers = [
-    {
-      name: "Deal Name",
-      key: "Deal Name",
-      type: "string",
-    },
-    {
-      name: "Company / Ticker (Acquirer)",
-      key: "CompanyTicker",
-      type: "string",
-    },
-    {
-      name: "Merger Status",
-      key: "MergerStatus",
-      type: "string",
-    },
-    {
-      name: "Merger Type",
-      key: "MergerType",
-      type: "string",
-    },
-    {
-      name: "Target Price",
-      key: "TargetPrice",
-      type: "string",
-    },
-    {
-      name: "Target Daily Chg %",
-      key: "TargetDailyChg",
-      type: "string",
-    },
-    {
-      name: "Acquirer Price",
-      key: "AcquirerPrice",
-      type: "string",
-    },
-    {
-      name: "Acquirer Daily Chg %",
-      key: "AcquirerDailyChg",
-      type: "string",
-    },
-  ];
-  const headerArraySpac = [
-    {
-      name: "Company",
-      key: "Company",
-      type: "string",
-    },
-    {
-      name: "Ticker",
-      key: "Ticker",
-      type: "string",
-    },
-    {
-      name: "SPAC Progress Status with Merger Partner",
-      key: "SPACProgressStatuswithMergerPartner",
-      type: "string",
-    },
-    {
-      name: "Price",
-      key: "Price",
-      type: "string",
-    },
-    {
-      name: "Daily Chg %",
-      key: "DailyChg",
-      type: "string",
-    },
-    {
-      name: "Trust Value",
-      key: "TrustValue",
-      type: "string",
-    },
-  ];
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -171,17 +68,17 @@ const CardElements = ({ selectedTab }: any) => {
   useEffect(() => {
     if (removeRow !== null) setShowRemoveModal(true);
   }, [removeRow]);
-  
+
   return (
-    <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>
+    <main className={styles.stockstablesection}>
+      <header className={styles.tableTitle}>
         {selectedTab == 0
           ? "IPO Watchlist"
           : selectedTab == 1
           ? "Merger Watchlist"
           : "SPAC Watchlist"}
-      </div>
-      <div className={styles.tableContainerInner}>
+      </header>
+      <section className={styles.tableContainerInner}>
         <div style={{ overflow: "auto" }}>
           {isLoading ? (
             <SkeltonTable />
@@ -205,7 +102,7 @@ const CardElements = ({ selectedTab }: any) => {
             />
           )}
         </div>
-      </div>
+      </section>
       <Modal
         open={showRemoveModal}
         onClose={() => {
@@ -257,7 +154,7 @@ const CardElements = ({ selectedTab }: any) => {
           </>
         </Box>
       </Modal>
-    </section>
+    </main>
   );
 };
 

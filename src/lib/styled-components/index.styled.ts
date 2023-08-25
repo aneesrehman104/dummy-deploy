@@ -43,3 +43,42 @@ export const FooterTextField = styled(TextField)({
     },
   },
 });
+
+
+
+export const CssTextSpacsField = styled(TextField)({
+  width: "368px",
+  height: "40px",
+  borderBottom: "1px solid rgba(0, 0, 0, 0.42)",
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      border: "none",
+    },
+  },
+});
+
+export const FilterModalStyle  = {
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "60%",
+  bgcolor: "background.paper",
+  border: "2px solid grey",
+  boxShadow: 24,
+  borderRadius: "15px",
+  p: 3,
+};
+
+export const CssTextFieldBorder = styled(TextField)({
+  height: "40px",
+  marginTop: "10px",
+  border: "1px solid #dddee0",
+  background: "#dddee0",
+  borderRadius: "40px",
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      border: "none",
+    },
+  },
+});
