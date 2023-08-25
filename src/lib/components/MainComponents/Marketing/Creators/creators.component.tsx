@@ -5,9 +5,7 @@ import Brand1 from "@public/brand1.svg";
 import Brand2 from "@public/brand2.svg";
 import Brand3 from "@public/brand3.svg";
 import Brand4 from "@public/brand4.svg";
-
 import Link from "next/link";
-import "./Creators.css";
 import { marketingConstants } from "@/lib/ts/constants";
 
 interface PROPS {}
