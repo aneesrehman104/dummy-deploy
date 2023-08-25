@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./card-elements.module.css";
+import styles from "./watch-list-ipo-spac-merger.module.css";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
