@@ -12,6 +12,7 @@ import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import HistoryToggleOffIcon from "@mui/icons-material/HistoryToggleOff";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Tooltip } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 const list = [
   {
@@ -61,12 +62,16 @@ export const MainListItems: React.FC<{
   current_item: string;
   switch_selection: (type: string) => void;
 }> = ({ current_item, switch_selection }) => {
+  const router = useRouter();
+  console.log(current_item, "current_item");
   return (
     <React.Fragment>
       {list.map((item) => {
         return (
           <ListItemButton
-            onClick={() => switch_selection(item.name)}
+            onClick={() => {
+              router.push(`/data-ingestion/${item.name.replace(/\s/g, "").toLowerCase()}`);
+            }}
             style={{
               backgroundColor:
                 current_item === item.name ? "rgb(230, 230, 230)" : "",

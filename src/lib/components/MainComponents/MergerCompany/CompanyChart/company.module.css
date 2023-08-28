@@ -1,0 +1,170 @@
+.dashboardheader,
+.titleandsearchcontainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 24px;
+  color: var(--font-color-263c6f);
+}
+.dashboardheader {
+  /* height: 56px; */
+  flex-direction: column;
+  padding: 0 35px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  font-size: 12.5px;
+  color: var(--font-color-434343);
+  font-family: var(--font-family-primary);
+}
+.completedMergers {
+  align-self: stretch;
+  position: relative;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+ font-weight: var(--font-weight-500);
+
+  font-family: var(--font-family-primary);
+  margin-top: 4px;
+}
+
+.dashboardtitle {
+  flex: 1;
+  position: relative;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+ font-weight: var(--font-weight-500);
+
+}
+.ytdEventSummary {
+  flex: 1;
+  position: relative;
+ font-weight: var(--font-weight-600);
+
+}
+
+.chartcontainer,
+.sectionsummarycontainer {
+  align-self: stretch;
+  display: flex;
+  justify-content: flex-start;
+}
+.chartcontainer,
+.sectionsummarycontainer {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.chartcontainer {
+  border-radius: 4px;
+  background-color: var(--font-background-color-white);
+  border-right: 1px solid #dfd4d4;
+  overflow: hidden;
+  padding: 13px 0;
+  gap: 10px;
+  font-size: 24px;
+  font-family: var(--font-family-primary);
+}
+.sectionsummarycontainer {
+  padding-left: 25px;
+  gap: 16px;
+  text-align: left;
+  font-size: 16px;
+  color: var(--font-color-000);
+  font-family: var(--font-family-primary);
+  width: 48%;
+}
+
+.mainContainer {
+  display: flex;
+  width: 100%;
+}
+.chartBottomSide {
+  border-top: 1px solid #dfd4d4;
+  border-bottom: 1px solid #dfd4d4;
+  padding: 10px 26px;
+  width: 100%;
+  gap: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  min-height: 100px;
+}
+.container,
+.frameGroup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.container {
+  width: 77px;
+  height: 45px;
+  flex-direction: column;
+  gap: 1px;
+}
+.frameGroup {
+  width: 216px;
+  flex-direction: row;
+  gap: 25px;
+}
+.indicator {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.24);
+  width: 2px;
+  height: 57px;
+  margin-left: 20px;
+}
+.chartBottomSideInnerDiv {
+  width: 25%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.titleText {
+  text-transform: uppercase;
+  font-family: var(--font-family-primary);
+  font-style: normal;
+ font-weight: var(--font-weight-400);
+
+  font-size: 16px;
+  line-height: 103%;
+    color: var(--font-color-000);
+
+}
+.eventsummaryinfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1px;
+  font-size: 16px;
+  font-family: var(--font-family-primary);
+}
+@media screen and (max-width: 900px) {
+  .sectionsummarycontainer {
+    padding: 0 10px;
+  }
+  .mainContainer {
+    flex-direction: column;
+  }
+  .sectionsummarycontainer {
+    margin-top: 20px;
+    width: 100%;
+  }
+  .chartBottomSide {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .indicator {
+    display: none;
+  }
+    .dashboardheader {
+      padding: 0 10px;
+    }
+  
+}

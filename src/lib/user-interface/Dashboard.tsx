@@ -146,7 +146,7 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav" style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <MainListItems/>
+            {/* <MainListItems /> */}
           </List>
         </Drawer>
         <Box

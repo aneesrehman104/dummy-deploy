@@ -1,21 +1,23 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
+"use client";
+import { MemberstackProvider } from "@memberstack/react";
+import { MemberstackWrapper } from "@/lib/components/memberstack/memberstack.wrapper";
+import "./globals.css";
+import { memberstack_config } from "@/lib/components/context";
 
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata = {
-  title: 'Listing Track UI',
-  description: 'This website is a UI for Listing Track. for commonFI',
-}
-
-export default function RootLayout({
+const RootLayout = ({
+  unauthenticated,
   children,
 }: {
-  children: React.ReactNode
-}) {
+  unauthenticated?: React.ReactNode;
+  children: React.ReactNode;
+}) => {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  )
-}
+    <MemberstackProvider config={memberstack_config}>
+      <MemberstackWrapper unauthenticated={unauthenticated}>
+        {children}
+      </MemberstackWrapper>
+    </MemberstackProvider>
+  );
+};
+
+export default RootLayout;

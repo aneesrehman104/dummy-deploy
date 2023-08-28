@@ -91,6 +91,14 @@ export const InternalFeedTableData = {
     component: "Typography",
   },
 
+<<<<<<< HEAD
+=======
+  database_segment: {
+    name: "Database Segment",
+    component: "Autocomplete",
+  },
+
+>>>>>>> dev
   key_event: {
     name: "Key Event",
     component: "Autocomplete",
@@ -256,6 +264,17 @@ export const InternalDataFeedColumns = [
   },
 
   {
+<<<<<<< HEAD
+=======
+    name: "Database Segment",
+    options: {
+      filter: true,
+      sort: false,
+    },
+  },
+
+  {
+>>>>>>> dev
     name: "Key Event(Y/N)",
     options: {
       filter: true,
@@ -331,6 +350,10 @@ export const sorted_data_feed_keys = [
   "writeup_key_events",
   "relevant_data_suggestion",
   "format_for_export",
+<<<<<<< HEAD
+=======
+  "database_segment",
+>>>>>>> dev
   "key_event",
   "submit_to_keyfeed",
   "reviewed",
@@ -344,6 +367,13 @@ export const sorted_data_feed_keys = [
   "is_edited"
 ];
 
+<<<<<<< HEAD
+=======
+export const findIndex = (name: string) => {
+  return sorted_data_feed_keys.findIndex((key) => key === name);
+}
+
+>>>>>>> dev
 export const getMuiTheme = () =>
   createTheme({
     components: {
@@ -373,7 +403,11 @@ export const getMuiTheme = () =>
         },
       },
     },
+<<<<<<< HEAD
   });
+=======
+});
+>>>>>>> dev
 
 export const DataCategoryNesting = {
   "News & De-SPAC Updates": null,
@@ -390,7 +424,11 @@ export const DataCategoryNesting = {
       ],
     },
     "Updated Financing": {
+<<<<<<< HEAD
       sentence_suggestion: [
+=======
+      sentence_suggestions: [
+>>>>>>> dev
         "entered into additional PIPE subscription agreements for an aggregate of___",
         "raise an additional $__ bringing the deal's total PIPE proceeds to ~$___.",
       ],
