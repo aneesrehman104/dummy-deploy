@@ -3,11 +3,13 @@ import styles from "./trading.module.css";
 import { useState } from "react";
 import Gainer from "../Gainer/gainer.component";
 import Losers from "../Losers/losers.component";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-  interface PROPS {}
+import axios, { AxiosError } from "axios";
 
-  const Trading: React.FC<PROPS> = () => {
+interface PROPS {}
+
+const Trading: React.FC<PROPS> = () => {
   const tabValues: { [key: number]: string } = {
     0: "daily",
     1: "weekly",
@@ -15,7 +17,7 @@ import { URLs } from "@/lib/ts/apiUrl";
   };
 
   const [selectedTab, setSelectedTab] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingGainer, setIsLoadingGainer] = useState<boolean>(true);
   const [isLoadingLooser, setIsLoadingLooser] = useState<boolean>(true);
 
   const [spacsTradingGainerData, setSpacsTradingGainerData] = useState({
@@ -46,66 +48,84 @@ import { URLs } from "@/lib/ts/apiUrl";
 
   const [itemsPerPage] = useState<number>(5);
 
-  const getSpacsTradingGainerData = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${
-        URLs.spacTrading
-      }?page=${spacsTradingGainerDataCurrentPage}&offset=${itemsPerPage}&period=${
-        tabValues[spacsTradingGainerDataSelectedTab]
-      }&gainOrLoser=gain&activeOrDeSPAC=${
-        selectedTab === 0 ? "active" : "deSPAC"
-      }`
-    );
-   if (response.status === 200 && response.data !== null) {
-      setSpacsTradingGainerData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
-  const getSpacsTradingLoserData = async () => {
-    setIsLoadingLooser(true);
-    const response = await getApiWithoutAuth(
-      `${
-        URLs.spacTrading
-      }?page=${spacsTradingLoserDataCurrentPage}&offset=${itemsPerPage}&period=${
-        tabValues[spacsTradingLoserDataSelectedTab]
-      }&gainOrLoser=gain&activeOrDeSPAC=${
-        selectedTab === 0 ? "active" : "deSPAC"
-      }`
-    );
-   if (response.status === 200 && response.data !== null) {
-      setSpacsTradingLoserData(response.data);
-      setIsLoadingLooser(false);
-    } else {
-      setIsLoadingLooser(false);
-    }
-  };
-
   useEffect(() => {
-    getSpacsTradingGainerData();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    const source = axios.CancelToken.source();
+    const getSpacsTradingLoserData = async () => {
+      setIsLoadingLooser(true);
+      try {
+        const response = await getODataWithParams(URLs.spacNews, {
+          cancelToken: source.token,
+        });
+        if (response.status === 200 && response.data !== null) {
+          setSpacsTradingLoserData(response.data);
+          setIsLoadingLooser(false);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+          setIsLoadingLooser(false);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+          setIsLoadingLooser(false);
+        }
+      } finally {
+        setIsLoadingLooser(false);
+      }
+    };
+    getSpacsTradingLoserData();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [
-    spacsTradingGainerDataSelectedTab,
-    spacsTradingGainerDataCurrentPage,
+    spacsTradingLoserDataSelectedTab,
+    spacsTradingLoserDataCurrentPage,
     selectedTab,
   ]);
 
   useEffect(() => {
-    getSpacsTradingLoserData();
-     // eslint-disable-next-line react-hooks/exhaustive-deps
+    const source = axios.CancelToken.source();
+    const getSpacsTradingGainerData = async () => {
+      setIsLoadingGainer(true);
+      try {
+        const response = await getODataWithParams(URLs.spacNews, {
+          cancelToken: source.token,
+        });
+        if (response.status === 200 && response.data !== null) {
+          setSpacsTradingGainerData(response.data);
+          setIsLoadingGainer(false);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+          setIsLoadingGainer(false);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+          setIsLoadingGainer(false);
+        }
+      } finally {
+        setIsLoadingGainer(false);
+      }
+    };
+    getSpacsTradingGainerData();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [
-    spacsTradingLoserDataSelectedTab,
-    spacsTradingLoserDataCurrentPage,
+    spacsTradingGainerDataSelectedTab,
+    spacsTradingGainerDataCurrentPage,
     selectedTab,
   ]);
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Trading</div>
       <div className={styles.tableContainerInner}>
-        <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" ,cursor:'pointer'}}>
+        <div
+          style={{
+            borderBottom: "1px solid #d2ecf9",
+            display: "flex",
+            cursor: "pointer",
+          }}
+        >
           <div
             onClick={() => setSelectedTab(0)}
             className={`${styles.headerCell} ${
@@ -142,7 +162,7 @@ import { URLs } from "@/lib/ts/apiUrl";
             setSpacsTradingGainerDataCurrentPage={
               setSpacsTradingGainerDataCurrentPage
             }
-            isLoading={isLoading}
+            isLoading={isLoadingGainer}
           />
           <Losers
             title={
@@ -164,6 +184,6 @@ import { URLs } from "@/lib/ts/apiUrl";
       </div>
     </section>
   );
-}
+};
 
 export default Trading;

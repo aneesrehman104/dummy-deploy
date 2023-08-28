@@ -4,10 +4,12 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 const events = [{ title: "Meeting", start: new Date(), end: new Date() }];
 
-  interface PROPS {}
+interface PROPS {
+  data: any;
+}
 
-  const FullCalendarComponet: React.FC<PROPS> = () => {
-  const renderEventContent =(eventInfo: any)=> {
+const FullCalendarComponet: React.FC<PROPS> = () => {
+  const renderEventContent = (eventInfo: any) => {
     return (
       <>
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -16,9 +18,9 @@ const events = [{ title: "Meeting", start: new Date(), end: new Date() }];
         </div>
       </>
     );
-  }
+  };
   return (
-    <div>
+    <section>
       <h1>Full Calendar</h1>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -37,7 +39,7 @@ const events = [{ title: "Meeting", start: new Date(), end: new Date() }];
         // height="100vh"
         dayMaxEventRows={5}
       />
-    </div>
+    </section>
   );
-}
+};
 export default FullCalendarComponet;

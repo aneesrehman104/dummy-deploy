@@ -9,11 +9,11 @@ import News from "./News/news.component";
 const Spacs = () => {
   return (
     <main>
-      <header className={styles.dashboardheader}>
+      <section className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
-          <div className={styles.dashboardtitle}>SPACs</div>
+          <header className={styles.dashboardtitle}>SPACs</header>
         </div>
-      </header>
+      </section>
       <section>
         <SpacsEventSummary />
         <SpacsMarketStats />

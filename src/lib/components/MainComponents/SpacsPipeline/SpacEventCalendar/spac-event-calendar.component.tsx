@@ -1,21 +1,29 @@
 import React, { useEffect, useState } from "react";
 import styles from "./spac-event-calendar.module.css";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { SkeltonTable,ListingTrackTable } from "@/lib/components/CommonComponents";
+import {
+  SkeltonTable,
+  ListingTrackTable,
+} from "@/lib/components/CommonComponents";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import dynamic from "next/dynamic";
 import Skeleton from "@mui/material/Skeleton";
 import { Extension, Mergers, IPOAndSplitDates } from "@/lib/ts/constants";
-const FullCalendarComponet = dynamic(() => import("./full-calender.component"), {
-  ssr: false,
-  loading: () => <Skeleton variant="rounded" height={200} />,
-});
+import axios, { AxiosError } from "axios";
 
-  interface PROPS {}
+const FullCalendarComponet = dynamic(
+  () => import("./full-calender.component"),
+  {
+    ssr: false,
+    loading: () => <Skeleton variant="rounded" height={200} />,
+  }
+);
 
-  const SpacEventCalendar: React.FC<PROPS> = () => {
+interface PROPS {}
+
+const SpacEventCalendar: React.FC<PROPS> = () => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -27,7 +35,7 @@ const FullCalendarComponet = dynamic(() => import("./full-calender.component"), 
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [grapevineGraveyardData, setGrapevineGraveyardData] = useState<any>({
+  const [eventCalenderData, setEventCalenderData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
@@ -54,37 +62,50 @@ const FullCalendarComponet = dynamic(() => import("./full-calender.component"), 
     setCurrentPage(1);
   };
 
-  const getLatestClosed = async () => {
-    setIsLoading(true);
-    let response;
-    isGrid
-      ? (response = await getApiWithoutAuth(
-          `${URLs.spacsCalender}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-        ))
-      : (response = await getApiWithoutAuth(`${URLs.spacsCalender}?type=all`));
-
-    console.log(
-      "========================res",
-      `${URLs.spacsCalender}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`,
-      response
-    );
-    if (response.status === 200 && response.data !== null) {
-      setGrapevineGraveyardData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
-    getLatestClosed();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const source = axios.CancelToken.source();
+    const getSpacsEvent = async () => {
+      setIsLoading(true);
+      try {
+        let response;
+        isGrid
+          ? (response = await getODataWithParams(URLs.spacPipeline, {
+              top: itemsPerPage,
+              skip: (currentPage - 1) * itemsPerPage,
+              cancelToken: source.token,
+            }))
+          : await getODataWithParams(URLs.spacPipeline, {
+              top: itemsPerPage,
+              skip: (currentPage - 1) * itemsPerPage,
+              cancelToken: source.token,
+            });
+
+        if (response.status === 200 && response.data !== null) {
+          setEventCalenderData(response.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+          setIsLoading(false);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+          setIsLoading(false);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getSpacsEvent();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [selectedTab, currentPage]);
 
   return (
-    <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>SPAC Event Calendar</div>
-      <div
+    <main className={styles.stockstablesection}>
+      <header className={styles.tableTitle}>SPAC Event Calendar</header>
+      <section
         style={{
           display: "flex",
           justifyContent: "flex-end",
@@ -103,11 +124,13 @@ const FullCalendarComponet = dynamic(() => import("./full-calender.component"), 
           />
         </ThemeProvider>
         Grid
-      </div>
-      <div className={styles.tableContainerInner}>
+      </section>
+      <section className={styles.tableContainerInner}>
         {isGrid ? (
           <>
-            <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
+            <section
+              style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}
+            >
               {tabData.map(({ label, index }) => (
                 <div
                   key={index}
@@ -119,18 +142,18 @@ const FullCalendarComponet = dynamic(() => import("./full-calender.component"), 
                   {label}
                 </div>
               ))}
-            </div>
-            <div style={{ overflow: "auto" }}>
+            </section>
+            <section style={{ overflow: "auto" }}>
               {isLoading ? (
                 <SkeltonTable />
               ) : (
                 <ListingTrackTable
-                  data={grapevineGraveyardData?.dataset}
+                  data={eventCalenderData?.dataset}
                   itemsPerPage={itemsPerPage}
                   currentPage={currentPage}
                   paginate={paginate}
                   showPagination
-                  totalLength={grapevineGraveyardData?.additional_dataset}
+                  totalLength={eventCalenderData?.additional_dataset}
                   headerArray={
                     selectedTab === 0
                       ? Extension
@@ -140,14 +163,14 @@ const FullCalendarComponet = dynamic(() => import("./full-calender.component"), 
                   }
                 />
               )}
-            </div>
+            </section>
           </>
         ) : (
-          <FullCalendarComponet />
+          <FullCalendarComponet data={eventCalenderData}  />
         )}
-      </div>
-    </section>
+      </section>
+    </main>
   );
-}
+};
 
 export default SpacEventCalendar;

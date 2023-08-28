@@ -138,7 +138,7 @@ const SpacsMarketStats: React.FC<PROPS> = () => {
 
   return (
     <section className={styles.minitables}>
-      <div className={styles.aggregatedMiniTables}>Spacs Market Stats</div>
+      <header className={styles.aggregatedMiniTables}>Spacs Market Stats</header>
       {isLoading ? (
         <Skeleton
           variant="rounded"

@@ -4,8 +4,9 @@ import SkeltonTable from "./SkeletonTable";
 import ListingTrackTable from "./ListingTrackTable";
 import ListingTrackGraph from "./ListingTrackGraph";
 import ListingTrackNews from "./ListingTrackNews";
-import ListingTrackSECFilling from "./ListingTrackSECFilling";
+import ListingTrackSECFiling from "./ListingTrackSECFiling";
 import CommonfiButton from "./CommonfiButton";
+import ListingTrackFeed from "./ListingTrackFeed";
 export {
   Footer,
   AuthenticatedLayout,
@@ -13,6 +14,7 @@ export {
   ListingTrackTable,
   ListingTrackGraph,
   ListingTrackNews,
-  ListingTrackSECFilling,
+  ListingTrackSECFiling,
   CommonfiButton,
+  ListingTrackFeed
 };
