@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./marketstats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth,getODataWithParams } from "@/lib/ts/api";
 import Skeleton from "@mui/material/Skeleton";
-
+import axios, { AxiosError } from "axios";
 import { URLs } from "@/lib/ts/apiUrl";
   interface PROPS {}
 
@@ -20,20 +20,38 @@ import { URLs } from "@/lib/ts/apiUrl";
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [statsData, setStatsData] = useState<any>(null);
 
-  const getStats = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.spacsStats}`);
-    if (response.status === 200 && response.data !== null) {
-      setStatsData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const source = axios.CancelToken.source();
+    const getStats = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.spacsStats, {
+          cancelToken: source.token,
+        });
+        if (response.status === 200 && response.data !== null) {
+          setStatsData(response.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+          setIsLoading(false);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+          setIsLoading(false);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
     getStats();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
+
+
+  
 
   const dataArray = [
     {
@@ -102,8 +120,8 @@ import { URLs } from "@/lib/ts/apiUrl";
     },
   ];
   return (
-    <section className={styles.minitables}>
-      <div className={styles.aggregatedMiniTables}>Spacs Market Stats</div>
+    <main className={styles.minitables}>
+      <header className={styles.aggregatedMiniTables}>Spacs Market Stats</header>
       {isLoading ? (
         <Skeleton
           variant="rounded"
@@ -112,7 +130,7 @@ import { URLs } from "@/lib/ts/apiUrl";
           style={{ marginTop: 15 }}
         />
       ) : (
-        <div className={styles.cardscontainer}>
+        <section className={styles.cardscontainer}>
           <div className={styles.card}>
             <div className={styles.cardheader}>
               <div>Overview </div>
@@ -287,9 +305,9 @@ import { URLs } from "@/lib/ts/apiUrl";
               </div>
             </div>
           </div>
-        </div>
+        </section>
       )}
-    </section>
+    </main>
   );
 }
 

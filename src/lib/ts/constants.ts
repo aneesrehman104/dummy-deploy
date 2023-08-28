@@ -56,9 +56,9 @@ export const sidebarItem = [
   },
   {
     name: "IPOs",
-    pathname: "/ipos",
-    id: "ipos",
-    breadcrumb: "Home > IPOs",
+    pathname: "/ipos/hub",
+    id: "ipos/hub",
+    breadcrumb: "Home > IPOs > HUB",
     items: [
       {
         name: "HUB",
@@ -95,6 +95,51 @@ export const sidebarItem = [
         pathname: "/ipos/list",
         id: "ipos/list",
         breadcrumb: "Home > IPOs > List",
+      },
+    ],
+  },
+  {
+    name: "Mergers",
+    pathname: "/mergers/hub",
+    id: "mergers/hub",
+    breadcrumb: "Home > MERGERS > HUB",
+
+    items: [
+      {
+        name: "HUB",
+        pathname: "/mergers/hub",
+        id: "mergers/hub",
+        breadcrumb: "Home > MERGERS > HUB",
+      },
+      {
+        name: "STATS",
+        pathname: "/mergers/stats",
+        id: "mergers/stats",
+        breadcrumb: "Home > MERGERS > STATS",
+      },
+      {
+        name: "PIPELINE",
+        pathname: "/mergers/pipeline",
+        id: "mergers/pipeline",
+        breadcrumb: "Home > MERGERS > PIPELINE",
+      },
+      {
+        name: "NEWS",
+        pathname: "/mergers/news",
+        id: "mergers/news",
+        breadcrumb: "Home > MERGERS > NEWS",
+      },
+      {
+        name: "SCREENERS",
+        pathname: "/mergers/screeners",
+        id: "mergers/screeners",
+        breadcrumb: "Home > MERGERS > SCREENERS",
+      },
+      {
+        name: "LIST",
+        pathname: "/mergers/list",
+        id: "mergers/list",
+        breadcrumb: "Home > MERGERS > List",
       },
     ],
   },
@@ -139,51 +184,6 @@ export const sidebarItem = [
         pathname: "/spacs/list",
         id: "spacs/list",
         breadcrumb: "Home > SPACs > List",
-      },
-    ],
-  },
-  {
-    name: "MERGERS",
-    pathname: "/mergers",
-    id: "mergers",
-    breadcrumb: "Home > MERGERS",
-
-    items: [
-      {
-        name: "HUB",
-        pathname: "/mergers/hub",
-        id: "mergers/hub",
-        breadcrumb: "Home > MERGERS > HUB",
-      },
-      {
-        name: "STATS",
-        pathname: "/mergers/stats",
-        id: "mergers/stats",
-        breadcrumb: "Home > MERGERS > STATS",
-      },
-      {
-        name: "PIPELINE",
-        pathname: "/mergers/pipeline",
-        id: "mergers/pipeline",
-        breadcrumb: "Home > MERGERS > PIPELINE",
-      },
-      {
-        name: "NEWS",
-        pathname: "/mergers/news",
-        id: "mergers/news",
-        breadcrumb: "Home > MERGERS > NEWS",
-      },
-      {
-        name: "SCREENERS",
-        pathname: "/mergers/screeners",
-        id: "mergers/screeners",
-        breadcrumb: "Home > MERGERS > SCREENERS",
-      },
-      {
-        name: "LIST",
-        pathname: "/mergers/list",
-        id: "mergers/list",
-        breadcrumb: "Home > MERGERS > List",
       },
     ],
   },

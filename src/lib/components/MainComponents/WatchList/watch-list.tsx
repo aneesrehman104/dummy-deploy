@@ -1,6 +1,6 @@
 import styles from "./watchlist.module.css";
 import React, { useState } from "react";
-import CardElements from "./CardElements/card-elements.component";
+import WatchListFirstTable from "./CardElements/watch-list-ipo-spac-merger";
 import IPOsGainer from "../IPOSHub/Gainer/ipo-hub-gainer.component";
 import IPOsLoser from "../IPOSHub/Losers/ipohub-loser.component";
 import MergersGainer from "../MergerHub/Gainer/gainer.component";
@@ -12,8 +12,18 @@ import SpacsNews from "../Spacs/News/news.component";
 import IPOsPressReleases from "../IPOS/PressReleases/ipo-pressreleases.component";
 import MergerPressReleases from "../MergerNews/PressReleases/press-releases.component";
 import SpacsPressReleases from "../SpacsNews/PressReleases/press-releases.component";
-const WatchList = () => {
+const WatchListComponet = () => {
+  const tabs = [
+    { id: 0, label: "IPO Watchlist" },
+    { id: 1, label: "Merger Watchlist" },
+    { id: 2, label: "SPAC Watchlist" },
+  ];
+
   const [selectedTab, setSelectedTab] = useState<number>(0);
+
+  const handleTabClick = (tabId: number) => {
+    setSelectedTab(tabId);
+  };
   return (
     <>
       <header className={styles.dashboardheader}>
@@ -21,35 +31,22 @@ const WatchList = () => {
           <div className={styles.dashboardtitle}>Watch List</div>
         </div>
       </header>
-      
+
       <main className={styles.calenderTabs}>
-        <div
-          onClick={() => setSelectedTab(0)}
-          className={`${styles.headerCell} ${
-            selectedTab === 0 && styles.selectedHeader
-          }`}
-        >
-          IPO Watchlist
-        </div>
-        <div
-          onClick={() => setSelectedTab(1)}
-          className={`${styles.headerCell} ${
-            selectedTab === 1 && styles.selectedHeader
-          }`}
-        >
-          Merger Watchlist
-        </div>
-        <div
-          onClick={() => setSelectedTab(2)}
-          className={`${styles.headerCell} ${
-            selectedTab === 2 && styles.selectedHeader
-          }`}
-        >
-          SPAC Watchlist
-        </div>
+        {tabs.map((tab) => (
+          <div
+            key={tab.id}
+            onClick={() => handleTabClick(tab.id)}
+            className={`${styles.headerCell} ${
+              selectedTab === tab.id ? styles.selectedHeader : ""
+            }`}
+          >
+            {tab.label}
+          </div>
+        ))}
       </main>
 
-      <CardElements selectedTab={selectedTab} />
+      <WatchListFirstTable selectedTab={selectedTab} />
 
       {selectedTab === 0 ? (
         <>
@@ -76,4 +73,4 @@ const WatchList = () => {
   );
 };
 
-export default WatchList;
+export default WatchListComponet;

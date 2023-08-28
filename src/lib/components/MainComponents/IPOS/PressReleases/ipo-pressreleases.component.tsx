@@ -9,7 +9,7 @@ const PressReleases: React.FC<PROPS> = () => {
   const [releasesnewsData, setReleasesNewsData] = useState<any>({
     dataset: [
       {
-        news: " Headline call out goes here, truncate at 54 charact..Headline call out goes here, truncate at 54 charact..",
+        news: " Headline call out goes here, truncate at 54 charact..",
         sitename: "Site name",
       },
       {
