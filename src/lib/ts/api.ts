@@ -6,13 +6,16 @@ const backEndURLWithAuth: AxiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
   headers: {
     Authorization: `Bearer ${getCookie("accessToken")}`,
-    Accept: "application/listingtrack+json",
+    Accept: "application/listingtrack",
   },
   withCredentials: true,
 });
 
 const backEndURLWithoutAuth = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
+  headers: {
+    Accept: "application/listingtrack",
+  },
   withCredentials: true,
 });
 
@@ -64,7 +67,7 @@ export const getApiWithoutAuth = async (
     const result = await backEndURLWithoutAuth.get(url, { params });
     return {
       status: result.status,
-      data: result.data.source,
+      data: result.data,
     };
   } catch (error: any) {
     return error;
@@ -169,7 +172,7 @@ type ODataParams = {
   count?: boolean;
   expand?: string[];
   search?: string;
-  cancelToken?:any;
+  cancelToken?: any;
 };
 
 // Sample call
