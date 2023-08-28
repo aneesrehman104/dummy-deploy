@@ -1,0 +1,132 @@
+.aggregatedMiniTables,
+.listingtrack {
+  align-self: stretch;
+  position: relative;
+ font-weight: var(--font-weight-600);
+
+}
+
+.cardrowinfo,
+.frameParent,
+.frameWrapper,
+.group {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameWrapper {
+  flex: 1;
+  flex-direction: column;
+}
+
+.vectorWrapper {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.56);
+  display: flex;
+  flex-direction: row;
+  padding: 9px 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  cursor:pointer;
+}
+.headlineCallOut,
+.siteName {
+  position: relative;
+  letter-spacing: 0.01em;
+}
+.headlineCallOut {
+  align-self: stretch;
+  line-height: 135%;
+  height: 2.7em;
+  overflow: hidden;
+  font-size: 14px;
+}
+.siteName {
+  font-size: 11px;
+  line-height: 127%;
+  color: var(--font-color-434343);
+}
+.customTableCustomCell4 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+.chevronRight,
+.tablerow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.chevronRight {
+  overflow: hidden;
+  padding: 6px 8px;
+  align-items: flex-start;
+  cursor:pointer;
+}
+.tablerow {
+  align-self: stretch;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 14px 13px 14px 28px;
+  align-items: center;
+}
+.paper2 {
+  width: 49%;
+}
+.paper2 {
+  border-radius: 4px;
+  background-color: var(--font-background-color-white);
+  box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
+    0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+}
+.sectionlistnewscontainer {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 5px;
+}
+.headlineslistcontainer,
+.sectionlistnewscontainerParent,
+.table {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.sectionlistnewscontainerParent {
+  flex-direction: row;
+  gap: 16px;
+}
+.headlineslistcontainer,
+.table {
+  flex-direction: column;
+}
+.table {
+  gap: 16px;
+}
+.headlineslistcontainer {
+  padding: 0px 40px 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .sectionlistnewscontainer {
+    flex: unset;
+    align-self: stretch;
+  }
+  .sectionlistnewscontainerParent {
+    flex-direction: column;
+  }
+
+  .paper2 {
+    width: 100%;
+  }
+  .headlineslistcontainer {
+    padding: 10px 10px 10px;
+  }
+}

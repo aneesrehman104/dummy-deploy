@@ -3,9 +3,11 @@ import styles from "./returnsby-closingyear-vintage.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-import { getApiWithoutAuth } from "@lib/ts/api";
+import { getApiWithoutAuth,getODataWithParams } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { GraphDataInterface } from "@/lib/ts/interface";
+import { GraphDataInterface,ChartOptions } from "@/lib/ts/interface";
+import axios, { AxiosError } from "axios";
+
 const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/ListingTrackGraph"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
@@ -19,21 +21,21 @@ const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/Lis
     additional_dataset: {},
     dataset: [],
   });
-  const options = {
+  const options: ChartOptions = {
     chart: {
-      type: "bar", // Change the chart type to "bar"
+      type: "bar",
       height: 550,
       width: null,
       marginTop: 50,
       marginBottom: 90,
       plotBackgroundColor: null,
       renderTo: "container",
-             animation: false,
-        zooming: {
-          mouseWheel: {
-            enabled: false,
-          },
+      animation: false,
+      zooming: {
+        mouseWheel: {
+          enabled: false,
         },
+      },
     },
     title: {
       text: "",
@@ -54,7 +56,7 @@ const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/Lis
         "DEC",
       ],
       title: {
-        text: null, // or text: ''
+        text: null,
       },
     },
     yAxis: {
@@ -65,55 +67,74 @@ const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/Lis
     },
     legend: {
       align: "start",
-      verticalAlign: "bottom", // Change verticalAlign to "middle"
-      layout: "horizontal", // Change layout to "vertical"
+      verticalAlign: "middle",
+      layout: "vertical",
     },
     series: [
       {
         name: "IPOS",
         data: graphData?.dataset
           ?.filter((item) => item.event === "IPO")
-          ?.map((item) => item.data),
+          ?.map((item) => item.data) || null,
         color: "#F19529",
       },
       {
         name: "SPACS",
         data: graphData?.dataset
           ?.filter((item) => item.event === "SPAC")
-          ?.map((item) => item.data),
+          ?.map((item) => item.data) || null,
         color: "#7F98F3",
       },
       {
         name: "MERGERS",
         data: graphData?.dataset
           ?.filter((item) => item.event === "Merger")
-          ?.map((item) => item.data),
+          ?.map((item) => item.data) || null,
         color: "#9747FF",
       },
     ],
   };
-  const getStatsData = async () => {
-    const response = await getApiWithoutAuth(URLs.spacsReturns);
-    if (response.status === 200 && response.data !== null) {
-      setGraphData(response.data);
 
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
+    const source = axios.CancelToken.source();
+    const getStatsData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.spacsReturns, {
+          cancelToken: source.token,
+        });
+        if (response.status === 200 && response.data !== null) {
+          setGraphData(response.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+          setIsLoading(false);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+          setIsLoading(false);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
     getStatsData();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
 
+
+
   return (
-    <section className={styles.sectionsummarycontainer}>
-      <div className={styles.sectiondatasummary}>
+    <main className={styles.sectionsummarycontainer}>
+      <header className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
           <div className={styles.ytdEventSummary}>YTD De-SPAC Returns by Closing Year Vintage</div>
         </div>
-      </div>
-      <div className={styles.chartcontainer}>
+      </header>
+      <section className={styles.chartcontainer}>
         <div style={{ width: "100%" }}>
           <DynamicChart options={options} />
         </div>
@@ -147,8 +168,8 @@ const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/Lis
             </>
           </div>
         )}
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }
 

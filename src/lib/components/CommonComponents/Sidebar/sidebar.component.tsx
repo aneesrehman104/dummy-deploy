@@ -77,7 +77,8 @@ export const DrawerList: React.FC<ScreenDrawerProps> = ({
                       : "tabStyle"
                   }
                 >
-                  {isOpen[item.id] ? (
+                  {item.id === "home" ||
+                  item.id === "watchlist" ? null : isOpen[item.id] ? (
                     <Image
                       src={currntTabIcon}
                       alt="footerImage"
@@ -108,13 +109,16 @@ export const DrawerList: React.FC<ScreenDrawerProps> = ({
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                 >
-                  <ListItem key={subItem.id}>
+                  <ListItem
+                    key={subItem.id}
+                    style={{ paddingTop: 3, paddingBottom: 3 }}
+                  >
                     <ListItemButton onClick={() => handleSubItemClick(subItem)}>
                       <motion.div
                         whileHover={{ scale: 1.05 }} // Scale up effect on hover
                         className={
                           subItem.pathname === pathname
-                            ? "currentTabStyle"
+                            ? "currentTabStyleLine"
                             : "tabStyle"
                         }
                       >

@@ -3,9 +3,8 @@ import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { GraphDataInterface } from "@/lib/ts/interface";
+import { GraphDataInterface, ChartOptions } from "@/lib/ts/interface";
 import { getODataWithParams } from "@lib/ts/api";
 import axios, { AxiosError } from "axios";
 const DynamicChart = dynamic(
@@ -16,15 +15,15 @@ const DynamicChart = dynamic(
   }
 );
 
-  interface PROPS {}
+interface PROPS {}
 
-  const SpacsEventSummary: React.FC<PROPS> = () => {
+const SpacsEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [graphData, setGraphData] = useState<GraphDataInterface>({
     additional_dataset: {},
     dataset: [],
   });
-  const options = {
+  const options: ChartOptions = {
     chart: {
       type: "line",
       height: null,
@@ -33,12 +32,12 @@ const DynamicChart = dynamic(
       marginBottom: 90,
       plotBackgroundColor: null,
       renderTo: "container",
-             animation: false,
-        zooming: {
-          mouseWheel: {
-            enabled: false,
-          },
+      animation: false,
+      zooming: {
+        mouseWheel: {
+          enabled: false,
         },
+      },
     },
     title: {
       text: "",
@@ -98,7 +97,7 @@ const DynamicChart = dynamic(
       },
     ],
   };
-  
+
   useEffect(() => {
     const source = axios.CancelToken.source();
     const getStatsData = async () => {
@@ -131,7 +130,9 @@ const DynamicChart = dynamic(
     <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
-          <div className={styles.SpacsytdEventSummary}>2023 SPACs Stats</div>
+          <header className={styles.SpacsytdEventSummary}>
+            2023 SPACs Stats
+          </header>
           <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
         </div>
       </div>
@@ -172,6 +173,6 @@ const DynamicChart = dynamic(
       </div>
     </section>
   );
-}
+};
 
 export default SpacsEventSummary;

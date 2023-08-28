@@ -98,22 +98,24 @@ const IpoMarketStats: React.FC<IpoMarketStatsProps> = ({ stats }) => {
                                         <div className={styles.frameParent}>
                                             {[].map((value) => {
                                                 return (
-                                                    <div key={value.change}>
-                                                        <div
-                                                            className={
-                                                                styles.div
-                                                            }
-                                                        >
-                                                            {value.value}
-                                                        </div>
-                                                        <div
-                                                            className={
-                                                                styles.ytdWithSpacsContainer
-                                                            }
-                                                        >
-                                                            {value.change}
-                                                        </div>
-                                                    </div>
+                                                    <div key={"afasdf"}>Test</div>
+                                                    // <div key={value.change}>
+                                                    //     <div
+                                                    //         className={
+                                                    //             styles.div
+                                                    //         }
+                                                    //     >
+                                                    //         {value.value}
+                                                    //     </div>
+                                                    //     <div
+                                                    //         className={
+                                                    //             styles.ytdWithSpacsContainer
+                                                    //         }
+                                                    //     >
+                                                    //         {value.change}
+                                                    //     </div>
+                                                    // </div>
+                                                    
                                                 );
                                             })}
                                         </div>

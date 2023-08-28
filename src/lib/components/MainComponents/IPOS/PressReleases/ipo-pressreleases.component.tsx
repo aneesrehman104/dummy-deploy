@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./press-release.module.css";
 import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { ListingTrackSECFilling } from "@/lib/components/CommonComponents";
+import { ListingTrackSECFiling } from "@/lib/components/CommonComponents";
 interface PROPS {}
 const PressReleases: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [releasesnewsData, setReleasesNewsData] = useState<any>({
     dataset: [
       {
-        news: " Headline call out goes here, truncate at 54 charact..Headline call out goes here, truncate at 54 charact..",
+        news: " Headline call out goes here, truncate at 54 charact..",
         sitename: "Site name",
       },
       {
@@ -91,12 +91,12 @@ const PressReleases: React.FC<PROPS> = () => {
   return (
     <section className={styles.headlineslistcontainer}>
       <div className={styles.sectionlistnewscontainerParent}>
-        <ListingTrackSECFilling
+        <ListingTrackSECFiling
           isLoading={isLoading}
           dataArray={releasesnewsData?.dataset}
           title={"Press Releases"}
         />
-        <ListingTrackSECFilling
+        <ListingTrackSECFiling
           isFilling
           isLoading={isLoadingSec}
           dataArray={secnewsData?.dataset}

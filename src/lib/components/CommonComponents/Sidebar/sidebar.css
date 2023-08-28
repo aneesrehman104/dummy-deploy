@@ -23,10 +23,18 @@
   font-size: 16px !important;
   line-height: 19px !important;
   letter-spacing: 0.08em !important;
-  text-transform: uppercase;
   color: var(--font-color-263c6f);
 }
-
+.currentTabStyleLine {
+  font-family: var(--font-family-primary);
+  font-style: normal;
+  font-weight: 800 !important;
+  font-size: 16px !important;
+  line-height: 19px !important;
+  letter-spacing: 0.08em !important;
+  color: var(--font-color-263c6f);
+  border-bottom: 2px solid #20608B;
+}
 .tabStyle {
   font-family: var(--font-family-primary);
   font-style: normal;
@@ -34,7 +42,6 @@
   font-size: 16px !important;
   line-height: 19px !important;
   letter-spacing: 0.08em !important;
-  text-transform: uppercase;
   color: var(--font-color-20608b);
 }
 .dashboardheader {

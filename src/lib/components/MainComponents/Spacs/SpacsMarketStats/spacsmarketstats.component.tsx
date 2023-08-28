@@ -87,42 +87,58 @@ const SpacsMarketStats: React.FC<PROPS> = () => {
     },
   ]);
 
+  // useEffect(() => {
+  //   const source = axios.CancelToken.source();
+
+  //   const getStatsData = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const response = await getODataWithParams(URLs.ipoOdata, {
+  //         cancelToken: source.token,
+  //       });
+
+  //       if (response.status === 200 && response.data !== null) {
+  //         setStatsData(response.data);
+  //       }
+  //     } catch (error) {
+  //       if (axios.isCancel(error)) {
+  //         console.log("Request cancelled:", (error as AxiosError).message);
+  //       } else {
+  //         console.error("An error occurred:", (error as AxiosError).message);
+  //       }
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+
+  //   getStatsData();
+
+  //   return () => {
+  //     source.cancel("Request cancelled due to component unmount");
+  //   };
+  // }, []);
+
+  const getStats = async () => {
+    setIsLoading(true);
+    const response = await getApiWithoutAuth(`${URLs.spacsStats}`);
+    if (response.status === 200 && response.data !== null) {
+      setStatsData(response.data);
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const source = axios.CancelToken.source();
-
-    const getStatsData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await getODataWithParams(URLs.ipoOdata, {
-          cancelToken: source.token,
-        });
-
-        if (response.status === 200 && response.data !== null) {
-          setStatsData(response.data);
-        }
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          console.log("Request cancelled:", (error as AxiosError).message);
-        } else {
-          console.error("An error occurred:", (error as AxiosError).message);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-
-    getStatsData();
-
-    return () => {
-      source.cancel("Request cancelled due to component unmount");
-    };
+    getStats();
   }, []);
+
 
 
   return (
     <section className={styles.minitables}>
-      <div className={styles.aggregatedMiniTables}>Spacs Market Stats</div>
+      <header className={styles.aggregatedMiniTables}>Spacs Market Stats</header>
       {isLoading ? (
         <Skeleton
           variant="rounded"

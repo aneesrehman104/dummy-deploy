@@ -3,23 +3,28 @@ import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-import { getApiWithoutAuth } from "@lib/ts/api";
+import { getApiWithoutAuth,getODataWithParams } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { GraphDataInterface } from "@/lib/ts/interface";
-const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/ListingTrackGraph"), {
-  ssr: false,
-  loading: () => <Skeleton variant="rounded" height={200} />,
-});
+import { GraphDataInterface, ChartOptions } from "@/lib/ts/interface";
+import axios, { AxiosError } from "axios";
 
-  interface PROPS {}
+const DynamicChart = dynamic(
+  () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
+  {
+    ssr: false,
+    loading: () => <Skeleton variant="rounded" height={200} />,
+  }
+);
 
-  const EventSummary: React.FC<PROPS> = () => {
+interface PROPS {}
+
+const EventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [graphData, setGraphData] = useState<GraphDataInterface>({
     additional_dataset: {},
     dataset: [],
   });
-  const options = {
+  const options: ChartOptions = {
     chart: {
       type: "line",
       height: null,
@@ -28,12 +33,12 @@ const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/Lis
       marginBottom: 90,
       plotBackgroundColor: null,
       renderTo: "container",
-             animation: false,
-        zooming: {
-          mouseWheel: {
-            enabled: false,
-          },
+      animation: false,
+      zooming: {
+        mouseWheel: {
+          enabled: false,
         },
+      },
     },
     title: {
       text: "",
@@ -92,19 +97,36 @@ const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/Lis
         color: "#9747FF",
       },
     ],
-  };
-  const getStatsData = async () => {
-    const response = await getApiWithoutAuth(URLs.spacGraph);
-    if (response.status === 200 && response.data !== null) {
-      setGraphData(response.data);
+  }
 
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
+    const source = axios.CancelToken.source();
+    const getStatsData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.spacsStats, {
+          cancelToken: source.token,
+        });
+        if (response.status === 200 && response.data !== null) {
+          setGraphData(response.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+          setIsLoading(false);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+          setIsLoading(false);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
     getStatsData();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
 
   return (
@@ -152,6 +174,6 @@ const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/Lis
       </div>
     </section>
   );
-}
+};
 
 export default EventSummary;

@@ -13,8 +13,8 @@ import axios, { AxiosError } from "axios";
 
 const jsonResponse = "application/json";
 interface PROPS {}
-const TableTitle = () => (
-  <div className={styles.tableTitle}>{homeConstants.IPOPipeline.title}</div>
+const TableTitle: React.FC<{ text: string }> = ({ text }) => (
+  <div className={styles.tableTitle}>{}</div>
 );
 const HomeIpoTable: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -61,7 +61,7 @@ const HomeIpoTable: React.FC<PROPS> = () => {
   }, []);
   return (
     <section className={styles.stockstablesection}>
-      <TableTitle />
+      <TableTitle text={homeConstants.IPOPipeline.title} />
       <div className={styles.companiestable}>
         <div className={styles.tablecontent}>
           {isLoading ? (

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./marketstats.module.css";
 import Switch from "@mui/material/Switch";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getApiWithoutAuth,getODataWithParams } from "@/lib/ts/api";
 import Skeleton from "@mui/material/Skeleton";
-
+import axios, { AxiosError } from "axios";
 import { URLs } from "@/lib/ts/apiUrl";
   interface PROPS {}
 
@@ -20,90 +20,38 @@ import { URLs } from "@/lib/ts/apiUrl";
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [statsData, setStatsData] = useState<any>(null);
 
-  const getStats = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(`${URLs.spacsStats}`);
-    if (response.status === 200 && response.data !== null) {
-      setStatsData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const source = axios.CancelToken.source();
+    const getStats = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.spacsStats, {
+          cancelToken: source.token,
+        });
+        if (response.status === 200 && response.data !== null) {
+          setStatsData(response.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+          setIsLoading(false);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+          setIsLoading(false);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
     getStats();
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, []);
-
-  const dataArray = [
-    {
-      heading: "Overview",
-      showSpac: false,
-      innerHadding: [
-        {
-          title: "IPOs",
-
-          data: [{ value: "50", change: "YTD" }],
-        },
-        {
-          title: "By Status",
-          data: [
-            { value: "651", change: "Total active" },
-            { value: "330", change: "Searching" },
-            { value: "185", change: "Live mergers" },
-            { value: "22", change: "liquidating" },
-          ],
-        },
-      ],
-    },
-    {
-      heading: "Liquidations / Terminations",
-      showSpac: false,
-      innerHadding: [
-        {
-          title: "LIQUIDATIONS",
-          data: [
-            { value: "200", change: "YTD" },
-            { value: "100", change: "PREV. YEAR" },
-            { value: "44%", change: "CHG % PREV YEAR" },
-          ],
-        },
-        {
-          title: "TERMINATIONS",
-          data: [
-            { value: "200", change: "YTD" },
-            { value: "100", change: "PREV. YEAR" },
-            { value: "44%", change: "CHG % PREV YEAR" },
-          ],
-        },
-      ],
-    },
-    {
-      heading: "De-SPACS",
-      showSpac: false,
-      innerHadding: [
-        {
-          title: "RETURNS",
-          data: [
-            { value: "5", change: "ABOVE SPAC IPO PRICE SINCE 2019" },
-            { value: "50%", change: "AVG. PREMIUM" },
-            { value: "44%", change: "MEDIAN PREMIUM" },
-          ],
-        },
-        {
-          title: "MORE RETURNS",
-          data: [
-            { value: "10%", change: "% ABOVE SPAC IPO PRICE SINCE 2019" },
-            { value: "5%", change: "BANKRUPT" },
-            { value: "XX%", change: "BANKRUPT" },
-          ],
-        },
-      ],
-    },
-  ];
   return (
-    <section className={styles.minitables}>
-      <div className={styles.aggregatedMiniTables}>Spacs Market Stats</div>
+    <main className={styles.minitables}>
+      <header className={styles.aggregatedMiniTables}>Spacs Market Stats</header>
       {isLoading ? (
         <Skeleton
           variant="rounded"
@@ -112,7 +60,7 @@ import { URLs } from "@/lib/ts/apiUrl";
           style={{ marginTop: 15 }}
         />
       ) : (
-        <div className={styles.cardscontainer}>
+        <section className={styles.cardscontainer}>
           <div className={styles.card}>
             <div className={styles.cardheader}>
               <div>Overview </div>
@@ -287,9 +235,9 @@ import { URLs } from "@/lib/ts/apiUrl";
               </div>
             </div>
           </div>
-        </div>
+        </section>
       )}
-    </section>
+    </main>
   );
 }
 

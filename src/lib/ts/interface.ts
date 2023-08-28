@@ -187,3 +187,48 @@ export interface IpoAverageReturnsStats {
   MedianReturnAtCloseOnIpoDay: number;
 }
 // #endregion ipo market stats
+export interface ChartOptions {
+  chart: {
+    type: string;
+    height: number| null;
+    width: number | null;
+    marginTop: number;
+    marginBottom: number;
+    plotBackgroundColor: null;
+    renderTo: string;
+    animation: boolean;
+    zooming: {
+      mouseWheel: {
+        enabled: boolean;
+      };
+    };
+  };
+  title: {
+    text: string;
+  };
+  xAxis: {
+    categories: string[];
+    title?: {
+      text: string | null;
+    };
+  };
+  yAxis: {
+    opposite: boolean;
+    title?: {
+      text: string | null;
+    };
+  };
+  credits: {
+    enabled: boolean;
+  };
+  legend: {
+    align: string;
+    verticalAlign: string;
+    layout: string;
+  };
+  series: {
+    name: string;
+    data: number[] | null;
+    color: string;
+  }[];
+}
