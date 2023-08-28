@@ -35,6 +35,7 @@ const DynamicChart = dynamic(
 const HomeEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  
   const options = {
     chart: {
       type: "line",

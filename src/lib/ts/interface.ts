@@ -107,7 +107,7 @@ export interface GraphDataInterface {
     Announced_Mergers?: number;
     Liquidations?: number;
   };
-  dataset: {}; // LineChart;
+  dataset: LineChart;
   // Define other properties here if needed
 }
 export interface PipelineInterface {
