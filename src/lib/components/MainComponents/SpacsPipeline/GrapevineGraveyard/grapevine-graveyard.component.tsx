@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styles from "./grapevine-graveyard.module.css";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import { getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-  interface PROPS {}
+import {
+  headerArrayRumoredMergers,
+  headerArrayTerminatedMergers,
+  headerArrayTalksFailed,
+} from "./constants";
+import axios, { AxiosError } from "axios";
 
-  const GrapevineGraveyard: React.FC<PROPS> = () => {
+interface PROPS {}
+
+const GrapevineGraveyard: React.FC<PROPS> = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -28,107 +35,6 @@ import {
     1: "latest_failed",
     2: "other",
   };
-  const headerArrayRumoredMergers = [
-    {
-      name: "Target",
-      key: "Target",
-      type: "string",
-    },
-    {
-      name: "Acquirer",
-      key: "Acquirer",
-      type: "string",
-    },
-    {
-      name: "Rumored Date",
-      key: "RumoredDate",
-      type: "string",
-    },
-    {
-      name: "Rumored Valuation",
-      key: "RumoredValuation",
-      type: "string",
-    },
-    {
-      name: "Rumor Source",
-      key: "RumorSource",
-      type: "string",
-    },
-    {
-      name: "Rumor Link",
-      key: "RumorLink",
-      type: "string",
-    },
-    {
-      name: "View Deal Page",
-      key: "ViewDealPage",
-      type: "string",
-    },
-  ];
-  const headerArrayTerminatedMergers = [
-    {
-      name: "Target",
-      key: "Target",
-      type: "string",
-    },
-    {
-      name: "Acquirer",
-      key: "Acquirer",
-      type: "string",
-    },
-    {
-      name: "Terminated Date",
-      key: "TerminatedDate",
-      type: "string",
-    },
-    {
-      name: "Rumored Valuation",
-      key: "RumoredValuation",
-      type: "string",
-    },
-    {
-      name: "Terminated Link",
-      key: "TerminatedLink",
-      type: "string",
-    },
-    {
-      name: "Terminated Reason",
-      key: "TerminatedReason",
-      type: "string",
-    },
-  ];
-  const headerArrayTalksFailed = [
-    {
-      name: "Target",
-      key: "Target",
-      type: "string",
-    },
-    {
-      name: "Acquirer",
-      key: "Acquirer",
-      type: "string",
-    },
-    {
-      name: "Talks Failed Date",
-      key: "TalksFailedDate",
-      type: "string",
-    },
-    {
-      name: "Valuation",
-      key: "Valuation",
-      type: "string",
-    },
-    {
-      name: "Talks Failed Source",
-      key: "TalksFailedSource",
-      type: "string",
-    },
-    {
-      name: "Talks Failed Link",
-      key: "TalksFailedLink",
-      type: "string",
-    },
-  ];
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -139,29 +45,43 @@ import {
     setCurrentPage(1);
   };
 
-  const getLatestClosed = async () => {
-    setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.spacPipeline}?page=${currentPage}&offset=${itemsPerPage}&type=grapevine&subtype=${tabValues[selectedTab]}`
-    );
-    if (response.status === 200 && response.data !== null) {
-      setGrapevineGraveyardData(response.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const source = axios.CancelToken.source();
+    const getLatestClosed = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getODataWithParams(URLs.spacPipeline, {
+          cancelToken: source.token,
+        });
+        if (response.status === 200 && response.data !== null) {
+          setGrapevineGraveyardData(response.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+          setIsLoading(false);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+          setIsLoading(false);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
     getLatestClosed();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
   }, [selectedTab, currentPage]);
 
   return (
-    <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>SPAC Merger Grapevine & Graveyard</div>
+    <main className={styles.stockstablesection}>
+      <header className={styles.tableTitle}>
+        SPAC Merger Grapevine & Graveyard
+      </header>
       <div className={styles.tableContainerInner}>
-        <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
+        <section style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
           {tabData.map(({ label, index }) => (
             <div
               key={index}
@@ -173,8 +93,8 @@ import {
               {label}
             </div>
           ))}
-        </div>
-        <div style={{ overflow: "auto" }}>
+        </section>
+        <section style={{ overflow: "auto" }}>
           {isLoading ? (
             <SkeltonTable />
           ) : (
@@ -194,10 +114,10 @@ import {
               showPagination
             />
           )}
-        </div>
+        </section>
       </div>
-    </section>
+    </main>
   );
-}
+};
 
 export default GrapevineGraveyard;

@@ -4,7 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { FilingComponent, NotFiledComponent } from "./components";
 
 
-const ListingTrackSECFilling = ({
+const ListingTrackSECFiling = ({
   isLoading,
   title,
   dataArray,
@@ -33,4 +33,4 @@ const ListingTrackSECFilling = ({
   );
 };
 
-export default ListingTrackSECFilling;
+export default ListingTrackSECFiling;
