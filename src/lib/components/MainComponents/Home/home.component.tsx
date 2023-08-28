@@ -1,3 +1,4 @@
+"use client";
 import styles from "./dashboard-header.module.css";
 import React from "react";
 import HomeEventSummary from "./HomeEventSummary/homeeventsummary.componet.tsx"

@@ -11,10 +11,10 @@ const Checkout: React.FC<PROPS> = () => {
   return (
     <section className="checkout-main-wrapper ">
       <main>
-        <div style={{ marginBottom: 50 }}>
+        <header style={{ marginBottom: 50 }}>
           <Image src={footerLogo} alt="footerImage" width={200} height={50} />
-        </div>
-        <div className="checkout-description-holder">
+        </header>
+        <main className="checkout-description-holder">
           <div style={{ color: "#263C6F", fontWeight: 500, fontSize: 33 }}>
             Amazing
           </div>
@@ -27,7 +27,7 @@ const Checkout: React.FC<PROPS> = () => {
             title="Go to Home"
             onClick={() => router.push("/home")}
           />
-        </div>
+        </main>
       </main>
     </section>
   );

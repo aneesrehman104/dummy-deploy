@@ -165,7 +165,7 @@ const UnauthenticatedNavBar: React.FC<PROPS> = () => {
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
               {user?.member === null ? (
-                <>
+                <div>
                   <motion.div
                     whileHover={{ scale: 0.98 }} // Scale down effect on hover
                   >
@@ -217,9 +217,9 @@ const UnauthenticatedNavBar: React.FC<PROPS> = () => {
                     </MenuItem>
                     <Divider />
                   </motion.div>
-                </>
+                </div>
               ) : (
-                <>
+                <div>
                   <motion.div
                     whileHover={{ scale: 0.98 }} // Scale down effect on hover
                   >
@@ -267,7 +267,7 @@ const UnauthenticatedNavBar: React.FC<PROPS> = () => {
                       Logout
                     </MenuItem>
                   </motion.div>
-                </>
+                </div>
               )}
             </Menu>
           </React.Fragment>

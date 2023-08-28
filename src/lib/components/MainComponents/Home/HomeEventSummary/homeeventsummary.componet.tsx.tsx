@@ -7,9 +7,22 @@ import { getODataWithParams } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
 import axios, { AxiosError } from "axios";
+import Vector2 from "@public/vector2.svg";
 
 const jsonResponse = "application/json";
 interface PROPS {}
+
+const AggregationContainer: React.FC<{ value: string; name: string }> = ({
+  value,
+  name,
+}) => {
+  return (
+    <div className={styles.container}>
+      <div>{value}</div>
+      <div>{name}</div>
+    </div>
+  );
+};
 
 const DynamicChart = dynamic(
   () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
@@ -24,6 +37,7 @@ const HomeEventSummary: React.FC<PROPS> = () => {
     additional_dataset: {},
     dataset: [],
   });
+  // chart options
   const options = {
     chart: {
       type: "line",
@@ -33,12 +47,12 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       marginBottom: 90,
       plotBackgroundColor: null,
       renderTo: "container",
-             animation: false,
-        zooming: {
-          mouseWheel: {
-            enabled: false,
-          },
+      animation: false,
+      zooming: {
+        mouseWheel: {
+          enabled: false,
         },
+      },
     },
     title: {
       text: "",
@@ -133,13 +147,13 @@ const HomeEventSummary: React.FC<PROPS> = () => {
 
   return (
     <section className={styles.sectionsummarycontainer}>
-      <div className={styles.sectiondatasummary}>
+      <main className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
           <div className={styles.ytdEventSummary}>2023 Spacs Stats</div>
-          <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
+          <Image src={Vector2} alt="/vector2" width={12} height={12} />
         </div>
-      </div>
-      <div className={styles.chartcontainer}>
+      </main>
+      <main className={styles.chartcontainer}>
         <div style={{ width: "100%" }}>
           <DynamicChart options={options} />
         </div>
@@ -150,30 +164,13 @@ const HomeEventSummary: React.FC<PROPS> = () => {
           </>
         ) : (
           <div className={styles.frameParent}>
-            <>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.IPO}</div>
-                <div>IPOS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Announced_Mergers}</div>
-
-                <div>ANNOUNCED MERGERS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Closed_Mergers}</div>
-
-                <div>CLOSED MERGERS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Liquidations}</div>
-
-                <div>LIQUIDATIONS</div>
-              </div>
-            </>
+            <AggregationContainer value="100" name="IPOS" />
+            <AggregationContainer value="200" name="ANNOUNCED MERGERS" />
+            <AggregationContainer value="300" name="CLOSED MERGERS" />
+            <AggregationContainer value="400" name="LIQUIDATION" />
           </div>
         )}
-      </div>
+      </main>
     </section>
   );
 };
