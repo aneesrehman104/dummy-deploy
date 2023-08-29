@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import RootLayout from "./layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
 import Home from "@/lib/components/MainComponents/Home";

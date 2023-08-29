@@ -1,0 +1,68 @@
+.mainContainer {
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  margin-block: 10px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.articleContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.header {
+  font-size: 24px;
+  font-weight: 700;
+  margin-inline: auto;
+  margin-block: 10px;
+  color: black;
+  padding-top: 20px;
+}
+.subHeader {
+  font-size: 16px;
+  font-weight: 500;
+  margin-inline: auto;
+  color: rgb(45, 45, 45);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-block: 10px;
+  color: black;
+  padding-top: 20px;
+}
+.subTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgb(37, 37, 37);
+  margin-block: 4px;
+  margin-top: 10px;
+}
+
+.point {
+  font-size: 16px;
+  font-weight: 500;
+  margin-block: 10px;
+  color: black;
+  padding-top: 20px;
+}
+
+.pointTitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: black;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: black;
+  margin-inline: 8px;
+  margin-right: 16px;
+}

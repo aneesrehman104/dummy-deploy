@@ -5,7 +5,8 @@ import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
-import { getODataWithParams } from "@lib/ts/api";
+import { initialGraphData } from "@/lib/ts/initialState";
+import { getApiWithoutAuth, getODataWithParams } from "@lib/ts/api";
 import axios, { AxiosError } from "axios";
 interface PROPS {}
 
@@ -16,84 +17,59 @@ const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/Lis
 
 const IpoCategoryEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>({
-    additional_dataset: {},
-    dataset: [],
-  });
+  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  
   const options = {
     chart: {
-      type: "line",
-      height: null,
-      width: null,
-      marginTop: 50,
-      marginBottom: 90,
-      plotBackgroundColor: null,
-      renderTo: "container",
-             animation: false,
+        type: "line",
+        height: null,
+        width: null,
+        marginTop: 50,
+        marginBottom: 90,
+        plotBackgroundColor: null,
+        renderTo: "container",
+        animation: false,
         zooming: {
-          mouseWheel: {
-            enabled: false,
-          },
+            mouseWheel: {
+                enabled: false,
+            },
         },
     },
     title: {
-      text: "",
+        text: graphData.dataset.Title,
     },
     xAxis: {
-      categories: [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC",
-      ],
+        categories: graphData.dataset.XAxis?.Labels,
+        title: {
+            text: graphData.dataset.XAxis?.Title,
+        },
     },
     yAxis: {
-      opposite: true,
-      title: {
-        text: null, // or text: ''
-      },
+        opposite: true,
+        title: {
+            text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
+        },
+        max: graphData.dataset.YAxis?.MaxValue,
     },
-
     credits: {
-      enabled: false,
+        enabled: false,
     },
     legend: {
-      align: "start",
-      verticalAlign: "bottom",
-      layout: "horizontal",
+        align: "start",
+        verticalAlign: "bottom",
+        layout: "horizontal",
     },
-    series: [
-      {
-        name: "Total",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "IPO")
-          ?.map((item) => item.data),
-        color: "#F19529",
-      },
-      {
-        name: "Traditional",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "SPAC")
-          ?.map((item) => item.data),
-        color: "#7F98F3",
-      },
-      {
-        name: "SPAC",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "Merger")
-          ?.map((item) => item.data),
-        color: "#9747FF",
-      },
-    ],
-  };
+    series: graphData.dataset.SeriesData?.map((series) => ({
+        name: series.Name,
+        data: graphData.dataset.XAxis.Labels.map((month, index) => {
+            const point = series.DataPoints.find(
+                (point) => point.X === index
+            );
+            return point ? point.Y : null;
+        }),
+        // add a color property for each series if you want
+    })),
+};
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -101,12 +77,17 @@ const IpoCategoryEventSummary: React.FC<PROPS> = () => {
     const getStatsData = async () => {
       setIsLoading(true);
       try {
-        const response = await getODataWithParams(URLs.ipoOdata, {
-          cancelToken: source.token,
-        });
-
+        const response = await getApiWithoutAuth(
+          URLs.ipoOverviewChart,
+          {
+              cancelToken: source.token,
+          }
+      );
         if (response.status === 200 && response.data !== null) {
-          setGraphData(response.data);
+          setGraphData({
+            dataset: response.data.source.dataset,
+            additional_dataset: {},
+        });
         }
       } catch (error) {
         if (axios.isCancel(error)) {

@@ -1,0 +1,32 @@
+.flexContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  margin-block: 30px;
+  padding-inline: 8px;
+}
+
+.selectionMapper {
+  padding: 12px;
+  padding-inline: 25px;
+  background-color: rgb(213, 213, 213);
+  border-radius: 25px;
+  margin-inline: 4px;
+  cursor: pointer;
+  min-width: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  transition: background ease-in-out 0.2s;
+}
+
+.selectionItemActive {
+  background-color: rgba(0, 0, 245, 0.6);
+  color: white;
+}
+.selectionMapper:hover {
+  background-color: rgb(225, 225, 225);
+}

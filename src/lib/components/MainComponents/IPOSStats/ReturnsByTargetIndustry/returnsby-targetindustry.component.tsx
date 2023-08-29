@@ -3,9 +3,12 @@ import styles from "./returnsby-targetindustry.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-import { getApiWithoutAuth } from "@lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
+import { initialGraphData } from "@/lib/ts/initialState";
+import axios, { AxiosError } from "axios";
+
 const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/ListingTrackGraph"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
@@ -14,97 +17,95 @@ interface PROPS {}
 
 const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>({
-    additional_dataset: {},
-    dataset: [],
-  });
+  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  
   const options = {
     chart: {
-      type: "bar", // Change the chart type to "bar"
-      height: 550,
+      type: "line",
+      height: null,
       width: null,
       marginTop: 50,
       marginBottom: 90,
       plotBackgroundColor: null,
       renderTo: "container",
-             animation: false,
-        zooming: {
-          mouseWheel: {
-            enabled: false,
-          },
+      animation: false,
+      zooming: {
+        mouseWheel: {
+          enabled: false,
         },
-    },
-    title: {
-      text: "",
-    },
-    xAxis: {
-      categories: [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC",
-      ],
-      title: {
-        text: null, // or text: ''
       },
     },
-    yAxis: {
+    title: {
+      text: graphData.dataset.Title,
+  },
+  xAxis: {
+      categories: graphData.dataset.XAxis?.Labels,
+      title: {
+          text: graphData.dataset.XAxis?.Title,
+      },
+  },
+  yAxis: {
       opposite: true,
-    },
+      title: {
+          text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
+      },
+      max: graphData.dataset.YAxis?.MaxValue,
+  },
     credits: {
       enabled: false,
     },
     legend: {
       align: "start",
-      verticalAlign: "bottom", // Change verticalAlign to "middle"
-      layout: "horizontal", // Change layout to "vertical"
+      verticalAlign: "bottom",
+      layout: "horizontal",
     },
-    series: [
-      {
-        name: "IPOS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "IPO")
-          ?.map((item) => item.data),
-        color: "#F19529",
-      },
-      {
-        name: "SPACS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "SPAC")
-          ?.map((item) => item.data),
-        color: "#7F98F3",
-      },
-      {
-        name: "MERGERS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "Merger")
-          ?.map((item) => item.data),
-        color: "#9747FF",
-      },
-    ],
+    series: graphData.dataset.SeriesData?.map((series) => ({
+      name: series.Name,
+      data: graphData.dataset.XAxis.Labels.map((month, index) => {
+          const point = series.DataPoints.find(
+              (point) => point.X === index
+          );
+          return point ? point.Y : null;
+      }),
+      // add a color property for each series if you want
+  })),
   };
-  const getStatsData = async () => {
-    const response = await getApiWithoutAuth(URLs.spacsReturns);
-    if (response.status === 200 && response.data !== null) {
-      setGraphData(response.data);
 
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
-  };
   useEffect(() => {
-    getStatsData();
-  }, []);
+    const source = axios.CancelToken.source();
 
+    const getStatsData = async () => {
+      setIsLoading(true);
+
+      try {
+        //TODO: getting IPO data just for development. We need to point to a home controller graph endpoint
+        const response = await getApiWithoutAuth(URLs.ipoOverviewChart, {
+          cancelToken: source.token,
+        });
+
+        if (response.status === 200 && response.data !== null) {
+          setGraphData({
+            dataset: response.data.source.dataset,
+            additional_dataset: {},
+        });
+        }
+      } catch (error) {
+        if (axios.isCancel(error)) {
+          console.log("Request cancelled:", (error as AxiosError).message);
+        } else {
+          console.error("An error occurred:", (error as AxiosError).message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getStatsData();
+
+    return () => {
+      source.cancel("Request cancelled due to component unmount");
+    };
+  }, []);
   return (
     <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>

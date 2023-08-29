@@ -3,13 +3,27 @@ import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-import { getODataWithParams } from "@lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
+import { initialGraphData } from "@/lib/ts/initialState";
 import axios, { AxiosError } from "axios";
+import Vector2 from "@public/vector2.svg";
 
 const jsonResponse = "application/json";
 interface PROPS {}
+
+const AggregationContainer: React.FC<{ value: string; name: string }> = ({
+  value,
+  name,
+}) => {
+  return (
+    <div className={styles.container}>
+      <div>{value}</div>
+      <div>{name}</div>
+    </div>
+  );
+};
 
 const DynamicChart = dynamic(
   () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
@@ -20,10 +34,8 @@ const DynamicChart = dynamic(
 );
 const HomeEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>({
-    additional_dataset: {},
-    dataset: [],
-  });
+  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  
   const options = {
     chart: {
       type: "line",
@@ -33,39 +45,29 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       marginBottom: 90,
       plotBackgroundColor: null,
       renderTo: "container",
-             animation: false,
-        zooming: {
-          mouseWheel: {
-            enabled: false,
-          },
+      animation: false,
+      zooming: {
+        mouseWheel: {
+          enabled: false,
         },
-    },
-    title: {
-      text: "",
-    },
-    xAxis: {
-      categories: [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC",
-      ],
-    },
-    yAxis: {
-      opposite: true,
-      title: {
-        text: null, // or text: ''
       },
     },
-
+    title: {
+      text: graphData.dataset.Title,
+  },
+  xAxis: {
+      categories: graphData.dataset.XAxis?.Labels,
+      title: {
+          text: graphData.dataset.XAxis?.Title,
+      },
+  },
+  yAxis: {
+      opposite: true,
+      title: {
+          text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
+      },
+      max: graphData.dataset.YAxis?.MaxValue,
+  },
     credits: {
       enabled: false,
     },
@@ -74,29 +76,16 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       verticalAlign: "bottom",
       layout: "horizontal",
     },
-    series: [
-      {
-        name: "IPOS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "IPO")
-          ?.map((item) => item.data),
-        color: "#F19529",
-      },
-      {
-        name: "SPACS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "SPAC")
-          ?.map((item) => item.data),
-        color: "#7F98F3",
-      },
-      {
-        name: "MERGERS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "Merger")
-          ?.map((item) => item.data),
-        color: "#9747FF",
-      },
-    ],
+    series: graphData.dataset.SeriesData?.map((series) => ({
+      name: series.Name,
+      data: graphData.dataset.XAxis.Labels.map((month, index) => {
+          const point = series.DataPoints.find(
+              (point) => point.X === index
+          );
+          return point ? point.Y : null;
+      }),
+      // add a color property for each series if you want
+  })),
   };
 
   useEffect(() => {
@@ -106,12 +95,16 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       setIsLoading(true);
 
       try {
-        const response = await getODataWithParams(URLs.ipoOdata, {
+        //TODO: getting IPO data just for development. We need to point to a home controller graph endpoint
+        const response = await getApiWithoutAuth(URLs.ipoOverviewChart, {
           cancelToken: source.token,
         });
 
         if (response.status === 200 && response.data !== null) {
-          setGraphData(response.data);
+          setGraphData({
+            dataset: response.data.source.dataset,
+            additional_dataset: {},
+        });
         }
       } catch (error) {
         if (axios.isCancel(error)) {
@@ -133,13 +126,13 @@ const HomeEventSummary: React.FC<PROPS> = () => {
 
   return (
     <section className={styles.sectionsummarycontainer}>
-      <div className={styles.sectiondatasummary}>
+      <main className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
           <div className={styles.ytdEventSummary}>2023 Spacs Stats</div>
-          <Image src="/vector2.svg" alt="/vector2" width={12} height={12} />
+          <Image src={Vector2} alt="/vector2" width={12} height={12} />
         </div>
-      </div>
-      <div className={styles.chartcontainer}>
+      </main>
+      <main className={styles.chartcontainer}>
         <div style={{ width: "100%" }}>
           <DynamicChart options={options} />
         </div>
@@ -150,30 +143,13 @@ const HomeEventSummary: React.FC<PROPS> = () => {
           </>
         ) : (
           <div className={styles.frameParent}>
-            <>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.IPO}</div>
-                <div>IPOS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Announced_Mergers}</div>
-
-                <div>ANNOUNCED MERGERS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Closed_Mergers}</div>
-
-                <div>CLOSED MERGERS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Liquidations}</div>
-
-                <div>LIQUIDATIONS</div>
-              </div>
-            </>
+            <AggregationContainer value="100" name="IPOS" />
+            <AggregationContainer value="200" name="ANNOUNCED MERGERS" />
+            <AggregationContainer value="300" name="CLOSED MERGERS" />
+            <AggregationContainer value="400" name="LIQUIDATION" />
           </div>
         )}
-      </div>
+      </main>
     </section>
   );
 };
