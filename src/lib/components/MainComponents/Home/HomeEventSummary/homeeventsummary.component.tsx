@@ -3,9 +3,10 @@ import styles from "./event-summary.module.css";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
-import { getODataWithParams } from "@lib/ts/api";
+import { getApiWithoutAuth, getODataWithParams } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
+import { initialGraphData } from "@/lib/ts/initialState";
 import axios, { AxiosError } from "axios";
 import Vector2 from "@public/vector2.svg";
 
@@ -33,11 +34,8 @@ const DynamicChart = dynamic(
 );
 const HomeEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>({
-    additional_dataset: {},
-    dataset: [],
-  });
-  // chart options
+  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  
   const options = {
     chart: {
       type: "line",
@@ -55,30 +53,21 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       },
     },
     title: {
-      text: "",
-    },
-    xAxis: {
-      categories: [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC",
-      ],
-    },
-    yAxis: {
+      text: graphData.dataset.Title,
+  },
+  xAxis: {
+      categories: graphData.dataset.XAxis?.Labels,
+      title: {
+          text: graphData.dataset.XAxis?.Title,
+      },
+  },
+  yAxis: {
       opposite: true,
       title: {
-        text: null, // or text: ''
+          text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
       },
-    },
+      max: graphData.dataset.YAxis?.MaxValue,
+  },
 
     credits: {
       enabled: false,
@@ -88,29 +77,17 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       verticalAlign: "bottom",
       layout: "horizontal",
     },
-    series: [
-      {
-        name: "IPOS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "IPO")
-          ?.map((item) => item.data),
-        color: "#F19529",
-      },
-      {
-        name: "SPACS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "SPAC")
-          ?.map((item) => item.data),
-        color: "#7F98F3",
-      },
-      {
-        name: "MERGERS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "Merger")
-          ?.map((item) => item.data),
-        color: "#9747FF",
-      },
-    ],
+
+    series: graphData.dataset.SeriesData?.map((series) => ({
+      name: series.Name,
+      data: graphData.dataset.XAxis.Labels.map((month, index) => {
+          const point = series.DataPoints.find(
+              (point) => point.X === index
+          );
+          return point ? point.Y : null;
+      }),
+      // add a color property for each series if you want
+  })),
   };
 
   useEffect(() => {
@@ -120,12 +97,18 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       setIsLoading(true);
 
       try {
-        const response = await getODataWithParams(URLs.ipoOdata, {
+        //TODO: getting IPO data just for development. We need to point to a home controller graph endpoint
+        const response = await getApiWithoutAuth(URLs.ipoOverviewChart, {
+
           cancelToken: source.token,
         });
 
         if (response.status === 200 && response.data !== null) {
-          setGraphData(response.data);
+          setGraphData({
+            dataset: response.data.source.dataset,
+            additional_dataset: {},
+        });
+
         }
       } catch (error) {
         if (axios.isCancel(error)) {
@@ -174,5 +157,6 @@ const HomeEventSummary: React.FC<PROPS> = () => {
     </section>
   );
 };
+
 
 export default HomeEventSummary;
