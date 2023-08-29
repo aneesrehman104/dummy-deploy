@@ -165,14 +165,8 @@ export default function RootLayout() {
       // the idea is to make this a paginated based table so that we can load the data in chunks
       // we need to make a call to the backend to get the data with limit and offset
       try {
-        const response = await fetch(
-          // `http://localhost:3000/api/dataset?limit=${limit * 3}&offset=${offset}`
-          "https://localhost:5001" + URLs.sourceMaterialFeed
-          // "http://127.0.0.1:5500/internal-feed.json"
-        );
-        const data: IResponseSchema = await response.json();
-        const serializedData = serializeData(data.source.dataset);
-        console.log(serializeData);
+        const response = await getApiWithoutAuth(URLs.sourceMaterialFeed);
+        const serializedData = serializeData(response.data.source.dataset);
         if (serializedData.length > 0) {
           // we need to change the payload later
           dispatch({ type: "replace", payload: serializedData });
