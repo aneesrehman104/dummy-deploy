@@ -1,12 +1,13 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
-import { TextField, Select, MenuItem, InputLabel } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import utc from "dayjs/plugin/utc";
-import dayjs, { Dayjs } from "dayjs";
+import { MenuItem } from "@mui/material";
+import { timeZones } from "./constants";
+import {
+  RequestDemoCssTextField,
+  RequestDemoCssTextFieldMultiLine,
+  CssSelect,
+} from "@lib/styled-components/index.styled";
 import "./requestdemo.css";
 
 interface PROPS {}
@@ -14,125 +15,13 @@ interface PROPS {}
 const RequestDemo: React.FC<PROPS> = () => {
   const [timeZone, setTimeZone] = React.useState<string>("");
 
-  const CssTextField = styled(TextField)({
-    width: "278px",
-    height: "56px",
-    marginRight: "30px",
-    color: "#ffffff", // or "white"
-    border: "1px solid #0aac85",
-    borderRadius: "4px",
-    fontFamily: "Open Sans",
-    fontStyle: "normal",
-    fontWeight: "400",
-    fontSize: "16px",
-    marginTop: "10px",
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        border: "none",
-      },
-      "& input": {
-        color: "#ffffff", // Sets the input text color to white
-      },
-      "&::placeholder": {
-        color: "#ffffff", // Sets the placeholder color to white
-      },
-      "&::-moz-placeholder": {
-        color: "#ffffff",
-        opacity: 1,
-      },
-    },
-  });
-
-  const CssTextFieldMultiLine = styled(TextField)({
-    width: "95%",
-    height: "117px",
-    color: "white", // Text color (white in this case)
-    border: "1px solid #0aac85",
-    borderRadius: "4px",
-    fontFamily: "Open Sans",
-    fontStyle: "normal",
-    fontWeight: "400",
-    fontSize: "16px",
-    marginTop: "30px",
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        border: "none",
-      },
-      "& textarea::placeholder": {
-        color: "white", // Placeholder color (white in this case)
-      },
-      "& .MuiOutlinedInput-input": {
-        color: "white", // Text color (white in this case)
-      },
-      "& .MuiInputLabel-root": {
-        color: "white", // Label color (white in this case)
-      },
-    },
-  });
-  const CssSelect = styled(Select)({
-    width: "278px",
-    height: "56px",
-    marginRight: "30px",
-    color: "#ffffff",
-    border: "1px solid #0aac85",
-    borderRadius: "4px",
-    fontFamily: "Open Sans",
-    fontStyle: "normal",
-    fontWeight: "400",
-    fontSize: "16px",
-    marginTop: "20px",
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        border: "none",
-      },
-      "& input": {
-        color: "#ffffff",
-      },
-      "&::placeholder": {
-        color: "#ffffff",
-      },
-      "&::-moz-placeholder": {
-        color: "#ffffff",
-        opacity: 1,
-      },
-    },
-    "& .MuiSelect-icon": {
-      color: "#ffffff", // Sets the select icon color to white
-    },
-  });
-  const timeZones = [
-    { value: "UTC", label: "Coordinated Universal Time (UTC)" },
-    { value: "GMT", label: "Greenwich Mean Time (GMT)" },
-    { value: "BST", label: "British Summer Time (BST)" },
-    { value: "CET", label: "Central European Time (CET)" },
-    { value: "CEST", label: "Central European Summer Time (CEST)" },
-    { value: "EET", label: "Eastern European Time (EET)" },
-    { value: "EEST", label: "Eastern European Summer Time (EEST)" },
-    { value: "WET", label: "Western European Time (WET)" },
-    { value: "WEST", label: "Western European Summer Time (WEST)" },
-    { value: "AST", label: "Atlantic Standard Time (AST)" },
-    { value: "ADT", label: "Atlantic Daylight Time (ADT)" },
-    { value: "EST", label: "Eastern Standard Time (EST)" },
-    { value: "EDT", label: "Eastern Daylight Time (EDT)" },
-    { value: "CST", label: "Central Standard Time (CST)" },
-    { value: "CDT", label: "Central Daylight Time (CDT)" },
-    { value: "MST", label: "Mountain Standard Time (MST)" },
-    { value: "MDT", label: "Mountain Daylight Time (MDT)" },
-    { value: "PST", label: "Pacific Standard Time (PST)" },
-    { value: "PDT", label: "Pacific Daylight Time (PDT)" },
-    { value: "AKST", label: "Alaska Standard Time (AKST)" },
-    { value: "AKDT", label: "Alaska Daylight Time (AKDT)" },
-    { value: "HAST", label: "Hawaii-Aleutian Standard Time (HAST)" },
-    { value: "HADT", label: "Hawaii-Aleutian Daylight Time (HADT)" },
-  ];
-
   const handleChange = (event: any) => {
     const { value } = event.target;
     setTimeZone(value);
   };
 
   return (
-    <section
+    <main
       style={{
         display: "flex",
         justifyContent: "center",
@@ -143,8 +32,8 @@ const RequestDemo: React.FC<PROPS> = () => {
       }}
     >
       <div>
-        <div className="contactUsUpdate">SCHEDULE A DEMO</div>
-        <div
+        <header className="contactUsUpdate">SCHEDULE A DEMO</header>
+        <section
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -153,12 +42,18 @@ const RequestDemo: React.FC<PROPS> = () => {
           }}
         >
           <div>
-            <CssTextField placeholder="Enter full name " hiddenLabel />
+            <RequestDemoCssTextField
+              placeholder="Enter full name "
+              hiddenLabel
+            />
           </div>
           <div>
-            <CssTextField placeholder="Enter your email address" hiddenLabel />
+            <RequestDemoCssTextField
+              placeholder="Enter your email address"
+              hiddenLabel
+            />
           </div>
-        </div>
+        </section>
         <CssSelect
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -174,15 +69,14 @@ const RequestDemo: React.FC<PROPS> = () => {
             </MenuItem>
           ))}
         </CssSelect>
-        <CssTextFieldMultiLine
+        <RequestDemoCssTextFieldMultiLine
           hiddenLabel
           multiline
           rows={4}
           placeholder="Let us know what your availability is, we will send an invite shortly."
         />
 
-
-        <div>
+        <section>
           <CommonfiButton
             sx={{
               "&:hover": {
@@ -198,10 +92,10 @@ const RequestDemo: React.FC<PROPS> = () => {
             className="buttonStyleSendMessage"
             title="send demo request"
           />
-        </div>
+        </section>
       </div>
-    </section>
+    </main>
   );
-}
+};
 
 export default RequestDemo;

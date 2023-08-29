@@ -5,6 +5,11 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+import {
+  headerDailyTradingArray,
+  headerWeeklyTradingArray,
+  headerMonthlyTradingArray,
+} from "./constants";
 const Losers = (props: LoserInterFace) => {
   const paginate = (pageNumber: number) => {
     props.setSpacsTradingLoserDataCurrentPage(pageNumber);
@@ -20,107 +25,11 @@ const Losers = (props: LoserInterFace) => {
     { label: "Since Merger Closing", index: 2 },
   ];
 
-  const headerDailyTradingArray = [
-    {
-      name: "Company",
-      key: "company",
-      type: "string",
-    },
-    {
-      name: "Symbol",
-      key: "symbol",
-      type: "string",
-    },
-    {
-      name: "Last 30D",
-      key: "last30D",
-      type: "graph",
-    },
-    {
-      name: "Price",
-      key: "price",
-      type: "string",
-    },
-    {
-      name: "Daily",
-      key: "daily",
-      type: "loser",
-    },
-    {
-      name: "Vol",
-      key: "vol",
-      type: "string",
-    },
-  ];
-  const headerWeeklyTradingArray = [
-    {
-      name: "Company",
-      key: "company",
-      type: "string",
-    },
-    {
-      name: "Symbol",
-      key: "symbol",
-      type: "string",
-    },
-    {
-      name: "Last 30D",
-      key: "last30D",
-      type: "graph",
-    },
-    {
-      name: "Price",
-      key: "price",
-      type: "string",
-    },
-    {
-      name: "Weekly",
-      key: "weekly",
-      type: "loser",
-    },
-    {
-      name: "Vol",
-      key: "vol",
-      type: "string",
-    },
-  ];
-  const headerMonthlyTradingArray = [
-    {
-      name: "Company",
-      key: "company",
-      type: "string",
-    },
-    {
-      name: "Symbol",
-      key: "symbol",
-      type: "string",
-    },
-    {
-      name: "Last 30D",
-      key: "last30D",
-      type: "graph",
-    },
-    {
-      name: "Price",
-      key: "price",
-      type: "string",
-    },
-    {
-      name: "Since Merger Closing",
-      key: "merger_closing",
-      type: "string",
-    },
-    {
-      name: "Vol",
-      key: "vol",
-      type: "string",
-    },
-  ];
   return (
     <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>{props.title}</div>
+      <header className={styles.tableTitle}>{props.title}</header>
       <div className={styles.tableContainerInner}>
-        <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
+        <section style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
           {tabData.map(({ label, index }) => (
             <div
               key={index}
@@ -133,8 +42,8 @@ const Losers = (props: LoserInterFace) => {
               {label}
             </div>
           ))}
-        </div>
-        <div style={{ overflow: "auto" }}>
+        </section>
+        <section style={{ overflow: "auto" }}>
           {props.isLoadingLooser ? (
             <SkeltonTable />
           ) : (
@@ -156,7 +65,7 @@ const Losers = (props: LoserInterFace) => {
               />
             )
           )}
-        </div>
+        </section>
       </div>
     </section>
   );
