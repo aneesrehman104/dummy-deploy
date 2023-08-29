@@ -13,7 +13,7 @@
 .sectiondatasummary,
 .ytdSummary {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
 }
 .ytdSummary {
@@ -141,6 +141,7 @@
   align-self: stretch;
   display: flex;
   justify-content: flex-start;
+  flex-direction: column;
 }
 .frameParent {
   display: flex;

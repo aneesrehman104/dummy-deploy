@@ -32,7 +32,7 @@ export const EventsContainer: React.FC<{
   return (
     <section className={styles.sectionsummarycontainer}>
       <main className={styles.sectiondatasummary}>
-        <div className={styles.ytdSummary}>
+        <div className="flex space-x-2 my-4 items-center">
           <div className={styles.ytdEventSummary}>{title}</div>
           <Image src={Vector2} alt="/vector2" width={12} height={12} />
         </div>
