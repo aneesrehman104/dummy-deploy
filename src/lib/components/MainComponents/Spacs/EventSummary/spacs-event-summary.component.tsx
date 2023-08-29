@@ -7,6 +7,7 @@ import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface, ChartOptions } from "@/lib/ts/interface";
 import { getODataWithParams } from "@lib/ts/api";
 import axios, { AxiosError } from "axios";
+import { initialGraphData } from "@/lib/ts/initialState";
 const DynamicChart = dynamic(
   () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
   {
@@ -19,10 +20,8 @@ interface PROPS {}
 
 const SpacsEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>({
-    additional_dataset: {},
-    dataset: [],
-  });
+  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+
   const options: ChartOptions = {
     chart: {
       type: "line",
@@ -76,23 +75,17 @@ const SpacsEventSummary: React.FC<PROPS> = () => {
     series: [
       {
         name: "IPOS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "IPO")
-          ?.map((item) => item.data),
+        data: null,
         color: "#F19529",
       },
       {
         name: "SPACS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "SPAC")
-          ?.map((item) => item.data),
+        data: null,
         color: "#7F98F3",
       },
       {
         name: "MERGERS",
-        data: graphData?.dataset
-          ?.filter((item) => item.event === "Merger")
-          ?.map((item) => item.data),
+        data: null,
         color: "#9747FF",
       },
     ],

@@ -3,12 +3,13 @@ import styles from "./card-elements.module.css";
 import MyTable from "./functions";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
-import searchIcon from "../../../../../../public/searchIcon.svg";
-import filterSvg from "../../../../../../public/filterSvg.svg";
-import exportSvg from "../../../../../../public/exportSvg.svg";
-import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
-import proSvg from "../../../../../../public/ProSvg.svg";
-import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
+import searchIcon from "@public/searchIcon.svg";
+import filterSvg from "@public/filterSvg.svg";
+import exportSvg from "@public/exportSvg.svg";
+import crossIconSvg from "@public/crossIconSvg.svg";
+import proSvg from "@public/ProSvg.svg";
+import { useRouter } from "next/navigation";
+import { getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import {
   SkeltonTable,
@@ -30,13 +31,7 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
-import axios, { AxiosError } from "axios";
-import {
-  headerPricedIPOsList,
-  headerUpcomingIPOsList,
-  headerIPOGrapevineList,
-  headerIPOsList,
-} from "./constants";
+import { headerIPOGrapevineList, headerIPOsList, headerPricedIPOsList, headerUpcomingIPOsList } from "./constants";
 
 const Mapper = {
   priced_ipo: `ipoStatus eq 'Priced'`,
@@ -46,9 +41,8 @@ const Mapper = {
   worst_20_performers: `ipoStatus eq 'Priced' and expectedIpoDate ge '2018/01/01'`,
 };
 
-interface PROPS {}
-
-const IpoList: React.FC<PROPS> = () => {
+function CardElements() {
+  const router = useRouter();
   const { user } = useContext(MemberInformationContext);
 
   const style = {
@@ -88,17 +82,17 @@ const IpoList: React.FC<PROPS> = () => {
     },
   });
 
-  const [selectedTab, setSelectedTab] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
+  const [selectedTab, setSelectedTab] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [openFilterModal, setOpenFilterModal] = useState(false);
   const [spacsListData, setSpacsListData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [filterCount, setFilerCount] = useState<number>(0);
+  const [filterCount, setFilerCount] = useState(0);
 
-  const [itemsPerPage, setItemPerPage] = useState<number>(5);
+  const [itemsPerPage, setItemPerPage] = useState(5);
   const [filters, setFilters] = useState({
     IPOYear: null,
     IPOType: null,
@@ -114,51 +108,34 @@ const IpoList: React.FC<PROPS> = () => {
     setCurrentPage(pageNumber);
   };
 
+  const getSpacsList = async () => {
+    setIsLoading(true);
+    const response = await getODataWithParams(URLs.ipoOdata, {
+      skip: selectedTab >= 3 ? 0 : (currentPage - 1) * itemsPerPage,
+      top: selectedTab >= 3 ? 20 : itemsPerPage,
+      filter: Mapper[tabValues[selectedTab]],
+      orderby:
+        selectedTab === 3
+          ? [{ field: "percentReturnFromIpoPrice", direction: "asc" }]
+          : selectedTab === 4
+          ? [{ field: "percentReturnFromIpoPrice", direction: "desc" }]
+          : undefined,
+    });
+    if (response.status === 200 && response.data !== null) {
+      setSpacsListData({
+        dataset: response.data,
+        additional_dataset: { totalLength: 10 },
+      });
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const source = axios.CancelToken.source();
-
-    const getSpacsList = async () => {
-      setIsLoading(true);
-
-      try {
-        const response = await getODataWithParams(URLs.ipoOdata, {
-          skip: selectedTab >= 3 ? 0 : (currentPage - 1) * itemsPerPage,
-          top: selectedTab >= 3 ? 20 : itemsPerPage,
-          filter: Mapper[tabValues[selectedTab]],
-          cancelToken: source.token,
-          orderby:
-            selectedTab === 3
-              ? [{ field: "percentReturnFromIpoPrice", direction: "asc" }]
-              : selectedTab === 4
-              ? [{ field: "percentReturnFromIpoPrice", direction: "desc" }]
-              : undefined,
-        });
-
-        if (response.status === 200 && response.data !== null) {
-          setSpacsListData({
-            dataset: response.data,
-            additional_dataset: { totalLength: 10 },
-          });
-        }
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          console.log("Request cancelled:", (error as AxiosError).message);
-        } else {
-          console.error("An error occurred:", (error as AxiosError).message);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     getSpacsList();
-
-    return () => {
-      source.cancel("Request cancelled due to component unmount");
-    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTab, currentPage, itemsPerPage]);
-
   const saveValue = (e: any) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
@@ -349,9 +326,29 @@ const IpoList: React.FC<PROPS> = () => {
                 <div>Filter&nbsp;&nbsp;</div>
               </Badge>
             </div>
-            <div className={styles.filterGap}>
-              <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
-              <div>EXPORT</div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
+              }}
+            >
+              {user?.member?.stripeCustomerId ? null : (
+                <Image
+                  src={proSvg}
+                  alt="filterSvg"
+                  width={50}
+                  height={26}
+                  onClick={() => {
+                    router.push("/plans");
+                  }}
+                />
+              )}
+              <div className={styles.filterGap}>
+                <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
+
+                <div>EXPORT</div>
+              </div>{" "}
             </div>
           </div>
         </div>
@@ -834,6 +831,6 @@ const IpoList: React.FC<PROPS> = () => {
       </Modal>
     </section>
   );
-};
+}
 
-export default IpoList;
+export default CardElements;

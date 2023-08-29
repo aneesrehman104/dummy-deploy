@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import currntTabIcon from "../../../../../public/currntTabIcon.svg";
+import currntTabIcon from "@public/currntTabIcon.svg";
 import Image from "next/image";
 import {
   Box,
@@ -77,7 +77,7 @@ export const DrawerList: React.FC<ScreenDrawerProps> = ({
                       : "tabStyle"
                   }
                 >
-                  {item.id === "home" ||
+                  {item.id === "overview" ||
                   item.id === "watchlist" ? null : isOpen[item.id] ? (
                     <Image
                       src={currntTabIcon}

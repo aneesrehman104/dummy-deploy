@@ -5,7 +5,7 @@ import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
-import Rectangle from "../../../../../../public/Rectangle.svg";
+import Rectangle from "@public/Rectangle.svg";
 import "./tracking-oneplace.css";
 import { useRouter, usePathname } from "next/navigation";
 import { marketingConstants } from "@/lib/ts/constants";
@@ -42,7 +42,7 @@ const TrackingOnePlace: React.FC<PROPS> = () => {
           <div
             className="buttonViewStyle pointer"
             onClick={() => {
-              router.push("/home");
+              router.push("/overview");
             }}
           >
             {marketingConstants.VIEWDashboard}

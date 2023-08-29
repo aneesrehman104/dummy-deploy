@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import footerLogo from "../../../../../public/footerLogo.svg";
+import footerLogo from "@public/footerLogo.svg";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
@@ -18,7 +18,7 @@ import { setCookie } from "cookies-next";
 import { motion } from "framer-motion";
 import "./navbar.css";
 import dynamic from "next/dynamic";
-import searchIcon from "../../../../../public/searchIcon.svg";
+import searchIcon from "@public/searchIcon.svg";
 import { navBarText } from "@/lib/ts/constants";
 import { MemberInformationContext } from "@/lib/components/context";
 import { useContext } from "react";
@@ -144,13 +144,13 @@ const Navbar: React.FC<PROPS> = ({
                 height={21}
                 style={{ marginRight: 20, cursor: "pointer" }}
                 onClick={() => {
-                  router.push("/home");
+                  router.push("/overview");
                 }}
               />
             ) : null}
             {!isMediumScreen ? (
               <CssTextField
-                placeholder="Search ticker or company"
+                placeholder="Search by company name or symbol"
                 className=""
                 InputProps={{
                   startAdornment: (
