@@ -45,7 +45,6 @@ const Trading: React.FC<PROPS> = () => {
     spacsTradingLoserDataCurrentPage,
     setSpacsTradingLoserDataCurrentPage,
   ] = useState<number>(1);
-
   const [itemsPerPage] = useState<number>(5);
 
   useEffect(() => {
@@ -116,10 +115,10 @@ const Trading: React.FC<PROPS> = () => {
     selectedTab,
   ]);
   return (
-    <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>Trading</div>
+    <main className={styles.stockstablesection}>
+      <header className={styles.tableTitle}>Trading</header>
       <div className={styles.tableContainerInner}>
-        <div
+        <section
           style={{
             borderBottom: "1px solid #d2ecf9",
             display: "flex",
@@ -142,7 +141,7 @@ const Trading: React.FC<PROPS> = () => {
           >
             De-SPACs
           </div>
-        </div>
+        </section>
         <Fragment>
           <Gainer
             title={
@@ -182,7 +181,7 @@ const Trading: React.FC<PROPS> = () => {
           />
         </Fragment>
       </div>
-    </section>
+    </main>
   );
 };
 

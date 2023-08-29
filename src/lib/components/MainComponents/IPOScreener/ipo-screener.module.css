@@ -194,7 +194,7 @@
   box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
     0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
   overflow: hidden;
-  padding: 14px 24px;
+      padding: 20px 24px;
 }
 .stockstablesection {
   padding: 24px 40px;
