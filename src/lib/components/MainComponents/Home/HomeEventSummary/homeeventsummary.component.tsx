@@ -68,6 +68,7 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       },
       max: graphData.dataset.YAxis?.MaxValue,
   },
+
     credits: {
       enabled: false,
     },
@@ -76,6 +77,7 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       verticalAlign: "bottom",
       layout: "horizontal",
     },
+
     series: graphData.dataset.SeriesData?.map((series) => ({
       name: series.Name,
       data: graphData.dataset.XAxis.Labels.map((month, index) => {
@@ -97,6 +99,7 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       try {
         //TODO: getting IPO data just for development. We need to point to a home controller graph endpoint
         const response = await getApiWithoutAuth(URLs.ipoOverviewChart, {
+
           cancelToken: source.token,
         });
 
@@ -105,6 +108,7 @@ const HomeEventSummary: React.FC<PROPS> = () => {
             dataset: response.data.source.dataset,
             additional_dataset: {},
         });
+
         }
       } catch (error) {
         if (axios.isCancel(error)) {
@@ -153,5 +157,6 @@ const HomeEventSummary: React.FC<PROPS> = () => {
     </section>
   );
 };
+
 
 export default HomeEventSummary;
