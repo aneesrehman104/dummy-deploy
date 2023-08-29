@@ -3,19 +3,19 @@ import styles from "./card-elements.module.css";
 import MyTable from "./functions";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
-import searchIcon from "@public/searchIcon.svg";
-import filterSvg from "@public/filterSvg.svg";
-import exportSvg from "@public/exportSvg.svg";
-import crossIconSvg from "@public/crossIconSvg.svg";
-import proSvg from "@public/ProSvg.svg";
-import { getApiWithoutAuth } from "@/lib/ts/api";
+import searchIcon from "../../../../../../public/searchIcon.svg";
+import filterSvg from "../../../../../../public/filterSvg.svg";
+import exportSvg from "../../../../../../public/exportSvg.svg";
+import crossIconSvg from "../../../../../../public/crossIconSvg.svg";
+import proSvg from "../../../../../../public/ProSvg.svg";
+import { getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import Checkbox from "@mui/material/Checkbox";
 import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
+import Checkbox from "@mui/material/Checkbox";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import {
   TextField,
   InputAdornment,
@@ -25,19 +25,24 @@ import {
   FormControl,
   InputLabel,
   Button,
-  MenuItem,
   Divider,
+  MenuItem,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
-
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
-  interface PROPS {}
+import { headerIPOGrapevineList, headerIPOsList, headerPricedIPOsList, headerUpcomingIPOsList } from "./constants";
 
-  const CardElements: React.FC<PROPS> = () => {
-    const router = useRouter();
+const Mapper = {
+  priced_ipo: `ipoStatus eq 'Priced'`,
+  upcoming_ipo: `ipoStatus eq 'Expected' `,
+  ipo_grapevine: `ipoStatus eq 'Rumored'`,
+  top_20_performers: `ipoStatus eq 'Priced' and expectedIpoDate ge '2018/01/01'`,
+  worst_20_performers: `ipoStatus eq 'Priced' and expectedIpoDate ge '2018/01/01'`,
+};
 
+function CardElements() {
   const { user } = useContext(MemberInformationContext);
+
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -50,9 +55,19 @@ import { MemberInformationContext } from "@/lib/components/context";
     borderRadius: "15px",
     p: 3,
   };
-  const tabValues: { [key: number]: string } = {
-    0: "all",
-    1: "pre_deal",
+  const tabValues: {
+    [key: number]:
+      | "priced_ipo"
+      | "upcoming_ipo"
+      | "ipo_grapevine"
+      | "top_20_performers"
+      | "worst_20_performers";
+  } = {
+    0: "priced_ipo",
+    1: "upcoming_ipo",
+    2: "ipo_grapevine",
+    3: "top_20_performers",
+    4: "worst_20_performers",
   };
   const CssTextField = styled(TextField)({
     width: "368px",
@@ -64,140 +79,51 @@ import { MemberInformationContext } from "@/lib/components/context";
       },
     },
   });
-  const headerArrayClosedMergersList = [
-    {
-      name: "Target Company Name (Ticker)",
-      key: "TargetCompanyName",
-      type: "string",
-    },
-    {
-      name: "Acquirer Company Name (Ticker)",
-      key: "AcquirerCompanyName",
-      type: "string",
-    },
-    {
-      name: "Closing Date",
-      key: "ClosingDate",
-      type: "string",
-    },
-    {
-      name: "Merger Type",
-      key: "MergerType",
-      type: "string",
-    },
-    {
-      name: "Valuation",
-      key: "Valuation",
-      type: "string",
-    },
-    {
-      name: "Valuation Detail",
-      key: "ValuationDetail",
-      type: "string",
-    },
-    {
-      name: "Premium (at Deal)",
-      key: "Premium",
-      type: "string",
-    },
-    {
-      name: "Target Industry",
-      key: "TargetIndustry",
-      type: "string",
-    },
-    {
-      name: "View Deal Page",
-      key: "ViewDealPage",
-      type: "string",
-    },
-  ];
-  const headerArrayAnnouncedMergersList = [
-    {
-      name: "Target Company Name (Ticker)",
-      key: "TargetCompanyName",
-      type: "string",
-    },
-    {
-      name: "Acquirer Company Name (Ticker)",
-      key: "AcquirerCompanyName",
-      type: "string",
-    },
-    {
-      name: "Announced Date",
-      key: "AnnouncedDate",
-      type: "string",
-    },
-    {
-      name: "Merger Type",
-      key: "MergerType",
-      type: "string",
-    },
-    {
-      name: "Press Release",
-      key: "PressRelease",
-      type: "string",
-    },
-    {
-      name: "Investor Presentation",
-      key: "InvestorPresentation",
-      type: "string",
-    },
-    {
-      name: "Valuation",
-      key: "Valuation",
-      type: "string",
-    },
-    {
-      name: "Valuation Detail",
-      key: "ValuationDetail",
-      type: "string",
-    },
-    {
-      name: "Premium (at Deal)",
-      key: "Premium",
-      type: "string",
-    },
-    {
-      name: "View Deal Page",
-      key: "ViewDealPage",
-      type: "string",
-    },
-  ];
-  const [selectedTab, setSelectedTab] = useState<number>(0);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [openFilterModal, setOpenFilterModal] = useState<boolean>(false);
+
+  const [selectedTab, setSelectedTab] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [openFilterModal, setOpenFilterModal] = useState(false);
   const [spacsListData, setSpacsListData] = useState<any>({
     dataset: [],
     additional_dataset: { totalLength: 20 },
   });
-  const [isUser, setIsUser] = useState<boolean>(false);
-  const [filterCount, setFilerCount] = useState<number>(0);
+  const [filterCount, setFilerCount] = useState(0);
 
-  const [itemsPerPage, setItemPerPage] = useState<number>(5);
+  const [itemsPerPage, setItemPerPage] = useState(5);
   const [filters, setFilters] = useState({
-    MergerType: null,
-    ClosingYear: null,
-    TargetSector: null,
-    TargetRegion: null,
+    IPOYear: null,
+    IPOType: null,
+    IPOStatus: null,
   });
   const [filterArray, setFilterArray] = useState<{
-    MergerType?: any[];
-    TargetSector?: any[];
-    TargetRegion?: any[];
-    ClosingYear?: any[];
+    IPOYEAR?: any[];
+    IPOType?: any[];
+    IPOStatus?: any[];
   }>({});
+
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
   const getSpacsList = async () => {
     setIsLoading(true);
-    const response = await getApiWithoutAuth(
-      `${URLs.spacsList}?page=${currentPage}&offset=${itemsPerPage}&type=${tabValues[selectedTab]}`
-    );
+    const response = await getODataWithParams(URLs.ipoOdata, {
+      skip: selectedTab >= 3 ? 0 : (currentPage - 1) * itemsPerPage,
+      top: selectedTab >= 3 ? 20 : itemsPerPage,
+      filter: Mapper[tabValues[selectedTab]],
+      orderby:
+        selectedTab === 3
+          ? [{ field: "percentReturnFromIpoPrice", direction: "asc" }]
+          : selectedTab === 4
+          ? [{ field: "percentReturnFromIpoPrice", direction: "desc" }]
+          : undefined,
+    });
     if (response.status === 200 && response.data !== null) {
-      setSpacsListData(response.data);
+      setSpacsListData({
+        dataset: response.data,
+        additional_dataset: { totalLength: 10 },
+      });
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -215,10 +141,9 @@ import { MemberInformationContext } from "@/lib/components/context";
 
   const clearAll = () => {
     setFilters({
-      MergerType: null,
-      ClosingYear: null,
-      TargetSector: null,
-      TargetRegion: null,
+      IPOYear: null,
+      IPOType: null,
+      IPOStatus: null,
     });
     setOpenFilterModal(false);
     setFilerCount(0);
@@ -263,21 +188,6 @@ import { MemberInformationContext } from "@/lib/components/context";
     setFilterArray(updatedFilterArray);
   };
 
-  const MergerTypeOptions = [
-    { key: "SPAC", name: "SPAC", pro: false },
-    { key: "Strategic", name: "Strategic", pro: true },
-    { key: "PE", name: "PE", pro: true },
-    { key: "Non-SPAC", name: "Non-SPAC", pro: true },
-  ];
-
-  const TargetSectorOptions = [
-    { key: "Tech", name: "Tech", pro: false },
-    { key: "Energy", name: "Energy", pro: true },
-    { key: "Financials", name: "Financials", pro: true },
-    { key: "Communications", name: "Communications", pro: true },
-    { key: "Materials", name: "Materials", pro: true },
-  ];
-
   const IPOYearsOptions = [
     { key: "2023", name: "2023", pro: false },
     { key: "2022", name: "2022", pro: false },
@@ -286,13 +196,23 @@ import { MemberInformationContext } from "@/lib/components/context";
     { key: "2019", name: "2019", pro: true },
   ];
 
-  const TargetRegionOptions = [
-    { key: "U.S. & Canada", name: "U.S. & Canada", pro: false },
-    { key: "Latin America", name: "Latin America", pro: true },
-    { key: " Asia & Oceania", name: " Asia & Oceania", pro: true },
-    { key: "Africa", name: "Africa", pro: true },
-    { key: "Europe", name: "Europe", pro: true },
+  const IPOTypeOptions = [
+    { key: "Traditional", name: "Traditional", pro: true },
+    { key: "SPAC", name: "SPAC", pro: true },
+    { key: "Direct Listing", name: "Direct Listing", pro: true },
   ];
+
+  const IPOStatusOptions = [
+    { key: "Expected", name: "Expected", pro: false },
+    { key: "Filed", name: "Filed", pro: false },
+    { key: "Withdrawn", name: "Withdrawn", pro: false },
+    { key: "Filed Amended", name: "Filed Amended", pro: true },
+  ];
+  const IPOStatusRumorOptions = [
+    { key: "Rumor Active", name: "Rumor Active", pro: false },
+    { key: "Rumor Inactive", name: "Rumor Inactive", pro: true },
+  ];
+
   return (
     <section className={styles.stockstablesection}>
       <div className={styles.tableTitle}>Card Elements</div>
@@ -307,7 +227,7 @@ import { MemberInformationContext } from "@/lib/components/context";
               selectedTab === 0 && styles.selectedHeader
             }`}
           >
-            Closed Mergers List
+            Priced IPOs
           </div>
           <div
             onClick={() => {
@@ -318,7 +238,48 @@ import { MemberInformationContext } from "@/lib/components/context";
               selectedTab === 1 && styles.selectedHeader
             }`}
           >
-            Announced Mergers List
+            Upcoming IPOs
+          </div>
+          <div
+            onClick={() => {
+              setSelectedTab(2);
+              setFilerCount(0);
+            }}
+            className={`${styles.headerCell} ${
+              selectedTab === 2 && styles.selectedHeader
+            }`}
+          >
+            IPO Grapevine
+          </div>
+        </div>
+        <div
+          style={{
+            borderBottom: "1px solid #d2ecf9",
+            display: "flex",
+            marginTop: 20,
+          }}
+        >
+          <div
+            onClick={() => {
+              setSelectedTab(3);
+              setFilerCount(0);
+            }}
+            className={`${styles.headerCell} ${
+              selectedTab === 3 && styles.selectedHeader
+            }`}
+          >
+            Top 20 Performers
+          </div>
+          <div
+            onClick={() => {
+              setSelectedTab(4);
+              setFilerCount(0);
+            }}
+            className={`${styles.headerCell} ${
+              selectedTab === 4 && styles.selectedHeader
+            }`}
+          >
+            Worst 20 Performers
           </div>
         </div>
 
@@ -363,29 +324,9 @@ import { MemberInformationContext } from "@/lib/components/context";
                 <div>Filter&nbsp;&nbsp;</div>
               </Badge>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-end",
-              }}
-            >
-              {user?.member?.stripeCustomerId ? null : (
-                <Image
-                  src={proSvg}
-                  alt="filterSvg"
-                  width={50}
-                  height={26}
-                  onClick={() => {
-                    router.push("/plans");
-                  }}
-                />
-              )}
-              <div className={styles.filterGap}>
-                <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
-
-                <div>EXPORT</div>
-              </div>{" "}
+            <div className={styles.filterGap}>
+              <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
+              <div>EXPORT</div>
             </div>
           </div>
         </div>
@@ -397,8 +338,12 @@ import { MemberInformationContext } from "@/lib/components/context";
               data={spacsListData?.dataset}
               headerArray={
                 selectedTab === 0
-                  ? headerArrayClosedMergersList
-                  : headerArrayAnnouncedMergersList
+                  ? headerPricedIPOsList
+                  : selectedTab === 1
+                  ? headerUpcomingIPOsList
+                  : selectedTab === 2
+                  ? headerIPOGrapevineList
+                  : selectedTab >= 3 && headerIPOsList
               }
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
@@ -406,7 +351,7 @@ import { MemberInformationContext } from "@/lib/components/context";
               totalLength={spacsListData?.additional_dataset}
               showPagination
               setItemPerPage={setItemPerPage}
-              isUser={isUser}
+              isUser={user?.member?.stripeCustomerId}
             />
           )}
         </div>
@@ -443,235 +388,20 @@ import { MemberInformationContext } from "@/lib/components/context";
               >
                 <FormControl sx={{ m: 1, width: 300 }}>
                   <InputLabel id="demo-multiple-checkbox-label">
-                    Merger Type
+                    IPO Year
                   </InputLabel>
                   <Select
-                    label=" Merger Type"
+                    label="IPO Year"
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.MergerType
-                        ? filterArray?.MergerType.map((item: any) => item.key)
+                      filterArray?.IPOYEAR
+                        ? filterArray?.IPOYEAR.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
-                      handleChangeFilter("MergerType", event, MergerTypeOptions)
-                    }
-                    renderValue={(selected) =>
-                      `${selected.length} filters selected: ` +
-                      selected
-                        .map((selectedKey: string) => {
-                          const selectedItem = MergerTypeOptions.find(
-                            (item) => item.key === selectedKey
-                          );
-                          return selectedItem ? selectedItem.name : null;
-                        })
-                        .filter(Boolean) // Remove null values
-                        .join(", ")
-                    }
-                    MenuProps={{
-                      style: {
-                        maxHeight: 250,
-                      },
-                      PaperProps: {
-                        style: {
-                          maxHeight: 250,
-                        },
-                      },
-                    }}
-                  >
-                    {MergerTypeOptions.map((item: any) => (
-                      <MenuItem
-                        key={item.key}
-                        value={item.key}
-                        disabled={!user?.member?.stripeCustomerId && item.pro}
-                      >
-                        <Checkbox
-                          checked={
-                            filterArray.MergerType &&
-                            filterArray.MergerType.some(
-                              (selectedItem: any) =>
-                                selectedItem.key === item.key
-                            )
-                          }
-                        />
-
-                        {item.name}
-                        {!user?.member?.stripeCustomerId && item.pro ? (
-                          <Image
-                            src={proSvg}
-                            alt="filterSvg"
-                            width={50}
-                            height={32}
-                          />
-                        ) : null}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    Target Sector
-                  </InputLabel>
-                  <Select
-                    label="Target Sector"
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={
-                      filterArray?.TargetSector
-                        ? filterArray?.TargetSector.map((item: any) => item.key)
-                        : []
-                    }
-                    onChange={(event) =>
-                      handleChangeFilter(
-                        "TargetSector",
-                        event,
-                        TargetSectorOptions
-                      )
-                    }
-                    renderValue={(selected) =>
-                      `${selected.length} filters selected: ` +
-                      selected
-                        .map((selectedKey: string) => {
-                          const selectedItem = TargetSectorOptions.find(
-                            (item) => item.key === selectedKey
-                          );
-                          return selectedItem ? selectedItem.name : null;
-                        })
-                        .filter(Boolean) // Remove null values
-                        .join(", ")
-                    }
-                    MenuProps={{
-                      style: {
-                        maxHeight: 250,
-                      },
-                      PaperProps: {
-                        style: {
-                          maxHeight: 250,
-                        },
-                      },
-                    }}
-                  >
-                    {TargetSectorOptions.map((item: any) => (
-                      <MenuItem
-                        key={item.key}
-                        value={item.key}
-                        disabled={!user?.member?.stripeCustomerId && item.pro}
-                      >
-                        <Checkbox
-                          checked={
-                            filterArray.TargetSector &&
-                            filterArray.TargetSector.some(
-                              (selectedItem: any) =>
-                                selectedItem.key === item.key
-                            )
-                          }
-                        />
-
-                        {item.name}
-                        {!user?.member?.stripeCustomerId && item.pro ? (
-                          <Image
-                            src={proSvg}
-                            alt="filterSvg"
-                            width={50}
-                            height={32}
-                          />
-                        ) : null}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    Target Region
-                  </InputLabel>
-                  <Select
-                    label="Target Region"
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={
-                      filterArray?.TargetRegion
-                        ? filterArray?.TargetRegion.map((item: any) => item.key)
-                        : []
-                    }
-                    onChange={(event) =>
-                      handleChangeFilter(
-                        "TargetRegion",
-                        event,
-                        TargetRegionOptions
-                      )
-                    }
-                    renderValue={(selected) =>
-                      `${selected.length} filters selected: ` +
-                      selected
-                        .map((selectedKey: string) => {
-                          const selectedItem = TargetRegionOptions.find(
-                            (item) => item.key === selectedKey
-                          );
-                          return selectedItem ? selectedItem.name : null;
-                        })
-                        .filter(Boolean) // Remove null values
-                        .join(", ")
-                    }
-                    MenuProps={{
-                      style: {
-                        maxHeight: 250,
-                      },
-                      PaperProps: {
-                        style: {
-                          maxHeight: 250,
-                        },
-                      },
-                    }}
-                  >
-                    {TargetRegionOptions.map((item: any) => (
-                      <MenuItem
-                        key={item.key}
-                        value={item.key}
-                        disabled={!user?.member?.stripeCustomerId && item.pro}
-                      >
-                        <Checkbox
-                          checked={
-                            filterArray.TargetRegion &&
-                            filterArray.TargetRegion.some(
-                              (selectedItem: any) =>
-                                selectedItem.key === item.key
-                            )
-                          }
-                        />
-
-                        {item.name}
-                        {!user?.member?.stripeCustomerId && item.pro ? (
-                          <Image
-                            src={proSvg}
-                            alt="filterSvg"
-                            width={50}
-                            height={32}
-                          />
-                        ) : null}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    Closing Year
-                  </InputLabel>
-                  <Select
-                    label="Closing Year"
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={
-                      filterArray?.ClosingYear
-                        ? filterArray?.ClosingYear.map((item: any) => item.key)
-                        : []
-                    }
-                    onChange={(event) =>
-                      handleChangeFilter("ClosingYear", event, IPOYearsOptions)
+                      handleChangeFilter("IPOYEAR", event, IPOYearsOptions)
                     }
                     renderValue={(selected) =>
                       `${selected.length} filters selected: ` +
@@ -704,8 +434,80 @@ import { MemberInformationContext } from "@/lib/components/context";
                       >
                         <Checkbox
                           checked={
-                            filterArray.ClosingYear &&
-                            filterArray.ClosingYear.some(
+                            filterArray.IPOYEAR &&
+                            filterArray.IPOYEAR.some(
+                              (selectedItem: any) =>
+                                selectedItem.key === item.key
+                            )
+                          }
+                        />
+
+                        {item.name}
+                        {!user?.member?.stripeCustomerId && item.pro ? (
+                          <Image
+                            src={proSvg}
+                            alt="filterSvg"
+                            width={50}
+                            height={32}
+                          />
+                        ) : null}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl sx={{ m: 1, width: 300 }}>
+                  <InputLabel
+                    id="demo-multiple-c
+                  heckbox-label"
+                  >
+                    IPO Type
+                  </InputLabel>
+                  <Select
+                    label="IPO Type"
+                    labelId="demo-multiple-checkbox-label"
+                    id="demo-multiple-checkbox"
+                    multiple
+                    value={
+                      filterArray?.IPOType
+                        ? filterArray?.IPOType.map((item: any) => item.key)
+                        : []
+                    }
+                    onChange={(event) =>
+                      handleChangeFilter("IPOType", event, IPOTypeOptions)
+                    }
+                    renderValue={(selected) =>
+                      `${selected.length} filters selected: ` +
+                      selected
+                        .map((selectedKey: string) => {
+                          const selectedItem = IPOTypeOptions.find(
+                            (item) => item.key === selectedKey
+                          );
+                          return selectedItem ? selectedItem.name : null;
+                        })
+                        .filter(Boolean) // Remove null values
+                        .join(", ")
+                    }
+                    MenuProps={{
+                      style: {
+                        maxHeight: 250,
+                      },
+                      PaperProps: {
+                        style: {
+                          maxHeight: 250,
+                        },
+                      },
+                    }}
+                  >
+                    {IPOTypeOptions.map((item: any) => (
+                      <MenuItem
+                        key={item.key}
+                        value={item.key}
+                        disabled={!user?.member?.stripeCustomerId && item.pro}
+                      >
+                        <Checkbox
+                          checked={
+                            filterArray.IPOType &&
+                            filterArray.IPOType.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -726,7 +528,7 @@ import { MemberInformationContext } from "@/lib/components/context";
                   </Select>
                 </FormControl>
               </div>
-            ) : (
+            ) : selectedTab === 1 ? (
               <div
                 style={{
                   display: "flex",
@@ -735,26 +537,26 @@ import { MemberInformationContext } from "@/lib/components/context";
               >
                 <FormControl sx={{ m: 1, width: 300 }}>
                   <InputLabel id="demo-multiple-checkbox-label">
-                    Merger Type
+                    IPO Status
                   </InputLabel>
                   <Select
-                    label=" Merger Type"
+                    label="IPO Status"
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.MergerType
-                        ? filterArray?.MergerType.map((item: any) => item.key)
+                      filterArray?.IPOStatus
+                        ? filterArray?.IPOStatus.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
-                      handleChangeFilter("MergerType", event, MergerTypeOptions)
+                      handleChangeFilter("IPOStatus", event, IPOStatusOptions)
                     }
                     renderValue={(selected) =>
                       `${selected.length} filters selected: ` +
                       selected
                         .map((selectedKey: string) => {
-                          const selectedItem = MergerTypeOptions.find(
+                          const selectedItem = IPOStatusOptions.find(
                             (item) => item.key === selectedKey
                           );
                           return selectedItem ? selectedItem.name : null;
@@ -773,7 +575,7 @@ import { MemberInformationContext } from "@/lib/components/context";
                       },
                     }}
                   >
-                    {MergerTypeOptions.map((item: any) => (
+                    {IPOStatusOptions.map((item: any) => (
                       <MenuItem
                         key={item.key}
                         value={item.key}
@@ -781,8 +583,8 @@ import { MemberInformationContext } from "@/lib/components/context";
                       >
                         <Checkbox
                           checked={
-                            filterArray.MergerType &&
-                            filterArray.MergerType.some(
+                            filterArray.IPOStatus &&
+                            filterArray.IPOStatus.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -803,31 +605,30 @@ import { MemberInformationContext } from "@/lib/components/context";
                   </Select>
                 </FormControl>
                 <FormControl sx={{ m: 1, width: 300 }}>
-                  <InputLabel id="demo-multiple-checkbox-label">
-                    Target Sector
+                  <InputLabel
+                    id="demo-multiple-c
+                  heckbox-label"
+                  >
+                    IPO Type
                   </InputLabel>
                   <Select
-                    label="Target Sector"
+                    label="IPO Type"
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.TargetSector
-                        ? filterArray?.TargetSector.map((item: any) => item.key)
+                      filterArray?.IPOType
+                        ? filterArray?.IPOType.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
-                      handleChangeFilter(
-                        "TargetSector",
-                        event,
-                        TargetSectorOptions
-                      )
+                      handleChangeFilter("IPOType", event, IPOTypeOptions)
                     }
                     renderValue={(selected) =>
                       `${selected.length} filters selected: ` +
                       selected
                         .map((selectedKey: string) => {
-                          const selectedItem = TargetSectorOptions.find(
+                          const selectedItem = IPOTypeOptions.find(
                             (item) => item.key === selectedKey
                           );
                           return selectedItem ? selectedItem.name : null;
@@ -846,7 +647,7 @@ import { MemberInformationContext } from "@/lib/components/context";
                       },
                     }}
                   >
-                    {TargetSectorOptions.map((item: any) => (
+                    {IPOTypeOptions.map((item: any) => (
                       <MenuItem
                         key={item.key}
                         value={item.key}
@@ -854,8 +655,8 @@ import { MemberInformationContext } from "@/lib/components/context";
                       >
                         <Checkbox
                           checked={
-                            filterArray.TargetSector &&
-                            filterArray.TargetSector.some(
+                            filterArray.IPOType &&
+                            filterArray.IPOType.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -875,32 +676,40 @@ import { MemberInformationContext } from "@/lib/components/context";
                     ))}
                   </Select>
                 </FormControl>
+              </div>
+            ) : selectedTab === 2 ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
                 <FormControl sx={{ m: 1, width: 300 }}>
                   <InputLabel id="demo-multiple-checkbox-label">
-                    Target Region
+                    IPO Status
                   </InputLabel>
                   <Select
-                    label="Target Region"
+                    label="IPO Status"
                     labelId="demo-multiple-checkbox-label"
                     id="demo-multiple-checkbox"
                     multiple
                     value={
-                      filterArray?.TargetRegion
-                        ? filterArray?.TargetRegion.map((item: any) => item.key)
+                      filterArray?.IPOStatus
+                        ? filterArray?.IPOStatus.map((item: any) => item.key)
                         : []
                     }
                     onChange={(event) =>
                       handleChangeFilter(
-                        "TargetRegion",
+                        "IPOStatus",
                         event,
-                        TargetRegionOptions
+                        IPOStatusRumorOptions
                       )
                     }
                     renderValue={(selected) =>
                       `${selected.length} filters selected: ` +
                       selected
                         .map((selectedKey: string) => {
-                          const selectedItem = TargetRegionOptions.find(
+                          const selectedItem = IPOStatusRumorOptions.find(
                             (item) => item.key === selectedKey
                           );
                           return selectedItem ? selectedItem.name : null;
@@ -919,7 +728,7 @@ import { MemberInformationContext } from "@/lib/components/context";
                       },
                     }}
                   >
-                    {TargetRegionOptions.map((item: any) => (
+                    {IPOStatusRumorOptions.map((item: any) => (
                       <MenuItem
                         key={item.key}
                         value={item.key}
@@ -927,8 +736,8 @@ import { MemberInformationContext } from "@/lib/components/context";
                       >
                         <Checkbox
                           checked={
-                            filterArray.TargetRegion &&
-                            filterArray.TargetRegion.some(
+                            filterArray.IPOStatus &&
+                            filterArray.IPOStatus.some(
                               (selectedItem: any) =>
                                 selectedItem.key === item.key
                             )
@@ -948,6 +757,30 @@ import { MemberInformationContext } from "@/lib/components/context";
                     ))}
                   </Select>
                 </FormControl>
+              </div>
+            ) : selectedTab === 3 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div className={styles.filterModalStyling}>
+                  Not have any filter
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div className={styles.filterModalStyling}>
+                  Not have any filter
+                </div>
               </div>
             )}
             <Divider style={{ marginTop: 20, marginBottom: 10 }} />

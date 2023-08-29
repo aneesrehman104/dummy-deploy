@@ -22,22 +22,12 @@ import { SpacFeed } from "@/lib/components/CommonComponents/Feed/Daily/spacfeed"
 import { MergerFeed } from "@/lib/components/CommonComponents/Feed/Daily/mergerfeed";
 import { IpoFeed } from "@/lib/components/CommonComponents/Feed/Daily/ipofeed";
 import { ListingtrackFeed } from "@/lib/components/CommonComponents/Feed/Daily/listingtrackfeed";
-import { URLs } from "@/lib/ts/apiUrl";
-import { backEndURLWithoutAuth, getApiWithoutAuth } from "@/lib/ts/api";
 
-const selections: Array<Selection> = ["Merger", "IPO", "SPAC", "ListingTrack"];
-const mapper = {
-  IPO: 0,
-  Merger: 1,
-  SPAC: 2,
-  ListingTrack: 3,
-};
+const selections: Array<Selection> = ["Merger", "IPO", "SPAC", "Listing Track"];
 
 export default function RootLayout() {
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [selection, setSelection] = useState<
-    "Merger" | "IPO" | "SPAC" | "ListingTrack"
-  >("Merger");
+  const [selection, setSelection] = useState<string>("Merger");
   const [spac_data, setSpacData] = useState<patternSPAC | null>(null);
   const [merger_data, setMergerData] = useState<patternMerger | null>(null);
   const [ipo_data, setIpoData] = useState<patternIPO | null>(null);
@@ -57,21 +47,23 @@ export default function RootLayout() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const url = URLs.newsLetterTool + `?type=${mapper[selection]}`;
-      const response = await backEndURLWithoutAuth.get(url);
-      console.log(response.data);
+      const url = `http://127.0.0.1:5500/newsletter${selection
+        .replace(/\s/g, "")
+        .toLowerCase()}.json`;
+      const response = await fetch(url);
+      const _data = await response.json();
       switch (selection) {
         case "SPAC":
-          setSpacData(response.data as patternSPAC);
+          setSpacData(_data as patternSPAC);
           break;
         case "Merger":
-          setMergerData(response.data as patternMerger);
+          setMergerData(_data as patternMerger);
           break;
         case "IPO":
-          setIpoData(response.data as patternIPO);
+          setIpoData(_data as patternIPO);
           break;
-        case "ListingTrack":
-          setListingTrackData(response.data as patternListingTrack);
+        case "Listing Track":
+          setListingTrackData(_data as patternListingTrack);
           break;
         default:
           break;

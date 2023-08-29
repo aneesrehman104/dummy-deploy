@@ -13,10 +13,9 @@ import { useMemberstackModal } from "@memberstack/react";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
 import { Checkbox, FormControlLabel, Menu, MenuItem } from "@mui/material";
-import { getApiWithoutAuth, getODataWithParams } from "@lib/ts/api";
-import { URLs } from "@/lib/ts/apiUrl";
+import { getODataWithParams } from "@lib/ts/api";
 import { GraphDataInterface } from "@/lib/ts/interface";
-import { initialGraphData } from "@/lib/ts/initialState";
+import { URLs } from "@/lib/ts/apiUrl";
 import axios, { AxiosError } from "axios";
 
 const jsonResponse = "application/json";
@@ -73,7 +72,10 @@ const dataSet = [
 
 const IOPS: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  const [graphData, setGraphData] = useState<GraphDataInterface>({
+    additional_dataset: {},
+    dataset: [],
+  });
   const { openModal, hideModal } = useMemberstackModal();
   const { user } = useContext(MemberInformationContext);
 

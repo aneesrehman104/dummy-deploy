@@ -17,7 +17,16 @@ const Plans: React.FC<PROPS> = () => {
     });
   };
   return (
-    <main className="planMainContainer">
+    <section
+      style={{
+        background: "#D2ECF9",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
+    >
       <div>
         {/* <div>
             <ArrowBackIcon
@@ -26,31 +35,74 @@ const Plans: React.FC<PROPS> = () => {
               }}
             />
           </div> */}
-        <section className="firstsectionOuterContainer">
-          <header className="firstsectionInnerContainerHeading">
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          <div
+            style={{
+              color: "#263C6F",
+              fontWeight: 500,
+              fontSize: 33,
+              padding: "5rem",
+              textTransform: "uppercase",
+            }}
+          >
             Unlock the full potential
-          </header>
-          <div className="firstsectionInnerContainerText">
+          </div>
+          <div style={{ width: "80%", marginTop: 10 }}>
             Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
             fugit, sed quia consequuntur magni dolores eos qui ratione
             voluptatem.
           </div>
-        </section>
-        <section className="secondsectionOuterContainer">
-          <section className="planStyle">
-            <header className="plansBackground">Free</header>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-end",
+            flexWrap: "wrap",
+            marginTop: 15,
+          }}
+        >
+          <div className="planStyle">
+            <div className="plansBackground">Free</div>
             <div>
               <div className="plansPrice">View-only dashboard access</div>
               <ul style={{ marginLeft: -29 }}>
-                <li className="marginTop15">Sign up to use the Watchlist</li>
-                <div className="marginTop15TextDecoration">
+                <li style={{ marginTop: 15 }}>Sign up to use the Watchlist</li>
+                <div
+                  style={{
+                    marginTop: 15,
+                    textDecoration: "line-through",
+                    color: "#6c757d",
+                  }}
+                >
                   Set notifications
                 </div>
-                <div className="marginTop15TextDecoration">
+                <div
+                  style={{
+                    marginTop: 15,
+                    textDecoration: "line-through",
+                    color: "#6c757d",
+                  }}
+                >
                   {" "}
                   Customize & export tables
                 </div>
-                <div className="marginTop15TextDecoration">
+                <div
+                  style={{
+                    marginTop: 15,
+                    textDecoration: "line-through",
+                    color: "#6c757d",
+                  }}
+                >
                   {" "}
                   Daily premium newsletter
                 </div>
@@ -64,11 +116,11 @@ const Plans: React.FC<PROPS> = () => {
                 onClick={() => handleCheckout("prc_commonfi-11dh0xk5")}
               />
             </div>
-          </section>
-          <section className="planStylePro">
-            <header className="plansBackground" style={{ background: "#0AAC85" }}>
+          </div>
+          <div className="planStylePro">
+            <div className="plansBackground" style={{ background: "#0AAC85" }}>
               PRO
-            </header>
+            </div>
             <div>
               <div className="plansPrice">
                 <div>
@@ -87,11 +139,11 @@ const Plans: React.FC<PROPS> = () => {
                 </div>
               </div>
               <ul style={{ marginLeft: -29 }}>
-                <li className="marginTop15">Sign up to use the Watchlist</li>
-                <li className="marginTop15">Set notifications</li>
-                <li className="marginTop15"> Customize & export tables</li>
-                <li className="marginTop15"> Export tables</li>
-                <li className="marginTop15"> Daily premium newsletter</li>
+                <li style={{ marginTop: 15 }}>Sign up to use the Watchlist</li>
+                <li style={{ marginTop: 15 }}>Set notifications</li>
+                <li style={{ marginTop: 15 }}> Customize & export tables</li>
+                <li style={{ marginTop: 15 }}> Export tables</li>
+                <li style={{ marginTop: 15 }}> Daily premium newsletter</li>
               </ul>
             </div>
             <div>
@@ -102,11 +154,11 @@ const Plans: React.FC<PROPS> = () => {
                 onClick={() => handleCheckout("prc_commonfi-11dh0xk5")}
               />
             </div>
-          </section>
-          <section className="planStyle">
-            <header className="plansBackground" style={{ background: "#1991AC" }}>
+          </div>
+          <div className="planStyle">
+            <div className="plansBackground" style={{ background: "#1991AC" }}>
               PLUS
-            </header>
+            </div>
             <div>
               <div className="plansPrice">
                 <div>
@@ -125,11 +177,26 @@ const Plans: React.FC<PROPS> = () => {
                 </div>
               </div>
               <ul style={{ marginLeft: -29 }}>
-                <li className="marginTop15">Sign up to use the Watchlist</li>
-                <li className="marginTop15">Set notifications</li>
-                <li className="marginTop15"> Customize table Filters</li>
-                <div className="marginTop15TextDecoration"> Export tables</div>
-                <div className="marginTop15TextDecoration">
+                <li style={{ marginTop: 15 }}>Sign up to use the Watchlist</li>
+                <li style={{ marginTop: 15 }}>Set notifications</li>
+                <li style={{ marginTop: 15 }}> Customize table Filters</li>
+                <div
+                  style={{
+                    marginTop: 15,
+                    textDecoration: "line-through",
+                    color: "#6c757d",
+                  }}
+                >
+                  {" "}
+                  Export tables
+                </div>
+                <div
+                  style={{
+                    marginTop: 15,
+                    textDecoration: "line-through",
+                    color: "#6c757d",
+                  }}
+                >
                   {" "}
                   Daily premium newsletter
                 </div>
@@ -143,10 +210,10 @@ const Plans: React.FC<PROPS> = () => {
                 onClick={() => handleCheckout("prc_commonfi-11dh0xk5")}
               />
             </div>
-          </section>
-        </section>
+          </div>
+        </div>
       </div>
-    </main>
+    </section>
   );
 };
 

@@ -10,7 +10,7 @@ const HomePAge = () => {
   return (
     <Meta title="Main" description="" style={{ width: "100%" }}>
       <RootLayout>
-        <AuthenticatedLayout selected_id="overview">
+        <AuthenticatedLayout selected_id="home">
           <Home />
         </AuthenticatedLayout>
       </RootLayout>

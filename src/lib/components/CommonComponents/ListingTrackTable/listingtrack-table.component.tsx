@@ -11,13 +11,10 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { TABLETITLESECTION, homeConstants } from "@/lib/ts/constants";
 import TablePagination from "@mui/material/TablePagination";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import dynamic from "next/dynamic";
 import Skeleton from "@mui/material/Skeleton";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
-import newsImage from "@public/newsImage.svg";
 const DynamicChart = dynamic(() => import("./events-chart.component"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
@@ -51,31 +48,29 @@ const ListingTrackTable = ({
     }
   };
 
-  const sortedData = Array.isArray(data)
-    ? [...data].sort((a, b) => {
-        if (sortColumn) {
-          if (sortDirection === TABLETITLESECTION.asc) {
-            if (
-              typeof a[sortColumn] === "number" &&
-              typeof b[sortColumn] === "number"
-            ) {
-              return a[sortColumn] - b[sortColumn];
-            }
-            return String(a[sortColumn]).localeCompare(String(b[sortColumn]));
-          } else {
-            if (
-              typeof a[sortColumn] === "number" &&
-              typeof b[sortColumn] === "number"
-            ) {
-              return b[sortColumn] - a[sortColumn];
-            }
-            return String(b[sortColumn]).localeCompare(String(a[sortColumn]));
-          }
-        } else {
-          return 0;
+  const sortedData = [...data]?.sort((a, b) => {
+    if (sortColumn) {
+      if (sortDirection === TABLETITLESECTION.asc) {
+        if (
+          typeof a[sortColumn] === "number" &&
+          typeof b[sortColumn] === "number"
+        ) {
+          return a[sortColumn] - b[sortColumn];
         }
-      })
-    : [];
+        return String(a[sortColumn]).localeCompare(String(b[sortColumn]));
+      } else {
+        if (
+          typeof a[sortColumn] === "number" &&
+          typeof b[sortColumn] === "number"
+        ) {
+          return b[sortColumn] - a[sortColumn];
+        }
+        return String(b[sortColumn]).localeCompare(String(a[sortColumn]));
+      }
+    } else {
+      return 0;
+    }
+  });
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -94,11 +89,6 @@ const ListingTrackTable = ({
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedData.slice(indexOfFirstItem, indexOfLastItem);
-
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    console.log("===============value", value);
-    paginate(value);
-  };
   return (
     <Table style={{ width: "100%" }}>
       <TableHead style={{ width: "100%" }}>
@@ -132,6 +122,10 @@ const ListingTrackTable = ({
       <TableBody>
         {sortedData.map((item: any, index: number) => (
           <>
+            {console.log(
+              "========screenerData?.dataset sortedData",
+              sortedData
+            )}
             <TableRow key={index}>
               {isRemoveAble ? (
                 <TableCell>
@@ -146,14 +140,14 @@ const ListingTrackTable = ({
               {headerArray.map((headerItem: any) =>
                 headerItem.type === "string" ? (
                   <TableCell key={headerItem.key}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
+                    <div style={{display:'flex',alignItems:'center'}}>
                       {headerItem.key === "companyName" && "company" ? (
                         <Image
-                          src={newsImage}
-                          alt="newsImage"
-                          width={38}
-                          height={38}
-                        />
+                        src="/newsImage.svg"
+                        alt="newsImage"
+                        width={38}
+                        height={38}
+                      />
                       ) : (
                         ""
                       )}
@@ -180,36 +174,33 @@ const ListingTrackTable = ({
       </TableBody>
       {showPagination ? (
         <tfoot>
-          {/* <TableRow> */}
-          {options ? (
-            <TablePagination
-              count={totalLength?.totalLength} // Total number of items
-              rowsPerPage={itemsPerPage}
-              page={currentPage - 1} // Page number starts from 0
-              onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
-              rowsPerPageOptions={[5, 10, 25, 50]}
-              onRowsPerPageChange={handleChangeRowsPerPage} // Hide rows per page options
-              SelectProps={{
-                open: isUser && isSelectOpen, // Open the dropdown if paid and isSelectOpen is true
-                onOpen: handleSelectOpen,
-                onClose: handleSelectClose,
-              }}
-            />
-          ) : (
-            <>
-              <Stack spacing={2}>
-                <Pagination
-                  // aria-colspan={1}
-                  count={totalLength?.totalLength / itemsPerPage}
-                  page={currentPage}
-                  onChange={handleChange}
-                  color="primary"
-                  variant="outlined"
-                />
-              </Stack>
-            </>
-          )}
-          {/* </TableRow> */}
+          <TableRow>
+            {options ? (
+              <TablePagination
+                count={totalLength?.totalLength} // Total number of items
+                rowsPerPage={itemsPerPage}
+                page={currentPage - 1} // Page number starts from 0
+                onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
+                rowsPerPageOptions={[5, 10, 25, 50]}
+                onRowsPerPageChange={handleChangeRowsPerPage} // Hide rows per page options
+                SelectProps={{
+                  open: isUser && isSelectOpen, // Open the dropdown if paid and isSelectOpen is true
+                  onOpen: handleSelectOpen,
+                  onClose: handleSelectClose,
+                }}
+              />
+            ) : (
+              <TablePagination
+                count={totalLength?.totalLength} // Total number of items
+                rowsPerPage={itemsPerPage}
+                page={currentPage - 1} // Page number starts from 0
+                onPageChange={(event: any, newPage: any) =>
+                  paginate(newPage + 1)
+                } // Event handler for page change
+                rowsPerPageOptions={[]} // Hide rows per page options
+              />
+            )}
+          </TableRow>
         </tfoot>
       ) : null}
     </Table>

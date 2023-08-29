@@ -11,7 +11,7 @@ import { MemberInformationContext } from "@/lib/components/context";
 
   return (
     <RootLayout>
-      <AuthenticatedLayout selected_id="overview">
+      <AuthenticatedLayout selected_id="home">
         <Home />
       </AuthenticatedLayout>
     </RootLayout>

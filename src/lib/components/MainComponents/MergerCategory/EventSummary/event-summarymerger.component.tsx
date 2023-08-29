@@ -6,7 +6,6 @@ import Skeleton from "@mui/material/Skeleton";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
-import { initialGraphData } from "@/lib/ts/initialState";
 const DynamicChart = dynamic(
   () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
   {
@@ -16,7 +15,10 @@ const DynamicChart = dynamic(
 );
 const EventSummary=()=>{ 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  const [graphData, setGraphData] = useState<GraphDataInterface>({
+    additional_dataset: {},
+    dataset: [],
+  });
   const options = {
     chart: {
       type: "line",
@@ -70,17 +72,23 @@ const EventSummary=()=>{
     series: [
       {
         name: "IPOS",
-        data: null,
+        data: graphData?.dataset
+          ?.filter((item) => item.event === "IPO")
+          ?.map((item) => item.data),
         color: "#F19529",
       },
       {
         name: "SPACS",
-        data: null,
+        data: graphData?.dataset
+          ?.filter((item) => item.event === "SPAC")
+          ?.map((item) => item.data),
         color: "#7F98F3",
       },
       {
         name: "MERGERS",
-        data: null,
+        data: graphData?.dataset
+          ?.filter((item) => item.event === "Merger")
+          ?.map((item) => item.data),
         color: "#9747FF",
       },
     ],

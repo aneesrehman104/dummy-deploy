@@ -1,5 +1,5 @@
 import React from "react";
-import footerLogo from "@public/footerLogo.svg";
+import footerLogo from "../../../../../public/footerLogo.svg";
 import Image from "next/image";
 import "./unauthenticated-navbar.css";
 import CommonfiButton from "../CommonfiButton";
@@ -61,19 +61,22 @@ const UnauthenticatedNavBar: React.FC<PROPS> = () => {
   };
   const UnauthenticatedNavBarData = [
     {
-      name: "Dashboard",
-      link: "/overview",
+      name: "Features",
+      link: "/home",
     },
     {
       name: "Pricing",
       link: "/plans",
     },
     {
-      name: "Our Newsletters",
-      link: "/newsletter",
+      name: "Request a Demo",
+      link: "requestDemo",
+    },
+    {
+      name: "CommonFi",
+      link: "",
     },
   ];
-
   return (
     <div className="headerMaindiv">
       <Image
@@ -83,7 +86,7 @@ const UnauthenticatedNavBar: React.FC<PROPS> = () => {
         height={21}
         style={{ cursor: "pointer" }}
         onClick={() => {
-          router.push('/overview');
+          router.push('/home');
         }}
       />
       <div className="textStyleUnAuthenticatedNavBar cursorPointer flexBetween">

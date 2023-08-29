@@ -1,4 +1,4 @@
-export type Selection = "Merger" | "IPO" | "SPAC" | "ListingTrack";
+export type Selection = "Merger" | "IPO" | "SPAC" | "Listing Track";
 
 export type patternSPAC = {
   title: string;
@@ -158,7 +158,7 @@ export type patternMerger = {
     };
   };
 
-  mergerCalendar: {
+  mergerCalender: {
     title: string;
     points: Array<string>;
   };

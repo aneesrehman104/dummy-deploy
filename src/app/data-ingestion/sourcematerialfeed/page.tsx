@@ -35,17 +35,10 @@ import { reducer } from "@/lib/reducers/internal-feed";
 import { serializeData } from "@/lib/utils/data-ingestion";
 import { IResponseSchema } from "@/lib/ts";
 import { NewsletterContext } from "../layout";
-import { URLs } from "@/lib/ts/apiUrl";
-import {
-  backEndURLWithoutAuth,
-  getApiWithAuth,
-  getApiWithoutAuth,
-  internalToolBackEndURLWithoutAuth,
-} from "@/lib/ts/api";
 
 const detectPushTimeChanges = (prevArr: Array<any>, currArr: Array<any>) => {
   const changeIndex = [];
-  const changeDict: any = {};
+  const changeDict: any = {}
   for (let i = 0; i < prevArr.length; i++) {
     if (typeof currArr[i] === "object") {
       currArr[i] = currArr[i].join("\n");
@@ -57,7 +50,7 @@ const detectPushTimeChanges = (prevArr: Array<any>, currArr: Array<any>) => {
     }
   }
 
-  return { arr_format: changeIndex, dict_format: changeDict };
+  return {arr_format: changeIndex, dict_format: changeDict};
 };
 
 export default function RootLayout() {
@@ -131,14 +124,14 @@ export default function RootLayout() {
       changeDatasetToLatest(changeIndex.arr_format, rowIndex);
       context.changeSelectionRow(rowData);
       // Make the API request to submit the data
-      const response = await fetch(URLs.sourceMaterialFeed, {
+      const response = await fetch("http://127.0.0.1:5500/internal-feed.json", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: "", // company id
-          changed_dataset: changeIndex.dict_format,
+          id: "", // company id 
+          changed_dataset: changeIndex.dict_format
         }),
       });
       if (response.ok) {
@@ -166,14 +159,18 @@ export default function RootLayout() {
       // the idea is to make this a paginated based table so that we can load the data in chunks
       // we need to make a call to the backend to get the data with limit and offset
       try {
-        const response = await internalToolBackEndURLWithoutAuth.get(URLs.sourceMaterialFeed);
-        const serializedData = serializeData(response.data.source.dataset);
+        const response = await fetch(
+          // `http://localhost:3000/api/dataset?limit=${limit * 3}&offset=${offset}`
+          "http://127.0.0.1:5500/internal-feed.json"
+        );
+        const data: IResponseSchema = await response.json();
+        const serializedData = serializeData(data.source.dataset);
         if (serializedData.length > 0) {
           // we need to change the payload later
           dispatch({ type: "replace", payload: serializedData });
         }
-      } catch (err) {
-        console.log("error while fetching data information", err);
+      } catch {
+        console.log("error while fetching data information");
       }
       setLoading(false);
     };
@@ -459,7 +456,7 @@ export default function RootLayout() {
         filter: true,
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
-          const dataCategory = tableMeta.rowData[findIndex("dataCategory")];
+          const dataCategory = tableMeta.rowData[findIndex("data_category")];
           if (!dataCategory) return <Typography>No options</Typography>;
           if (Object.keys(DataCategoryNesting).includes(dataCategory) === false)
             return <Typography>No options</Typography>;
@@ -513,7 +510,7 @@ export default function RootLayout() {
         sort: false,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const row_data = [...tableMeta.rowData];
-          const dataCategory = row_data[findIndex("dataCategory")];
+          const dataCategory = row_data[findIndex("data_category")];
           if (!dataCategory) return <Typography>No options</Typography>;
           if (Object.keys(DataCategoryNesting).includes(dataCategory) === false)
             return <Typography>No suggestions</Typography>;
@@ -529,13 +526,13 @@ export default function RootLayout() {
           const subCategories = DataCategoryNesting[dataCategory];
           if (
             Object.keys(subCategories).includes(
-              row_data[findIndex("subCategory")]
+              row_data[findIndex("sub_category")]
             ) === false ||
-            subCategories[row_data[findIndex("subCategory")]] === null
+            subCategories[row_data[findIndex("sub_category")]] === null
           )
             return <Typography>No suggestions</Typography>;
 
-          const options = subCategories[row_data[findIndex("subCategory")]];
+          const options = subCategories[row_data[findIndex("sub_category")]];
           if (options.sentence_suggestions === null)
             return <Typography>No suggestions</Typography>;
 
@@ -596,7 +593,7 @@ export default function RootLayout() {
         width: 400,
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const row_data = [...tableMeta.rowData];
-          const dataCategory = row_data[findIndex("dataCategory")];
+          const dataCategory = row_data[findIndex("data_category")];
           if (!dataCategory) return <Typography>No options</Typography>;
           if (Object.keys(DataCategoryNesting).includes(dataCategory) === false)
             return <Typography>No suggestions</Typography>;
@@ -612,7 +609,7 @@ export default function RootLayout() {
           const subCategories = DataCategoryNesting[dataCategory];
           if (
             Object.keys(subCategories).includes(row_data[12]) === false ||
-            subCategories[row_data[findIndex("subCategory")]] === null
+            subCategories[row_data[findIndex("sub_category")]] === null
           )
             return <Typography>No suggestions</Typography>;
 
@@ -829,8 +826,8 @@ export default function RootLayout() {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const calculation = parseFloat(
             (
-              tableMeta.rowData[findIndex("sharesRedeemed")] /
-              tableMeta.rowData[findIndex("sharesBefore")]
+              tableMeta.rowData[findIndex("shares_redeemed")] /
+              tableMeta.rowData[findIndex("shares_before")]
             ).toFixed(2)
           );
           return <Typography>{calculation}</Typography>;
@@ -846,8 +843,8 @@ export default function RootLayout() {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const calculation = parseFloat(
             (
-              tableMeta.rowData[findIndex("sharesBefore")] -
-              tableMeta.rowData[findIndex("sharesRedeemed")]
+              tableMeta.rowData[findIndex("shares_before")] -
+              tableMeta.rowData[findIndex("shares_redeemed")]
             ).toFixed(2)
           );
           return <Typography>{calculation}</Typography>;
@@ -863,9 +860,9 @@ export default function RootLayout() {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const calculation = parseFloat(
             (
-              (tableMeta.rowData[findIndex("sharesBefore")] -
-                tableMeta.rowData[findIndex("sharesRedeemed")]) *
-              tableMeta.rowData[findIndex("navPs")]
+              (tableMeta.rowData[findIndex("shares_before")] -
+                tableMeta.rowData[findIndex("shares_redeemed")]) *
+              tableMeta.rowData[findIndex("nav_ps")]
             ).toFixed(2)
           );
           return <Typography>{calculation}</Typography>;
@@ -881,21 +878,21 @@ export default function RootLayout() {
         customBodyRender: (value: any, tableMeta: any, updateValue: any) => {
           const row_data = [...tableMeta.rowData];
           console.log(row_data, "btn row data");
-          row_data[findIndex("percentRedeemed")] = (
-            row_data[findIndex("sharesRedeemed")] /
-            row_data[findIndex("sharesBefore")]
+          row_data[findIndex("percent_redeemed")] = (
+            row_data[findIndex("shares_redeemed")] /
+            row_data[findIndex("shares_before")]
           ).toFixed(2);
-          row_data[findIndex("leftInTrust")] = (
-            (row_data[findIndex("sharesBefore")] -
-              row_data[findIndex("sharesRedeemed")]) *
-            row_data[findIndex("navPs")]
+          row_data[findIndex("left_in_trust")] = (
+            (row_data[findIndex("shares_before")] -
+              row_data[findIndex("shares_redeemed")]) *
+            row_data[findIndex("nav_ps")]
           ).toFixed(2);
           const parsed_sentence = `Shareholders redeemed ${
-            row_data[findIndex("sharesRedeemed")]
+            row_data[findIndex("shares_redeemed")]
           } shares or ~ ${
-            row_data[findIndex("percentRedeemed")]
+            row_data[findIndex("percent_redeemed")]
           }% of the public SPAC shares, leaving $${
-            row_data[findIndex("leftInTrust")]
+            row_data[findIndex("left_in_trust")]
           } in trust, prior to potential reversals.`;
           return (
             <div onClick={() => copyToClipboard(parsed_sentence)}>
@@ -922,21 +919,21 @@ export default function RootLayout() {
           const row_data = [...tableMeta.rowData];
           let status = false;
           if (
-            dummy[findIndex("entryUnit")] ===
-              row_data[findIndex("entryUnit")] &&
-            dummy[findIndex("attachToRecord")] ===
-              row_data[findIndex("attachToRecord")] &&
-            dummy[findIndex("writeupKeyEvents")] ===
-              row_data[findIndex("writeupKeyEvents")] &&
-            dummy[findIndex("keyEvent")] ===
-              row_data[findIndex("keyEvent")] &&
-            dummy[findIndex("submitToKeyfeed")] ===
-              row_data[findIndex("submitToKeyfeed")] &&
+            dummy[findIndex("entry_unit")] ===
+              row_data[findIndex("entry_unit")] &&
+            dummy[findIndex("attach_to_record")] ===
+              row_data[findIndex("attach_to_record")] &&
+            dummy[findIndex("writeup_key_events")] ===
+              row_data[findIndex("writeup_key_events")] &&
+            dummy[findIndex("key_event")] ===
+              row_data[findIndex("key_event")] &&
+            dummy[findIndex("submit_to_keyfeed")] ===
+              row_data[findIndex("submit_to_keyfeed")] &&
             dummy[findIndex("reviewed")] === row_data[findIndex("reviewed")] &&
-            dummy[findIndex("sharesRedeemed")] ===
-              row_data[findIndex("sharesRedeemed")] &&
-            dummy[findIndex("navPs")] ===
-              parseInt(row_data[findIndex("navPs")])
+            dummy[findIndex("shares_redeemed")] ===
+              row_data[findIndex("shares_redeemed")] &&
+            dummy[findIndex("nav_ps")] ===
+              parseInt(row_data[findIndex("nav_ps")])
           ) {
             status = true;
           }

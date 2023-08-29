@@ -1,6 +1,6 @@
 import styles from "./merger-list.module.css";
 import React from "react";
-import CardElements from "./CardElements/mergerlist.component";
+import CardElements from "./CardElements/card-elements.component";
 import CommonfiButton from "../../CommonComponents/CommonfiButton";
 import { useRouter } from "next/navigation";
 

@@ -25,7 +25,7 @@ const Checkout: React.FC<PROPS> = () => {
             variant="contained"
             className="buttonStylePlans paddingTop"
             title="Go to Home"
-            onClick={() => router.push("/overview")}
+            onClick={() => router.push("/home")}
           />
         </main>
       </main>

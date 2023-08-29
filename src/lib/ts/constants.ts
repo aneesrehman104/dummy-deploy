@@ -50,8 +50,8 @@ export const FOOTER = {
 export const sidebarItem = [
   {
     name: "Home",
-    pathname: "/overview",
-    id: "overview",
+    pathname: "/home",
+    id: "home",
     breadcrumb: "Home",
   },
   {

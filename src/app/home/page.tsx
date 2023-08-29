@@ -9,7 +9,7 @@ const HomePage=() =>{
 
   return (
     <RootLayout>
-      <AuthenticatedLayout selected_id="overview">
+      <AuthenticatedLayout selected_id="home">
         <Home />
       </AuthenticatedLayout>
     </RootLayout>

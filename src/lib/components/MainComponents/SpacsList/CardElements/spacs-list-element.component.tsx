@@ -10,11 +10,16 @@ import {
   SkeltonTable,
   ListingTrackTable,
 } from "@/lib/components/CommonComponents";
-import { InputAdornment, Badge } from "@mui/material";
+import {
+  InputAdornment,
+  Badge,
+} from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
-import { CssTextSpacsField } from "@/lib/styled-components/index.styled";
+import {
+  CssTextSpacsField,
+} from "@/lib/styled-components/index.styled";
 import {
   headerArrayAllActiveSPACsList,
   headerArrayPreDealSPACsList,
@@ -24,14 +29,11 @@ import {
   headerArraySPACLiquidationsList,
   header20PerformingDeSPACsList,
 } from "./constants";
-import proSvg from "@public/ProSvg.svg";
-import { useRouter } from "next/navigation";
-import { SpacsListFilterModal } from "./spacs-list-filter-modal";
+import {SpacsListFilterModal} from './spacs-list-filter-modal'
 interface PROPS {}
 
 const SpacsListElement: React.FC<PROPS> = () => {
   const { user } = useContext(MemberInformationContext);
-  const router = useRouter();
 
   const tabValues: { [key: number]: string } = {
     0: "all",
@@ -196,7 +198,7 @@ const SpacsListElement: React.FC<PROPS> = () => {
 
     setFilterArray(updatedFilterArray);
   };
-  const handleClick = (index: any) => {
+  const handleClick = (index:any) => {
     setSelectedTab(index);
     setFilterCount(0);
   };
@@ -285,30 +287,9 @@ const SpacsListElement: React.FC<PROPS> = () => {
                 <div>Filter&nbsp;&nbsp;</div>
               </Badge>
             </div>
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-end",
-              }}
-            >
-              {user?.member?.stripeCustomerId ? null : (
-                <Image
-                  src={proSvg}
-                  alt="filterSvg"
-                  width={50}
-                  height={26}
-                  onClick={() => {
-                    router.push("/plans");
-                  }}
-                />
-              )}
-              <div className={styles.filterGap}>
-                <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
-
-                <div>EXPORT</div>
-              </div>{" "}
+            <div className={styles.filterGap}>
+              <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
+              <div>EXPORT</div>
             </div>
           </div>
         </div>

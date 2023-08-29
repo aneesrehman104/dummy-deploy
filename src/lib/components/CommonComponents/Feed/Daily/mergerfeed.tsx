@@ -88,8 +88,8 @@ export const MergerFeed: React.FC<{
         </SectionWrapper>
 
         <SectionWrapper>
-          <Title title={data.mergerCalendar.title} />
-          {data.mergerCalendar.points.map((point, point_index) => (
+          <Title title={data.mergerCalender.title} />
+          {data.mergerCalender.points.map((point, point_index) => (
             <Point key={point_index.toString() + point} point={point} />
           ))}
         </SectionWrapper>

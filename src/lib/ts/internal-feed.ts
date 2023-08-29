@@ -5,12 +5,12 @@ import { SerializeDataResponse } from "../utils/data-ingestion";
 // mapper for the internal feed table
 // maps the internal feed table column to the internal feed table data
 export const InternalFeedTableData = {
-  sourceLink: {
+  source_link: {
     name: "Source Link",
     component: "Link",
   },
 
-  dateTimeEst: {
+  date_time_est: {
     name: "Date and Time EST",
     component: "Typography",
   },
@@ -25,7 +25,7 @@ export const InternalFeedTableData = {
     component: "Typography",
   },
 
-  materialType: {
+  material_type: {
     name: "Material Type",
     component: "Typography",
   },
@@ -35,7 +35,7 @@ export const InternalFeedTableData = {
     component: "Typography",
   },
 
-  secForm: {
+  sec_form: {
     name: "SEC Form",
     component: "Typography",
   },
@@ -45,74 +45,63 @@ export const InternalFeedTableData = {
     component: "Typography",
   },
 
-  ourKeywordsFound: {
+  our_keywords_found: {
     name: "Keywords Found",
     component: "Typography",
   },
 
-  entryUnit: {
+  entry_unit: {
     name: "Entry Unit",
     component: "Autocomplete",
   },
 
-  attachToRecord: {
+  attach_to_record: {
     name: "Attach to Record",
     component: "Autocomplete",
   },
 
-  dataCategory: {
+  data_category: {
     name: "Data Category",
     component: "Autocomplete",
   },
 
-  subCategory: {
+  sub_category: {
     name: "Sub Category",
     component: "Autocomplete",
   },
   // sub-category dynamically changes based on the data category
 
-  relevantWriteup: {
+  relevant_writeup: {
     name: "Sentence Suggestions",
     component: "Typography",
   },
 
-  writeupKeyEvents: {
+  writeup_key_events: {
     name: "Write-up",
     component: "Textarea",
   },
 
-  relevantDataSuggestion: {
+  relevant_data_suggestion: {
     name: "Data Points Suggestions",
     component: "Typography",
   },
 
-  formatForExport: {
+  format_for_export: {
     name: "Newsletter Format",
     component: "Typography",
   },
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   database_segment: {
-=======
-  databaseSegment: {
->>>>>>> dev
     name: "Database Segment",
     component: "Autocomplete",
   },
 
-<<<<<<< HEAD
->>>>>>> dev
   key_event: {
-=======
-  keyEvent: {
->>>>>>> dev
     name: "Key Event",
     component: "Autocomplete",
   },
 
-  submitToKeyFeed: {
+  submit_to_keyfeed: {
     name: "Submit to Key Feed",
     component: "Checkbox",
   },
@@ -122,45 +111,45 @@ export const InternalFeedTableData = {
     component: "Checkbox",
   },
 
-  sharesRedeemed: {
+  shares_redeemed: {
     name: "Shares Redeemed",
     component: "Typography",
   },
 
-  navPs: {
+  nav_ps: {
     name: "NAV P.S.",
     component: "Typography",
   },
 
-  sharesBefore: {
+  shares_before: {
     name: "Shares Before",
     component: "Typography",
   },
 
-  percentRedeemed: {
+  percent_redeemed: {
     name: "Percent Redeemed",
     component: "Typography",
   },
 
-  sharesLeft: {
+  shares_left: {
     name: "Shares Left",
     component: "Typography",
   },
 
-  leftInTrust: {
+  left_in_trust: {
     name: "Left in Trust",
     component: "Typography",
   },
 
-  redemptionSentence: {
+  redemption_sentence: {
     name: "Redemption Sentence",
     component: "Typography",
   },
 
-  isEdited: {
+  is_edited: {
     name: "Submitted",
     component: "Checkbox",
-  },
+  }
 };
 
 // this is the data for the table columns and filter informations
@@ -272,8 +261,6 @@ export const InternalDataFeedColumns = [
   },
 
   {
-<<<<<<< HEAD
-=======
     name: "Database Segment",
     options: {
       filter: true,
@@ -282,7 +269,6 @@ export const InternalDataFeedColumns = [
   },
 
   {
->>>>>>> dev
     name: "Key Event(Y/N)",
     options: {
       filter: true,
@@ -341,15 +327,14 @@ export const InternalDataFeedColumns = [
 ];
 
 export const sorted_data_feed_keys = [
-  "sourceLink",
-  "dateTimeEst",
+  "source_link",
+  "date_time_est",
   "company",
   "tickers",
-  "materialType",
+  "material_type",
   "source",
-  "secForm",
+  "sec_form",
   "description",
-<<<<<<< HEAD
   "our_keywords_found",
   "entry_unit",
   "attach_to_record",
@@ -359,44 +344,24 @@ export const sorted_data_feed_keys = [
   "writeup_key_events",
   "relevant_data_suggestion",
   "format_for_export",
-<<<<<<< HEAD
-=======
   "database_segment",
->>>>>>> dev
   "key_event",
   "submit_to_keyfeed",
-=======
-  "ourKeywordsFound",
-  "entryUnit",
-  "attachToRecord",
-  "dataCategory",
-  "subCategory",
-  "relevantWriteup",
-  "writeupKeyEvents",
-  "relevantDataSuggestion",
-  "formatForExport",
-  "databaseSegment",
-  "keyEvent",
-  "submitToKeyFeed",
->>>>>>> dev
   "reviewed",
-  "sharesRedeemed",
-  "navPs",
-  "sharesBefore",
-  "percentRedeemed",
-  "sharesLeft",
-  "leftInTrust",
-  "redemptionSentence",
-  "isEdited",
+  "shares_redeemed",
+  "nav_ps",
+  "shares_before",
+  "percent_redeemed",
+  "shares_left",
+  "left_in_trust",
+  "redemption_sentence",
+  "is_edited"
 ];
 
-<<<<<<< HEAD
-=======
 export const findIndex = (name: string) => {
   return sorted_data_feed_keys.findIndex((key) => key === name);
-};
+}
 
->>>>>>> dev
 export const getMuiTheme = () =>
   createTheme({
     components: {
@@ -421,20 +386,12 @@ export const getMuiTheme = () =>
           head: {
             backgroundColor: "#f5f5f5 !important",
             fontWeight: "bold",
-            fontSize: "18px",
+            fontSize: "18px"
           },
         },
       },
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-  });
-=======
 });
->>>>>>> dev
-=======
-  });
->>>>>>> dev
 
 export const DataCategoryNesting = {
   "News & De-SPAC Updates": null,
@@ -451,11 +408,7 @@ export const DataCategoryNesting = {
       ],
     },
     "Updated Financing": {
-<<<<<<< HEAD
-      sentence_suggestion: [
-=======
       sentence_suggestions: [
->>>>>>> dev
         "entered into additional PIPE subscription agreements for an aggregate of___",
         "raise an additional $__ bringing the deal's total PIPE proceeds to ~$___.",
       ],

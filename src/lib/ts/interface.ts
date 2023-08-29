@@ -1,8 +1,8 @@
 export interface Props {
   selected_id?: string;
-  handleLogout?: any;
-  openModal?: any;
-  hideModal?: any;
+  handleLogout?:any;
+  openModal?:any;
+  hideModal?:any;
   children?: any;
   window?: () => Window;
 }
@@ -72,34 +72,6 @@ export type LoserInterFace = {
   spacsTradingGainerData?: any;
   isLoadingLooser?: boolean;
 };
-
-export interface Point {
-  X: number;
-  Y: number | null;
-}
-
-export interface Series {
-  Name: string;
-  DataPoints: Point[];
-}
-
-export interface Axis {
-  Title: string;
-  Unit: string | null;
-  Labels: string[];
-  MinValue: number | null;
-  MaxValue: number | null;
-  Interval: number | null;
-}
-
-export interface LineChart {
-  Title: string;
-  XAxis: Axis;
-  YAxis: Axis;
-  SeriesData: Series[];
-  ComputeYAxisScale?: () => void;
-}
-
 export interface GraphDataInterface {
   additional_dataset?: {
     IPO?: number;
@@ -107,7 +79,11 @@ export interface GraphDataInterface {
     Announced_Mergers?: number;
     Liquidations?: number;
   };
-  dataset: LineChart;
+  dataset: {
+    month: string;
+    data: number;
+    event: string;
+  }[];
   // Define other properties here if needed
 }
 export interface PipelineInterface {
@@ -117,6 +93,7 @@ export interface PipelineInterface {
   currentPage?: any;
   paginate?: any;
 }
+
 
 export interface IpoPipelineInterface {
   companyName: string;
@@ -129,64 +106,6 @@ export interface IpoPipelineInterface {
   ipoOfferingSize: string;
 }
 
-// #region ipo market stats
-//
-//
-export interface IpoMarketStatsDto {
-  Overview: IpoOverviewMarketStats;
-  PricingYTD: IpoPricingYTDMarketStats;
-  AverageReturns: IpoAverageReturnsMarketStats;
-}
-
-export interface IpoOverviewMarketStats {
-  WithSpacs: IpoOverviewStats;
-  WithoutSpacs: IpoOverviewStats;
-}
-
-export interface IpoOverviewStats {
-  IposYTD: number;
-  IposPrevYear: number;
-  IposYearlyChangePercentage: number;
-  IposFiled: number;
-  IposScheduled: number;
-  IposWithdrawnYTD: number;
-}
-
-export interface IpoPricingYTDMarketStats {
-  WithSpacs: IpoPricingYTDStats;
-  WithoutSpacs: IpoPricingYTDStats;
-}
-
-export interface IpoPricingYTDStats {
-  ValuationsOver1B: number;
-  ValuationsAvgMarketCap: number;
-  ValuationsMedianMarketCap: number;
-  ProceedsOver500M: number;
-  AvgProceeds: number;
-  MedianProceeds: number;
-  Underwriters?: UnderwriterStats[];
-}
-
-export interface UnderwriterStats {
-  Name: string;
-  Count: number;
-  Percentage: number;
-}
-
-export interface IpoAverageReturnsMarketStats {
-  WithSpacs: IpoAverageReturnsStats;
-  WithoutSpacs: IpoAverageReturnsStats;
-}
-
-export interface IpoAverageReturnsStats {
-  PercentageAboveIpoPrice: number;
-  AvgPremiumIpoPrice: number;
-  MedianPremiumIpoPrice: number;
-  PercentageClosedAboveOnIpoDay: number;
-  AvgReturnAtCloseOnIpoDay: number;
-  MedianReturnAtCloseOnIpoDay: number;
-}
-// #endregion ipo market stats
 export interface ChartOptions {
   chart: {
     type: string;

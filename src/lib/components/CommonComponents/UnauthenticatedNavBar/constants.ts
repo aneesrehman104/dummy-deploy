@@ -1,7 +1,7 @@
 export const UnauthenticatedNavBarData = [
     {
       name: "Features",
-      link: "/overview",
+      link: "/home",
     },
     {
       name: "Pricing",

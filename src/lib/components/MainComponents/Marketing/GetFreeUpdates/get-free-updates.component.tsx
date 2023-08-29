@@ -5,10 +5,10 @@ import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
-import Rectangle from "@public/Rectangle.svg";
+import Rectangle from "../../../../../../public/Rectangle.svg";
 import { TextField, Checkbox, Button, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import Pic from "@public/nonAuthPic.svg";
+import Pic from "../../../../../../public/nonAuthPic.svg";
 import { marketingConstants } from "@/lib/ts/constants";
 import "./get-free-updates.css";
 interface PROPS {}
