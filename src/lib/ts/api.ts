@@ -14,6 +14,14 @@ const backEndURLWithAuth: AxiosInstance = axios.create({
 export const backEndURLWithoutAuth = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
   headers: {
+    Accept: "application/listingtrack",
+  },
+  withCredentials: true,
+});
+
+export const internalToolBackEndURLWithoutAuth = axios.create({
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
+  headers: {
     Accept: "application/json",
   },
   withCredentials: true,

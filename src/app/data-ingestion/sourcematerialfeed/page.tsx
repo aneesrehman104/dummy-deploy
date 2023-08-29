@@ -40,6 +40,7 @@ import {
   backEndURLWithoutAuth,
   getApiWithAuth,
   getApiWithoutAuth,
+  internalToolBackEndURLWithoutAuth,
 } from "@/lib/ts/api";
 
 const detectPushTimeChanges = (prevArr: Array<any>, currArr: Array<any>) => {
@@ -165,7 +166,7 @@ export default function RootLayout() {
       // the idea is to make this a paginated based table so that we can load the data in chunks
       // we need to make a call to the backend to get the data with limit and offset
       try {
-        const response = await getApiWithoutAuth(URLs.sourceMaterialFeed);
+        const response = await internalToolBackEndURLWithoutAuth.get(URLs.sourceMaterialFeed);
         const serializedData = serializeData(response.data.source.dataset);
         if (serializedData.length > 0) {
           // we need to change the payload later
