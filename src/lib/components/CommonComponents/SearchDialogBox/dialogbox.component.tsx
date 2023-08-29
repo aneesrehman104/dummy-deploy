@@ -6,7 +6,7 @@ import {
   DialogContent,
 } from "@mui/material";
 import "./dialogbox.css";
-import searchIcon from "../../../../../public/searchIcon.svg";
+import searchIcon from "@public/searchIcon.svg";
 import CloseIcon from "@mui/icons-material/Close";
 import { CssTextField } from "@/lib/styled-components/index.styled";
 
@@ -51,7 +51,7 @@ const SearchDialogBox: React.FC<{
         }}
       >
         <CssTextField
-          placeholder="Search ticker or company"
+          placeholder="Search by company name or symbol"
           className=""
           InputProps={{
             startAdornment: (
