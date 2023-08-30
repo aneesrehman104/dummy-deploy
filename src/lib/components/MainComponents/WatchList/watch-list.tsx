@@ -1,17 +1,17 @@
 import styles from "./watchlist.module.css";
 import React, { useState } from "react";
 import WatchListFirstTable from "./CardElements/watch-list-ipo-spac-merger";
-import IPOsGainer from "../IPOSHub/Gainer/ipo-hub-gainer.component";
-import IPOsLoser from "../IPOSHub/Losers/ipohub-loser.component";
-import MergersGainer from "../MergerHub/Gainer/gainer.component";
-import MergersLoser from "../MergerHub/Losers/losers.component";
-import SpacsTrending from "../Spacs/Trading/trading.component";
-import IPOsNews from "../IPOS/News/iponews.component";
-import MergerNews from "../MergerHub/News/news.component";
-import SpacsNews from "../Spacs/News/news.component";
-import IPOsPressReleases from "../IPOS/PressReleases/ipo-pressreleases.component";
-import MergerPressReleases from "../MergerNews/PressReleases/press-releases.component";
-import SpacsPressReleases from "../SpacsNews/PressReleases/press-releases.component";
+import IPOsGainer from "../IPO/IPOSHub/Gainer/ipo-hub-gainer.component";
+import IPOsLoser from "../IPO/IPOSHub/Losers/ipohub-loser.component";
+import MergersGainer from "../Merger/MergerHub/Gainer/gainer.component";
+import MergersLoser from "../Merger/MergerHub/Losers/losers.component";
+import SpacsTrending from "../SPAC/Spacs/Trading/trading.component";
+import IPOsNews from "../IPO/IPOS/News/iponews.component";
+import MergerNews from "../Merger/MergerHub/News/news.component";
+import SpacsNews from "../SPAC/Spacs/News/news.component";
+import IPOsPressReleases from "../IPO/IPOS/PressReleases/ipo-pressreleases.component";
+import MergerPressReleases from "../Merger/MergerNews/PressReleases/press-releases.component";
+import SpacsPressReleases from "../SPAC/SpacsNews/PressReleases/press-releases.component";
 const WatchListComponet = () => {
   const tabs = [
     { id: 0, label: "IPO Watchlist" },

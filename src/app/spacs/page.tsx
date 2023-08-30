@@ -1,7 +1,7 @@
 "use client";
 import RootLayout from "./layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import Spacs from "@/lib/components/MainComponents/Spacs";
+import Spacs from "@/lib/components/MainComponents/SPAC/Spacs";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
 import { Meta } from "@/lib/meta.component";
