@@ -4,9 +4,14 @@ import { URLs } from "@/lib/ts/apiUrl";
 import { ListingTrackNews } from "@/lib/components/CommonComponents";
 import { getODataWithParams } from "@lib/ts/api";
 import axios, { AxiosError } from "axios";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { usePathname, useRouter } from "next/navigation";
+
 interface PROPS {}
 
 const News: React.FC<PROPS> = () => {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [newsData, setNewsData] = useState<any>({
     dataset: [
@@ -54,7 +59,22 @@ const News: React.FC<PROPS> = () => {
   }, []);
   return (
     <section className={styles.headlineslistcontainer}>
-      <div className={styles.aggregatedMiniTables}>Ipos News </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+      >
+        <div className={styles.aggregatedMiniTables}>Ipos News </div>
+        <div
+          className={styles.seemoretext}
+          onClick={() => router.push("/ipos/news")}
+        >
+          See more{" "}
+            <KeyboardArrowRightIcon />
+        </div>
+      </div>
       <ListingTrackNews isLoading={isLoading} dataArray={newsData?.dataset} />
     </section>
   );

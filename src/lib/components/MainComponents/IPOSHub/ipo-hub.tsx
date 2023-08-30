@@ -16,7 +16,7 @@ const IPOSHub = () => {
       </header>
       <section>
         <EventSummary />
-        <IpoHubMarketStats />
+        {/* <IpoHubMarketStats /> */}
         <IposPipelineOverview/>
         <IpoHubGainer />
         <IpoHubLosers />
