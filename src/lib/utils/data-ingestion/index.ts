@@ -84,6 +84,7 @@ export function serializeData(
   data: Array<ResponseBody>
 ): Array<Array<SerializeDataResponse>> {
   if (data.length === 0) return [];
+  console.log(data);
   const internal_feed_key = sorted_data_feed_keys;
   const serializedData = data.map((item) => {
     const sorted_item = {};
@@ -102,15 +103,17 @@ export function serializeData(
     }
 
     const innerData: Array<SerializeDataResponse> = [];
-
+    console.log(tableResponse);
     tableResponse.forEach((table_response_item, i) => {
       const _elmKey = internal_feed_key.find(
         (internal_feed_key_item) =>
           internal_feed_key_item === table_response_item.column_name
       );
+      console.log(_elmKey, table_response_item.value)
       if (_elmKey) {
         const _componentType =
           InternalFeedTableData[_elmKey as TTableColumns].component;
+        console.log(table_response_item.value, _componentType)
         const value = GetValuePlaceholder(table_response_item.value, _componentType);
         innerData.push({
           ...value,

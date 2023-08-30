@@ -17,13 +17,13 @@ export const URLs = {
   mergerStats: "api/merger/stats",
   mergerNews: "api/merger/news",
   mergerCalender: "api/merger/calendar",
-
   ipoOverviewChart: "api/ipo/chart/overview",
   ipoMarketStats: "api/ipo/stats/market",
   ipoNews: "api/ipo/news",
   ipoGraph: "api/ipo/graph/comparison",
   iposPipeline: "api/ipo/pipeline",
   ipoOdata: "/odata/ipo",
-
   spacOdata: "/odata/spac",
+  sourceMaterialFeed: "/dataset",
+  newsLetterTool: "/news-data",
 };

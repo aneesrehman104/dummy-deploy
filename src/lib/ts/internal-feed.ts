@@ -5,12 +5,12 @@ import { SerializeDataResponse } from "../utils/data-ingestion";
 // mapper for the internal feed table
 // maps the internal feed table column to the internal feed table data
 export const InternalFeedTableData = {
-  source_link: {
+  sourceLink: {
     name: "Source Link",
     component: "Link",
   },
 
-  date_time_est: {
+  dateTimeEst: {
     name: "Date and Time EST",
     component: "Typography",
   },
@@ -25,7 +25,7 @@ export const InternalFeedTableData = {
     component: "Typography",
   },
 
-  material_type: {
+  materialType: {
     name: "Material Type",
     component: "Typography",
   },
@@ -35,7 +35,7 @@ export const InternalFeedTableData = {
     component: "Typography",
   },
 
-  sec_form: {
+  secForm: {
     name: "SEC Form",
     component: "Typography",
   },
@@ -45,63 +45,63 @@ export const InternalFeedTableData = {
     component: "Typography",
   },
 
-  our_keywords_found: {
+  ourKeywordsFound: {
     name: "Keywords Found",
     component: "Typography",
   },
 
-  entry_unit: {
+  entryUnit: {
     name: "Entry Unit",
     component: "Autocomplete",
   },
 
-  attach_to_record: {
+  attachToRecord: {
     name: "Attach to Record",
     component: "Autocomplete",
   },
 
-  data_category: {
+  dataCategory: {
     name: "Data Category",
     component: "Autocomplete",
   },
 
-  sub_category: {
+  subCategory: {
     name: "Sub Category",
     component: "Autocomplete",
   },
   // sub-category dynamically changes based on the data category
 
-  relevant_writeup: {
+  relevantWriteup: {
     name: "Sentence Suggestions",
     component: "Typography",
   },
 
-  writeup_key_events: {
+  writeupKeyEvents: {
     name: "Write-up",
     component: "Textarea",
   },
 
-  relevant_data_suggestion: {
+  relevantDataSuggestion: {
     name: "Data Points Suggestions",
     component: "Typography",
   },
 
-  format_for_export: {
+  formatForExport: {
     name: "Newsletter Format",
     component: "Typography",
   },
 
-  database_segment: {
+  databaseSegment: {
     name: "Database Segment",
     component: "Autocomplete",
   },
 
-  key_event: {
+  keyEvent: {
     name: "Key Event",
     component: "Autocomplete",
   },
 
-  submit_to_keyfeed: {
+  submitToKeyFeed: {
     name: "Submit to Key Feed",
     component: "Checkbox",
   },
@@ -111,45 +111,45 @@ export const InternalFeedTableData = {
     component: "Checkbox",
   },
 
-  shares_redeemed: {
+  sharesRedeemed: {
     name: "Shares Redeemed",
     component: "Typography",
   },
 
-  nav_ps: {
+  navPs: {
     name: "NAV P.S.",
     component: "Typography",
   },
 
-  shares_before: {
+  sharesBefore: {
     name: "Shares Before",
     component: "Typography",
   },
 
-  percent_redeemed: {
+  percentRedeemed: {
     name: "Percent Redeemed",
     component: "Typography",
   },
 
-  shares_left: {
+  sharesLeft: {
     name: "Shares Left",
     component: "Typography",
   },
 
-  left_in_trust: {
+  leftInTrust: {
     name: "Left in Trust",
     component: "Typography",
   },
 
-  redemption_sentence: {
+  redemptionSentence: {
     name: "Redemption Sentence",
     component: "Typography",
   },
 
-  is_edited: {
+  isEdited: {
     name: "Submitted",
     component: "Checkbox",
-  }
+  },
 };
 
 // this is the data for the table columns and filter informations
@@ -327,40 +327,40 @@ export const InternalDataFeedColumns = [
 ];
 
 export const sorted_data_feed_keys = [
-  "source_link",
-  "date_time_est",
+  "sourceLink",
+  "dateTimeEst",
   "company",
   "tickers",
-  "material_type",
+  "materialType",
   "source",
-  "sec_form",
+  "secForm",
   "description",
-  "our_keywords_found",
-  "entry_unit",
-  "attach_to_record",
-  "data_category",
-  "sub_category",
-  "relevant_writeup",
-  "writeup_key_events",
-  "relevant_data_suggestion",
-  "format_for_export",
-  "database_segment",
-  "key_event",
-  "submit_to_keyfeed",
+  "ourKeywordsFound",
+  "entryUnit",
+  "attachToRecord",
+  "dataCategory",
+  "subCategory",
+  "relevantWriteup",
+  "writeupKeyEvents",
+  "relevantDataSuggestion",
+  "formatForExport",
+  "databaseSegment",
+  "keyEvent",
+  "submitToKeyFeed",
   "reviewed",
-  "shares_redeemed",
-  "nav_ps",
-  "shares_before",
-  "percent_redeemed",
-  "shares_left",
-  "left_in_trust",
-  "redemption_sentence",
-  "is_edited"
+  "sharesRedeemed",
+  "navPs",
+  "sharesBefore",
+  "percentRedeemed",
+  "sharesLeft",
+  "leftInTrust",
+  "redemptionSentence",
+  "isEdited",
 ];
 
 export const findIndex = (name: string) => {
   return sorted_data_feed_keys.findIndex((key) => key === name);
-}
+};
 
 export const getMuiTheme = () =>
   createTheme({
@@ -386,12 +386,12 @@ export const getMuiTheme = () =>
           head: {
             backgroundColor: "#f5f5f5 !important",
             fontWeight: "bold",
-            fontSize: "18px"
+            fontSize: "18px",
           },
         },
       },
     },
-});
+  });
 
 export const DataCategoryNesting = {
   "News & De-SPAC Updates": null,

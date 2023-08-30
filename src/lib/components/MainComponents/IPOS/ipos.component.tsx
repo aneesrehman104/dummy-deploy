@@ -73,7 +73,8 @@ const dataSet = [
 
 const IOPS: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  const [graphData, setGraphData] =
+    useState<GraphDataInterface>(initialGraphData);
   const { openModal, hideModal } = useMemberstackModal();
   const { user } = useContext(MemberInformationContext);
 
@@ -542,15 +543,25 @@ const IOPS: React.FC<PROPS> = () => {
             </div>
             <div
               style={{
-                display: "flex",
-                flexDirection: "column",
-                // height: 55,
-                justifyContent: "space-between",
+                width: "100%",
                 marginTop: 10,
               }}
             >
-              <div className={styles.ytdEventSummary}>Listing Status:</div>
-              <div>IPO Priced</div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  background: "silver",
+                  borderRadius: "100px",
+                  color: "#263c6f",
+                  width: "200px",
+                }}
+              >
+                <div className={styles.ytdEventSummary}>Listing Status:</div>
+                <div>IPO Priced</div>
+              </div>
             </div>
           </div>
           <div style={{ display: "flex", marginTop: 10 }}>

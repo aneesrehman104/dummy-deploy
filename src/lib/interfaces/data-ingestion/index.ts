@@ -15,7 +15,7 @@ export interface TableDataInterface {
   text_value?: string;
 }
 
-export type TTableColumns = "reviewed" | "submit_to_keyfeed" | "format_for_export" | "relevant_data_suggestion"
-| "writeup_key_events" | "relevant_writeup" | "key_event" | "data_category" | "attach_to_record" | "entry_unit" |
-"our_keywords_found" | "description" | "sec_form" | "source" | "material_type" | "tickers" | 
-"company" | "date_time_est" | "source_link";
+export type TTableColumns = "reviewed" | "submitToKeyFeed" | "formatForExport" | "relevantDataSuggestion"
+| "writeupKeyEvents" | "relevantWriteup" | "keyEvent" | "dataCategory" | "attachToRecord" | "entryUnit" |
+"ourKeywordsFound" | "description" | "secForm" | "source" | "materialType" | "tickers" | 
+"company" | "dateTimeEst" | "sourceLink";

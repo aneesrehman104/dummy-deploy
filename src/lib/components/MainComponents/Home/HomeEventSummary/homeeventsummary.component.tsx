@@ -1,41 +1,19 @@
 import React, { useEffect, useState } from "react";
-import styles from "./event-summary.module.css";
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import Skeleton from "@mui/material/Skeleton";
-import { getApiWithoutAuth, getODataWithParams } from "@lib/ts/api";
+import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface } from "@/lib/ts/interface";
 import { initialGraphData } from "@/lib/ts/initialState";
 import axios, { AxiosError } from "axios";
-import Vector2 from "@public/vector2.svg";
+import { EventsContainer } from "@CommonComponents/EventsContainer/events.component";
 
 const jsonResponse = "application/json";
 interface PROPS {}
 
-const AggregationContainer: React.FC<{ value: string; name: string }> = ({
-  value,
-  name,
-}) => {
-  return (
-    <div className={styles.container}>
-      <div>{value}</div>
-      <div>{name}</div>
-    </div>
-  );
-};
-
-const DynamicChart = dynamic(
-  () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
-  {
-    ssr: false,
-    loading: () => <Skeleton variant="rounded" height={200} />,
-  }
-);
 const HomeEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
-  
+  const [graphData, setGraphData] =
+    useState<GraphDataInterface>(initialGraphData);
+
   const options = {
     chart: {
       type: "line",
@@ -54,20 +32,21 @@ const HomeEventSummary: React.FC<PROPS> = () => {
     },
     title: {
       text: graphData.dataset.Title,
-  },
-  xAxis: {
+    },
+    xAxis: {
       categories: graphData.dataset.XAxis?.Labels,
       title: {
-          text: graphData.dataset.XAxis?.Title,
+        text: graphData.dataset.XAxis?.Title,
       },
-  },
-  yAxis: {
+    },
+    yAxis: {
       opposite: true,
       title: {
-          text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
+        text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
       },
       max: graphData.dataset.YAxis?.MaxValue,
-  },
+    },
+
     credits: {
       enabled: false,
     },
@@ -76,17 +55,39 @@ const HomeEventSummary: React.FC<PROPS> = () => {
       verticalAlign: "bottom",
       layout: "horizontal",
     },
+
     series: graphData.dataset.SeriesData?.map((series) => ({
       name: series.Name,
       data: graphData.dataset.XAxis.Labels.map((month, index) => {
-          const point = series.DataPoints.find(
-              (point) => point.X === index
-          );
-          return point ? point.Y : null;
+        const point = series.DataPoints.find((point) => point.X === index);
+        return point ? point.Y : null;
       }),
       // add a color property for each series if you want
-  })),
+    })),
   };
+
+  const events = [
+    {
+      value: "100",
+      name: "IPOS",
+      id: "e2ccaqpw10",
+    },
+    {
+      value: "200",
+      name: "ANNOUNCED MERGERS",
+      id: "e2ccaqpw11",
+    },
+    {
+      value: "300",
+      name: "CLOSED MERGERS",
+      id: "e2ccaqpw12",
+    },
+    {
+      value: "400",
+      name: "LIQUIDATION",
+      id: "e2ccaqpw13",
+    },
+  ];
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -104,7 +105,7 @@ const HomeEventSummary: React.FC<PROPS> = () => {
           setGraphData({
             dataset: response.data.source.dataset,
             additional_dataset: {},
-        });
+          });
         }
       } catch (error) {
         if (axios.isCancel(error)) {
@@ -125,32 +126,12 @@ const HomeEventSummary: React.FC<PROPS> = () => {
   }, []);
 
   return (
-    <section className={styles.sectionsummarycontainer}>
-      <main className={styles.sectiondatasummary}>
-        <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>2023 Spacs Stats</div>
-          <Image src={Vector2} alt="/vector2" width={12} height={12} />
-        </div>
-      </main>
-      <main className={styles.chartcontainer}>
-        <div style={{ width: "100%" }}>
-          <DynamicChart options={options} />
-        </div>
-        {isLoading ? (
-          <>
-            <Skeleton variant="rounded" height={25} width={"100%"} />
-            <Skeleton variant="rounded" height={25} width={"100%"} />
-          </>
-        ) : (
-          <div className={styles.frameParent}>
-            <AggregationContainer value="100" name="IPOS" />
-            <AggregationContainer value="200" name="ANNOUNCED MERGERS" />
-            <AggregationContainer value="300" name="CLOSED MERGERS" />
-            <AggregationContainer value="400" name="LIQUIDATION" />
-          </div>
-        )}
-      </main>
-    </section>
+    <EventsContainer
+      isLoading={isLoading}
+      events={events}
+      title="2023 SPACS STATS"
+      options={options}
+    />
   );
 };
 
