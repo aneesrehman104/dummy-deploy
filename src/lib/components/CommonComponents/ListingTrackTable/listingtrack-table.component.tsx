@@ -104,6 +104,20 @@ const ListingTrackTable = ({
       <TableHead style={{ width: "100%" }}>
         <TableRow>
           {isRemoveAble ? <TableCell /> : null}
+          {/* <TableCell>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontWeight: 600,
+                cursor: "pointer",
+                minWidth: 135,
+              }}
+            >
+              {" "}
+              Company Logo{" "}
+            </div>{" "}
+          </TableCell> */}
           {headerArray.map((item: any) => {
             return (
               <TableCell key={item.key} onClick={() => handleSort(item.key)}>
@@ -180,7 +194,6 @@ const ListingTrackTable = ({
       </TableBody>
       {showPagination ? (
         <tfoot>
-          {/* <TableRow> */}
           {options ? (
             <TablePagination
               count={totalLength?.totalLength} // Total number of items
@@ -197,19 +210,18 @@ const ListingTrackTable = ({
             />
           ) : (
             <>
-              <Stack spacing={2}>
+              <Stack spacing={1}>
                 <Pagination
                   // aria-colspan={1}
+                  size="small"
                   count={totalLength?.totalLength / itemsPerPage}
                   page={currentPage}
                   onChange={handleChange}
                   color="primary"
-                  variant="outlined"
                 />
               </Stack>
             </>
           )}
-          {/* </TableRow> */}
         </tfoot>
       ) : null}
     </Table>

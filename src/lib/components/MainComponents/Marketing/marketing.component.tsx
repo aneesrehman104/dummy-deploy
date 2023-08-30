@@ -6,6 +6,7 @@ import Plans from "../Plans/plans.component";
 import Creators from "./Creators/creators.component";
 import GetFreeUpdates from "./GetFreeUpdates/get-free-updates.component";
 import MarketingFooter from "./MarketingFooter/marketingfooter.component";
+import { Footer } from "../../CommonComponents";
 import Slider from './Sider/sider.component';
 
 const Marketing = () => {
@@ -18,7 +19,8 @@ const Marketing = () => {
       <Plans/>
       <Creators/>
       <GetFreeUpdates/>
-      <MarketingFooter/>
+      {/* <MarketingFooter/> */}
+      <Footer/>
     </section>
   );
 };
