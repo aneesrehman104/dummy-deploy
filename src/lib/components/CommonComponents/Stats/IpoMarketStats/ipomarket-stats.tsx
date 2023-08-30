@@ -40,15 +40,15 @@ const dataArray = [
                 title: "IPOs",
                 data: [
                     {
-                        value: stats.Overview.WithSpacs.IposYTD,
+                        value: stats.overview.withSpacs.iposYTD,
                         change: "YTD",
                     },
                     {
-                        value: stats.Overview.WithSpacs.IposPrevYear,
+                        value: stats.overview.withSpacs.iposPrevYear,
                         change: "prev year",
                     },
                     {
-                        value: `${stats.Overview.WithSpacs.IposYearlyChangePercentage}%`,
+                        value: `${stats.overview.withSpacs.iposYearlyChangePercentage}%`,
                         change: "yearly Chg % ",
                     },
                 ],
@@ -122,7 +122,7 @@ const dataArray = [
 return (
     <section className={styles.minitables}>
         <div className={styles.aggregatedMiniTables}>
-            IPO Market Stats (In Development: Coco moved!!!)
+            IPO Market Stats :.
         </div>
         <div className={styles.cardscontainer}>
             {dataArray.map((item) => {
@@ -314,15 +314,15 @@ return (
     //                 title: "IPOs",
     //                 data: [
     //                     {
-    //                         value: stats.Overview.WithSpacs.IposYTD,
+    //                         value: stats.overview.withSpacs.IposYTD,
     //                         change: "YTD",
     //                     },
     //                     {
-    //                         value: stats.Overview.WithSpacs.IposPrevYear,
+    //                         value: stats.overview.withSpacs.iposPrevYear,
     //                         change: "prev year",
     //                     },
     //                     {
-    //                         value: `${stats.Overview.WithSpacs.IposYearlyChangePercentage}%`,
+    //                         value: `${stats.overview.withSpacs.iposYearlyChangePercentage}%`,
     //                         change: "yearly Chg % ",
     //                     },
     //                 ],

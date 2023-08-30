@@ -17,7 +17,7 @@ const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/Lis
 
 const IpoCategoryEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  const [graphData, setGraphData] = useState<GraphDataInterface<any>>(initialGraphData);
   
   const options = {
     chart: {
@@ -36,21 +36,22 @@ const IpoCategoryEventSummary: React.FC<PROPS> = () => {
         },
     },
     title: {
-        text: graphData.dataset.Title,
+        text: graphData.dataset.title?.text,
     },
     xAxis: {
-        categories: graphData.dataset.XAxis?.Labels,
+        categories: graphData.dataset.xAxis?.categories,
         title: {
-            text: graphData.dataset.XAxis?.Title,
+            text: graphData.dataset.xAxis?.title.text
         },
     },
     yAxis: {
         opposite: true,
         title: {
-            text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
+            text: `${graphData.dataset.yAxis?.title.text}`,
         },
-        max: graphData.dataset.YAxis?.MaxValue,
+        //max: graphData.dataset.YAxis?.MaxValue,
     },
+
     credits: {
         enabled: false,
     },
@@ -59,16 +60,7 @@ const IpoCategoryEventSummary: React.FC<PROPS> = () => {
         verticalAlign: "bottom",
         layout: "horizontal",
     },
-    series: graphData.dataset.SeriesData?.map((series) => ({
-        name: series.Name,
-        data: graphData.dataset.XAxis.Labels.map((month, index) => {
-            const point = series.DataPoints.find(
-                (point) => point.X === index
-            );
-            return point ? point.Y : null;
-        }),
-        // add a color property for each series if you want
-    })),
+    series: graphData.dataset.series,
 };
 
   useEffect(() => {
