@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import styles from "../dashboard-header.module.css";
-import Image from "next/image";
 import { getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import axios, { AxiosError } from "axios";
 import Skeleton from "@mui/material/Skeleton";
+import {
+  MinitableContainer,
+  PressReleaseCard,
+} from "@/lib/components/CommonComponents/PressReleases/press-release.component";
+
 const jsonResponse = "application/json";
+
+const Title: React.FC<{ text: string }> = ({ text }) => {
+  return <div className={styles.aggregatedMiniTables}>{text}</div>;
+};
 
 interface PROPS {}
 const MiniTableList: React.FC<PROPS> = () => {
@@ -69,8 +77,8 @@ const MiniTableList: React.FC<PROPS> = () => {
   return (
     <section className={styles.headlineslistcontainer}>
       <div className={styles.table}>
-        <div className={styles.aggregatedMiniTables}>Mini Table List Title</div>
-        <div className={styles.sectionlistnewscontainerParent}>
+        <Title text="Mini Table list Title" />
+        <MinitableContainer>
           <div className={styles.sectionlistnewscontainer}>
             {isLoading ? (
               <Skeleton
@@ -80,45 +88,12 @@ const MiniTableList: React.FC<PROPS> = () => {
                 style={{ marginTop: 15 }}
               />
             ) : (
-              releasesnewsData?.dataset?.map((item: any, index: any) => {
-                return (
-                  <div className={styles.paper2} key={index}>
-                    <div className={styles.tablerow}>
-                      <div className={styles.frameWrapper}>
-                        <div className={styles.customTableCustomCell4}>
-                          <div className={styles.vectorWrapper}>
-                            <Image
-                              src="/vector3.svg"
-                              alt="/vector3"
-                              width={17}
-                              height={17}
-                            />
-                          </div>
-                          <div className={styles.frameWrapper}>
-                            <div className={styles.headlineCallOut}>
-                              {item.news}
-                            </div>
-                            <div className={styles.siteName}>
-                              {item.sitename}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.chevronRight}>
-                        <Image
-                          src="/vector4.svg"
-                          alt="/vector4"
-                          width={7}
-                          height={11}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                );
+              releasesnewsData.dataset?.map((item: any, index: any) => {
+                return <PressReleaseCard key={index} item={item} />;
               })
             )}
           </div>
-        </div>
+        </MinitableContainer>
       </div>
     </section>
   );
