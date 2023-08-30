@@ -15,7 +15,7 @@ const IPOSStats = () => {
       <section>
         <EventSummary />
         <IpoMarketStats />
-        {/* <ReturnsByTargetIndustry /> */}
+        <ReturnsByTargetIndustry />
         <ReturnsByClosingYearVintage />
       </section>
     </main>

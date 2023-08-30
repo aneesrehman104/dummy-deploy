@@ -8,60 +8,156 @@ import { URLs } from "@/lib/ts/apiUrl";
 import { GraphDataInterface, LineChart } from "@/lib/ts/interface";
 import { initialGraphData } from "@/lib/ts/initialState";
 import axios, { AxiosError } from "axios";
-
-const DynamicChart = dynamic(() => import("@/lib/components/CommonComponents/ListingTrackGraph"), {
-  ssr: false,
-  loading: () => <Skeleton variant="rounded" height={200} />,
-});
+import * as Highcharts from "highcharts";
+const DynamicChart = dynamic(
+  () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
+  {
+    ssr: false,
+    loading: () => <Skeleton variant="rounded" height={200} />,
+  }
+);
 interface PROPS {}
 
 const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface<LineChart>>(initialGraphData);
-  
+  const [graphData, setGraphData] = useState<GraphDataInterface<LineChart>>(
+    initialGraphData
+  );
+
   const options = {
     chart: {
-        type: "line",
-        height: null,
-        width: null,
-        marginTop: 50,
-        marginBottom: 90,
-        plotBackgroundColor: null,
-        renderTo: "container",
-        animation: false,
-        zooming: {
-            mouseWheel: {
-                enabled: false,
-            },
+      //type: "line",
+      type: "column",
+      height: null,
+      width: null,
+      marginTop: 50,
+      marginBottom: 90,
+      plotBackgroundColor: null,
+      renderTo: "container",
+      animation: false,
+      zooming: {
+        mouseWheel: {
+          enabled: false,
         },
+      },
     },
     title: {
-        text: graphData.dataset.title?.text,
+      text: "Current Average Return from IPO Price (excludes SPACs)",
+      align: "left",
+      style: {
+        fontSize: "16px",
+        fontWeight: "lighter",
+        fontFamily: "Barlow Condensed",
+      },
+      //text: graphData.dataset.Title,
     },
     xAxis: {
-        categories: graphData.dataset.xAxis?.categories,
-        title: {
-            text: graphData.dataset.xAxis?.title.text
-        },
+      type: "category",
     },
     yAxis: {
-        opposite: true,
-        title: {
-            text: `${graphData.dataset.yAxis?.title.text}`,
+      title: {
+        text: "Percentage",
+      },
+      labels: {
+        formatter: function (): string {
+          // Convert the label to a percentage format
+          // @ts-ignore
+          return Highcharts.numberFormat(this.value, 2) * 100 + "%";
         },
-        //max: graphData.dataset.YAxis?.MaxValue,
+      },
+      opposite: true,
     },
-
+    // yAxis: {
+    //   opposite: true,
+    //   title: {
+    //     text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
+    //   },
+    //   max: graphData.dataset.YAxis?.MaxValue,
+    // },
     credits: {
-        enabled: false,
+      enabled: false,
+    },
+    plotOptions: {
+      column: {
+        borderRadius: "5%",
+      },
+      series: {
+        borderWidth: 0,
+        dataLabels: {
+          enabled: true,
+          formatter: function (): string {
+            // Convert the label to a percentage format
+            // @ts-ignore
+            return Highcharts.numberFormat(this.y, 2) * 100 + "%";
+          },
+        },
+      },
+    },
+    tooltip: {
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat:
+        '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>',
+      formatter: function (): string {
+        // @ts-ignore
+        const point_color = this.point.color;
+        // @ts-ignore
+        const point_name = this.point.name;
+        // @ts-ignore
+        const point_series = this.series.name;
+        // Convert the label to a percentage format
+        // @ts-ignore
+        const percentInfo = Highcharts.numberFormat(this.y, 2) * 100 + "%";
+        const headerFormat = `<span style="font-size:11px">${point_series}</span><br>`;
+        const pointFormat = `<span style="color:${point_color}">${point_name}</span>: <b>${percentInfo}</b> of total<br/>`;
+
+        return headerFormat + pointFormat;
+      },
     },
     legend: {
-        align: "start",
-        verticalAlign: "bottom",
-        layout: "horizontal",
+      enabled: false,
     },
-    series: graphData.dataset.series,
-};
+    // legend: {
+    //   align: "start",
+    //   verticalAlign: "bottom",
+    //   layout: "horizontal",
+    // },
+    series: [
+      {
+        name: "Industry",
+        colorByPoint: true,
+        data: [
+          {
+            name: "Tech",
+            y: -0.5,
+          },
+          {
+            name: "Energy",
+            y: -0.06,
+          },
+          {
+            name: "Consumer",
+            y: 0.22,
+          },
+          {
+            name: "Financials",
+            y: 0.25,
+          },
+          {
+            name: "Other",
+            y: 0.05,
+          },
+        ],
+      },
+    ],
+    // series: graphData.dataset.SeriesData?.map((series) => ({
+    //   name: series.Name,
+    //   data: graphData.dataset.XAxis.Labels.map((month, index) => {
+    //     const point = series.DataPoints.find((point) => point.X === index);
+    //     return point ? point.Y : null;
+    //   }),
+    //   // add a color property for each series if you want
+    // })),
+  };
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -79,7 +175,7 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
           setGraphData({
             dataset: response.data.source.dataset,
             additional_dataset: {},
-        });
+          });
         }
       } catch (error) {
         if (axios.isCancel(error)) {
@@ -102,7 +198,9 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
     <section className={styles.sectionsummarycontainer}>
       <div className={styles.sectiondatasummary}>
         <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>Average Returns by IPO type nd IPO year (2020-2023)</div>
+          <div className={styles.ytdEventSummary}>
+            AVERAGE RETURN FROM IPO BY INDUSTRY (2023 IPOS)
+          </div>
         </div>
       </div>
       <div className={styles.chartcontainer}>
@@ -118,6 +216,26 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
           <div className={styles.frameParent}>
             <>
               <div className={styles.container}>
+                <div> 23</div>
+                <div>TECH</div>
+              </div>
+              <div className={styles.container}>
+                <div> 10</div>
+                <div>ENERGY</div>
+              </div>
+              <div className={styles.container}>
+                <div> 5</div>
+                <div>CONSUMER</div>
+              </div>
+              <div className={styles.container}>
+                <div> 12</div>
+                <div>FINANCIALS</div>
+              </div>
+              <div className={styles.container}>
+                <div> 32</div>
+                <div>OTHER</div>
+              </div>
+              {/* <div className={styles.container}>
                 <div> {graphData?.additional_dataset?.IPO}</div>
                 <div>IPOS</div>
               </div>
@@ -135,13 +253,13 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
                 <div> {graphData?.additional_dataset?.Liquidations}</div>
 
                 <div>LIQUIDATIONS</div>
-              </div>
+              </div> */}
             </>
           </div>
         )}
       </div>
     </section>
   );
-}
+};
 
 export default ReturnsByTargetIndustry;
