@@ -97,9 +97,7 @@ const HomeEventSummary: React.FC<PROPS> = () => {
 
       try {
         //TODO: getting IPO data just for development. We need to point to a home controller graph endpoint
-        const response = await getApiWithoutAuth(URLs.ipoOverviewChart, {
-          cancelToken: source.token,
-        });
+        const response = await getApiWithoutAuth(URLs.ipoOverviewChart);
 
         if (response.status === 200 && response.data !== null) {
           setGraphData({
