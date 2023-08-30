@@ -1,7 +1,7 @@
 "use client";
 import RootLayout from "./layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import MergerCategory from "@/lib/components/MainComponents/MergerCategory";
+import MergerCategory from "@/lib/components/MainComponents/Merger/MergerCategory";
 import { useContext } from "react";
 import { MemberInformationContext } from "@/lib/components/context";
 import { Meta } from "@/lib/meta.component";

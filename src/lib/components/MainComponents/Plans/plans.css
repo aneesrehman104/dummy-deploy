@@ -37,26 +37,24 @@
 }
 
 .plansBackground {
-  background: grey;
+  color: grey;
   border-radius: 100px;
-  color: white;
   height: 27px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 62px;
-  border: 1px solid black;
   text-transform: uppercase;
+  font-size: 32px;
+  align-self: center;
+  font-weight: var(--font-weight-800);
 }
 
 .plansPrice {
-  color: "#000000";
   font-weight: var(--font-weight-500);
   font-size: 24px;
-  /* width: 100%; */
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  align-self: center;
+
 }
 .planMainContainer {
   background: #d2ecf9;
@@ -64,7 +62,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 }
 
 .firstsectionOuterContainer {

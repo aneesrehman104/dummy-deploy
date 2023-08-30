@@ -1,7 +1,7 @@
 "use client";
 import RootLayout from "../../layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import SpacsNews from "@/lib/components/MainComponents/SpacsNews";
+import SpacsNews from "@/lib/components/MainComponents/SPAC/SpacsNews";
 const SpacsNewsPage = () => {
   return (
     <RootLayout>

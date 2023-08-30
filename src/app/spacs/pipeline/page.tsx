@@ -1,7 +1,7 @@
 "use client";
 import RootLayout from "../../layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import SpacsPipeline from "@/lib/components/MainComponents/SpacsPipeline";
+import SpacsPipeline from "@/lib/components/MainComponents/SPAC/SpacsPipeline";
 const SpacPipelinePage = () => {
   return (
     <RootLayout>

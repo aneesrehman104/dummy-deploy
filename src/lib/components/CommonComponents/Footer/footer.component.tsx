@@ -9,7 +9,7 @@ import { FOOTER } from "@/lib/ts/constants";
 import { FooterTextField } from "@/lib/styled-components/index.styled";
 import { PORTALS, SUPPORT } from "./constants";
 const Footer = () => {
-  const SOCIALLINKS = [{ name: "Twitter" }, { name: "Common.fi" }];
+  const SOCIALLINKS = [{ name: "X[Twitter]" }, { name: "Linkdin" }, { name: "Common.fi" }];
   return (
     <>
       <footer className="footerMainDiv">

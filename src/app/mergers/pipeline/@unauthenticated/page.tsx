@@ -1,7 +1,7 @@
 "use client";
 import RootLayout from "../../layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import MergerPipeline from "@/lib/components/MainComponents/MergerPipeline";
+import MergerPipeline from "@/lib/components/MainComponents/Merger/MergerPipeline";
 const MergerPipelinePage =() => {
   return (
     <RootLayout>

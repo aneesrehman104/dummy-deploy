@@ -1,7 +1,7 @@
 "use client";
 import RootLayout from "../layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import IpoCategory from "@/lib/components/MainComponents/IpoCategory";
+import IpoCategory from "@/lib/components/MainComponents/IPO/IpoCategory";
 const IposHubPage =()=> {
   return (
     <RootLayout>
