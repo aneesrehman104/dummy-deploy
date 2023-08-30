@@ -1,3 +1,5 @@
+import { extend } from "highcharts";
+
 export interface Props {
   selected_id?: string;
   handleLogout?: any;
@@ -73,43 +75,78 @@ export type LoserInterFace = {
   isLoadingLooser?: boolean;
 };
 
-export interface Point {
-  X: number;
-  Y: number | null;
+// Charting definitions
+export interface IChartType {
+  type: string;
 }
 
-export interface Series {
-  Name: string;
-  DataPoints: Point[];
+export interface ITitle {
+  text?: string;
+  align?: string;
 }
 
-export interface Axis {
-  Title: string;
-  Unit: string | null;
-  Labels: string[];
-  MinValue: number | null;
-  MaxValue: number | null;
-  Interval: number | null;
+export interface ISubtitle {
+  text: string;
+  align?: string;
 }
 
-export interface LineChart {
-  Title: string;
-  XAxis: Axis;
-  YAxis: Axis;
-  SeriesData: Series[];
-  ComputeYAxisScale?: () => void;
+export interface IAxis {
+  title: ITitle;
+  categories?: string[];
 }
 
-export interface GraphDataInterface {
+export interface IChartData {
+  y?: number;
+}
+
+export interface PieChartData extends IChartData {
+  name: string;
+  y: number;
+  sliced: boolean;
+  selected: boolean;
+}
+
+export interface ISeries<T extends IChartData> {
+  name: string;
+  data: T[];
+}
+
+export interface MultiAxesSeries<T extends IChartData> extends ISeries<T> {
+  type: string;
+  yAxis: number;
+}
+
+export interface IChart {}
+
+export interface BaseChart<TChart extends IChartType, TTitle extends ITitle, TSubtitle extends ISubtitle, TSeries extends ISeries<IChartData>> extends IChart {
+  chart: TChart;
+  title: TTitle;
+  subtitle: TSubtitle;
+  series: TSeries[];
+}
+
+export interface LineChart extends BaseChart<IChartType, ITitle, ISubtitle, ISeries<IChartData>> {
+  xAxis: IAxis;
+  yAxis: IAxis;
+}
+
+export interface ColumnChart extends BaseChart<IChartType, ITitle, ISubtitle, ISeries<IChartData>> {
+  xAxis: IAxis;
+  yAxis: IAxis;
+}
+
+
+export interface GraphDataInterface<T extends IChart> {
   additional_dataset?: {
     IPO?: number;
     Closed_Mergers?: number;
     Announced_Mergers?: number;
     Liquidations?: number;
   };
-  dataset: LineChart;
+  dataset: T;
   // Define other properties here if needed
 }
+
 export interface PipelineInterface {
   data: any[];
   totalLength?: any;
@@ -133,59 +170,60 @@ export interface IpoPipelineInterface {
 //
 //
 export interface IpoMarketStatsDto {
-  Overview: IpoOverviewMarketStats;
-  PricingYTD: IpoPricingYTDMarketStats;
-  AverageReturns: IpoAverageReturnsMarketStats;
+  overview: IpoOverviewMarketStats;
+  pricingYTD: IpoPricingYTDMarketStats;
+  averageReturns: IpoAverageReturnsMarketStats;
 }
 
 export interface IpoOverviewMarketStats {
-  WithSpacs: IpoOverviewStats;
-  WithoutSpacs: IpoOverviewStats;
+  withSpacs: IpoOverviewStats;
+  withoutSpacs: IpoOverviewStats;
 }
 
 export interface IpoOverviewStats {
-  IposYTD: number;
-  IposPrevYear: number;
-  IposYearlyChangePercentage: number;
-  IposFiled: number;
-  IposScheduled: number;
-  IposWithdrawnYTD: number;
+  iposYTD: number;
+  iposPrevYear: number;
+  iposYearlyChangePercentage: number;
+  iposFiled: number;
+  iposScheduled: number;
+  iposWithdrawnYTD: number;
 }
 
 export interface IpoPricingYTDMarketStats {
-  WithSpacs: IpoPricingYTDStats;
-  WithoutSpacs: IpoPricingYTDStats;
+  withSpacs: IpoPricingYTDStats;
+  withoutSpacs: IpoPricingYTDStats;
 }
 
 export interface IpoPricingYTDStats {
-  ValuationsOver1B: number;
-  ValuationsAvgMarketCap: number;
-  ValuationsMedianMarketCap: number;
-  ProceedsOver500M: number;
-  AvgProceeds: number;
-  MedianProceeds: number;
-  Underwriters?: UnderwriterStats[];
+  valuationsOver1B: number;
+  valuationsAvgMarketCap: number;
+  valuationsMedianMarketCap: number;
+  proceedsOver500M: number;
+  avgProceeds: number;
+  medianProceeds: number;
+  underwriters?: UnderwriterStats[];
 }
 
 export interface UnderwriterStats {
-  Name: string;
-  Count: number;
-  Percentage: number;
+  name: string;
+  count: number;
+  percentage: number;
 }
 
 export interface IpoAverageReturnsMarketStats {
-  WithSpacs: IpoAverageReturnsStats;
-  WithoutSpacs: IpoAverageReturnsStats;
+  withSpacs: IpoAverageReturnsStats;
+  withoutSpacs: IpoAverageReturnsStats;
 }
 
 export interface IpoAverageReturnsStats {
-  PercentageAboveIpoPrice: number;
-  AvgPremiumIpoPrice: number;
-  MedianPremiumIpoPrice: number;
-  PercentageClosedAboveOnIpoDay: number;
-  AvgReturnAtCloseOnIpoDay: number;
-  MedianReturnAtCloseOnIpoDay: number;
+  percentageAboveIpoPrice: number;
+  avgPremiumIpoPrice: number;
+  medianPremiumIpoPrice: number;
+  percentageClosedAboveOnIpoDay: number;
+  avgReturnAtCloseOnIpoDay: number;
+  medianReturnAtCloseOnIpoDay: number;
 }
+
 // #endregion ipo market stats
 export interface ChartOptions {
   chart: {

@@ -155,15 +155,15 @@ export default IpoHubMarketStats;
 
 //                     data: [
 //                         {
-//                             value: stats.Overview.WithSpacs.IposYTD,
+//                             value: stats.overview.withSpacs.IposYTD,
 //                             change: "YTD",
 //                         },
 //                         {
-//                             value: stats.Overview.WithSpacs.IposPrevYear,
+//                             value: stats.overview.withSpacs.iposPrevYear,
 //                             change: "prev year",
 //                         },
 //                         {
-//                             value: `${stats.Overview.WithSpacs.IposYearlyChangePercentage}%`,
+//                             value: `${stats.overview.withSpacs.iposYearlyChangePercentage}%`,
 //                             change: "yearly Chg % ",
 //                         },
 //                     ],
@@ -264,15 +264,15 @@ export default IpoHubMarketStats;
 //                 title: "IPOs",
 //                 data: [
 //                     {
-//                         value: stats.Overview.WithSpacs.IposYTD,
+//                         value: stats.overview.withSpacs.IposYTD,
 //                         change: "YTD",
 //                     },
 //                     {
-//                         value: stats.Overview.WithSpacs.IposPrevYear,
+//                         value: stats.overview.withSpacs.iposPrevYear,
 //                         change: "prev year",
 //                     },
 //                     {
-//                         value: `${stats.Overview.WithSpacs.IposYearlyChangePercentage}%`,
+//                         value: `${stats.overview.withSpacs.iposYearlyChangePercentage}%`,
 //                         change: "yearly Chg % ",
 //                     },
 //                 ],

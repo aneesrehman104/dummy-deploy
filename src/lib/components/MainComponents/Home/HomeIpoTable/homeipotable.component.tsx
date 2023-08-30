@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
-import styles from "./home-ipo-table.module.css";
 import { homeConstants } from "@/lib/ts/constants";
 import { getODataWithParams } from "@/lib/ts/api";
 import { IpoPipelineInterface } from "@/lib/ts/interface";
 import { URLs } from "@/lib/ts/apiUrl";
-import {
-  SkeltonTable,
-  ListingTrackTable,
-} from "@/lib/components/CommonComponents";
 import { headerArrayHomeIpoTable } from "./constants";
 import axios, { AxiosError } from "axios";
+import { Table } from "@/lib/components/CommonComponents/Table/table.component";
 
 const jsonResponse = "application/json";
 interface PROPS {}
-const TableTitle: React.FC<{ text: string }> = ({ text }) => (
-  <div className={styles.tableTitle}>{}</div>
-);
+
 const HomeIpoTable: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [iPOPipelineData, setIPOPipelineData] = useState<
@@ -60,21 +54,12 @@ const HomeIpoTable: React.FC<PROPS> = () => {
     };
   }, []);
   return (
-    <section className={styles.stockstablesection}>
-      <TableTitle text={homeConstants.IPOPipeline.title} />
-      <div className={styles.companiestable}>
-        <div className={styles.tablecontent}>
-          {isLoading ? (
-            <SkeltonTable />
-          ) : (
-            <ListingTrackTable
-              data={iPOPipelineData}
-              headerArray={headerArrayHomeIpoTable}
-            />
-          )}
-        </div>
-      </div>
-    </section>
+    <Table
+      isLoading={isLoading}
+      headerArray={headerArrayHomeIpoTable}
+      pipelineData={iPOPipelineData}
+      title={homeConstants.IPOPipeline.title}
+    />
   );
 };
 

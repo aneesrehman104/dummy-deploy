@@ -73,7 +73,7 @@ const dataSet = [
 
 const IOPS: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  const [graphData, setGraphData] = useState<GraphDataInterface<any>>(initialGraphData);
   const { openModal, hideModal } = useMemberstackModal();
   const { user } = useContext(MemberInformationContext);
 

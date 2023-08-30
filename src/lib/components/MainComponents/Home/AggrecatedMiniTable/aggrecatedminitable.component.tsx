@@ -1,14 +1,10 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import styles from "../dashboard-header.module.css";
 import { homeConstants } from "@/lib/ts/constants";
-import { getODataWithParams } from "@/lib/ts/api";
-import { URLs } from "@/lib/ts/apiUrl";
-import axios, { AxiosError } from "axios";
 import { AggratedDataTitles, IAggregation, dummy_data_first, dummy_data_second, dummy_data_third } from "@/lib/components/CommonComponents/Aggregation/constants";
 import { AggregationCard } from "@/lib/components/CommonComponents/Aggregation/aggregation.component";
 
 const jsonResponse = "application/json";
-
 const Title: React.FC<{ text: string }> = ({ text }) => {
   return <div className={styles.aggregatedMiniTables}>{text}</div>;
 };

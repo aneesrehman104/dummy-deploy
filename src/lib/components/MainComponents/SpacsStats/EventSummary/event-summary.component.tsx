@@ -21,7 +21,7 @@ interface PROPS {}
 
 const EventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  const [graphData, setGraphData] = useState<GraphDataInterface<any>>(initialGraphData);
   const options: ChartOptions = {
     chart: {
       type: "line",

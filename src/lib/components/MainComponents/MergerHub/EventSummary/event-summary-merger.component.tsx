@@ -17,7 +17,7 @@ const DynamicChart = dynamic(
 
 const EventSummary=()=>{ 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface>(initialGraphData);
+  const [graphData, setGraphData] = useState<GraphDataInterface<any>>(initialGraphData);
   const options = {
     chart: {
       type: "line",

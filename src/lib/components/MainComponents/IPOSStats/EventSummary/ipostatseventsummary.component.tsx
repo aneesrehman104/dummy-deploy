@@ -5,7 +5,7 @@ import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { GraphDataInterface } from "@/lib/ts/interface";
+import { GraphDataInterface, LineChart } from "@/lib/ts/interface";
 import { initialGraphData } from "@/lib/ts/initialState";
 import { getODataWithParams } from "@lib/ts/api";
 import axios, { AxiosError } from "axios";
@@ -21,7 +21,8 @@ interface PROPS {}
 const IpoStatsEventSummary: React.FC<PROPS> = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [graphData, setGraphData] =
-        useState<GraphDataInterface>(initialGraphData);
+        useState<GraphDataInterface<LineChart>>(initialGraphData);
+    
     const options = {
         chart: {
             type: "line",
@@ -39,20 +40,20 @@ const IpoStatsEventSummary: React.FC<PROPS> = () => {
             },
         },
         title: {
-            text: graphData.dataset.Title,
+            text: graphData.dataset.title?.text,
         },
         xAxis: {
-            categories: graphData.dataset.XAxis?.Labels,
+            categories: graphData.dataset.xAxis?.categories,
             title: {
-                text: graphData.dataset.XAxis?.Title,
+                text: graphData.dataset.xAxis?.title.text
             },
         },
         yAxis: {
             opposite: true,
             title: {
-                text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
+                text: `${graphData.dataset.yAxis?.title.text}`,
             },
-            max: graphData.dataset.YAxis?.MaxValue,
+            //max: graphData.dataset.YAxis?.MaxValue,
         },
 
         credits: {
@@ -63,16 +64,7 @@ const IpoStatsEventSummary: React.FC<PROPS> = () => {
             verticalAlign: "bottom",
             layout: "horizontal",
         },
-        series: graphData.dataset.SeriesData?.map((series) => ({
-            name: series.Name,
-            data: graphData.dataset.XAxis.Labels.map((month, index) => {
-                const point = series.DataPoints.find(
-                    (point) => point.X === index
-                );
-                return point ? point.Y : null;
-            }),
-            // add a color property for each series if you want
-        })),
+        series: graphData.dataset.series,
     };
 
     useEffect(() => {

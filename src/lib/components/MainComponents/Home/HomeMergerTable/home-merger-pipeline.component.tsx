@@ -1,14 +1,10 @@
-import React, { Fragment, useState, useEffect } from "react";
-import styles from "./home-merger-table.module.css";
+import React, { useState, useEffect } from "react";
 import { homeConstants } from "@/lib/ts/constants";
-import { getApiWithoutAuth, getODataWithParams } from "@/lib/ts/api";
+import { getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import {
-  SkeltonTable,
-  ListingTrackTable,
-} from "@/lib/components/CommonComponents";
 import { headerArrayHomeMergerTable } from "./constants";
 import axios, { AxiosError } from "axios";
+import { Table } from "@/lib/components/CommonComponents/Table/table.component";
 
 const jsonResponse = "application/json";
 interface PROPS {}
@@ -22,9 +18,6 @@ interface MergerPipelineInterface {
   expectedIpoPrice: string;
   ipoOfferingSize: string;
 }
-const HomeMergerTableTitle = () => (
-  <div className={styles.tableTitle}>{homeConstants.MergersPipeline.title}</div>
-);
 
 const HomeMergerTable: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -71,21 +64,12 @@ const HomeMergerTable: React.FC<PROPS> = () => {
   }, []);
 
   return (
-    <section className={styles.stockstablesection}>
-      <HomeMergerTableTitle />
-      <div className={styles.companiestable}>
-        <div className={styles.tablecontent}>
-          {isLoading ? (
-            <SkeltonTable />
-          ) : (
-            <ListingTrackTable
-              data={mergerPipelineData}
-              headerArray={headerArrayHomeMergerTable}
-            />
-          )}
-        </div>
-      </div>
-    </section>
+    <Table
+      isLoading={isLoading}
+      headerArray={headerArrayHomeMergerTable}
+      pipelineData={mergerPipelineData}
+      title={homeConstants.MergersPipeline.title}
+    />
   );
 };
 
