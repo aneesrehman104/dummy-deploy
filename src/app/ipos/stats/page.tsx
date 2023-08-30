@@ -1,7 +1,7 @@
 "use client";
 import RootLayout from "../layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import IPOSStats from "@/lib/components/MainComponents/IPOSStats";
+import IPOSStats from "@/lib/components/MainComponents/IPO/IPOSStats";
 const IPOSStatsPage = () => {
   return (
     <RootLayout>

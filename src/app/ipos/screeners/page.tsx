@@ -1,7 +1,7 @@
 "use client";
 import RootLayout from "../layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import IPOScreener from "@/lib/components/MainComponents/IPOScreener";
+import IPOScreener from "@/lib/components/MainComponents/IPO/IPOScreener";
 const IPOSScreenerPage = () => {
   return (
     <RootLayout>

@@ -1,7 +1,7 @@
 "use client";
 import RootLayout from "../../layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import MergerScreener from "@/lib/components/MainComponents/MergerScreener";
+import MergerScreener from "@/lib/components/MainComponents/Merger/MergerScreener";
 const MergerScreenerPage = () => {
   return (
     <RootLayout>

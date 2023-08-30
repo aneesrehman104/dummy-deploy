@@ -106,6 +106,7 @@
 .container {
   font-size: 18px;
   gap: 1px;
+  font-family: var(--font-family-primary);
 }
 .indicator {
   position: relative;

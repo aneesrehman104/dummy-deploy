@@ -22,6 +22,22 @@ const DynamicChart = dynamic(() => import("./events-chart.component"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
 });
+
+interface PROPS {
+  data: any;
+  headerArray: any;
+  currentPage: number;
+  itemsPerPage: number;
+  paginate: (pagenumber: any) => void;
+  totalLength: number;
+  showPagination: boolean;
+  setItemPerPage: any;
+  isUser: boolean;
+  options: boolean;
+  isRemoveAble: boolean;
+  setRemoveRow: any;
+}
+
 const ListingTrackTable = ({
   data,
   headerArray,
@@ -183,7 +199,7 @@ const ListingTrackTable = ({
           {/* <TableRow> */}
           {options ? (
             <TablePagination
-              count={totalLength?.totalLength} // Total number of items
+              count={totalLength} // Total number of items
               rowsPerPage={itemsPerPage}
               page={currentPage - 1} // Page number starts from 0
               onPageChange={(event, newPage) => paginate(newPage + 1)} // Event handler for page change
@@ -200,7 +216,7 @@ const ListingTrackTable = ({
               <Stack spacing={2}>
                 <Pagination
                   // aria-colspan={1}
-                  count={totalLength?.totalLength / itemsPerPage}
+                  count={totalLength / itemsPerPage}
                   page={currentPage}
                   onChange={handleChange}
                   color="primary"
