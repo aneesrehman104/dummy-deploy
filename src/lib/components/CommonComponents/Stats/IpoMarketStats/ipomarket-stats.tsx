@@ -122,7 +122,7 @@ const dataArray = [
 return (
     <section className={styles.minitables}>
         <div className={styles.aggregatedMiniTables}>
-            IPO Market Stats :.
+            IPO Market Stats
         </div>
         <div className={styles.cardscontainer}>
             {dataArray.map((item) => {

@@ -113,7 +113,7 @@ const IpoStatsEventSummary: React.FC<PROPS> = () => {
             <div className={styles.sectiondatasummary}>
                 <div className={styles.ytdSummary}>
                     <div className={styles.ytdEventSummary}>
-                        2023 SPACs Stats COCO 999
+                        2023 SPACs Stats
                     </div>
                     <Image
                         src="/vector2.svg"
