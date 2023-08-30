@@ -5,7 +5,7 @@ import Home from "@/lib/components/MainComponents/Home";
 const  HomePAge =()=> {
   return (
     <RootLayout>
-      <AuthenticatedLayout selected_id="home">
+      <AuthenticatedLayout selected_id="overview">
         <Home />
       </AuthenticatedLayout>
     </RootLayout>

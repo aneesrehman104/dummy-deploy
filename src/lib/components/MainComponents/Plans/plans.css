@@ -57,5 +57,51 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+.planMainContainer {
+  background: #d2ecf9;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
+.firstsectionOuterContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.firstsectionInnerContainerHeading {
+  color: #263c6f;
+  font-weight: 500;
+  font-size: 33px;
+  padding: 5rem;
+  text-transform: uppercase;
+}
+
+.firstsectionInnerContainerText {
+  width: 80%;
+  margin-top: 10px;
+}
+.secondsectionOuterContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.marginTop15 {
+  margin-top: 15px;
+}
+
+.marginTop15TextDecoration {
+  margin-top: 15px;
+  text-decoration: line-through;
+  color: #6c757d;
 }

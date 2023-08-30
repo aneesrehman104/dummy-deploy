@@ -5,10 +5,10 @@ import { getApiWithoutAuth } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
 import { CommonfiButton } from "@/lib/components/CommonComponents";
 import Image from "next/image";
-import Rectangle from "../../../../../../public/Rectangle.svg";
+import Rectangle from "@public/Rectangle.svg";
 import { TextField, Checkbox, Button, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import footerLogo from "../../../../../../public/footerLogo.svg";
+import footerLogo from "@public/footerLogo.svg";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -21,7 +21,7 @@ const MarketingFooter: React.FC<PROPS> = () => {
   const FooterData = [
     {
       name: "Dashboard",
-      link: "/home",
+      link: "/overview",
     },
     {
       name: "Contact Us",
@@ -68,7 +68,7 @@ const MarketingFooter: React.FC<PROPS> = () => {
               height={40}
               style={{ cursor: "pointer", marginTop: 20, marginRight: 20 }}
               onClick={() => {
-                router.push("/home");
+                router.push("/overview");
               }}
             />
           </div>

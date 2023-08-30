@@ -1,7 +1,7 @@
 "use client";
 import styles from "./dashboard-header.module.css";
 import React from "react";
-import HomeEventSummary from "./HomeEventSummary/homeeventsummary.componet.tsx"
+import HomeEventSummary from "./HomeEventSummary/homeeventsummary.component"
 import HomeIpoTable from "./HomeIpoTable/homeipotable.component";
 import HomeMergerTable from "./HomeMergerTable/home-merger-pipeline.component";
 import AggrecatedMiniTable from "./AggrecatedMiniTable/aggrecatedminitable.component";
