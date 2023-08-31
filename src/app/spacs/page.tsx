@@ -1,5 +1,4 @@
 "use client";
-import RootLayout from "./layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
 import Spacs from "@/lib/components/MainComponents/SPAC/Spacs";
 import { useContext } from "react";
@@ -10,11 +9,9 @@ const SpacsPage = () => {
 
   return (
     <Meta title="Spac Hub" description="" style={{ width: "100%" }}>
-      <RootLayout>
         <AuthenticatedLayout selected_id="spacs/hub">
           <Spacs />
         </AuthenticatedLayout>
-      </RootLayout>
     </Meta>
   );
 };
