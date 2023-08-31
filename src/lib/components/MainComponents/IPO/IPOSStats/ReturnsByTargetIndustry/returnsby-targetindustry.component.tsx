@@ -45,6 +45,9 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
     },
     xAxis: {
       type: "category",
+      title: {
+        text: "Industry"
+      }
     },
     yAxis: {
       title: {
