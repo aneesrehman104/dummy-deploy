@@ -26,7 +26,11 @@ const TrackingOnePlace: React.FC<PROPS> = () => {
       }}
     >
       <div className="titleMainHadding">
-        Finally, everything you need to track in &nbsp;<span className="oneLineUnder">ONE</span>&nbsp; place.
+        <span>
+          {" "}
+          Finally, everything you need to track in &nbsp;
+          <span className="oneLineUnder">ONE</span>&nbsp; place.
+        </span>
       </div>
       <div className="tackingOnePlace">
         <div style={{ width: 274, marginTop: 10, marginBottom: 30 }}>
@@ -128,6 +132,6 @@ const TrackingOnePlace: React.FC<PROPS> = () => {
       </div>
     </section>
   );
-}
+};
 
 export default TrackingOnePlace;

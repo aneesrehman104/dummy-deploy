@@ -49,14 +49,14 @@ const Plans: React.FC<PROPS> = () => {
             voluptatem.
           </div>
         </section>
-        <Box sx={{ width: "100%", typography: "body1" }}>
+        <Box>
           <TabContext value={value}>
             <Box
               sx={{
                 width: "100%",
                 display: "flex",
                 justifyContent: "center",
-                marginTop:"20px"
+                marginTop: "20px",
               }}
             >
               <TabList
