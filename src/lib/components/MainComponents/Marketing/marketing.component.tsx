@@ -14,10 +14,10 @@ const Marketing = () => {
     <section>
       <UnauthenticatedNavBar />
       <Slider/>
+      <Creators/>
       <TrackingOnePlace />
       <PowerOfPro />
       <Plans/>
-      <Creators/>
       <GetFreeUpdates/>
       {/* <MarketingFooter/> */}
       <Footer/>

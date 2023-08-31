@@ -60,6 +60,7 @@ const IposPipelineOverview: React.FC<PROPS> = () => {
               ? [{ field: "percentReturnFromIpoPrice", direction: "desc" }]
               : undefined,
         });
+        console.log('=======================res',response)
         if (response.status === 200 && response.data !== null) {
           setIPOSTradingIposPipelineOverviewData({
             dataset: response.data,

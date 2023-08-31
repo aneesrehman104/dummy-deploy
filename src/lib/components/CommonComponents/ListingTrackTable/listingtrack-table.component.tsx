@@ -18,6 +18,8 @@ import Skeleton from "@mui/material/Skeleton";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import newsImage from "@public/newsImage.svg";
+import { styled } from "@mui/material/styles";
+
 const DynamicChart = dynamic(() => import("./events-chart.component"), {
   ssr: false,
   loading: () => <Skeleton variant="rounded" height={200} />,
@@ -54,8 +56,14 @@ const ListingTrackTable = ({
 }: any) => {
   const [sortColumn, setSortColumn] = useState<string>("");
   const [sortDirection, setSortDirection] = useState<string>("asc");
-  const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false); // Dropdown open state variable
-
+  const [isSelectOpen, setIsSelectOpen] = useState<boolean>(false);
+  // Dropdown open state variable
+  const PaginationuseStyles = styled(Pagination)({
+    ul: {
+      flexWrap: "nowrap",
+      marginTop: "15px",
+    },
+  });
   const handleSort = (column: string) => {
     if (column !== "last30D") {
       setSortColumn(column);
@@ -227,7 +235,7 @@ const ListingTrackTable = ({
           ) : (
             <>
               <Stack spacing={1}>
-                <Pagination
+                <PaginationuseStyles
                   // aria-colspan={1}
                   count={totalLength / itemsPerPage}
                   page={currentPage}
