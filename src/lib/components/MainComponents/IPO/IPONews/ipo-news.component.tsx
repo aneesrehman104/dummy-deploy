@@ -9,7 +9,7 @@ const IPONews = () => {
     <main>
       <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
-          <div className={styles.dashboardtitle}>In The News</div>
+          <div className={styles.dashboardtitle}>IPO News</div>
         </div>
       </header>
       <section>

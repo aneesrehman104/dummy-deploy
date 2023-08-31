@@ -129,7 +129,7 @@ const LatestClosedIpo: React.FC<PROPS> = () => {
 
   return (
     <TabTable
-      title="IPO Grapevine"
+      title="IPO Calendar (REMOVED AND PUT INTO THE CALENDAR PAGE)"
       isLoading={isLoading}
       headerArray={headerArray}
       itemsPerPage={itemsPerPage}

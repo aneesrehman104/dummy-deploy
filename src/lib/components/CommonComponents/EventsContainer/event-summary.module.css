@@ -1,9 +1,8 @@
 .ytdEventSummary {
   flex: 1;
   position: relative;
- font-weight: var(--font-weight-600);
-
-  cursor:pointer;
+  font-weight: var(--font-weight-600);
+  cursor: pointer;
 }
 .vectorIcon {
   position: relative;
@@ -45,8 +44,7 @@
   left: 0;
   letter-spacing: 0.08em;
   text-transform: uppercase;
- font-weight: var(--font-weight-500);
-
+  font-weight: var(--font-weight-500);
 }
 .title2 {
   position: relative;
@@ -124,8 +122,7 @@
   position: relative;
   letter-spacing: 0.08em;
   text-transform: uppercase;
- font-weight: var(--font-weight-500);
-
+  font-weight: var(--font-weight-500);
 }
 .eventsummaryinfo {
   flex: 1;
@@ -171,7 +168,7 @@
 .titleText {
   letter-spacing: 0.08em;
   text-transform: uppercase;
- font-weight: var(--font-weight-500);
+  font-weight: var(--font-weight-500);
 
   font-size: 18px;
   font-family: var(--font-family-primary);
@@ -218,7 +215,6 @@
   }
 
   .chartBottomSide {
-
     flex-direction: column;
   }
   .chartBottomSideInnerDiv {

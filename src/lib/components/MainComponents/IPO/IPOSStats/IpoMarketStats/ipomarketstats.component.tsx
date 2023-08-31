@@ -102,7 +102,7 @@ const IpoMarketStats: React.FC<PROPS> = () => {
           ],
         },
         {
-          title: "UNDERWRITERS",
+          title: "LEAD LEFT UNDERWRITERS",
           data: [
             { value: "12(5%)", change: "GOLDMAN" },
             { value: "6(2.5%)", change: "CREDIT SUISSE" },

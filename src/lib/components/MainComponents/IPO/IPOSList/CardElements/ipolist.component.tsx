@@ -217,7 +217,6 @@ function CardElements() {
 
   return (
     <section className={styles.stockstablesection}>
-      <div className={styles.tableTitle}>Card Elements</div>
       <div className={styles.tableContainerInner}>
         <div style={{ borderBottom: "1px solid #d2ecf9", display: "flex" }}>
           <div

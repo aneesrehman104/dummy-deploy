@@ -84,7 +84,7 @@ const IpoHubLoser: React.FC<PROPS> = () => {
 
   return (
     <TabTable
-      title="Past Year Ipo Gainers"
+      title="Past Year IPO Losers"
       isLoading={isLoading}
       headerArray={
         selectedTab === 0

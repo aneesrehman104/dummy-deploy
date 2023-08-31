@@ -86,7 +86,7 @@ const GrapevineGraveyard: React.FC<PROPS> = () => {
 
   return (
     <TabTable
-      title="IPO Grapevine"
+      title="IPO Pipeline + Grapevine (Need to change table title to: Upcoming IPOs, Rumored, Stalled)"
       isLoading={isLoading}
       headerArray={
         selectedTab === 0

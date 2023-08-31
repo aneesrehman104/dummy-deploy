@@ -66,7 +66,7 @@ const CurrentUpdateFeed: React.FC<PROPS> = () => {
     <section className={styles.headlineslistcontainer}>
       <div className={styles.table}>
         <div className={styles.aggregatedMiniTables}>
-          ListingTrack Curated Updates Feed
+          ListingTrack Curated Feed
         </div>
         <div className={styles.sectionlistnewscontainerParent}>
           <div className={styles.sectionlistnewscontainer}>

@@ -144,7 +144,7 @@ const Navbar: React.FC<PROPS> = ({
                 height={21}
                 style={{ marginRight: 20, cursor: "pointer" }}
                 onClick={() => {
-                  router.push("/overview");
+                  router.push("/marketing");
                 }}
               />
             ) : null}

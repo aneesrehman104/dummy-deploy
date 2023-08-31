@@ -83,6 +83,7 @@ const IpoCategoryEventSummary: React.FC<PROPS> = () => {
       id: "ps22Wd3",
     },
   ];
+  
   useEffect(() => {
     const source = axios.CancelToken.source();
 
