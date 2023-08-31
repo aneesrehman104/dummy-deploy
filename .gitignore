@@ -10,8 +10,8 @@
 /coverage
 
 # next.js
+/.next
 /.next/
-/out/
 
 # production
 /build
@@ -35,6 +35,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Compression Files
+*.zip
+*.7z
 
 # Compression Files
 *.zip
