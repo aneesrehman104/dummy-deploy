@@ -1,7 +1,7 @@
 "use client";
 import RootLayout from "../../layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import MergerNews from "@/lib/components/MainComponents/MergerNews";
+import MergerNews from "@/lib/components/MainComponents/Merger/MergerNews";
 const MergerNewsPage = () => {
   return (
     <RootLayout>

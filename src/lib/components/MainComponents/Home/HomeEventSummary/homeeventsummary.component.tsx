@@ -12,58 +12,50 @@ interface PROPS {}
 const HomeEventSummary: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [graphData, setGraphData] =
-    useState<GraphDataInterface>(initialGraphData);
+    useState<GraphDataInterface<any>>(initialGraphData);
 
-  const options = {
-    chart: {
-      type: "line",
-      height: null,
-      width: null,
-      marginTop: 50,
-      marginBottom: 90,
-      plotBackgroundColor: null,
-      renderTo: "container",
-      animation: false,
-      zooming: {
-        mouseWheel: {
+    const options = {
+      chart: {
+          type: "line",
+          height: null,
+          width: null,
+          marginTop: 50,
+          marginBottom: 90,
+          plotBackgroundColor: null,
+          renderTo: "container",
+          animation: false,
+          zooming: {
+              mouseWheel: {
+                  enabled: false,
+              },
+          },
+      },
+      title: {
+          text: graphData.dataset.title?.text,
+      },
+      xAxis: {
+          categories: graphData.dataset.xAxis?.categories,
+          title: {
+              text: graphData.dataset.xAxis?.title.text
+          },
+      },
+      yAxis: {
+          opposite: true,
+          title: {
+              text: `${graphData.dataset.yAxis?.title.text}`,
+          },
+          //max: graphData.dataset.YAxis?.MaxValue,
+      },
+
+      credits: {
           enabled: false,
-        },
       },
-    },
-    title: {
-      text: graphData.dataset.Title,
-    },
-    xAxis: {
-      categories: graphData.dataset.XAxis?.Labels,
-      title: {
-        text: graphData.dataset.XAxis?.Title,
+      legend: {
+          align: "start",
+          verticalAlign: "bottom",
+          layout: "horizontal",
       },
-    },
-    yAxis: {
-      opposite: true,
-      title: {
-        text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
-      },
-      max: graphData.dataset.YAxis?.MaxValue,
-    },
-
-    credits: {
-      enabled: false,
-    },
-    legend: {
-      align: "start",
-      verticalAlign: "bottom",
-      layout: "horizontal",
-    },
-
-    series: graphData.dataset.SeriesData?.map((series) => ({
-      name: series.Name,
-      data: graphData.dataset.XAxis.Labels.map((month, index) => {
-        const point = series.DataPoints.find((point) => point.X === index);
-        return point ? point.Y : null;
-      }),
-      // add a color property for each series if you want
-    })),
+      series: graphData.dataset.series,
   };
 
   const events = [
@@ -97,9 +89,7 @@ const HomeEventSummary: React.FC<PROPS> = () => {
 
       try {
         //TODO: getting IPO data just for development. We need to point to a home controller graph endpoint
-        const response = await getApiWithoutAuth(URLs.ipoOverviewChart, {
-          cancelToken: source.token,
-        });
+        const response = await getApiWithoutAuth(URLs.ipoOverviewChart);
 
         if (response.status === 200 && response.data !== null) {
           setGraphData({
