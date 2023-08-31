@@ -49,52 +49,59 @@ export const FOOTER = {
 
 export const sidebarItem = [
   {
-    name: "Home",
+    name: "Market Overview",
     pathname: "/overview",
     id: "overview",
-    breadcrumb: "Home",
+    // breadcrumb: "Overview",
   },
   {
     name: "IPOs",
     pathname: "/ipos/hub",
     id: "ipos/hub",
-    breadcrumb: "Home > IPOs > HUB",
+    // breadcrumb: "Home > IPOs > HUB",
     items: [
       {
         name: "HUB",
         pathname: "/ipos/hub",
         id: "ipos/hub",
-        breadcrumb: "Home > IPOs > HUB",
+        // breadcrumb: "Home > IPOs > HUB",
       },
       {
         name: "STATS",
         pathname: "/ipos/stats",
         id: "ipos/stats",
-        breadcrumb: "Home > IPOs > STATS",
+        // breadcrumb: "Home > IPOs > STATS",
       },
       {
         name: "PIPELINE",
         pathname: "/ipos/pipeline",
         id: "ipos/pipeline",
-        breadcrumb: "Home > IPOs > PIPELINE",
+        // breadcrumb: "Home > IPOs > PIPELINE",
+      },
+
+      {
+        name: "CALENDAR",
+        pathname: "/ipos/calendar",
+        id: "ipos/calendar",
+        // breadcrumb: "Home > IPOs > CALENDAR",
       },
       {
         name: "NEWS",
         pathname: "/ipos/news",
         id: "ipos/news",
-        breadcrumb: "Home > IPOs > NEWS",
+        // breadcrumb: "Home > IPOs > NEWS",
       },
       {
         name: "SCREENERS",
         pathname: "/ipos/screeners",
         id: "ipos/screeners",
-        breadcrumb: "Home > IPOs > SCREENERS",
+        // breadcrumb: "Home > IPOs > SCREENERS",
       },
       {
-        name: "LIST",
-        pathname: "/ipos/list",
-        id: "ipos/list",
-        breadcrumb: "Home > IPOs > List",
+        name: "LISTS",
+        pathname: "/ipos/lists",
+        id: "ipos/lists",
+        // breadcrumb: "Home > IPOs > Lists",
       },
     ],
   },
@@ -102,44 +109,50 @@ export const sidebarItem = [
     name: "Mergers",
     pathname: "/mergers/hub",
     id: "mergers/hub",
-    breadcrumb: "Home > MERGERS > HUB",
+    // breadcrumb: "Home > MERGERS > HUB",
 
     items: [
       {
         name: "HUB",
         pathname: "/mergers/hub",
         id: "mergers/hub",
-        breadcrumb: "Home > MERGERS > HUB",
+        // breadcrumb: "Home > MERGERS > HUB",
       },
       {
         name: "STATS",
         pathname: "/mergers/stats",
         id: "mergers/stats",
-        breadcrumb: "Home > MERGERS > STATS",
+        // breadcrumb: "Home > MERGERS > STATS",
       },
       {
         name: "PIPELINE",
         pathname: "/mergers/pipeline",
         id: "mergers/pipeline",
-        breadcrumb: "Home > MERGERS > PIPELINE",
+        // breadcrumb: "Home > MERGERS > PIPELINE",
+      },
+      {
+        name: "CALENDAR",
+        pathname: "/mergers/calendar",
+        id: "mergers/calendar",
+        // breadcrumb: "Home > MERGERS > CALENDAR",
       },
       {
         name: "NEWS",
         pathname: "/mergers/news",
         id: "mergers/news",
-        breadcrumb: "Home > MERGERS > NEWS",
+        // breadcrumb: "Home > MERGERS > NEWS",
       },
       {
         name: "SCREENERS",
         pathname: "/mergers/screeners",
         id: "mergers/screeners",
-        breadcrumb: "Home > MERGERS > SCREENERS",
+        // breadcrumb: "Home > MERGERS > SCREENERS",
       },
       {
         name: "LIST",
         pathname: "/mergers/list",
         id: "mergers/list",
-        breadcrumb: "Home > MERGERS > List",
+        // breadcrumb: "Home > MERGERS > List",
       },
     ],
   },
@@ -147,43 +160,49 @@ export const sidebarItem = [
     name: "SPACs",
     pathname: "/spacs/hub",
     id: "/spacs/hub",
-    breadcrumb: "Home > SPACs > HUB",
+    // breadcrumb: "Home > SPACs > HUB",
     items: [
       {
         name: "HUB",
         pathname: "/spacs/hub",
         id: "spacs/hub",
-        breadcrumb: "Home > SPACs > HUB",
+        // breadcrumb: "Home > SPACs > HUB",
       },
       {
         name: "STATS",
         pathname: "/spacs/stats",
         id: "spacs/stats",
-        breadcrumb: "Home > SPACs > STATS",
+        // breadcrumb: "Home > SPACs > STATS",
       },
       {
         name: "PIPELINE",
         pathname: "/spacs/pipeline",
         id: "spacs/pipeline",
-        breadcrumb: "Home > SPACs > PIPELINE",
+        // breadcrumb: "Home > SPACs > PIPELINE",
+      },
+      {
+        name: "CALENDAR",
+        pathname: "/spacs/calendar",
+        id: "spacs/calendar",
+        // breadcrumb: "Home > SPACS > CALENDAR",
       },
       {
         name: "NEWS",
         pathname: "/spacs/news",
         id: "spacs/news",
-        breadcrumb: "Home > SPACs > NEWS",
+        // breadcrumb: "Home > SPACs > NEWS",
       },
       {
         name: "SCREENERS",
         pathname: "/spacs/screeners",
         id: "spacs/screeners",
-        breadcrumb: "Home > SPACs > SCREENERS",
+        // breadcrumb: "Home > SPACs > SCREENERS",
       },
       {
         name: "LIST",
         pathname: "/spacs/list",
         id: "spacs/list",
-        breadcrumb: "Home > SPACs > List",
+        // breadcrumb: "Home > SPACs > List",
       },
     ],
   },
@@ -191,8 +210,14 @@ export const sidebarItem = [
     name: "Watchlist",
     pathname: "/watchlist",
     id: "watchlist",
-    breadcrumb: "watchlist",
+    // breadcrumb: "watchlist",
   },
+  {
+    name: "Newsletters",
+    pathname: "/newsletters",
+    id: "newsletters",
+    // breadcrumb: "Newsletters",
+  }
 ];
 
 export const navBarText = {
@@ -201,7 +226,7 @@ export const navBarText = {
 };
 
 export const homeConstants = {
-  title: "LISTINGTRACK",
+  title: "ListingTrack Market Overview",
   IOPS: "IPOS",
   SPACS: "SPACS",
   MERGERS: "MERGERS",
@@ -222,7 +247,7 @@ export const homeConstants = {
     title: "Merger Pipeline",
   },
   AggrecatedMiniTable: {
-    title: "Aggregated Mini-tables",
+    title: "IPO and Merger Market Stats",
     ListingTrack: "ListingTrack",
     MERGERs: "MERGERs (>$2B)",
     Livemergers: "Live mergers",

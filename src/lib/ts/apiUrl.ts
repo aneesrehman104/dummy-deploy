@@ -27,4 +27,5 @@ export const URLs = {
   spacOdata: "/odata/spac",
   sourceMaterialFeed: "/dataset",
   newsLetterTool: "/news-data",
+  ipoReturnsIndustryChart: "api/ipo/chart/returns-industry"
 };

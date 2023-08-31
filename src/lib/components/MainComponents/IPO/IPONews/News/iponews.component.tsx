@@ -51,7 +51,7 @@ const News: React.FC<PROPS> = () => {
   }, []);
   return (
     <section className={styles.headlineslistcontainer}>
-      <div className={styles.aggregatedMiniTables}>Ipos News </div>
+      <div className={styles.aggregatedMiniTables}>In The News</div>
       <ListingTrackNews isLoading={isLoading} dataArray={newsData?.dataset} />
     </section>
   );

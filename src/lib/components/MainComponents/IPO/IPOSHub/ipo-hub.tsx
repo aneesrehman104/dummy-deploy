@@ -11,7 +11,7 @@ const IPOSHub = () => {
     <main>
       <header className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
-          <div className={styles.dashboardtitle}>IPOS Hub</div>
+          <div className={styles.dashboardtitle}>IPO HUB</div>
         </div>
       </header>
       <section>

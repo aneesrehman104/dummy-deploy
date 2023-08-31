@@ -130,7 +130,7 @@ const PressReleases: React.FC<PROPS> = () => {
           isFilling
           isLoading={isLoadingSec}
           dataArray={secnewsData?.dataset}
-          title={"IPO SEC Feed"}
+          title={"SEC Filings"}
         />
       </div>
     </section>

@@ -78,7 +78,7 @@ export const DrawerList: React.FC<ScreenDrawerProps> = ({
                   }
                 >
                   {item.id === "overview" ||
-                  item.id === "watchlist" ? null : isOpen[item.id] ? (
+                  item.id === "watchlist" || item.id === "newsletters" ? null : isOpen[item.id] ? (
                     <Image
                       src={currntTabIcon}
                       alt="footerImage"

@@ -9,6 +9,7 @@ import { initialGraphData } from "@/lib/ts/initialState";
 import { getApiWithoutAuth, getODataWithParams } from "@lib/ts/api";
 import axios, { AxiosError } from "axios";
 import * as Highcharts from "highcharts";
+import { EventsContainer } from "@/lib/components/CommonComponents/EventsContainer/events.component";
 const DynamicChart = dynamic(
   () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
   {
@@ -20,9 +21,8 @@ interface PROPS {}
 
 const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface<LineChart>>(
-    initialGraphData
-  );
+  const [graphData, setGraphData] =
+    useState<GraphDataInterface<LineChart>>(initialGraphData);
 
   const options = {
     chart: {
@@ -42,8 +42,7 @@ const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
       },
     },
     title: {
-      text:
-        "This chart compares the performance of IPOs across Listing Type (Traditional IPOs, De-SPACs, & Direct Listings)",
+      text: "This chart compares the performance of IPOs across Listing Type (Traditional IPOs, De-SPACs, & Direct Listings)",
       align: "left",
       style: {
         fontSize: "16px",
@@ -157,6 +156,29 @@ const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
     // })),
   };
 
+  const events = [
+    {
+      name: "2020",
+      value: "23",
+      id: "ps22Wdq1",
+    },
+    {
+      name: "2021",
+      value: "100",
+      id: "ps22Wdq2",
+    },
+    {
+      name: "2022",
+      value: "55",
+      id: "ps22Wdq3",
+    },
+    {
+      name: "2023",
+      value: "14",
+      id: "ps22Wdq4",
+    },
+  ];
+
   useEffect(() => {
     const source = axios.CancelToken.source();
 
@@ -192,70 +214,12 @@ const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
   }, []);
 
   return (
-    <section className={styles.sectionsummarycontainer}>
-      <div className={styles.sectiondatasummary}>
-        <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>
-            AVERAGE RETURNS FROM IPO PRICE BY LISTING TYPE AND LAUNCHED YEAR
-          </div>
-          {/* <div className={styles.ytdEventSummary}>
-            Returns by Industry (2023 IPOs)
-          </div> */}
-        </div>
-      </div>
-      <div className={styles.chartcontainer}>
-        <div style={{ width: "100%" }}>
-          <DynamicChart options={options} />
-        </div>
-        {isLoading ? (
-          <>
-            <Skeleton variant="rounded" height={25} width={"100%"} />
-            <Skeleton variant="rounded" height={25} width={"100%"} />
-          </>
-        ) : (
-          <div className={styles.frameParent}>
-            <>
-              <div className={styles.container}>
-                <div>23</div>
-                <div>2020</div>
-              </div>
-              <div className={styles.container}>
-                <div>100</div>
-                <div>2021</div>
-              </div>
-              <div className={styles.container}>
-                <div>55</div>
-                <div>2022</div>
-              </div>
-              <div className={styles.container}>
-                <div>14</div>
-                <div>2023</div>
-              </div>
-
-              {/* <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.IPO}</div>
-                <div>IPOS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Announced_Mergers}</div>
-
-                <div>ANNOUNCED MERGERS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Closed_Mergers}</div>
-
-                <div>CLOSED MERGERS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Liquidations}</div>
-
-                <div>LIQUIDATIONS</div>
-              </div> */}
-            </>
-          </div>
-        )}
-      </div>
-    </section>
+    <EventsContainer
+      title="AVERAGE RETURNS FROM IPO PRICE BY LISTING TYPE AND LAUNCHED YEAR"
+      options={options}
+      events={events}
+      isLoading={isLoading}
+    />
   );
 };
 
