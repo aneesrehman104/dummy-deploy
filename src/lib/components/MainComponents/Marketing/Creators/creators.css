@@ -10,7 +10,7 @@
 }
 .creatorsMainDiv {
   display: flex;
-  background: white;
+  background: #cbdaff;
   height: 40vh;
   justify-content: space-evenly;
   align-items: center;

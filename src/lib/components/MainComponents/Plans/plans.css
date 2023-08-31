@@ -11,9 +11,8 @@
   margin-top: 25px;
   background: white;
   border-radius: 4px;
-  height: 387px;
-  width: 350px;
-  padding: 20px;
+  width: 330px;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -25,9 +24,8 @@
   margin-top: 25px;
   background: white;
   border-radius: 4px;
-  height: 387px;
-  width: 350px;
-  padding: 20px;
+  width: 330px;
+  padding: 15px;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;

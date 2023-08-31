@@ -127,6 +127,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   overflow: auto;
+  padding-bottom: 20px;
 }
 .companiestable {
   border-radius: 4px;
@@ -351,6 +352,7 @@
   align-items: flex-start;
   justify-content: flex-start;
   overflow: auto;
+  padding-bottom: 20px;
 }
 .companiestable {
   border-radius: 4px;
@@ -1113,6 +1115,8 @@
 .selectedHeader {
   border-bottom: 3px solid #1991ac;
   color: var(--font-color-1991ac);
+  padding-bottom: 12px;
+
 }
 @media screen and (max-width: 900px) {
   .stockstablesection {

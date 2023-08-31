@@ -24,7 +24,7 @@ import {
   useMemberstackModal,
 } from "@memberstack/react";
 import CommonfiButton from "../CommonfiButton";
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 const AuthenticatedLayout = (props: Props) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("Home");
@@ -120,7 +120,14 @@ const AuthenticatedLayout = (props: Props) => {
           <div className="link">{currentBreadcrumb}</div>
         </div>
         {props.children}
-        <div style={{ display: "flex", justifyContent: "flex-end",marginRight:20 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginRight: 20,
+            marginTop:20
+          }}
+        >
           <CommonfiButton
             variant="contained"
             sx={{
@@ -141,7 +148,7 @@ const AuthenticatedLayout = (props: Props) => {
             }}
             disableRipple
             title="BACK TO TOP"
-            startIcon={<ArrowUpwardIcon/>}
+            startIcon={<ArrowUpwardIcon />}
           />
         </div>
         <Footer />
