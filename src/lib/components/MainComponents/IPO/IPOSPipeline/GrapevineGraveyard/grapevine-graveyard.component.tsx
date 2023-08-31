@@ -1,12 +1,7 @@
 import React, { useEffect } from "react";
-import styles from "./grapevine-graveyard.module.css";
 import { useState } from "react";
 import { getODataWithParams } from "@/lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import {
-  SkeltonTable,
-  ListingTrackTable,
-} from "@/lib/components/CommonComponents";
 import {
   headerArrayRumoredIPOs,
   headerArrayStalledIPOs,
@@ -91,7 +86,7 @@ const GrapevineGraveyard: React.FC<PROPS> = () => {
 
   return (
     <TabTable
-      title="IPO Grapevine"
+      title="IPO Pipeline + Grapevine (Need to change table title to: Upcoming IPOs, Rumored, Stalled)"
       isLoading={isLoading}
       headerArray={
         selectedTab === 0

@@ -64,7 +64,7 @@ const LatestAnnouncedMergers: React.FC<PROPS> = () => {
       isLoading={isLoading}
       headerArray={headerArray}
       pipelineData={latestAnnouncedMergersData}
-      title={"Latest Announced IPOs"}
+      title="Latest IPOs"
     />
   );
 };

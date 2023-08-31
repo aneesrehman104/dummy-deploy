@@ -119,7 +119,7 @@ const HomeEventSummary: React.FC<PROPS> = () => {
     <EventsContainer
       isLoading={isLoading}
       events={events}
-      title="2023 SPACS STATS"
+      title="IPO & Merger YTD Summary"
       options={options}
     />
   );

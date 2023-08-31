@@ -128,7 +128,7 @@ const IpoHubEventSummary: React.FC<PROPS> = () => {
     <EventsContainer
       isLoading={isLoading}
       events={events}
-      title="2023 SPACS STATS"
+      title="2023 IPO Overview"
       options={options}
     />
   );

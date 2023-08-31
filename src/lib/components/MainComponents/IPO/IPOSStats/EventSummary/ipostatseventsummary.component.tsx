@@ -126,7 +126,7 @@ const IpoStatsEventSummary: React.FC<PROPS> = () => {
 
   return (
     <EventsContainer
-      title="2023 SPACs Stats"
+      title="(Removed)"
       options={options}
       isLoading={isLoading}
       events={events}

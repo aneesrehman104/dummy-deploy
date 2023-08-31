@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
-import styles from "./returnsby-targetindustry.module.css";
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import Skeleton from "@mui/material/Skeleton";
-import { getApiWithoutAuth, getODataWithParams } from "@lib/ts/api";
+import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { GraphDataInterface, ColumnChart } from "@/lib/ts/interface";
+import { ColumnChart, GraphDataInterface } from "@/lib/ts/interface";
 import { initialGraphData } from "@/lib/ts/initialState";
 import axios, { AxiosError } from "axios";
 import * as Highcharts from "highcharts";
-const DynamicChart = dynamic(
-  () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
-  {
-    ssr: false,
-    loading: () => <Skeleton variant="rounded" height={200} />,
-  }
-);
+import { EventsContainer } from "@/lib/components/CommonComponents/EventsContainer/events.component";
+
 interface PROPS {}
 
 const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
@@ -54,6 +45,9 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
     },
     xAxis: {
       type: "category",
+      title: {
+        text: "Industry"
+      }
     },
     yAxis: {
       title: {
@@ -197,71 +191,42 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
       source.cancel("Request cancelled due to component unmount");
     };
   }, []);
+
+  const events = [
+    {
+      name: "TECH",
+      value: "23",
+      id: "ps22Wdq37",
+    },
+    {
+      name: "ENERGY",
+      value: "10",
+      id: "ps22Wdq38",
+    },
+    {
+      name: "CONSUMER",
+      value: "5",
+      id: "ps22Wdq39",
+    },
+    {
+      name: "FINANCIALS",
+      value: "12",
+      id: "ps22Wdq4O",
+    },
+    {
+      name: "OTHER",
+      value: "32",
+      id: "ps22Wdq41",
+    },
+  ];
+
   return (
-    <section className={styles.sectionsummarycontainer}>
-      <div className={styles.sectiondatasummary}>
-        <div className={styles.ytdSummary}>
-          <div className={styles.ytdEventSummary}>
-            AVERAGE RETURN FROM IPO BY INDUSTRY (2023 IPOS)
-          </div>
-        </div>
-      </div>
-      <div className={styles.chartcontainer}>
-        <div style={{ width: "100%" }}>
-          <DynamicChart options={options} />
-        </div>
-        {isLoading ? (
-          <>
-            <Skeleton variant="rounded" height={25} width={"100%"} />
-            <Skeleton variant="rounded" height={25} width={"100%"} />
-          </>
-        ) : (
-          <div className={styles.frameParent}>
-            <>
-              <div className={styles.container}>
-                <div> 23</div>
-                <div>TECH</div>
-              </div>
-              <div className={styles.container}>
-                <div> 10</div>
-                <div>ENERGY</div>
-              </div>
-              <div className={styles.container}>
-                <div> 5</div>
-                <div>CONSUMER</div>
-              </div>
-              <div className={styles.container}>
-                <div> 12</div>
-                <div>FINANCIALS</div>
-              </div>
-              <div className={styles.container}>
-                <div> 32</div>
-                <div>OTHER</div>
-              </div>
-              {/* <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.IPO}</div>
-                <div>IPOS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Announced_Mergers}</div>
-
-                <div>ANNOUNCED MERGERS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Closed_Mergers}</div>
-
-                <div>CLOSED MERGERS</div>
-              </div>
-              <div className={styles.container}>
-                <div> {graphData?.additional_dataset?.Liquidations}</div>
-
-                <div>LIQUIDATIONS</div>
-              </div> */}
-            </>
-          </div>
-        )}
-      </div>
-    </section>
+    <EventsContainer
+      title="AVERAGE RETURN FROM IPO BY INDUSTRY (2023 IPOS)"
+      isLoading={isLoading}
+      options={options}
+      events={events}
+    />
   );
 };
 

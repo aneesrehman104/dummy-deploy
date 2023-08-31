@@ -11,7 +11,7 @@ const IPOSList = () => {
     <>
       <div className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
-          <div className={styles.dashboardtitle}>IPO List</div>
+          <div className={styles.dashboardtitle}>IPO Lists</div>
           <div className={styles.moreData}>
             <div>FOR MORE DATA, FILTERING AND ADDING COLUMNS:</div>
             <CommonfiButton
