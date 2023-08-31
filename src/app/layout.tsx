@@ -1,8 +1,8 @@
 "use client";
 import { MemberstackProvider } from "@memberstack/react";
 import { MemberstackWrapper } from "@/lib/components/memberstack/memberstack.wrapper";
-import "./globals.css";
 import { memberstack_config } from "@/lib/components/context";
+import "./globals.css";
 
 const RootLayout = ({
   unauthenticated,

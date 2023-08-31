@@ -78,6 +78,13 @@ export const sidebarItem = [
         id: "ipos/pipeline",
         breadcrumb: "Home > IPOs > PIPELINE",
       },
+
+      {
+        name: "CALENDAR",
+        pathname: "/ipos/calendar",
+        id: "ipos/calendar",
+        breadcrumb: "Home > IPOs > CALENDAR",
+      },
       {
         name: "NEWS",
         pathname: "/ipos/news",
@@ -124,6 +131,12 @@ export const sidebarItem = [
         breadcrumb: "Home > MERGERS > PIPELINE",
       },
       {
+        name: "CALENDAR",
+        pathname: "/mergers/calendar",
+        id: "mergers/calendar",
+        breadcrumb: "Home > MERGERS > CALENDAR",
+      },
+      {
         name: "NEWS",
         pathname: "/mergers/news",
         id: "mergers/news",
@@ -166,6 +179,12 @@ export const sidebarItem = [
         pathname: "/spacs/pipeline",
         id: "spacs/pipeline",
         breadcrumb: "Home > SPACs > PIPELINE",
+      },
+      {
+        name: "CALENDAR",
+        pathname: "/spacs/calendar",
+        id: "spacs/calendar",
+        breadcrumb: "Home > SPACS > CALENDAR",
       },
       {
         name: "NEWS",
