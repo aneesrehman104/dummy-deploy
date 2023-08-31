@@ -116,10 +116,6 @@
   margin-right: 2px !important;
 }
 
-.css-wjh20t-MuiPagination-ul {
-  flex-wrap: nowrap;
-  margin-top: 15px;
-}
 .css-1hxrwmy-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
   background-color: white;
   color: #1991AC;

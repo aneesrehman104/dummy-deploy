@@ -4,7 +4,7 @@ import Image from "next/image";
 import Brand1 from "@public/brand1.svg";
 import Brand2 from "@public/brand2.svg";
 import Brand3 from "@public/brand3.svg";
-import Brand4 from "@public/brand4.svg";
+import Brand4 from "@public/theinformation.svg";
 
 import Bloomberg from "@public/bloomberg.svg";
 import Crunchbase from "@public/crunchbase.svg";
@@ -13,6 +13,7 @@ import Fortune from "@public/fortune.svg";
 import Thenewyorktime from "@public/thenewyorktime.svg";
 import Techcrunch from "@public/techcrunch.svg";
 import Thewallstreet from "@public/thewallstreet.svg";
+import Theinformation from "@public/theinformation.svg";
 
 import Link from "next/link";
 import { marketingConstants } from "@/lib/ts/constants";
@@ -25,6 +26,8 @@ const Creators: React.FC<PROPS> = () => {
     { name: "Crunchbase", src: Crunchbase, link: "https://www.crunchbase.com" },
     { name: "Forbes", src: Forbes, link: "https://www.forbes.com" },
     { name: "Fortune", src: Fortune, link: "https://www.fortune.com" },
+    { name: "Theinformation", src: Theinformation, link: "https://www.theinformation.com" },
+
     {
       name: "The New York Times",
       src: Thenewyorktime,
@@ -63,7 +66,8 @@ const Creators: React.FC<PROPS> = () => {
               alt={source.name}
               width={130}
               height={47}
-              style={{ cursor: "pointer", margin:10 }}
+              
+              style={{ cursor: "pointer", margin:10, objectFit:"contain" }}
             />
           </Link>
         ))}

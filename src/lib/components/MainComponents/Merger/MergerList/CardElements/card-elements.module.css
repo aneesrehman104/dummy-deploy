@@ -181,6 +181,7 @@
     flex-direction: column;
     margin-top: 15px;
     margin-bottom: 20px;
+    height: 170px;
   }
   .filterInnerDiv {
     width: 100%;
