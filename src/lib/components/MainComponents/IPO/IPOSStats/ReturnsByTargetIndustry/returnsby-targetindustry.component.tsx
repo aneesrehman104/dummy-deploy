@@ -5,7 +5,7 @@ import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 import { getApiWithoutAuth, getODataWithParams } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { GraphDataInterface, LineChart } from "@/lib/ts/interface";
+import { GraphDataInterface, ColumnChart } from "@/lib/ts/interface";
 import { initialGraphData } from "@/lib/ts/initialState";
 import axios, { AxiosError } from "axios";
 import * as Highcharts from "highcharts";
@@ -20,7 +20,7 @@ interface PROPS {}
 
 const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] = useState<GraphDataInterface<LineChart>>(
+  const [graphData, setGraphData] = useState<GraphDataInterface<ColumnChart>>(
     initialGraphData
   );
 
@@ -42,7 +42,8 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
       },
     },
     title: {
-      text: "Current Average Return from IPO Price (excludes SPACs)",
+      text: graphData.dataset.title?.text,
+      //text: "Current Average Return from IPO Price (excludes SPACs)",
       align: "left",
       style: {
         fontSize: "16px",
@@ -82,6 +83,7 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
         borderRadius: "5%",
       },
       series: {
+        colorByPoint: true,
         borderWidth: 0,
         dataLabels: {
           enabled: true,
@@ -121,34 +123,35 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
     //   verticalAlign: "bottom",
     //   layout: "horizontal",
     // },
-    series: [
-      {
-        name: "Industry",
-        colorByPoint: true,
-        data: [
-          {
-            name: "Tech",
-            y: -0.5,
-          },
-          {
-            name: "Energy",
-            y: -0.06,
-          },
-          {
-            name: "Consumer",
-            y: 0.22,
-          },
-          {
-            name: "Financials",
-            y: 0.25,
-          },
-          {
-            name: "Other",
-            y: 0.05,
-          },
-        ],
-      },
-    ],
+    series : graphData.dataset.series,
+    // series: [
+    //   {
+    //     name: "Industry",
+    //     colorByPoint: true,
+    //     data: [
+    //       {
+    //         name: "Tech",
+    //         y: -0.5,
+    //       },
+    //       {
+    //         name: "Energy",
+    //         y: -0.06,
+    //       },
+    //       {
+    //         name: "Consumer",
+    //         y: 0.22,
+    //       },
+    //       {
+    //         name: "Financials",
+    //         y: 0.25,
+    //       },
+    //       {
+    //         name: "Other",
+    //         y: 0.05,
+    //       },
+    //     ],
+    //   },
+    // ],
     // series: graphData.dataset.SeriesData?.map((series) => ({
     //   name: series.Name,
     //   data: graphData.dataset.XAxis.Labels.map((month, index) => {
@@ -167,7 +170,7 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
 
       try {
         //TODO: getting IPO data just for development. We need to point to a home controller graph endpoint
-        const response = await getApiWithoutAuth(URLs.ipoOverviewChart, {
+        const response = await getApiWithoutAuth(URLs.ipoReturnsIndustryChart, {
           cancelToken: source.token,
         });
 
