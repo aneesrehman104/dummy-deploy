@@ -75,9 +75,9 @@ const GrapevineGraveyard: React.FC<PROPS> = () => {
   };
 
   const tabData = [
-    { label: "Rumored IPOs", index: 0 },
-    { label: "Stalled IPOs", index: 1 },
-    { label: "Wishlist IPOs", index: 2 },
+    { label: "Upcoming IPOs", index: 0 },
+    { label: "Rumored", index: 1 },
+    { label: "Stalled", index: 2 },
   ];
   const handleTabClick = (tabIndex: any) => {
     setSelectedTab(tabIndex);

@@ -17,8 +17,8 @@ export const TABLETITLESECTION = {
 };
 
 export const FOOTER = {
-  stayInTheKnow: "stay in the know",
-  getFreeWeeklyUpdates: "Get free weekly updates",
+  stayInTheKnow: "Subscribe to our FREE daily newsletter covering ipos, mergers, and spacs",
+  getFreeWeeklyUpdates: "Sent in the morning on trading days",
   iAgreeToThe: "I agree to the ",
   termAndConditions: "Terms & Conditions ",
   ofSubscription: "of subscription",

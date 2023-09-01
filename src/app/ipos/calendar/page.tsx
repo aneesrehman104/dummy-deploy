@@ -1,15 +1,15 @@
 "use client";
 import RootLayout from "../layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
-import IPOSPipeline from "@/lib/components/MainComponents/IPO/IPOSPipeline";
-const IpoCalendar = () => {
+import IPOSCalendar from "@/lib/components/MainComponents/IPO/IPOSCalendar";
+const IpoCalendarPage = () => {
   return (
     <RootLayout>
-      <AuthenticatedLayout selected_id="ipos/pipeline">
-        <IPOSPipeline />
+      <AuthenticatedLayout selected_id="ipos/calendar">
+        <IPOSCalendar />
       </AuthenticatedLayout>
     </RootLayout>
   );
 };
 
-export default IpoCalendar;
+export default IpoCalendarPage;

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import footerLogo from "@public/footerLogo.svg";
+import LT from "@public/LT.svg";
+
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import {
@@ -147,7 +149,13 @@ const Navbar: React.FC<PROPS> = ({
                   router.push("/marketing");
                 }}
               />
-            ) : null}
+            ) : <Image
+            src={LT}
+            alt="LT"
+            width={26}
+            height={26}
+            style={{ marginRight: 20, cursor: "pointer" }}
+          />}
             {!isMediumScreen ? (
               <CssTextField
                 placeholder="Search by company name or symbol"

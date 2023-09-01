@@ -3,7 +3,6 @@ import React from "react";
 import GrapevineGraveyard from "./GrapevineGraveyard/grapevine-graveyard.component";
 import LatestAnnouncedMergers from "./LatestAnnouncedMergers/latest-announced-mergers.component";
 import LatestClosedMergers from "./LatestClosedMergers/latest-closed-mergers.component";
-import MergerCalendar from "./MergerCalendar/merger-calendar.component";
 const MergerPipeline = () => {
   return (
     <main>
@@ -16,7 +15,6 @@ const MergerPipeline = () => {
         <LatestAnnouncedMergers />
         <LatestClosedMergers />
         <GrapevineGraveyard />
-        <MergerCalendar />
       </section>
     </main>
   );
