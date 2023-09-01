@@ -60,6 +60,7 @@ const Creators: React.FC<PROPS> = () => {
                 alt={source.name}
                 width={130}
                 height={47}
+                key={index}
                 style={{
                   cursor: "pointer",
                   objectFit: "contain",
