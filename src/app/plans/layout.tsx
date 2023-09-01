@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import { MemberstackProvider } from "@memberstack/react";
+import { memberstack_config } from "@/lib/ts/constants";
 import { Meta } from "@/lib/meta.component";
 
 const RootLayout = ({

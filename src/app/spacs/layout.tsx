@@ -1,7 +1,10 @@
-import React from "react";
+import { Meta } from "@/lib/meta.component";
 
-const RootLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <>{children}</>;
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <>
+      {children}
+    </>
+  );
 };
-
 export default RootLayout;
