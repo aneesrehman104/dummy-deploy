@@ -3,6 +3,7 @@ import UnauthenticatedNavBar from "../../CommonComponents/UnauthenticatedNavBar/
 import TrackingOnePlace from "./TrackingOnePlace/trackingoneplace.component";
 import PowerOfPro from "./PowerOfPro/powerofpro.component";
 import Plans from "../Plans/plans.component";
+import ContactUs from "../ContactUs";
 import Creators from "./Creators/creators.component";
 import GetFreeUpdates from "./GetFreeUpdates/get-free-updates.component";
 import MarketingFooter from "./MarketingFooter/marketingfooter.component";
@@ -18,7 +19,8 @@ const Marketing = () => {
       <TrackingOnePlace />
       <PowerOfPro />
       <Plans/>
-      <GetFreeUpdates/>
+      {/* <GetFreeUpdates/> */}
+      <ContactUs/>
       {/* <MarketingFooter/> */}
       <Footer/>
     </section>

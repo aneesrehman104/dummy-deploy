@@ -3,7 +3,7 @@ import { MemberstackProvider } from "@memberstack/react";
 import { MemberstackWrapper } from "@/lib/components/memberstack/memberstack.wrapper";
 import { memberstack_config } from "@/lib/components/context";
 import "./globals.css";
-
+import 'react-slideshow-image/dist/styles.css'
 const RootLayout = ({
   unauthenticated,
   children,

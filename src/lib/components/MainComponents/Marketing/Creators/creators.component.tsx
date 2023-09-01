@@ -1,11 +1,6 @@
 import React from "react";
 import "./creators.css";
 import Image from "next/image";
-import Brand1 from "@public/brand1.svg";
-import Brand2 from "@public/brand2.svg";
-import Brand3 from "@public/brand3.svg";
-import Brand4 from "@public/theinformation.svg";
-
 import Bloomberg from "@public/bloomberg.svg";
 import Crunchbase from "@public/crunchbase.svg";
 import Forbes from "@public/forbes.svg";
@@ -14,30 +9,37 @@ import Thenewyorktime from "@public/thenewyorktime.svg";
 import Techcrunch from "@public/techcrunch.svg";
 import Thewallstreet from "@public/thewallstreet.svg";
 import Theinformation from "@public/theinformation.svg";
-
+import Businessinsider from "@public/businessinsider.svg";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Link from "next/link";
 import { marketingConstants } from "@/lib/ts/constants";
+import { Slide } from "react-slideshow-image";
 
 interface PROPS {}
 
 const Creators: React.FC<PROPS> = () => {
+  const isMobile = useMediaQuery('(max-width:600px)'); 
   const sources = [
-    { name: "Bloomberg", src: Bloomberg, link: "https://www.bloomberg.com" },
-    { name: "Crunchbase", src: Crunchbase, link: "https://www.crunchbase.com" },
-    { name: "Forbes", src: Forbes, link: "https://www.forbes.com" },
-    { name: "Fortune", src: Fortune, link: "https://www.fortune.com" },
-    { name: "Theinformation", src: Theinformation, link: "https://www.theinformation.com" },
-
+    { name: "Bloomberg", src: Bloomberg },
+    { name: "Crunchbase", src: Crunchbase },
+    { name: "Forbes", src: Forbes },
+    { name: "Fortune", src: Fortune },
     {
-      name: "The New York Times",
-      src: Thenewyorktime,
-      link: "https://www.nytimes.com",
+      name: "Theinformation",
+      src: Theinformation,
     },
-    { name: "TechCrunch", src: Techcrunch, link: "https://www.techcrunch.com" },
+    {
+      name: "Businessinsider",
+      src: Businessinsider,
+    },
+    { name: "TechCrunch", src: Techcrunch },
     {
       name: "The Wall Street Journal",
       src: Thewallstreet,
-      link: "https://www.wsj.com",
+    },
+    {
+      name: "The New York Times",
+      src: Thenewyorktime,
     },
   ];
   return (
@@ -47,66 +49,25 @@ const Creators: React.FC<PROPS> = () => {
       </div>
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          width: "90%",
-          
-          flexWrap: "wrap",
+          width: "100%",
         }}
       >
-        {sources.map((source, index) => (
-          <Link
-            key={index}
-            href={source.link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src={source.src}
-              alt={source.name}
-              width={130}
-              height={47}
-              
-              style={{ cursor: "pointer", margin:10, objectFit:"contain" }}
-            />
-          </Link>
-        ))}
-        {/* <Link href="">
-          <Image
-            src={Brand3}
-            alt="Brand3"
-            width={130}
-            height={47}
-            style={{ cursor: "pointer", marginTop: 10, marginBottom: 10 }}
-          />
-        </Link>
-        <Link href="">
-          <Image
-            src={Brand2}
-            alt="Brand2"
-            width={180}
-            height={31}
-            style={{ cursor: "pointer", marginTop: 10, marginBottom: 10 }}
-          />
-        </Link>
-        <Link href="">
-          <Image
-            src={Brand1}
-            alt="Brand1"
-            width={180}
-            height={31}
-            style={{ cursor: "pointer", marginTop: 10, marginBottom: 10 }}
-          />
-        </Link>
-        <Link href="">
-          <Image
-            src={Brand4}
-            alt="Brand4"
-            width={180}
-            height={31}
-            style={{ cursor: "pointer", marginTop: 10, marginBottom: 10 }}
-          />
-        </Link> */}
+        <div style={{ width: "100%" }}>
+          <Slide slidesToScroll={1} slidesToShow={isMobile ? 3 : 5} duration={1500}>
+            {sources.map((source, index) => (
+              <Image
+                src={source.src}
+                alt={source.name}
+                width={130}
+                height={47}
+                style={{
+                  cursor: "pointer",
+                  objectFit: "contain",
+                }}
+              />
+            ))}
+          </Slide>
+        </div>
       </div>
     </section>
   );
