@@ -18,6 +18,7 @@ export const URLs = {
   mergerNews: "api/merger/news",
   mergerCalender: "api/merger/calendar",
   ipoOverviewChart: "api/ipo/chart/overview",
+  ipoReturnsChart: "api/ipo/chart/avg-returns",
   ipoReturnsIndustryChart: "api/ipo/chart/returns-industry",
   ipoMarketStats: "api/ipo/stats/market",
   ipoNews: "api/ipo/news",
@@ -27,5 +28,4 @@ export const URLs = {
   spacOdata: "/odata/spac",
   sourceMaterialFeed: "/dataset",
   newsLetterTool: "/news-data",
-  ipoReturnsIndustryChart: "api/ipo/chart/returns-industry"
 };

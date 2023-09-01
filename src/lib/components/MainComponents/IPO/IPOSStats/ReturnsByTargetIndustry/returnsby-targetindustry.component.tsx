@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getApiWithoutAuth } from "@lib/ts/api";
 import { URLs } from "@/lib/ts/apiUrl";
-import { ColumnChart, GraphDataInterface } from "@/lib/ts/interface";
+import { GraphDataInterface, ColumnChart } from "@/lib/ts/interface";
 import { initialGraphData } from "@/lib/ts/initialState";
 import axios, { AxiosError } from "axios";
 import * as Highcharts from "highcharts";
@@ -17,7 +17,6 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
 
   const options = {
     chart: {
-      //type: "line",
       type: "column",
       height: null,
       width: null,
@@ -34,24 +33,26 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
     },
     title: {
       text: graphData.dataset.title?.text,
-      //text: "Current Average Return from IPO Price (excludes SPACs)",
       align: "left",
       style: {
         fontSize: "16px",
         fontWeight: "lighter",
         fontFamily: "Barlow Condensed",
       },
-      //text: graphData.dataset.Title,
     },
     xAxis: {
       type: "category",
       title: {
-        text: "Industry"
-      }
+        text: graphData.dataset.xAxis?.title.text,
+        style: {
+          fontSize: "18px",
+          color: "#000000",
+        },
+      },
     },
     yAxis: {
       title: {
-        text: "Percentage",
+        text: graphData.dataset.yAxis?.title.text,
       },
       labels: {
         formatter: function (): string {
@@ -62,13 +63,6 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
       },
       opposite: true,
     },
-    // yAxis: {
-    //   opposite: true,
-    //   title: {
-    //     text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
-    //   },
-    //   max: graphData.dataset.YAxis?.MaxValue,
-    // },
     credits: {
       enabled: false,
     },
@@ -112,48 +106,7 @@ const ReturnsByTargetIndustry: React.FC<PROPS> = () => {
     legend: {
       enabled: false,
     },
-    // legend: {
-    //   align: "start",
-    //   verticalAlign: "bottom",
-    //   layout: "horizontal",
-    // },
-    series : graphData.dataset.series,
-    // series: [
-    //   {
-    //     name: "Industry",
-    //     colorByPoint: true,
-    //     data: [
-    //       {
-    //         name: "Tech",
-    //         y: -0.5,
-    //       },
-    //       {
-    //         name: "Energy",
-    //         y: -0.06,
-    //       },
-    //       {
-    //         name: "Consumer",
-    //         y: 0.22,
-    //       },
-    //       {
-    //         name: "Financials",
-    //         y: 0.25,
-    //       },
-    //       {
-    //         name: "Other",
-    //         y: 0.05,
-    //       },
-    //     ],
-    //   },
-    // ],
-    // series: graphData.dataset.SeriesData?.map((series) => ({
-    //   name: series.Name,
-    //   data: graphData.dataset.XAxis.Labels.map((month, index) => {
-    //     const point = series.DataPoints.find((point) => point.X === index);
-    //     return point ? point.Y : null;
-    //   }),
-    //   // add a color property for each series if you want
-    // })),
+    series: graphData.dataset.series,
   };
 
   useEffect(() => {

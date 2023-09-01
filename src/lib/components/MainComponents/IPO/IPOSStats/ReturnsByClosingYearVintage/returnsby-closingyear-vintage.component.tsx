@@ -4,29 +4,23 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Skeleton from "@mui/material/Skeleton";
 import { URLs } from "@/lib/ts/apiUrl";
-import { GraphDataInterface, LineChart } from "@/lib/ts/interface";
+import { GraphDataInterface, ColumnChart } from "@/lib/ts/interface";
 import { initialGraphData } from "@/lib/ts/initialState";
 import { getApiWithoutAuth, getODataWithParams } from "@lib/ts/api";
 import axios, { AxiosError } from "axios";
 import * as Highcharts from "highcharts";
 import { EventsContainer } from "@/lib/components/CommonComponents/EventsContainer/events.component";
-const DynamicChart = dynamic(
-  () => import("@/lib/components/CommonComponents/ListingTrackGraph"),
-  {
-    ssr: false,
-    loading: () => <Skeleton variant="rounded" height={200} />,
-  }
-);
+
 interface PROPS {}
 
 const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [graphData, setGraphData] =
-    useState<GraphDataInterface<LineChart>>(initialGraphData);
+  const [graphData, setGraphData] = useState<GraphDataInterface<ColumnChart>>(
+    initialGraphData
+  );
 
   const options = {
     chart: {
-      //type: "line",
       type: "column",
       height: null,
       width: null,
@@ -42,7 +36,7 @@ const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
       },
     },
     title: {
-      text: "This chart compares the performance of IPOs across Listing Type (Traditional IPOs, De-SPACs, & Direct Listings)",
+      text: graphData.dataset.title?.text,
       align: "left",
       style: {
         fontSize: "16px",
@@ -52,11 +46,11 @@ const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
       //text: graphData.dataset.Title,
     },
     xAxis: {
-      categories: ["2020", "2021", "2022", "2023"],
+      categories: graphData.dataset.xAxis?.categories,
     },
     yAxis: {
       title: {
-        text: "Current Average Return from IPO Price",
+        text: graphData.dataset.yAxis?.title.text,
       },
       labels: {
         formatter: function (): string {
@@ -67,20 +61,6 @@ const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
       },
       opposite: true,
     },
-
-    // xAxis: {
-    //   categories: graphData.dataset.XAxis?.Labels,
-    //   title: {
-    //       text: graphData.dataset.XAxis?.Title,
-    //   },
-    // },
-    // yAxis: {
-    //   opposite: true,
-    //   title: {
-    //       text: `${graphData.dataset.YAxis?.Title} (${graphData.dataset?.YAxis?.Unit})`,
-    //   },
-    //   max: graphData.dataset.YAxis?.MaxValue,
-    // },
     credits: {
       enabled: false,
     },
@@ -101,9 +81,6 @@ const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
       },
     },
     tooltip: {
-      // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-      // pointFormat:
-      //   '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>',
       pointFormat:
         '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>',
       formatter: function (): string {
@@ -125,35 +102,7 @@ const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
     legend: {
       enabled: true,
     },
-    // legend: {
-    //   align: "start",
-    //   verticalAlign: "bottom",
-    //   layout: "horizontal",
-    // },
-    series: [
-      {
-        name: "De-SPAC",
-        data: [-0.05, 0.1, 0.25, -0.5],
-      },
-      {
-        name: "Traditional IPO",
-        data: [0.08, -0.06, -0.8, 0.25],
-      },
-      {
-        name: "Direct Lisitng",
-        data: [0.12, 0.13, 0.25, 0.05],
-      },
-    ],
-    // series: graphData.dataset.SeriesData?.map((series) => ({
-    //     name: series.Name,
-    //     data: graphData.dataset.XAxis.Labels.map((month, index) => {
-    //         const point = series.DataPoints.find(
-    //             (point) => point.X === index
-    //         );
-    //         return point ? point.Y : null;
-    //     }),
-    //     // add a color property for each series if you want
-    // })),
+    series: graphData.dataset.series,
   };
 
   const events = [
@@ -186,7 +135,7 @@ const ReturnsByClosingYearVintage: React.FC<PROPS> = () => {
       setIsLoading(true);
 
       try {
-        const response = await getApiWithoutAuth(URLs.ipoOverviewChart, {
+        const response = await getApiWithoutAuth(URLs.ipoReturnsChart, {
           cancelToken: source.token,
         });
         if (response.status === 200 && response.data !== null) {
