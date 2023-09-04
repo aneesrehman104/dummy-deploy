@@ -97,7 +97,7 @@
 }
 .frameParent {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   flex-wrap: wrap;
   font-size: 24px;
   color: var(--font-color-000);

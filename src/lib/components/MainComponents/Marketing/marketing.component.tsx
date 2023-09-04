@@ -9,10 +9,12 @@ import GetFreeUpdates from "./GetFreeUpdates/get-free-updates.component";
 import MarketingFooter from "./MarketingFooter/marketingfooter.component";
 import { Footer } from "../../CommonComponents";
 import Slider from './Sider/sider.component';
+import Navbar from "../../CommonComponents/Navbar/navbar.component";
 
 const Marketing = () => {
   return (
     <section>
+      {/* <Navbar/> */}
       <UnauthenticatedNavBar />
       <Slider/>
       <Creators/>

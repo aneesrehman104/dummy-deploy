@@ -8,7 +8,6 @@ import TaskAltIcon from "@mui/icons-material/TaskAlt";
 interface PROPS {}
 
 const NewsLetters: React.FC<PROPS> = () => {
-
   const NewsLettersArray = [
     {
       headingName: "ListingTrack  Newsletters",
@@ -192,8 +191,9 @@ const NewsLetters: React.FC<PROPS> = () => {
     },
   ];
   const [newsletters, setNewsletters] = useState(NewsLettersArray);
-  const [newsLettersProArray, setNewsLettersProArray] =
-    useState(NewsLettersProMainArray);
+  const [newsLettersProArray, setNewsLettersProArray] = useState(
+    NewsLettersProMainArray
+  );
 
   const handleAddCircleClick = (
     headingIndex: number,
@@ -213,18 +213,21 @@ const NewsLetters: React.FC<PROPS> = () => {
   return (
     <section className="sectionNewsLetters">
       <div className="mainContainerNewsLetters">
-        <div className="firstMainInnerDivNewsLetters">
-          <div className="firstInnerDivHeightNewsLetters">
-            <div className="mainHeadingFirstDivNewsLetters">
-              <div className="mainHeadingStyleNewsLetters">
-                ListingTracks Newsletters
+        <div className="firstMainHeight">
+          <div className="firstMainInnerDivNewsLetters">
+            <div className="firstInnerDivHeightNewsLetters">
+              <div className="mainHeadingFirstDivNewsLetters">
+                <div className="mainHeadingStyleNewsLetters">
+                  ListingTracks Newsletters
+                </div>
+                <div className="mainHeadingTextNewsLetters">
+                  Daily and weekly newsletters covering IPOs, M&A, SPACs, and
+                  more
+                </div>
               </div>
-              <div className="mainHeadingTextNewsLetters">
-                Daily and weekly newsletters covering IPOs, M&A, SPACs, and more
+              <div className="mainHeadingSecondDivNewsLetters">
+                <Image src={"svg1.svg"} alt="svg5" width={180} height={340} />
               </div>
-            </div>
-            <div className="mainHeadingSecondDivNewsLetters">
-              <Image src={"svg1.svg"} alt="svg5" width={180} height={340} />
             </div>
           </div>
         </div>
@@ -439,7 +442,7 @@ const NewsLetters: React.FC<PROPS> = () => {
             {newsLettersProArray.map((item: any, index: number) => {
               return (
                 <div
-                key={`${item.heading} ${index}`}
+                  key={`${item.heading} ${index}`}
                   style={{
                     marginRight: 20,
                     width: 300,
@@ -502,6 +505,6 @@ const NewsLetters: React.FC<PROPS> = () => {
       </div>
     </section>
   );
-}
+};
 
 export default NewsLetters;
