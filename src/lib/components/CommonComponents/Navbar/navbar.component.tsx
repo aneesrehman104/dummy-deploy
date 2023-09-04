@@ -44,7 +44,7 @@ const MenuIcon = dynamic(() => import("@mui/icons-material/Menu"));
 const UnauthenticatedNavBarData = [
   {
     name: "Dashboard",
-    link: "/overview",
+    link: "/dashboard",
   },
   {
     name: "Features & Pricing",
@@ -248,7 +248,7 @@ const Navbar: React.FC<PROPS> = ({
           </div>
 
           <div style={{ display: "flex", alignItems: "center" }}>
-          <div>
+            <div>
               <CommonfiButton
                 sx={{
                   backgroundColor: "#0AAC85",
@@ -269,7 +269,7 @@ const Navbar: React.FC<PROPS> = ({
                 variant="contained"
                 title="Go Pro"
                 onClick={() => {
-                  router.push("/marketing");
+                  router.push("/home");
                 }}
               />
             </div>
@@ -291,7 +291,9 @@ const Navbar: React.FC<PROPS> = ({
                       aria-haspopup="true"
                       aria-expanded={open ? "true" : undefined}
                     >
-                      <PersonIcon sx={{ width: 32, height: 32,color:'white' }} />
+                      <PersonIcon
+                        sx={{ width: 32, height: 32, color: "white" }}
+                      />
                     </IconButton>
                   </Tooltip>
                 </Box>
@@ -447,7 +449,6 @@ const Navbar: React.FC<PROPS> = ({
                 </Menu>
               </React.Fragment>
             </div>
-
           </div>
         </div>
       </div>
