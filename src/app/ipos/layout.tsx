@@ -1,8 +1,6 @@
 const RootLayout = ({
-  unauthenticated,
   children,
 }: {
-  unauthenticated?: React.ReactNode;
   children: React.ReactNode;
 }) => {
   return <>{children}</>;

@@ -2,6 +2,7 @@
 import RootLayout from "./layout";
 import { AuthenticatedLayout } from "@/lib/components/CommonComponents";
 import IPOS from "@/lib/components/MainComponents/IPO/IPOS";
+import IPOSHub from "@/lib/components/MainComponents/IPO/IPOSHub";
 import { Meta } from "@/lib/meta.component";
 
 const IposPage = () => {
@@ -9,7 +10,7 @@ const IposPage = () => {
     <Meta title="Ipos" description="" style={{ width: "100%" }}>
       <RootLayout>
         <AuthenticatedLayout selected_id="ipos">
-          <IPOS />
+          <IPOSHub />
         </AuthenticatedLayout>
       </RootLayout>
     </Meta>

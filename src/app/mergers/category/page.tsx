@@ -8,10 +8,10 @@ import { Meta } from "@/lib/meta.component";
 const MergerPage = () => {
   const { user, memberstack } = useContext(MemberInformationContext);
   return (
-    <Meta title="Merger Hub" description="" style={{ width: "100%" }}>
+    <Meta title="Merger Category" description="" style={{ width: "100%" }}>
       <RootLayout>
         <AuthenticatedLayout selected_id="mergers">
-          <MergerHub />
+          <div>NEED TO BUILD THIS</div>
         </AuthenticatedLayout>
       </RootLayout>
     </Meta>

@@ -21,7 +21,6 @@ import { motion } from "framer-motion";
 import "./navbar.css";
 import dynamic from "next/dynamic";
 import searchIcon from "@public/searchIcon.svg";
-import { navBarText } from "@/lib/ts/constants";
 import { MemberInformationContext } from "@/lib/components/context";
 import { useContext } from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -29,9 +28,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Home from "@mui/icons-material/Home";
 import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
-import { useMemberstackModal, useMemberstack } from "@memberstack/react";
 import { CssTextField } from "@/lib/styled-components/index.styled";
-import { LogoutMemberPayload } from "@memberstack/dom/lib/types";
 import { MemberstackOptions } from "@memberstack/dom/lib/methods/requests";
 import {
   ForgotModalProps,
@@ -55,7 +52,7 @@ const UnauthenticatedNavBarData = [
   },
   {
     name: "Our Newsletters",
-    link: "/newsletter",
+    link: "/newsletters",
   },
 ];
 interface PROPS {
@@ -175,7 +172,7 @@ const Navbar: React.FC<PROPS> = ({
                 height={21}
                 style={{ marginRight: 20, cursor: "pointer" }}
                 onClick={() => {
-                  router.push("/marketing");
+                  router.push("/home");
                 }}
               />
             ) : (
@@ -185,7 +182,7 @@ const Navbar: React.FC<PROPS> = ({
                 width={26}
                 height={26}
                 onClick={() => {
-                  router.push("/marketing");
+                  router.push("/home");
                 }}
                 style={{ marginRight: 10, cursor: "pointer" }}
               />
