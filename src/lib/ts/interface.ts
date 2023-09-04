@@ -49,6 +49,7 @@ export type ButtonProps = {
   href?: any;
   sx?: any;
   disableRipple?: boolean;
+  endIcon?: any;
 };
 
 export type GainerInterFace = {
