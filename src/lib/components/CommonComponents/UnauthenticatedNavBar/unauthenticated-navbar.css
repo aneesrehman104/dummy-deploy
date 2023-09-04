@@ -13,8 +13,7 @@
 .textStyleUnAuthenticatedNavBar {
   font-family: var(--font-family-primary);
   font-style: normal;
- font-weight: var(--font-weight-500);
-
+ font-weight: var(--font-weight-700);
   font-size: 12px;
   line-height: 135%;
   letter-spacing: 0.01em;

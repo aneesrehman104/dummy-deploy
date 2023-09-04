@@ -18,6 +18,7 @@ const CommonfiButton = (props: ButtonProps) => {
         }}
         size={props.size}
         startIcon={props.startIcon}
+        endIcon={props.endIcon}
         variant={props.variant}
         href={props.href}
         type={props.type}

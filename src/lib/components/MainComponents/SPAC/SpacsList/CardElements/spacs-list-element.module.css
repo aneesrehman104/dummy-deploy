@@ -188,6 +188,8 @@
     flex-wrap: wrap;
     margin-top: 15px;
     gap: 10px;
+    justify-content: flex-end;
+
   }
   /* .filterInnerDiv {
     width: 50%;
