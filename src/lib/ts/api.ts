@@ -87,6 +87,23 @@ export const getApiWithoutAuth = async (
     }
 };
 
+export const getApiWithoutAuthDefault = async (
+    url: string,
+    params?: Record<string, any>
+) => {
+    try {
+        const result = await backEndURLWithoutAuthDefaultHeader.get(url, {
+            params,
+        });
+        return {
+            status: result.status,
+            data: result.data,
+        };
+    } catch (error: any) {
+        return error;
+    }
+};
+
 export const putApiWithAuth = async (url: string, body: object) => {
     backEndURLWithAuth.interceptors.request.use((config) => {
         return config;
