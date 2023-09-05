@@ -2,8 +2,9 @@
   align-self: stretch;
   position: relative;
   font-weight: var(--font-weight-600);
-
+  font-size: 16px;
   margin-bottom: 15px;
+  font-family: var(--font-family-primary);
 }
 .headlineslistcontainer {
   flex-direction: column;

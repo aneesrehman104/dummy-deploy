@@ -269,7 +269,7 @@ const Navbar: React.FC<PROPS> = ({
                 variant="contained"
                 title="Go Pro"
                 onClick={() => {
-                  router.push("/home");
+                  router.push('/home#pricing');
                 }}
               />
             </div>

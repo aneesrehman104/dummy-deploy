@@ -28,11 +28,13 @@ interface ScreenDrawerProps {
 
 export const MediumScreenDrawer: React.FC<{
   isSidebarOpen: boolean;
+  setIsSidebarOpen:any;
   children: React.ReactNode;
-}> = ({ isSidebarOpen, children }) => {
+}> = ({ isSidebarOpen,setIsSidebarOpen, children }) => {
   return (
     <Drawer
       variant="temporary"
+      onClick={() => setIsSidebarOpen(false)}
       open={isSidebarOpen}
       sx={{
         width: drawerWidth,
@@ -78,7 +80,8 @@ export const DrawerList: React.FC<ScreenDrawerProps> = ({
                   }
                 >
                   {item.id === "overview" ||
-                  item.id === "watchlist" || item.id === "newsletters" ? null : isOpen[item.id] ? (
+                  item.id === "watchlist" ||
+                  item.id === "newsletters" ? null : isOpen[item.id] ? (
                     <Image
                       src={currntTabIcon}
                       alt="footerImage"

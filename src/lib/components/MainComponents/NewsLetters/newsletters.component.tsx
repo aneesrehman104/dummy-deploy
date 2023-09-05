@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./newsletters.css";
 import { CommonfiButton } from "../../CommonComponents";
 import Image from "next/image";
+import NewslettersPhone from '@public/NewslettersPhone.png'
 import { display } from "@mui/system";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -226,7 +227,7 @@ const NewsLetters: React.FC<PROPS> = () => {
                 </div>
               </div>
               <div className="mainHeadingSecondDivNewsLetters">
-                <Image src={"svg1.svg"} alt="svg5" width={180} height={340} />
+                <Image src={NewslettersPhone} alt="NewslettersPhone" width={180} height={300} />
               </div>
             </div>
           </div>

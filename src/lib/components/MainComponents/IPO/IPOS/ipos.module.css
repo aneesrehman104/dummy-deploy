@@ -20,6 +20,52 @@
   color: var(--font-color-434343);
   font-family: var(--font-family-primary);
 }
+
+.headerStyle {
+  padding: 0 35px;
+  gap: 8px;
+  font-family: var(--font-family-primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.compnayLogoMainDiv {
+  font-size: 20px;
+  color: var(--font-color-263c6f);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+}
+.rightStatusStyle {
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  min-width: 250px;
+  padding: 10px;
+  background: #263c6f;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.textStyle{
+  font-weight: var(--font-weight-600);
+  font-size: 18px;
+  text-transform: uppercase;
+  padding-left: 5px;
+}
+.chartContainerStyle {
+  border-radius: 4px;
+  background-color: var(--font-background-color-white);
+  box-shadow: 0 0.5px 1.75px rgba(0, 0, 0, 0.04),
+    0 1.850000023841858px 6.25px rgba(0, 0, 0, 0.19);
+  overflow: hidden;
+  padding: 13px 0;
+  font-size: 24px;
+  font-family: var(--font-family-primary);
+  margin-top: 15px;
+}
 .spaceBetween {
   display: flex;
   justify-content: space-between;
@@ -244,7 +290,7 @@
 }
 .sectionsummarycontainer {
   padding: 0 35px;
-  gap: 16px;
+  gap: 8px;
   text-align: left;
   font-size: 16px;
   color: var(--font-color-000);
@@ -336,6 +382,8 @@
 @media screen and (max-width: 900px) {
   .sectionsummarycontainer {
     padding: 0 10px;
+    align-items: stretch;
+    margin-top: 10px;
   }
   .frameParent {
     flex-direction: column;
@@ -376,5 +424,11 @@
   }
   .dashboardheader {
     padding: 0 10px;
+  }
+  .headerStyle {
+    padding: 0 10px;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: flex-start;
   }
 }

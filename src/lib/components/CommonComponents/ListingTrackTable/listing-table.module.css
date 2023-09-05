@@ -1,0 +1,14 @@
+.tableHeadingStyle {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  min-width: 135px;
+}
+
+@media screen and (max-width: 900px) {
+  .tableHeadingStyle {
+    min-width: 90px;
+  }
+}

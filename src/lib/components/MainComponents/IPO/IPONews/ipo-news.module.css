@@ -37,8 +37,31 @@
  font-weight: var(--font-weight-500);
 
 }
+.headerCell {
+  font-family: var(--font-family-primary);
+  font-style: normal;
+  font-weight: var(--font-weight-600);
+  color: #0000008F;
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+}
+.selectedHeader {
+  border-bottom: 3px solid #1991ac;
+  color: var(--font-color-1991ac);
+  font-size: 16px;
+  padding-bottom: 15px;
+}
 @media screen and (max-width: 900px) {
   .dashboardheader {
     padding: 0 10px;
+  }
+  .selectedHeader{
+    font-size: 13px;
+  }
+  .headerCell{
+    font-size: 13px;
   }
 }
