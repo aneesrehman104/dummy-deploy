@@ -2,7 +2,7 @@ import { TextField,Select } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const CssTextField = styled(TextField)({
-  width: "375px",
+  width: "270px",
   height: "32px",
   border: "1px solid #dddee0",
   display:'flex',

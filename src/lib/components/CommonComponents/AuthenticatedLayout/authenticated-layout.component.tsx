@@ -27,7 +27,7 @@ import CommonfiButton from "../CommonfiButton";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 const AuthenticatedLayout = (props: Props) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-  const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("Home");
+  const [currentBreadcrumb, setCurrentBreadcrumb] = useState<string>("");
   const [isOpen, setIsOpen] = useState<SidebarState>({});
   const [isSearchModalOpen, setIsSearchModalOpen] = useState<boolean>(false);
   const { logout } = useMemberstack();
@@ -53,6 +53,7 @@ const AuthenticatedLayout = (props: Props) => {
       setCurrentBreadcrumb(item.breadcrumb);
       router.push(item.pathname);
     }
+    setIsSidebarOpen(false)
   };
 
   const handleListSubItemButtonClick = (subItem: SidebarItem) => {

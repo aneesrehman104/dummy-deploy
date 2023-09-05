@@ -11,7 +11,7 @@ const Spacs = () => {
     <main>
       <section className={styles.dashboardheader}>
         <div className={styles.titleandsearchcontainer}>
-          <header className={styles.dashboardtitle}>SPACs</header>
+          <header className={styles.dashboardtitle}>SPAC HUB</header>
         </div>
       </section>
       <section>
