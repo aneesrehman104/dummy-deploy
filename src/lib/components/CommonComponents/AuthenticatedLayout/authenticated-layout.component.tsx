@@ -53,7 +53,7 @@ const AuthenticatedLayout = (props: Props) => {
       setCurrentBreadcrumb(item.breadcrumb);
       router.push(item.pathname);
     }
-    setIsSidebarOpen(false)
+    setIsSidebarOpen(false);
   };
 
   const handleListSubItemButtonClick = (subItem: SidebarItem) => {
@@ -79,6 +79,11 @@ const AuthenticatedLayout = (props: Props) => {
   }, [pathname]);
 
   return (
+    // <div
+    //   onClick={() => {
+    //     isSidebarOpen?setIsSidebarOpen(false):setIsSidebarOpen(true);
+    //   }}
+    // >
     <Box sx={{ display: "-webkit-box" }}>
       <CssBaseline />
       <Navbar
@@ -92,7 +97,10 @@ const AuthenticatedLayout = (props: Props) => {
 
       {/* sidebar */}
       {isMediumScreen ? (
-        <MediumScreenDrawer isSidebarOpen={isSidebarOpen}>
+        <MediumScreenDrawer
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        >
           <DrawerList
             selected_id={props.selected_id}
             isSidebarOpen={isSidebarOpen}
@@ -102,7 +110,7 @@ const AuthenticatedLayout = (props: Props) => {
             handleSubItemClick={handleListSubItemButtonClick}
           />
         </MediumScreenDrawer>
-      ) : (
+      ) : props.selected_id === "home" ? null : (
         <ScreenDrawer>
           <DrawerList
             selected_id={props.selected_id}
@@ -115,7 +123,13 @@ const AuthenticatedLayout = (props: Props) => {
         </ScreenDrawer>
       )}
 
-      <Box component="main" sx={{ flexGrow: 1, width: "100%" }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, width: "100%" }}
+        onClick={() => {
+          setIsSidebarOpen(false);
+        }}
+      >
         <Toolbar />
         <div className="dashboardheader">
           <div className="link">{currentBreadcrumb}</div>
@@ -126,7 +140,7 @@ const AuthenticatedLayout = (props: Props) => {
             display: "flex",
             justifyContent: "flex-end",
             marginRight: 20,
-            marginTop:20
+            marginTop: 20,
           }}
         >
           <CommonfiButton

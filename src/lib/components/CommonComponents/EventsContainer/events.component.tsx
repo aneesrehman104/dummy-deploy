@@ -17,8 +17,8 @@ export const Events: React.FC<{ value: string; name: string }> = ({
 }) => {
   return (
     <div className="flex flex-col space-y-2">
-      <div className="font-normal">{value}</div>
-      <div className="capitalize text-lg font-[550]">{name.toUpperCase()}</div>
+      <div className="font-normal text-md">{value}</div>
+      <div className="capitalize text-md font-[500]">{name.toUpperCase()}</div>
     </div>
   );
 };

@@ -8,23 +8,25 @@ import Creators from "./Creators/creators.component";
 import GetFreeUpdates from "./GetFreeUpdates/get-free-updates.component";
 import MarketingFooter from "./MarketingFooter/marketingfooter.component";
 import { Footer } from "../../CommonComponents";
-import Slider from './Sider/sider.component';
+import Slider from "./Sider/sider.component";
 import Navbar from "../../CommonComponents/Navbar/navbar.component";
 
 const Marketing = () => {
   return (
     <section>
       {/* <Navbar/> */}
-      <UnauthenticatedNavBar />
-      <Slider/>
-      <Creators/>
+      {/* <UnauthenticatedNavBar /> */}
+      <Slider />
+      <Creators />
       <TrackingOnePlace />
       <PowerOfPro />
-      <Plans/>
+      <div id="pricing">
+        <Plans />
+      </div>
       {/* <GetFreeUpdates/> */}
-      <ContactUs/>
+      <ContactUs />
       {/* <MarketingFooter/> */}
-      <Footer/>
+      {/* <Footer /> */}
     </section>
   );
 };

@@ -12,9 +12,49 @@ import Box from "@mui/material/Box";
 
 const IPONews = () => {
   const [value, setValue] = useState<string>("1");
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+
+  const tabData = [
+    { label: "News", index: 0 },
+    { label: "Press Releases", index: 1 },
+    { label: "SEC Filings", index: 2 },
+    { label: "Our Curated Feed", index: 3 },
+    { label: "Our X Feed", index: 4 },
+  ];
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
+  };
+  const handleTabClick = (tabIndex: any) => {
+    setSelectedTab(tabIndex);
+  };
+
+  const Tabs: React.FC<{
+    tabData: Array<{ label: string; index: number }>;
+    handleTabClick: (index: number) => void;
+    selectedTab: number;
+  }> = ({ tabData, handleTabClick, selectedTab }) => {
+    return (
+      <div
+        style={{
+          borderBottom: "1px solid #d2ecf9",
+          display: "flex",
+          width: "100%",
+        }}
+      >
+        {tabData.map(({ label, index }) => (
+          <div
+            key={index + "ee20401322"}
+            onClick={() => handleTabClick(index)}
+            className={`${styles.headerCell} ${
+              selectedTab === index && styles.selectedHeader
+            }`}
+          >
+            {label}
+          </div>
+        ))}
+      </div>
+    );
   };
   return (
     <main>
@@ -24,39 +64,22 @@ const IPONews = () => {
         </div>
       </header>
       <section>
-        <TabContext value={value}>
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "20px",
-            }}
-          >
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
-              <Tab label="News" value="1" />
-              <Tab label="Press Releases" value="2" />
-              <Tab label="SEC Filings" value="3" />
-              <Tab label="Our Curated Feed" value="4" />
-              <Tab label="Our X Feed" value="5" />
-            </TabList>
-          </Box>
-          <TabPanel value="1">
-            <News />
-          </TabPanel>
-          <TabPanel value="2">
-            <PressReleases />
-          </TabPanel>
-          <TabPanel value="3">
-            <CurrentUpdateFeed />
-          </TabPanel>
-          <TabPanel value="4">
-            <CurrentUpdateFeed />
-          </TabPanel>
-          <TabPanel value="5">
-            <TwitterFeed />
-          </TabPanel>
-        </TabContext>
+        <Tabs
+          tabData={tabData}
+          handleTabClick={handleTabClick}
+          selectedTab={selectedTab}
+        />
+        {selectedTab == 0 ? (
+          <News />
+        ) : selectedTab == 1 ? (
+          <PressReleases />
+        ) : selectedTab == 2 ? (
+          <CurrentUpdateFeed />
+        ) : selectedTab == 3 ? (
+          <CurrentUpdateFeed />
+        ) : (
+          <TwitterFeed />
+        )}
       </section>
     </main>
   );

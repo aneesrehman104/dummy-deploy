@@ -19,6 +19,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import newsImage from "@public/newsImage.svg";
 import { styled } from "@mui/material/styles";
+import styles from "./listing-table.module.css";
 
 const DynamicChart = dynamic(() => import("./events-chart.component"), {
   ssr: false,
@@ -62,6 +63,11 @@ const ListingTrackTable = ({
     ul: {
       flexWrap: "nowrap",
       marginTop: "15px",
+    },
+    "& .css-1to7aaw-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected": {
+      backgroundColor: "white",
+      color: "#1991AC",
+      border: "1px solid #1991AC", // Change this to the desired background color
     },
   });
   const handleSort = (column: string) => {
@@ -124,11 +130,12 @@ const ListingTrackTable = ({
     paginate(value);
   };
   return (
-    <Table style={{ width: "100%" }}>
-      <TableHead style={{ width: "100%" }}>
-        <TableRow>
-          {isRemoveAble ? <TableCell /> : null}
-          {/* <TableCell>
+    <>
+      <Table style={{ width: "100%" }}>
+        <TableHead style={{ width: "100%" }}>
+          <TableRow>
+            {/* {isRemoveAble ? <TableCell /> : null} */}
+            {/* <TableCell>
             <div
               style={{
                 display: "flex",
@@ -142,80 +149,84 @@ const ListingTrackTable = ({
               Company Logo{" "}
             </div>{" "}
           </TableCell> */}
-          {headerArray.map((item: any) => {
-            return (
-              <TableCell key={item.key} onClick={() => handleSort(item.key)}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    minWidth: 135,
-                  }}
-                >
-                  {sortDirection === TABLETITLESECTION.desc &&
-                  sortColumn === item.key ? (
-                    <ArrowUpwardIcon fontSize="inherit" />
-                  ) : (
-                    <ArrowDownwardIcon fontSize="inherit" />
-                  )}
-                  {item.name}
-                </div>
-              </TableCell>
-            );
-          })}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {sortedData.map((item: any, index: number) => (
-          <>
-            <TableRow key={index}>
-              {isRemoveAble ? (
-                <TableCell>
-                  <CloseIcon
-                    sx={{ fontSize: 40, color: "red" }}
-                    onClick={() => {
-                      setRemoveRow(item.id);
+            {headerArray.map((item: any) => {
+              return (
+                <TableCell key={item.key} onClick={() => handleSort(item.key)}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      fontWeight: 600,
+                      fontSize: "13px",
+                      cursor: "pointer",
+                      minWidth: "90px",
+                      // minWidth: 135,
                     }}
-                  />
+                    className={styles.tableHeadingStyle}
+                  >
+                    {sortDirection === TABLETITLESECTION.desc &&
+                    sortColumn === item.key ? (
+                      <ArrowUpwardIcon fontSize="inherit" />
+                    ) : (
+                      <ArrowDownwardIcon fontSize="inherit" />
+                    )}
+                    {item.name}
+                  </div>
                 </TableCell>
-              ) : null}
-              {headerArray.map((headerItem: any) =>
-                headerItem.type === "string" ? (
-                  <TableCell key={headerItem.key}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      {headerItem.key === "companyName" && "company" ? (
-                        <Image
-                          src={newsImage}
-                          alt="newsImage"
-                          width={38}
-                          height={38}
-                        />
-                      ) : (
-                        ""
-                      )}
-                      &nbsp;&nbsp;{item[headerItem.key]}
-                    </div>
-                  </TableCell>
-                ) : headerItem.type === "gainer" ? (
-                  <TableCell style={{ color: "#0AAC1A" }}>
-                    {item[headerItem.key]}
-                  </TableCell>
-                ) : headerItem.type === "loser" ? (
-                  <TableCell style={{ color: "#E33126" }}>
-                    {item[headerItem.key]}
-                  </TableCell>
-                ) : (
+              );
+            })}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {sortedData.map((item: any, index: number) => (
+            <>
+              <TableRow key={index}>
+                {isRemoveAble ? (
                   <TableCell>
-                    <DynamicChart data={item[headerItem.key]} />
+                    <CloseIcon
+                      sx={{ fontSize: 40, color: "red" }}
+                      onClick={() => {
+                        setRemoveRow(item.id);
+                      }}
+                    />
                   </TableCell>
-                )
-              )}
-            </TableRow>
-          </>
-        ))}
-      </TableBody>
+                ) : null}
+                {headerArray.map((headerItem: any) =>
+                  headerItem.type === "string" ? (
+                    <TableCell key={headerItem.key}>
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        {headerItem.key === "companyName" && "company" ? (
+                          <Image
+                            src={newsImage}
+                            alt="newsImage"
+                            width={38}
+                            height={38}
+                          />
+                        ) : (
+                          ""
+                        )}
+                        &nbsp;&nbsp;{item[headerItem.key]}
+                      </div>
+                    </TableCell>
+                  ) : headerItem.type === "gainer" ? (
+                    <TableCell style={{ color: "#0AAC1A" }}>
+                      {item[headerItem.key]}
+                    </TableCell>
+                  ) : headerItem.type === "loser" ? (
+                    <TableCell style={{ color: "#E33126" }}>
+                      {item[headerItem.key]}
+                    </TableCell>
+                  ) : (
+                    <TableCell>
+                      <DynamicChart data={item[headerItem.key]} />
+                    </TableCell>
+                  )
+                )}
+              </TableRow>
+            </>
+          ))}
+        </TableBody>
+      </Table>
       {showPagination ? (
         <tfoot>
           {options ? (
@@ -247,7 +258,7 @@ const ListingTrackTable = ({
           )}
         </tfoot>
       ) : null}
-    </Table>
+    </>
   );
 };
 
