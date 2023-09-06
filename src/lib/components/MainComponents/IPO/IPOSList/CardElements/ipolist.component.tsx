@@ -323,7 +323,7 @@ function CardElements() {
               className={styles.filterGap}
               onClick={() => setOpenFilterModal(true)}
             >
-              <Image src={filterSvg} alt="filterSvg"  style={{cursor:'pointer' }} style={{cursor:'pointer' }} />
+              <Image src={filterSvg} alt="filterSvg"  style={{cursor:'pointer' }} />
 
               <Badge badgeContent={filterCount} color="info">
                 <div>Filter&nbsp;&nbsp;</div>
