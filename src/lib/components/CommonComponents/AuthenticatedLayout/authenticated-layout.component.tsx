@@ -84,7 +84,7 @@ const AuthenticatedLayout = (props: Props) => {
     //     isSidebarOpen?setIsSidebarOpen(false):setIsSidebarOpen(true);
     //   }}
     // >
-    <Box sx={{ display: "-webkit-box" }}>
+    <Box sx={{ display: "-webkit-box"}}>
       <CssBaseline />
       <Navbar
         isSidebarOpen={isSidebarOpen}
@@ -93,6 +93,7 @@ const AuthenticatedLayout = (props: Props) => {
         logout={logout}
         openModal={openModal}
         hideModal={hideModal}
+        selected_id={props.selected_id}
       />
 
       {/* sidebar */}

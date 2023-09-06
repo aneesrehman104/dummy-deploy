@@ -153,7 +153,7 @@ const SpacEventCalendar: React.FC<PROPS> = () => {
                   currentPage={currentPage}
                   paginate={paginate}
                   showPagination
-                  totalLength={eventCalenderData?.additional_dataset}
+                  totalLength={eventCalenderData?.additional_dataset?.totalLength}
                   headerArray={
                     selectedTab === 0
                       ? Extension

@@ -11,7 +11,7 @@ import { marketingConstants } from "@/lib/ts/constants";
 import { styled } from "@mui/material";
 interface PROPS {}
 
-const buttonStyleMui = {
+const buttonStyleMuiPurchase = {
   "&:hover": {
     backgroundColor: "#263c6f",
     color: "white",
@@ -20,17 +20,37 @@ const buttonStyleMui = {
     boxShadow: "none",
     backgroundColor: "#0AAC85",
   },
-  "boxShadow": "0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2)",
-  "borderRadius": "4px",
-  "height": "40px",
-  "width": "196px",
-  "marginRight": "20px",
-  "marginTop": "10px",
-  "backgroundColor": "#0AAC85",
+  boxShadow:
+    "0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2)",
+  borderRadius: "4px",
+  height: "40px",
+  width: "196px",
+  marginRight: "20px",
+  marginTop: "10px",
+  backgroundColor: "#0AAC85",
+};
+
+const buttonStyleMuiRequestDemo = {
+  "&:hover": {
+    backgroundColor: "#263c6f",
+    color: "white",
+  },
+  "&:active": {
+    boxShadow: "none",
+    backgroundColor: "#0AAC85",
+  },
+  border: "1px solid #0aac85",
+  boxShadow:
+    "0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2)",
+  borderRadius: "4px",
+  height: "40px",
+  width: "196px",
+  marginTop: "10px",
+  background: "none",
+  color: "white",
 };
 
 const PowerOfPro: React.FC<PROPS> = () => {
-
   const router = useRouter();
 
   return (
@@ -39,13 +59,11 @@ const PowerOfPro: React.FC<PROPS> = () => {
         display: "flex",
         background: "#20608B",
         height: "100%",
-        marginTop:'5%'
+        marginTop: "5%",
       }}
     >
       <div className="spaceBwteenPower">
-        <div
-        className="firstDivPowerOfPro"
-        >
+        <div className="firstDivPowerOfPro">
           <div
             style={{ width: "80%", display: "flex", justifyContent: "center" }}
           >
@@ -58,17 +76,15 @@ const PowerOfPro: React.FC<PROPS> = () => {
             />
           </div>
         </div>
-        <div
-          className="secondDivPowerOfPro"
-        >
+        <div className="secondDivPowerOfPro">
           <div className="powerProText">{marketingConstants.THEPOWEROFPRO}</div>
           <div className="titleMainProHadding">
-          {marketingConstants.THEPOWEROFPRODETAILS}
+            {marketingConstants.THEPOWEROFPRODETAILS}
           </div>
           <div className="spaceBwteenPower">
             <div>
               <CommonfiButton
-                sx={buttonStyleMui}
+                sx={buttonStyleMuiPurchase}
                 variant="contained"
                 title="purchase"
                 onClick={() => {
@@ -78,18 +94,8 @@ const PowerOfPro: React.FC<PROPS> = () => {
             </div>
             <div>
               <CommonfiButton
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "#263c6f",
-                    color: "white",
-                  },
-                  "&:active": {
-                    boxShadow: "none",
-                    backgroundColor: "#0AAC85",
-                  },
-                }}
+                sx={buttonStyleMuiRequestDemo}
                 variant="contained"
-                className="buttonStyleRequestDemo"
                 title="Request demo"
                 onClick={() => {
                   router.push("/requestDemo");
@@ -101,6 +107,6 @@ const PowerOfPro: React.FC<PROPS> = () => {
       </div>
     </section>
   );
-}
+};
 
 export default PowerOfPro;

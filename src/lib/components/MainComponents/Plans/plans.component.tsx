@@ -67,10 +67,10 @@ const Plans: React.FC<PROPS> = () => {
                 <Tab label="Annually" value="2" />
               </TabList>
             </Box>
-            <TabPanel value="1">
+            <TabPanel value="1" sx={{padding: '0px' }}>
               <MonthlyPlan handleCheckout={handleCheckout} />
             </TabPanel>
-            <TabPanel value="2">
+            <TabPanel value="2" sx={{padding: '0px' }}>
               <YearlyPlan handleCheckout={handleCheckout} />
             </TabPanel>
           </TabContext>

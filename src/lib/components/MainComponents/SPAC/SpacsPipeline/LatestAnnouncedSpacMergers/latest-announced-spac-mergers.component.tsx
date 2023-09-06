@@ -72,7 +72,7 @@ const LatestAnnouncedSpacMergers: React.FC<PROPS> = () => {
             <ListingTrackTable
               headerArray={headerArray}
               data={latestAnnounced?.dataset}
-              totalLength={latestAnnounced?.additional_dataset}
+              totalLength={latestAnnounced?.additional_dataset?.totalLength}
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               paginate={paginate}

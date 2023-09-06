@@ -47,21 +47,19 @@
   text-align: center;
   letter-spacing: 0.01em;
   cursor: pointer;
+  padding-bottom: 15px;
+margin-top: 10px;
 }
 .selectedHeader {
   border-bottom: 3px solid #1991ac;
   color: var(--font-color-1991ac);
   font-size: 16px;
   padding-bottom: 15px;
+  margin-top: 10px;
+
 }
 @media screen and (max-width: 900px) {
   .dashboardheader {
     padding: 0 10px;
-  }
-  .selectedHeader{
-    font-size: 13px;
-  }
-  .headerCell{
-    font-size: 13px;
   }
 }

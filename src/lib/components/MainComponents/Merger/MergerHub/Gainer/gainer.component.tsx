@@ -183,7 +183,7 @@ const Gainer: React.FC<PROPS> = () => {
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 paginate={paginate}
-                totalLength={mergersTradingLoserData?.additional_dataset}
+                totalLength={mergersTradingLoserData?.additional_dataset?.totalLength}
                 showPagination
               />
             )

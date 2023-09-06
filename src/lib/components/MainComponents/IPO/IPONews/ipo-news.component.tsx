@@ -4,6 +4,7 @@ import News from "./News/iponews.component";
 import CurrentUpdateFeed from "./CurrentUpdateFeed/current-update-feed.component";
 import TwitterFeed from "./TwitterFeed/twitterfeed.component";
 import PressReleases from "./PressReleases/ipo-press-release.component";
+import SecFilling from './SecFilling/ipo-sec-filling.component'
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
@@ -14,10 +15,12 @@ const IPONews = () => {
   const [value, setValue] = useState<string>("1");
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
-  const tabData = [
+  const tabData1 = [
     { label: "News", index: 0 },
     { label: "Press Releases", index: 1 },
     { label: "SEC Filings", index: 2 },
+  ];
+  const tabData2 = [
     { label: "Our Curated Feed", index: 3 },
     { label: "Our X Feed", index: 4 },
   ];
@@ -65,7 +68,12 @@ const IPONews = () => {
       </header>
       <section>
         <Tabs
-          tabData={tabData}
+          tabData={tabData1}
+          handleTabClick={handleTabClick}
+          selectedTab={selectedTab}
+        />
+        <Tabs
+          tabData={tabData2}
           handleTabClick={handleTabClick}
           selectedTab={selectedTab}
         />
@@ -74,7 +82,7 @@ const IPONews = () => {
         ) : selectedTab == 1 ? (
           <PressReleases />
         ) : selectedTab == 2 ? (
-          <CurrentUpdateFeed />
+          <SecFilling />
         ) : selectedTab == 3 ? (
           <CurrentUpdateFeed />
         ) : (

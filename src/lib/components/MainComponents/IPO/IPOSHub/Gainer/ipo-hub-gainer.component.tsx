@@ -41,7 +41,10 @@ const IpoHubGainer: React.FC<PROPS> = () => {
                 });
 
                 if (response.status === 200 && response.data !== null) {
-                    setIPOSTradingGainerData(response.data);
+                    setIPOSTradingGainerData(        {
+                        dataset: response.data,
+                        additional_dataset: { totalLength: 10 },
+                      });
                 }
             } catch (error) {
                 if (axios.isCancel(error)) {

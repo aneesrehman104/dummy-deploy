@@ -97,7 +97,7 @@ const CardElements = ({ selectedTab }: any) => {
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               paginate={paginate}
-              totalLength={tableData?.additional_dataset}
+              totalLength={tableData?.additional_dataset?.totalLength}
               showPagination
             />
           )}

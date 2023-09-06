@@ -15,7 +15,14 @@
   height: 52px;
   width: 95%;
 }
-.navbarButtonStyle {
+.navbarButtonStyleUnblod {
+  font-size: 14px;
+  font-family: var(--font-family-primary);
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.navbarButtonStyleBold {
   font-size: 14px;
   font-family: var(--font-family-primary);
   font-weight: 700;

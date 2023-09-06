@@ -4,8 +4,27 @@ import { CommonfiButton } from "../../CommonComponents";
 interface PROPS {
   handleCheckout: any;
 }
+const buttonStyleMui = {
+  "&:hover": {
+    backgroundColor: "#263c6f",
+    color: "white",
+  },
+  "&:active": {
+    boxShadow: "none",
+    backgroundColor: "#0AAC85",
+  },
+  border: "1px solid #0aac85",
+  boxShadow:
+    "0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2)",
+  borderRadius: "4px",
+  height: "48px",
+  width: "100%",
+  marginTop: "15px",
+  background: "#0aac85",
+};
 
 const YearlyPlans: React.FC<PROPS> = ({ handleCheckout }) => {
+  
   return (
     <>
       <section className="secondsectionOuterContainer">
@@ -29,7 +48,7 @@ const YearlyPlans: React.FC<PROPS> = ({ handleCheckout }) => {
           <div>
             <CommonfiButton
               variant="contained"
-              className="buttonStylePlans paddingTop"
+              sx={buttonStyleMui}
               title="Sign Up"
               onClick={() => handleCheckout("prc_commonfi-11dh0xk5")}
             />
@@ -67,7 +86,7 @@ const YearlyPlans: React.FC<PROPS> = ({ handleCheckout }) => {
           <div>
             <CommonfiButton
               variant="contained"
-              className="buttonStylePlans paddingTop"
+              sx={buttonStyleMui}
               title="PURCHASE"
               onClick={() => handleCheckout("prc_commonfi-11dh0xk5")}
             />
@@ -108,7 +127,7 @@ const YearlyPlans: React.FC<PROPS> = ({ handleCheckout }) => {
           <div>
             <CommonfiButton
               variant="contained"
-              className="buttonStylePlans paddingTop"
+              sx={buttonStyleMui}
               title="START FREE 7-day TRIAL"
               onClick={() => handleCheckout("prc_commonfi-11dh0xk5")}
             />

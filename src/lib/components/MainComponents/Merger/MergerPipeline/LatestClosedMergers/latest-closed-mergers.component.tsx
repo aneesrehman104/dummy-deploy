@@ -190,7 +190,7 @@ import {
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 paginate={paginate}
-                totalLength={latestClosedMergersData?.additional_dataset}
+                totalLength={latestClosedMergersData?.additional_dataset?.totalLength}
                 showPagination
               />
             )

@@ -6,6 +6,7 @@ export const CssTextField = styled(TextField)({
   height: "32px",
   border: "1px solid #dddee0",
   display:'flex',
+  marginRight:"20px",
   justifyContent:'center',
   background: "#dddee0",
   borderRadius: "8px",

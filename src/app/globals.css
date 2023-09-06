@@ -112,15 +112,15 @@
 .highcharts-input-group {
   display: none !important;
 }
-.css-134qg7o-MuiButtonBase-root-MuiIconButton-root {
+/* .css-134qg7o-MuiButtonBase-root-MuiIconButton-root {
   margin-right: 2px !important;
-}
+} */
 
-.css-1hxrwmy-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+/* .css-1hxrwmy-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
   background-color: white;
   color: #1991AC;
   border: 1px solid #1991AC;
-}
+} */
 .css-13xfq8m-MuiTabPanel-root{
   padding: 0px;
 }

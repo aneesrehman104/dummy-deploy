@@ -151,8 +151,12 @@ function CardElements() {
     setFilerCount(0);
   };
 
+  useEffect(() => {
+    console.log("====================spacsListData", spacsListData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [spacsListData]);
   const applyFilters = () => {
-    console.log("====================filters", filters);
+   
 
     let count = 0;
 
@@ -319,7 +323,7 @@ function CardElements() {
               className={styles.filterGap}
               onClick={() => setOpenFilterModal(true)}
             >
-              <Image src={filterSvg} alt="filterSvg" width={18} height={18} />
+              <Image src={filterSvg} alt="filterSvg"  style={{cursor:'pointer' }} style={{cursor:'pointer' }} />
 
               <Badge badgeContent={filterCount} color="info">
                 <div>Filter&nbsp;&nbsp;</div>
@@ -344,7 +348,7 @@ function CardElements() {
                 />
               )}
               <div className={styles.filterGap}>
-                <Image src={exportSvg} alt="filterSvg" width={18} height={18} />
+                <Image src={exportSvg} alt="filterSvg" width={18} height={18} style={{cursor:'pointer' }} />
 
                 <div>EXPORT</div>
               </div>{" "}
@@ -369,8 +373,9 @@ function CardElements() {
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
               paginate={paginate}
-              totalLength={spacsListData?.additional_dataset}
+              totalLength={spacsListData?.additional_dataset?.totalLength}
               showPagination
+              options
               setItemPerPage={setItemPerPage}
               isUser={user?.member?.stripeCustomerId}
             />

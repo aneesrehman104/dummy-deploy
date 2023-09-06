@@ -338,7 +338,7 @@ const SpacsListElement: React.FC<PROPS> = () => {
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
               paginate={paginate}
-              totalLength={spacsListData?.additional_dataset}
+              totalLength={spacsListData?.additional_dataset?.totalLength}
               showPagination
               setItemPerPage={setItemPerPage}
               isUser={user?.member?.stripeCustomerId}
