@@ -152,13 +152,13 @@ const Navbar: React.FC<PROPS> = ({
         <div className="headerInnerDiv">
           <div style={{ display: "flex", alignItems: "center" }}>
             {isMediumScreen ? (
-              <Toolbar>
+              <Toolbar  sx={{ paddingRight: '0px',paddingLeft: '8px' }}>
                 <IconButton
                   color="inherit"
                   aria-label="open drawer"
                   edge="start"
                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                  sx={{ mr: 2 }}
+                  sx={{ marginRight: '2px' }}
                 >
                   <MenuIcon sx={{ fontSize: 32 }} />
                 </IconButton>

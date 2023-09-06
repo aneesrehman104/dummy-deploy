@@ -8,6 +8,26 @@ import Image from "next/image";
 import { FOOTER } from "@/lib/ts/constants";
 import { FooterTextField } from "@/lib/styled-components/index.styled";
 import { PORTALS, SUPPORT } from "./constants";
+const buttonStyleMui = {
+  "&:hover": {
+    backgroundColor: "#263c6f",
+    color: "white",
+  },
+  "&:active": {
+    boxShadow: "none",
+    backgroundColor: "#0AAC85",
+  },
+  border: "1px solid #0aac85",
+  boxShadow:
+    "0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2)",
+  borderRadius: "4px",
+  height: "48px",
+  minWidth: "131px",
+  maxWidth: "200px",
+  marginTop: "15px",
+  background: "#0aac85",
+};
+
 const Footer = () => {
   const SOCIALLINKS = [{ name: "X[Twitter]" }, { name: "Linkdin" }, { name: "Common.fi" }];
   return (
@@ -42,19 +62,9 @@ const Footer = () => {
                 </div>
               </div>
               <CommonfiButton
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "#263c6f",
-                    color: "white",
-                  },
-                  "&:active": {
-                    boxShadow: "none",
-                    backgroundColor: "#263c6f",
-                    color: "red",
-                  },
-                }}
+               
                 variant="contained"
-                className="buttonStyle paddingTop"
+                sx={buttonStyleMui}
                 title="SUBSCRIBE"
               />
             </div>
@@ -83,20 +93,8 @@ const Footer = () => {
               </div>
               <CommonfiButton
                 variant="contained"
-                sx={{
-                  "&:hover": {
-                    backgroundColor: "#263c6f",
-
-                    color: "white",
-                  },
-                  "&:active": {
-                    boxShadow: "none",
-                    backgroundColor: "#263c6f",
-                    color: "red",
-                  },
-                }}
                 disableRipple
-                className="buttonStyle paddingTop"
+                sx={buttonStyleMui}
                 title="UNLOCK PRO ACCESS"
               />
             </div>

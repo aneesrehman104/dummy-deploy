@@ -113,13 +113,10 @@ const TrackingOnePlace: React.FC<PROPS> = () => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <CommonfiButton
           sx={{
+            backgroundColor: "#0AAC85",
             "&:hover": {
-              backgroundColor: "#263c6f",
-              color: "white",
-            },
-            "&:active": {
-              boxShadow: "none",
               backgroundColor: "#0AAC85",
+              color: "white",
             },
           }}
           variant="contained"

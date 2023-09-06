@@ -4,6 +4,24 @@ import "./contact-us.css";
 import { CssTextField, CssTextFieldMultiLine } from "./constants";
 
 interface PROPS {}
+const buttonStyleMui = {
+  "&:hover": {
+    backgroundColor: "#263c6f",
+    color: "white",
+  },
+  "&:active": {
+    boxShadow: "none",
+    backgroundColor: "#0AAC85",
+  },
+  border: "1px solid #0aac85",
+  boxShadow:
+    "0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2)",
+  borderRadius: "4px",
+  height: "40px",
+  width: "196px",
+  marginTop: "20px",
+  background: "#0aac85",
+};
 
 const ContactUs: React.FC<PROPS> = () => {
   return (
@@ -42,18 +60,8 @@ const ContactUs: React.FC<PROPS> = () => {
         />
         <div>
           <CommonfiButton
-            sx={{
-              "&:hover": {
-                backgroundColor: "#263c6f",
-                color: "white",
-              },
-              "&:active": {
-                boxShadow: "none",
-                backgroundColor: "#0AAC85",
-              },
-            }}
+            sx={buttonStyleMui}
             variant="contained"
-            className="buttonStyleSendMessage"
             title="Send Message"
           />
         </div>
