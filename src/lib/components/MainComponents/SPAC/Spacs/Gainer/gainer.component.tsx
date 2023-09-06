@@ -60,7 +60,7 @@ const Gainer = (props: GainerInterFace) => {
                 itemsPerPage={props.itemsPerPage}
                 currentPage={props.spacsTradingGainerDataCurrentPage}
                 paginate={paginate}
-                totalLength={props?.data?.additional_dataset}
+                totalLength={props?.data?.additional_dataset?.totalLength}
                 showPagination
               />
             )

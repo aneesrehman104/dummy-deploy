@@ -127,7 +127,7 @@ const FullCalendarComponet = dynamic(() => import("./full-calender"), {
                   currentPage={currentPage}
                   paginate={paginate}
                   showPagination
-                  totalLength={grapevineGraveyardData?.additional_dataset}
+                  totalLength={grapevineGraveyardData?.additional_dataset?.totalLength}
                   headerArray={headermergerTable}
                 />
               )}

@@ -212,7 +212,7 @@ const IpoHubGainer: React.FC<PROPS> = () => {
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}
                 paginate={paginate}
-                totalLength={iPOSTradingGainerData?.additional_dataset}
+                totalLength={iPOSTradingGainerData?.additional_dataset?.totalLength}
                 showPagination
               />
             )

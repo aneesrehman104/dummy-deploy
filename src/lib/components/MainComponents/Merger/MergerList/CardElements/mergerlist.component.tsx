@@ -403,7 +403,7 @@ import { MemberInformationContext } from "@/lib/components/context";
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
               paginate={paginate}
-              totalLength={spacsListData?.additional_dataset}
+              totalLength={spacsListData?.additional_dataset?.totalLength}
               showPagination
               setItemPerPage={setItemPerPage}
               isUser={isUser}

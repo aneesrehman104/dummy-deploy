@@ -68,7 +68,7 @@ const LatestClosed: React.FC<PROPS> = () => {
             <ListingTrackTable
               headerArray={headerArray}
               data={latestClosed?.dataset}
-              totalLength={latestClosed?.additional_dataset}
+              totalLength={latestClosed?.additional_dataset?.totalLength}
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               paginate={paginate}

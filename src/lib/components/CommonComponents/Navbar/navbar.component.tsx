@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import footerLogo from "@public/footerLogo.svg";
 import LT from "@public/LT.svg";
 
-import { useRouter } from "next/navigation";
+import { usePathname,useRouter } from "next/navigation";
 import Image from "next/image";
 import {
   Box,
@@ -45,17 +45,21 @@ const UnauthenticatedNavBarData = [
   {
     name: "Dashboard",
     link: "/dashboard",
+    id:'overview'
   },
   {
     name: "Features & Pricing",
-    link: "/plans",
+    link: "/home#pricing",
+    id:'home'
   },
   {
     name: "Our Newsletters",
     link: "/newsletters",
+    id:'newsletters'
   },
 ];
 interface PROPS {
+  selected_id?: any;
   isSidebarOpen: boolean;
   setIsSearchModalOpen: (value: boolean) => void;
   setIsSidebarOpen: (value: boolean) => void;
@@ -82,6 +86,7 @@ const Navbar: React.FC<PROPS> = ({
   logout,
   openModal,
   hideModal,
+  selected_id,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const router = useRouter();
@@ -89,7 +94,7 @@ const Navbar: React.FC<PROPS> = ({
   const open = Boolean(anchorEl);
   const { user } = useContext(MemberInformationContext);
   const isMediumScreen = useMediaQuery(theme.breakpoints.down(900));
-
+console.log('=======================props.id',selected_id)
   const handleLogout2 = async () => {
     await logout();
     setCookie("accessToken", null);
@@ -152,13 +157,13 @@ const Navbar: React.FC<PROPS> = ({
         <div className="headerInnerDiv">
           <div style={{ display: "flex", alignItems: "center" }}>
             {isMediumScreen ? (
-              <Toolbar  sx={{ paddingRight: '0px',paddingLeft: '8px' }}>
+              <Toolbar sx={{ paddingRight: "0px", paddingLeft: "8px" }}>
                 <IconButton
                   color="inherit"
                   aria-label="open drawer"
                   edge="start"
                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                  sx={{ marginRight: '2px' }}
+                  sx={{ marginRight: "2px" }}
                 >
                   <MenuIcon sx={{ fontSize: 32 }} />
                 </IconButton>
@@ -170,7 +175,7 @@ const Navbar: React.FC<PROPS> = ({
                 alt="footerImage"
                 width={148}
                 height={21}
-                style={{ marginRight: 20, cursor: "pointer" }}
+                style={{ marginRight: 40, cursor: "pointer" }}
                 onClick={() => {
                   router.push("/home");
                 }}
@@ -236,8 +241,12 @@ const Navbar: React.FC<PROPS> = ({
                       onClick={() => {
                         router.push(item.link);
                       }}
-                      style={{ marginLeft: 15 }}
-                      className="navbarButtonStyle cursorPointer"
+                      style={{ marginLeft: 20 }}
+                      className={
+                        selected_id === item.id
+                          ? "navbarButtonStyleBold cursorPointer"
+                          : "navbarButtonStyleUnblod cursorPointer"
+                      }
                       key={item.name}
                     >
                       {item.name}
@@ -269,7 +278,7 @@ const Navbar: React.FC<PROPS> = ({
                 variant="contained"
                 title="Go Pro"
                 onClick={() => {
-                  router.push('/home#pricing');
+                  router.push("/home#pricing");
                 }}
               />
             </div>

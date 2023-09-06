@@ -458,7 +458,7 @@ const CardElements: React.FC<PROPS> = () => {
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
               paginate={paginate}
-              totalLength={screenerData?.additional_dataset}
+              totalLength={screenerData?.additional_dataset?.totalLength}
               showPagination
               setItemPerPage={setItemPerPage}
               isUser={user?.member?.stripeCustomerId}

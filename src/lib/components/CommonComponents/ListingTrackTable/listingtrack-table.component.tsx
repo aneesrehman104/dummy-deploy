@@ -64,11 +64,6 @@ const ListingTrackTable = ({
       flexWrap: "nowrap",
       marginTop: "15px",
     },
-    "& .css-1to7aaw-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected": {
-      backgroundColor: "white",
-      color: "#1991AC",
-      border: "1px solid #1991AC", // Change this to the desired background color
-    },
   });
   const handleSort = (column: string) => {
     if (column !== "last30D") {
@@ -252,6 +247,19 @@ const ListingTrackTable = ({
                   page={currentPage}
                   onChange={handleChange}
                   color="primary"
+                  sx={{
+                    "& .Mui-selected": {
+                      backgroundColor: "white !important",
+                      color: "#1991AC !important",
+                      border: "1px solid #1991AC !important",
+                      marginRight: "10px !important",
+                      minWidth: "26px !important",
+                      height: "26px !important",
+                      width: "26px !important",
+                      fontFamily:"Barlow !important",
+                      fontSize:'11px'
+                    },
+                  }}
                 />
               </Stack>
             </>

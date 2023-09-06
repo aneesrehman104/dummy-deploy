@@ -48,7 +48,10 @@ const IpoHubLoser: React.FC<PROPS> = () => {
                 });
 
                 if (response.status === 200 && response.data !== null) {
-                    setIPOSTradingLosersData(response.data);
+                    setIPOSTradingLosersData(        {
+                        dataset: response.data,
+                        additional_dataset: { totalLength: 10 },
+                      });
                 }
             } catch (error) {
                 if (axios.isCancel(error)) {

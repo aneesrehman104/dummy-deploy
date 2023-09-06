@@ -60,7 +60,7 @@ const Losers = (props: LoserInterFace) => {
                 itemsPerPage={props.itemsPerPage}
                 currentPage={props.spacsTradingLoserDataCurrentPage}
                 paginate={paginate}
-                totalLength={props?.data?.additional_dataset}
+                totalLength={props?.data?.additional_dataset?.totalLength}
                 showPagination
               />
             )

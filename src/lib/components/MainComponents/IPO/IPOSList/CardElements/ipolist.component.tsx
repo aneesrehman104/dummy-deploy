@@ -151,8 +151,12 @@ function CardElements() {
     setFilerCount(0);
   };
 
+  useEffect(() => {
+    console.log("====================spacsListData", spacsListData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [spacsListData]);
   const applyFilters = () => {
-    console.log("====================filters", filters);
+   
 
     let count = 0;
 
@@ -369,8 +373,9 @@ function CardElements() {
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}
               paginate={paginate}
-              totalLength={spacsListData?.additional_dataset}
+              totalLength={spacsListData?.additional_dataset?.totalLength}
               showPagination
+              options
               setItemPerPage={setItemPerPage}
               isUser={user?.member?.stripeCustomerId}
             />

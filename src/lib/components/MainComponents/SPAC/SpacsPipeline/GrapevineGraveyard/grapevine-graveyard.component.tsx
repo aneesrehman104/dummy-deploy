@@ -110,7 +110,7 @@ const GrapevineGraveyard: React.FC<PROPS> = () => {
               itemsPerPage={itemsPerPage}
               currentPage={currentPage}
               paginate={paginate}
-              totalLength={grapevineGraveyardData?.additional_dataset}
+              totalLength={grapevineGraveyardData?.additional_dataset?.totalLength}
               showPagination
             />
           )}
